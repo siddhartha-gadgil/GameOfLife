@@ -417,6 +417,8 @@ There are no empirical inputs; every gate is a compiled proof.
   certified `zeroTest_decision` cannot be produced by guns, reflectors or free collisions (lanes 2
   apart; the NZ output flies back into the detector's emitter). A replacement decision logic
   without a kickback is partly designed; the next search needs test pairs ≥ 7 lanes apart.
+- **2026-11-14 — decision (user): zero test by decrement from zero** (`N-15`). Search for a
+  `decJz` component started (report `R-26`).
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom

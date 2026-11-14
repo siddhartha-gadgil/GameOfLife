@@ -311,6 +311,13 @@ test (two on one lane) and 732 detector placements; open: in case NZ the two sur
 lanes apart and no eater takes one without touching the other — a test with pairs ≥ 7 lanes apart
 is needed (search started, no hit in 95 minutes).
 
+**Decision (user, 2026-11-14): zero test by decrement from zero.** Following the classical
+designs (Hickerson, Chapman), the register has no separate test: the decrement is sent
+unconditionally; at `k = 0` the pull moves the block to position `-1`, which a detector glider
+notices (it passes blocks at positions `≥ 0`, as `zeroTest_pass` translated by `(-1, -1)`); the
+block is then brought back to `0` and a `Z` glider is emitted, otherwise an `NZ` glider. This is
+exactly the instruction `decJz` of `N-14`. Search started (report `R-26`).
+
 ## Claims and evidence
 
 No claims beyond the sourced existence of Chapman's pattern.
