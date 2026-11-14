@@ -12,12 +12,12 @@
 | Dependency requirement | the names and types of `Nat.Partrec.Code.eval`, `ComputablePred`, `ComputablePred.halting_problem`; the kernel type |
 | Produces | precise candidate theorem statements, a recommendation among them, the list of library gaps (e.g. `Primcodable` for configurations), an entry in the model contracts |
 | Difficulty | moderate: no hard mathematics, but the statement must exclude trivial "simulations" and must be provable by the planned construction |
-| Status | stated in outline: headline decided by the user on 2026-11-14 (candidates 2, 3 and 4 below); exact Lean statements open |
-| Implementation status | not started |
-| Implementation evidence | none |
-| Lean evidence | none |
+| Status | stated: exact Lean statements fixed below and type-checked; the reduction between them compiled |
+| Implementation status | in progress (definitions and the reduction only) |
+| Implementation evidence | `LeanTheory/Theory/Life/Decision.lean` |
+| Lean evidence | `WindowData`, `WindowData.cells`, `EverAlive`, `not_computablePred_everAlive_of_family` |
 | Audit evidence | not audited |
-| Last updated | 2026-11-14: seeded; headline decided |
+| Last updated | 2026-11-14: exact statements written |
 
 ## Purpose and scope
 
@@ -96,6 +96,36 @@ Its numerical observations are simulations, not proofs.
 - The book's chapter 9 gives compiled finite patterns for individual programs and one sentence
   claiming Turing completeness, without definition or proof. No source read contains a proof
   that counter machines are universal (only citations of Minsky 1967, §15.1).
+
+## Exact statements (2026-11-14)
+
+With `WindowData := ℤ × ℤ × List ℕ`, `WindowData.cells w := ofRows w.1 w.2.1 w.2.2` and
+`EverAlive c S := ∃ t, c ∈ conway.evolve t S` (all compiled in `Theory/Life/Decision.lean`), the
+targets of `G-7` are:
+
+- **T3 (headline, no machine model).** For a suitable cell `c`,
+  `¬ ComputablePred fun w : WindowData => EverAlive c w.cells`: it is undecidable whether a
+  given cell is ever alive in the evolution of a given finite configuration.
+- **T1 (family form).** `∃ f : ℕ → WindowData, Computable f ∧
+  ¬ ComputablePred fun n => EverAlive c (f n).cells`.
+- **T2 (computation).** `∀ code : Nat.Partrec.Code, ∃ f : ℕ → WindowData, Computable f ∧
+  ∀ n, (code.eval n).Dom ↔ EverAlive c (f n).cells`, with a computable decoding of the output
+  from the configuration at the first generation at which `c` is alive (the decoding clause is
+  still to be written; it needs the layout of the output register).
+- **Simulation (`N-15`).** For every well-formed counter program `P`: an encoding of machine
+  configurations as finite configurations, allowing salvos in flight, a fixed duration `τ`
+  per instruction, `conway.evolve τ` of an encoding of `c` being an encoding of the successor
+  of `c`, and the marker cell dead at every generation unless the machine has halted.
+
+Compiled: T1 ⟹ T3 (`not_computablePred_everAlive_of_family`). Plan for T1: take the program
+of `exists_program_halts_not_computable` (`N-14`); `f n` is its Life pattern with input `n`
+(register 0 at position `n`); the marker is hit by the halt signal. "Halts ⟹ ever alive" needs
+the simulation; "ever alive ⟹ halts" needs the marker to be dead at *every* generation of a
+non-halting run, which is what the footprints of the reaction calculus (`N-08`) are for.
+`Computable f` is a separate, routine obligation (the rows of the pattern are a primitive
+recursive function of `n`).
+
+T2 follows from the simulation and `exists_computes_code` in the same way.
 
 ## Claims and evidence
 
