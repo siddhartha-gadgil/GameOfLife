@@ -1,0 +1,27 @@
+pulls (2 or 3 gliders, with mirror images, re-checked): 544; pushes: 194
+(1) without shared gliders: compatible (pull, push) pairs (union of lanes with gaps >= 4, one outward order with the timing rule for each salvo): 0
+    the same for salvos moving the block by (-2, -2) / (+2, +2) (442 / 64): 0
+(2) with shared gliders (one reflector, its input fed by an OR gate; same tau mod 30 offset):
+    pull [(5, -29), (-1, 0)]  push [(5, -51), (12, -24), (-6, 0)]  shared lanes [5]  orders [[-6, -1, 5, 12], [-1, -6, 5, 12]]
+    pull [(5, -29), (-1, 0)]  push [(5, -47), (11, -25), (-5, 0)]  shared lanes [5]  orders [[-5, -1, 5, 11], [-1, -5, 5, 11]]
+    pull [(-4, -5), (2, 0)]  push [(-4, -55), (7, -48), (-11, 0)]  shared lanes [-4]  orders [[2, 7, -4, -11], [7, 2, -4, -11]]
+    pull [(-4, -5), (2, 0)]  push [(-4, -46), (6, -39), (-10, 0)]  shared lanes [-4]  orders [[2, 6, -4, -10], [6, 2, -4, -10]]
+    pull [(6, -55), (-4, -25), (-12, 0)]  push [(-4, -49), (2, -32), (-8, 0)]  shared lanes [-4]  orders [[-12, -8, -4, 2, 6], [-8, -12, -4, 2, 6]]
+    pull [(6, -55), (-4, -25), (-12, 0)]  push [(-4, -44), (2, -27), (-8, 0)]  shared lanes [-4]  orders [[-12, -8, -4, 2, 6], [-8, -12, -4, 2, 6]]
+    pull [(6, -55), (-4, -25), (-12, 0)]  push [(-4, -49), (1, -24), (-8, 0)]  shared lanes [-4]  orders [[-12, -8, -4, 1, 6], [-8, -12, -4, 1, 6]]
+    pull [(13, -17), (5, -10), (-5, 0)]  push [(5, -41), (9, -8), (-1, 0)]  shared lanes [5]  orders [[9, 13, 5, -1, -5], [13, 9, 5, -1, -5]]
+    pull [(13, -17), (5, -10), (-5, 0)]  push [(5, -41), (9, -13), (-1, 0)]  shared lanes [5]  orders [[9, 13, 5, -1, -5], [13, 9, 5, -1, -5]]
+    pull [(13, -17), (5, -10), (-5, 0)]  push [(5, -45), (9, -12), (0, 0)]  shared lanes [5]  orders [[9, 13, 5, 0, -5], [13, 9, 5, 0, -5]]
+    pull [(6, -55), (-4, -25), (-11, 0)]  push [(-4, -55), (2, -38), (-11, 0)]  shared lanes [-11, -4]  orders [[-11, -4, 2, 6]]
+    pull [(12, -13), (5, -10), (-5, 0)]  push [(5, -41), (12, -14), (-1, 0)]  shared lanes [5, 12]  orders [[12, 5, -1, -5]]
+    pull [(6, -70), (-4, -40), (-12, 0)]  push [(-4, -49), (2, -32), (-8, 0)]  shared lanes [-4]  orders [[-12, -8, -4, 2, 6], [-8, -12, -4, 2, 6]]
+    pull [(6, -70), (-4, -40), (-12, 0)]  push [(-4, -44), (2, -27), (-8, 0)]  shared lanes [-4]  orders [[-12, -8, -4, 2, 6], [-8, -12, -4, 2, 6]]
+    pull [(6, -70), (-4, -40), (-12, 0)]  push [(-4, -49), (1, -24), (-8, 0)]  shared lanes [-4]  orders [[-12, -8, -4, 1, 6], [-8, -12, -4, 1, 6]]
+    pull [(5, -10), (13, -2), (-5, 0)]  push [(5, -41), (9, -8), (-1, 0)]  shared lanes [5]  orders [[9, 13, 5, -1, -5], [13, 9, 5, -1, -5]]
+    pull [(5, -10), (13, -2), (-5, 0)]  push [(5, -41), (9, -13), (-1, 0)]  shared lanes [5]  orders [[9, 13, 5, -1, -5], [13, 9, 5, -1, -5]]
+    pull [(5, -10), (13, -2), (-5, 0)]  push [(5, -45), (9, -12), (0, 0)]  shared lanes [5]  orders [[9, 13, 5, 0, -5], [13, 9, 5, 0, -5]]
+    pairs: 18
+(3) PG1 kept (a: lane -1 type R first, b: lane 5 type L), pushes sharing a glider of it:
+    push [(5, -51), (12, -24), (-6, 0)]  order ['a', 'q-6', 'b', 'q12']  types ('R', 'R', 'L', 'L')
+    push [(5, -47), (11, -25), (-5, 0)]  order ['a', 'q-5', 'b', 'q11']  types ('R', 'R', 'L', 'L')
+    PSG1 kept (c, a, b of R-23), pulls sharing a glider of it: 0

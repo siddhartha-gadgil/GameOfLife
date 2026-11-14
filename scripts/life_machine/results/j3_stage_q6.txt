@@ -1,0 +1,13 @@
+design 0: Gb [5, -88, 126, 15] a [[1, 1], -97, 1140]; stage built
+   DEC: ok True   INC: ok True
+   block dec k=0: True (N 2430, box (-88, -9, 90, 163))
+   block inc k=0: True (N 2130, box (-158, -63, 90, 291))
+   block dec k=3: True (N 2460, box (-88, -9, 90, 166))
+   block inc k=3: True (N 2160, box (-158, -63, 90, 291))
+design 1: Gb [2, 2, 127, 15] a [[1, 1], -97, 1140]; stage built
+   DEC: ok True   INC: ok True
+   block dec k=0: True (N 2430, box (-88, -9, 90, 163))
+   block inc k=0: True (N 1950, box (-113, -18, 90, 248))
+   block dec k=3: True (N 2460, box (-88, -9, 90, 166))
+   block inc k=3: True (N 1980, box (-113, -18, 90, 248))
+stages passing (DEC, INC, block k = 0, 3): 2 of 2

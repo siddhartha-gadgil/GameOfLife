@@ -318,6 +318,19 @@ notices (it passes blocks at positions `≥ 0`, as `zeroTest_pass` translated by
 block is then brought back to `0` and a `Z` glider is emitted, otherwise an `NZ` glider. This is
 exactly the instruction `decJz` of `N-14`. Search started (report `R-26`).
 
+**A register serving one block: found (2026-11-14, report `R-24`, sub-agent; observations,
+not certified).** `REG1`: one period-30 assembly (16 guns, 14 reflectors, envelope 476 × 616)
+with a DEC input (emits exactly `pullSalvo`, block `k → k - 1`, 3120 + reaction generations) and
+an INC input (emits a three-glider push sharing one glider with the pull, block `k → k + 1`),
+serving the block `translate (148, 240) (counter k)`; checked for `k = 0..4`, `40` and for both
+inputs in sequence (INC then DEC needs a gap of 630 generations at the block; DEC then INC 60).
+Key finding: pull and push salvos cannot be put onto one diagonal by reflectors unless they
+share a glider (none of 544 × 194 pairs fits); sharing one glider, emitted by one reflector fed
+by an OR gate (a gate released by either control), makes 18 pairs fit. The pull generator of
+`REG1` is a re-solved variant of `PG1`, so `pullGenerator_reaction` does not apply to it. Not yet
+done: continue gliders for `REG1`, its certification, the zero test (search `R-26` running,
+told to target `REG1`).
+
 ## Claims and evidence
 
 No claims beyond the sourced existence of Chapman's pattern.

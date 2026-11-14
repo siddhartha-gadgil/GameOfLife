@@ -1,0 +1,7 @@
+ salvo arrival times at B_0 (natural control times): DEC 1741, INC 1021
+ DEC then INC: smallest spacing found: second control delayed by 780 against its natural time, i.e. the INC salvo reaches B_0 60 generations after the DEC salvo (30 generations less fails, or the gap would drop below 30)
+    controls (SE, lane 41, tau 22) and (SE, lane 314, tau -1442)
+    k =  0: evolve 5220 (R ∪ C ∪ C' ∪ B_k) = R ∪ B_k: checked; box x -456..162, y -496..254
+    k =  2: evolve 5220 (R ∪ C ∪ C' ∪ B_k) = R ∪ B_k: checked; box x -456..164, y -496..256
+    k =  4: evolve 5220 (R ∪ C ∪ C' ∪ B_k) = R ∪ B_k: checked; box x -456..166, y -496..258
+    k = 40: evolve 5370 (R ∪ C ∪ C' ∪ B_k) = R ∪ B_k: checked; box x -456..202, y -496..294

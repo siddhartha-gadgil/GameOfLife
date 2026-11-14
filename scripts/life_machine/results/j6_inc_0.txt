@@ -1,0 +1,28 @@
+design 0: OR controls 68, (RF_e, Rp) options 9, RF_c options 12; core records 38, U records 39, gates 69 (30 s)
+  jobs 1 / 2584, designs 0 (30 s)
+  jobs 201 / 2584, designs 0 (30 s)
+  jobs 401 / 2584, designs 0 (30 s)
+  jobs 601 / 2584, designs 0 (30 s)
+  jobs 801 / 2584, designs 0 (30 s)
+  jobs 1001 / 2584, designs 0 (30 s)
+  jobs 1201 / 2584, designs 0 (30 s)
+  jobs 1401 / 2584, designs 0 (30 s)
+  jobs 1601 / 2584, designs 0 (30 s)
+  jobs 1749 / 2584, designs 1 (35 s)
+  jobs 1750 / 2584, designs 2 (35 s)
+  jobs 1764 / 2584, designs 3 (50 s)
+  jobs 1801 / 2584, designs 3 (51 s)
+  jobs 2001 / 2584, designs 3 (51 s)
+  jobs 2201 / 2584, designs 3 (52 s)
+  jobs 2401 / 2584, designs 3 (52 s)
+  jobs 2567 / 2584, designs 4 (55 s)
+complete geometric designs: 4 (69 s)
+   area 290422 box (-343, -396, 129, 217) core 5 U 0 w ((1, 1), -136, 374) gate ('asm', 2, -8, 217, 27) control lane -236 frame (0, 26, -138, -1308) m -102 loop (-34, 50, 26, 20) ux -118
+   area 298531 box (-358, -380, 128, 232) core 17 U 0 w ((1, 1), -136, 374) gate ('asm', 2, -23, 232, 27) control lane -266 frame (0, 10, -122, -1364) m -102 loop (-50, 50, 26, 20) ux -134
+   area 313720 box (-376, -372, 129, 247) core 29 U 0 w ((1, 1), -136, 374) gate ('asm', 2, -38, 247, 27) control lane -296 frame (0, -4, -114, -1452) m -108 loop (-64, 50, 26, 20) ux -148
+   area 366513 box (-472, -410, 90, 240) core 4 U 0 w ((1, 1), -136, 374) gate ('asm', 2, -31, 240, 25) control lane -282 frame (0, -40, -140, -1196) m -170 loop (-100, 20, 34, 50) ux -316
+   INC explosion None: area 313720 (84 s)
+   ok: area 290422 (101 s)
+   ok: area 298531 (101 s)
+   ok: area 366513 (101 s)
+simulated 4: {'INC explosion None': 1, 'ok': 3}

@@ -1,0 +1,48 @@
+design 0: OR controls 68, (RF_e, Rp) options 7, RF_c options 11; core records 38, U records 39, gates 69 (30 s)
+  jobs 1 / 2584, designs 0 (30 s)
+  jobs 201 / 2584, designs 0 (30 s)
+  jobs 401 / 2584, designs 0 (30 s)
+  jobs 601 / 2584, designs 0 (30 s)
+  jobs 801 / 2584, designs 0 (30 s)
+  jobs 1001 / 2584, designs 0 (30 s)
+  jobs 1201 / 2584, designs 0 (30 s)
+  jobs 1401 / 2584, designs 0 (30 s)
+  jobs 1601 / 2584, designs 0 (30 s)
+  jobs 1801 / 2584, designs 0 (30 s)
+  jobs 2001 / 2584, designs 0 (30 s)
+  jobs 2201 / 2584, designs 0 (30 s)
+  jobs 2401 / 2584, designs 0 (30 s)
+  jobs 2433 / 2584, designs 1 (34 s)
+  jobs 2434 / 2584, designs 2 (34 s)
+  jobs 2435 / 2584, designs 3 (34 s)
+  jobs 2436 / 2584, designs 4 (34 s)
+  jobs 2437 / 2584, designs 5 (34 s)
+  jobs 2438 / 2584, designs 6 (35 s)
+  jobs 2444 / 2584, designs 7 (47 s)
+  jobs 2566 / 2584, designs 8 (50 s)
+  jobs 2568 / 2584, designs 9 (50 s)
+  jobs 2570 / 2584, designs 10 (51 s)
+  jobs 2572 / 2584, designs 11 (51 s)
+  jobs 2575 / 2584, designs 12 (52 s)
+complete geometric designs: 12 (60 s)
+   area 293216 box (-347, -394, 128, 221) core 7 U 0 w ((1, 1), -139, 370) gate ('asm', 2, -11, 221, 20) control lane -243 frame (0, 23, -136, -1316) m -107 loop (-37, 50, 26, 20) ux -121
+   area 294168 box (-347, -396, 128, 221) core 5 U 0 w ((1, 1), -139, 370) gate ('asm', 2, -11, 221, 20) control lane -243 frame (0, 25, -138, -1324) m -107 loop (-35, 50, 26, 20) ux -119
+   area 294786 box (-347, -396, 129, 221) core 6 U 0 w ((1, 1), -139, 370) gate ('asm', 2, -11, 221, 20) control lane -243 frame (0, 25, -138, -1324) m -107 loop (-35, 50, 26, 20) ux -119
+   area 302947 box (-362, -380, 128, 236) core 18 U 0 w ((1, 1), -139, 370) gate ('asm', 2, -26, 236, 20) control lane -273 frame (0, 9, -122, -1380) m -107 loop (-51, 50, 26, 20) ux -135
+   area 303564 box (-362, -380, 129, 236) core 19 U 0 w ((1, 1), -139, 370) gate ('asm', 2, -26, 236, 20) control lane -273 frame (0, 9, -122, -1380) m -107 loop (-51, 50, 26, 20) ux -135
+   area 304548 box (-362, -382, 129, 236) core 17 U 0 w ((1, 1), -139, 370) gate ('asm', 2, -26, 236, 20) control lane -273 frame (0, 11, -124, -1388) m -107 loop (-49, 50, 26, 20) ux -133
+   area 316598 box (-380, -370, 128, 251) core 31 U 0 w ((1, 1), -139, 370) gate ('asm', 2, -41, 251, 20) control lane -303 frame (0, -7, -112, -1460) m -113 loop (-67, 50, 26, 20) ux -151
+   area 317220 box (-378, -370, 131, 251) core 30 U 0 w ((1, 1), -139, 370) gate ('asm', 2, -41, 251, 20) control lane -303 frame (0, -3, -112, -1460) m -109 loop (-63, 50, 26, 20) ux -147
+   area 317616 box (-380, -372, 128, 251) core 29 U 0 w ((1, 1), -139, 370) gate ('asm', 2, -41, 251, 20) control lane -303 frame (0, -5, -114, -1468) m -113 loop (-65, 50, 26, 20) ux -149
+   area 369598 box (-475, -408, 90, 244) core 0 U 0 w ((1, 1), -139, 370) gate ('asm', 2, -34, 244, 18) control lane -289 frame (0, -41, -138, -1204) m -173 loop (-101, 20, 34, 50) ux -317
+   INC timeout None: area 317616 (82 s)
+   INC timeout None: area 316598 (83 s)
+   INC timeout None: area 317220 (84 s)
+   ok: area 294168 (97 s)
+   ok: area 303564 (97 s)
+   ok: area 293216 (97 s)
+   ok: area 369598 (98 s)
+   ok: area 304548 (98 s)
+   ok: area 294786 (99 s)
+   ok: area 302947 (100 s)
+simulated 10: {'INC timeout None': 3, 'ok': 7}

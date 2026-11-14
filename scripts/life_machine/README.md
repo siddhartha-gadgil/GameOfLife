@@ -54,6 +54,12 @@ transformed by `sym_k`, translated by `(vx, vy)` and delayed by `s` generations
 | `s7_select.py` | (R-23) exact clearances and reuse spacing of the verified push generators; ranking |
 | `report23.py` | (R-23) windows and checks of the recommended push generator `PSG1` (set simulator), block tests, the salvo in the frame of `counter 0` |
 | `c7_continue.py` | (R-23) continue glider for `PSG1`: a further fan-out V in series (as `c1_continue.py`) |
+| `j1_lanes.py` | (R-24) combinatorics of a joint final stage for one block: pull and push lanes under the insertion rule, with and without shared gliders (OR gate), with PG1 or PSG1 kept |
+| `j2_pocket.py` | (R-24) PG1-type pull generators (g4 enumeration) leaving a pocket between RF2 and RF3 for the push glider e (RF_e + feeder Rp) and an OR control of Gb; `pg1`: the test for PG1 itself |
+| `j3_stage.py` | (R-24) the joint final stage with free input gliders (DEC: pull; INC: OR control w, s1, cin): composite, both reactions, block tests |
+| `j4_inc.py`, `j5_inc.py` | (R-24) INC machinery from one control glider with reflectors only (negative: parity / mod-8 class of the input of RF_c) |
+| `j6_inc.py` | (R-24) INC machinery with a gate Gc on the path of c and a delay loop (J1..J4, NW leg) on the link U -> core: search, simulation |
+| `report24.py` | (R-24) windows and checks of the register (set simulator): pieces, both reactions, reuse, clearances, salvos in the frame of `counter 0`, block tests, INC/DEC in sequence |
 
 ## Results in one paragraph
 
@@ -69,6 +75,10 @@ R-23 adds the push-salvo generator `PSG1` (`results/psg1.json`, `results/report_
 upstream fan-out in series with a re-solved `PG1`-type core, 5 assemblies and 4 reflectors, salvo
 = the three-glider push `(5, -42), (12, -27), (0, 0)` (block moves by (1, 1)); and `PSG1C` with a
 continue glider (`results/psg1c.json`, `results/c7_continue.txt`).
+R-24 adds the register (`results/register.json`, `results/report_register.txt`): one block served by a
+pull input DEC and a push input INC; the two salvos share one glider, released by an OR gate (the
+gate Gb of a PG1-type pull generator with a second control glider); 22 pieces (8 copies of
+`blockedStream`, 14 reflectors).
 
 ## Reproducing the runs of R-21
 
@@ -137,6 +147,36 @@ python3 x1_insertion.py     > results/x1_insertion.txt    # 10 min
 python3 z1_zero_core.py     > results/z1_zero_core.txt    # 1 min
 python3 z2_zero_logic.py    > results/z2_zero_logic.txt   # 3 min
 ```
+
+## Reproducing the runs of R-24
+
+```bash
+cd scripts/life_machine
+python3 j1_lanes.py > results/j1_lanes.txt                     # 3 s; writes results/j1_lanes.json
+python3 j2_pocket.py pg1 > results/j2_pocket_pg1.txt           # PG1 has no pocket
+python3 -u j2_pocket.py 40 4 > results/j2_pocket_4.txt         # 3 min, 20 processes, about 6 GB
+python3 -u j2_pocket.py 40 5 > results/j2_pocket_5.txt
+python3 -u j3_stage.py 0 1 2 3 > results/j3_stage.txt          # final stage with free gliders (push q5)
+R24_PUSH=6 python3 -u j3_stage.py 0 1 > results/j3_stage_q6.txt
+python3 -u j6_inc.py 0 10 > results/j6_inc_0.txt               # 2 min; push q5 (a passes RF_e at 2)
+R24_PUSH=6 python3 -u j6_inc.py 0 10 > results/j6_inc_0_q6.txt # 2 min; push q6: the recommended register
+R24_PUSH=6 python3 report24.py --pick 0 results/j6_inc_0_q6.json.gz 0 results/register.json
+R24_PUSH=6 python3 -u report24.py results/register.json > results/report_register.txt      # about 1 h
+R24_PUSH=6 R24_ORDER=0 python3 -u report24.py results/register.json --seq > results/report_register_seq0.txt   # INC then DEC
+R24_PUSH=6 R24_ORDER=1 python3 -u report24.py results/register.json --seq > results/report_register_seq1.txt   # DEC then INC
+# results/report_register.txt = the first run (its sequence section was then replaced by the two --seq
+# runs, appended); report_register_q5.txt is an earlier run for register_q5.json whose sequence lines
+# use the natural control times only
+# results/report_register.txt = the first run (its sequence section was then replaced by the two --seq
+# runs, appended); report_register_q5.txt is an earlier run for register_q5.json whose sequence lines
+# use the natural control times only
+python3 report24.py --pick 0 results/j6_inc_0.json.gz 0 results/register_q5.json   # (q5 variant, report_register_q5.txt)
+```
+
+`R24_PUSH=5` (default) uses the push `(5, -47), (11, -25), (-5, 0)`, `R24_PUSH=6` the push
+`(5, -51), (12, -24), (-6, 0)` (both of `results/p1_pushes.json`, both sharing the glider b of the
+pull salvo). `j4_inc.py`, `j5_inc.py` are kept as the record of the two variants without a gate
+(no exact solution: class obstruction, R-24 section 6).
 
 ## Reproducing the runs of R-23
 

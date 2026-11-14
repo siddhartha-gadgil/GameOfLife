@@ -1,0 +1,2 @@
+PG1, e on lane a - 4: positions j = -260 .. 259 of RF_e: {'e meets a piece (RF2)': 204, 'box of a piece within 4': 27, 'on the path of o': 3, 'downstream of RF3': 286}
+PG1, e on lane a - 5: positions j = -260 .. 259 of RF_e: {'e meets a piece (RF2)': 204, 'box of a piece within 4': 28, 'on the path of o': 2, 'downstream of RF3': 286}

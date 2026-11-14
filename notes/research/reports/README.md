@@ -23,3 +23,5 @@ declaration.
   `PSG1C` with a continue glider); certified in `LeanTheory/Theory/Life/Increment.lean`.
 - [`R-25-zero-supply.md`](R-25-zero-supply.md): why the zero-test inputs cannot be supplied by the
   current components, and a partly designed replacement logic (`scripts/life_zero`).
+- [`R-24-register.md`](R-24-register.md): the joint register `REG1` (one block, DEC and INC
+  inputs, a shared glider through an OR gate); `scripts/life_machine`.
