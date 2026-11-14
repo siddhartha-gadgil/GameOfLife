@@ -12,12 +12,12 @@
 | Dependency requirement | the component format and composition theorem; verified reactions; the route decision |
 | Produces | a recorded technology decision; `LeanTheory/Theory/Life/Circuits/*.lean` with gate specifications and a theorem that a combinational circuit description compiles to a pattern computing it |
 | Difficulty | hard: timing and routing across many components; mitigated by reusing a published, already verified design |
-| Status | scope fixed by the user decision of 2026-11-14 (own design D1, see `N-15`): gated blocked streams of Gosper guns; geometries to be found by search |
-| Implementation status | not started |
-| Implementation evidence | none |
-| Lean evidence | none |
+| Status | partly verified: terminated stream, blocked stream and one gate are compiled; fan-out and placement rules open |
+| Implementation status | in progress |
+| Implementation evidence | `LeanTheory/Theory/Life/Gates.lean`; search oracle `scripts/life_gates/`; report `reports/R-20-gun-gates.md` |
+| Lean evidence | `terminatedGun_isOscillator`, `terminatedGun_eq_union`, `gunB`, `blockedStream`, `blockedStream_start`, `blockedStream_isOscillator`, `blockedStream_eq_union`, `glider_pair_annihilate`, `gate`, `gateControl_eq_translate`, `gateOutput_eq_evolve`, `gate_wrong_lane_ne` |
 | Audit evidence | not audited |
-| Last updated | 2026-11-14: technology decided |
+| Last updated | 2026-11-14: first components certified |
 
 ## Purpose and scope
 
@@ -88,6 +88,33 @@ every stream terminated. A gate with two inputs is at the same time the classica
 element (`a ∧ ¬ b` on streams), so the verified gates that `G-5` asks for come out of the same
 components. Stable reflectors and conduits are not used. First deliverables: the annihilation
 and absorption reactions, then one blocked stream as a certified oscillator, then one gate.
+
+## First components (2026-11-14)
+
+Found by our own search (`scripts/life_gates`, report `R-20`, a sub-agent's work; observations
+until certified) and certified in `Theory/Life/Gates.lean`:
+
+- `terminatedGun = gosperGun ∪ translate (25, 11) eater1`: an oscillator of period exactly 30.
+- `blockedStream`: `gosperGun` and a mirror image `gunB` whose streams annihilate each other;
+  reached from the bare guns in 90 generations; an oscillator of period exactly 30; equal to the
+  two guns plus three gliders of each stream.
+- `gate`: `conway.evolve 90 (blockedStream ∪ gateControl) = blockedStream ∪ gateOutput`, with
+  the control a translate of the catalogue glider and the output the gun's own glider at age
+  90 (so the output is re-timed to the gun).
+
+Observations of `R-20` not yet certified, relevant for the layout:
+
+- a gate accepts only 12 of the 30 input phases on odd lanes and 4 on even lanes; along a signal
+  lane the admissible positions of a translated copy repeat with period 15 (the parity risk of
+  `N-15` is real but leaves solutions);
+- 712 of 961 gates found also work with controls 30 and 60 generations apart; two gates in
+  series work for all 228 translations tried;
+- outputs leave only on the two stream lanes; other directions need rotated or reflected
+  copies; kickbacks (control survives and releases a glider — a fan-out) exist but fail when
+  used again 30 or 90 generations later;
+- exactly mirror-symmetric gun pairs have period 60; some gun pairs have two different cycles.
+
+Next: the gate as a `Reaction` with a box footprint; a fan-out; the salvo generators.
 
 ## Claims and evidence
 

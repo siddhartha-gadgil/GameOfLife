@@ -107,7 +107,7 @@ extensions of the catalogue. See §7.
 | `N-07` | [Guns and streams](research/N-07-guns-streams.md) | `G-4`; `Q-8` | `N-03`, `N-04`, `N-06` | moderate | **verified** | gun with eater; other orientations (optional) |
 | `N-08` | [Component interfaces](research/N-08-component-interfaces.md) | `G-3`, `G-5`; `Q-8` | `N-04`; informed by `N-07` | hard | exploratory; first calculus **compiled** (`Reaction`, `par`, `seq`, `translate`), tested on `pull_reaction` | rectangular footprints; a multi-component example |
 | `N-09` | [Elementary reactions](research/N-09-elementary-reactions.md) | `G-5` | `N-03`, `N-05`, `N-06`, `N-08`, `N-18` | routine each | stated; data available (`R-18` §4); blocked on `N-08` for the format | Certify the three block reactions and glider-into-eater as plain certificates first |
-| `N-10` | [Logic gates and wiring](research/N-10-logic-gates.md) | `G-5`; `Q-7` | `N-08`, `N-09`, `N-13`, `N-18` | hard | technology decided (D1); geometries to be found | annihilation and absorption reactions; one blocked stream; one gate |
+| `N-10` | [Logic gates and wiring](research/N-10-logic-gates.md) | `G-5`; `Q-7` | `N-08`, `N-09`, `N-13`, `N-18` | hard | partly **verified**: terminated gun, blocked stream, one gate (`Gates.lean`) | fan-out; salvo generators; gate as a `Reaction` |
 | `N-11` | [Sliding block memory](research/N-11-sliding-block-memory.md) | `G-5`; `Q-6` | `N-03`, `N-04`, `N-05`, `N-06`, `N-08`, `N-18` | moderate | partly **verified**: `pull`, `push` for every position; `pipeline` for trains of salvos; generators and zero test open | Zero-test reaction and salvo generators (design D1) |
 | `N-12` | [Meaning of universality](research/N-12-meaning-of-universality.md) | `G-7`; `Q-4` | Mathlib (compiled); `N-01` (types only) | moderate | stated in outline; machine model now fixed (`N-14`); **ready** | Write the exact Lean statements against `Program.Computes` |
 | `N-13` | [Route assessment](research/N-13-route-assessment.md) | `G-7`; `Q-5`, `Q-6` | `N-12`; sources | moderate | decided: route R1, confirmed against the sources (`R-18`) with corrections | none |
@@ -339,6 +339,10 @@ There are no empirical inputs; every gate is a compiled proof.
   targets `EverAlive`, reduction lemma); `Theory/Life/Boxes.lean` (rectangular footprints);
   `Theory/Life/Register.lean` (sub-agent): `pipeline`, operations launched at least 13 cells
   apart act on the block in order.
+- **2026-11-14 — first components of design D1.** Own search (`scripts/life_gates`, report
+  `R-20`, sub-agent) found, and `Theory/Life/Gates.lean` certifies: the gun terminated by an
+  eater and the blocked stream of two guns (oscillators of period exactly 30) and a gate
+  (`gate`: a control glider releases exactly one glider).
 
 ## 12. Implementation and workstation log
 

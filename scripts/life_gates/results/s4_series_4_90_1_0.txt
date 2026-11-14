@@ -1,0 +1,37 @@
+gates from infinity: 961;  repeatable with m = 1: 713, m = 2: 851, three in a row: 713; all three tests: 712
+by (direction of C, released stream, fully repeatable):
+    ((-1, -1), 'A', False) 60
+    ((-1, -1), 'A', True) 279
+    ((-1, -1), 'B', False) 42
+    ((-1, -1), 'B', True) 3
+    ((-1, 1), 'A', True) 1
+    ((-1, 1), 'B', False) 5
+    ((-1, 1), 'B', True) 74
+    ((1, -1), 'A', False) 85
+    ((1, -1), 'A', True) 3
+    ((1, -1), 'B', False) 53
+    ((1, -1), 'B', True) 292
+    ((1, 1), 'A', False) 4
+    ((1, 1), 'A', True) 59
+    ((1, 1), 'B', True) 1
+series: 59 gates usable, 228 candidate translations
+series: 228 verified translations, 24.1 s
+   v=(9,40) control=[[1, 1], 41, 22] t_ins=239 dur=202 out=[[1, 1], -17, 233] env=[0, 0, 99, 72] area=7300
+   v=(11,40) control=[[1, 1], 41, 22] t_ins=239 dur=202 out=[[1, 1], -15, 225] env=[0, 0, 101, 72] area=7446
+   v=(13,40) control=[[1, 1], 41, 22] t_ins=239 dur=202 out=[[1, 1], -13, 217] env=[0, 0, 103, 72] area=7592
+   v=(11,42) control=[[1, 1], 41, 22] t_ins=239 dur=232 out=[[1, 1], -17, 255] env=[0, 0, 101, 74] area=7650
+   v=(15,40) control=[[1, 1], 41, 22] t_ins=239 dur=202 out=[[1, 1], -11, 209] env=[0, 0, 105, 72] area=7738
+   v=(11,43) control=[[1, 1], 41, 22] t_ins=239 dur=232 out=[[1, 1], -18, 255] env=[0, 0, 101, 75] area=7752
+   v=(13,42) control=[[1, 1], 41, 22] t_ins=239 dur=232 out=[[1, 1], -15, 247] env=[0, 0, 103, 74] area=7800
+   v=(13,43) control=[[1, 1], 41, 22] t_ins=239 dur=232 out=[[1, 1], -16, 247] env=[0, 0, 103, 75] area=7904
+   v=(15,42) control=[[1, 1], 41, 22] t_ins=239 dur=232 out=[[1, 1], -13, 239] env=[0, 0, 105, 74] area=7950
+   v=(15,43) control=[[1, 1], 41, 22] t_ins=239 dur=232 out=[[1, 1], -14, 239] env=[0, 0, 105, 75] area=8056
+   v=(17,42) control=[[1, 1], 41, 22] t_ins=239 dur=232 out=[[1, 1], -11, 231] env=[0, 0, 107, 74] area=8100
+   v=(13,45) control=[[1, 1], 41, 22] t_ins=239 dur=232 out=[[1, 1], -18, 247] env=[0, 0, 103, 77] area=8112
+   v=(17,43) control=[[1, 1], 41, 22] t_ins=239 dur=232 out=[[1, 1], -12, 231] env=[0, 0, 107, 75] area=8208
+   v=(15,45) control=[[1, 1], 41, 22] t_ins=239 dur=232 out=[[1, 1], -16, 239] env=[0, 0, 105, 77] area=8268
+   v=(15,46) control=[[1, 1], 41, 22] t_ins=239 dur=232 out=[[1, 1], -17, 239] env=[0, 0, 105, 78] area=8374
+
+real	0m24.285s
+user	5m4.104s
+sys	0m1.000s

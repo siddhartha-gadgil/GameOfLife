@@ -89,6 +89,7 @@ public import LeanTheory.Theory.KAM.TorusFieldAna
 public import LeanTheory.Theory.KAM.WeightedEll1Z2
 public import LeanTheory.Theory.Life.Boxes
 public import LeanTheory.Theory.Life.Decision
+public import LeanTheory.Theory.Life.Gates
 public import LeanTheory.Theory.Life.Guns
 public import LeanTheory.Theory.Life.Locality
 public import LeanTheory.Theory.Life.Patterns
