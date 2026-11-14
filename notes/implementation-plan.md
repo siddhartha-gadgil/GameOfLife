@@ -54,13 +54,10 @@ declarations, and it still needs a uniform argument in the block position. (iii)
 pattern files are not stated by their sources (`Q-9`). (iv) Self-replication is far beyond
 direct simulation (`Q-10`).
 
-**Decision needed from the user.** The remaining path to `G-7` is the Life machine itself
-(`N-10`, `N-11`, `N-15`): circuitry that turns one signal into a salvo, the zero test, latches
-and routing. The only documented cell-exact design is the book's (a 2316-cell register and
-its companions, `R-18`); its pattern files carry no licence statement. Options: (a) transcribe
-those patterns into the repository as data and certify them; (b) design smaller circuitry
-ourselves from verified elementary reactions; (c) ask the authors. This choice also fixes the
-size of the certificates and should be made before `N-10`/`N-11` continue.
+**Decision taken (user, 2026-11-14).** The register and control circuitry are designed in this
+project from verified elementary reactions; the book is used for guidance only and nothing is
+copied exactly. The resulting design D1 (gated, terminated streams of Gosper guns; eaters,
+blocks, gliders) is described in `N-15`.
 
 **Ready choices.** `N-12` (exact Lean statements of the universality theorems, now that the
 machine model is fixed), `N-08` (rectangular footprints; a multi-component example), optional
@@ -90,9 +87,9 @@ extensions of the catalogue. See §7.
 | `Q-4` | What precisely is proved under "Life is Turing complete" on finite configurations? | `G-7`; `N-12`, `N-15`, `N-16` | answered in outline (user decision 2026-11-14) | Headline: an undecidable predicate on finite configurations plus computation of every partial recursive code, via simulation of counter machines. Exact Lean statements still to be fixed in `N-12` (read `S-14`) |
 | `Q-5` | Direct Turing machine, register machine, or Lisp interpreter (user idea): which is easier and more transparent? | `G-7`; `N-13`, `N-10`, `N-14`, `N-15` | answered (user decision 2026-11-14) | Register machine (route R1 of `N-13`). Lisp is at most an optional top layer (`G-9`, inactive). Re-examine if `S-10` or `S-11` ch. 9 contradict the expected component list |
 | `Q-6` | How is unbounded memory obtained with finite support? | `N-11`, `N-13`, `N-15` | answered (sources read, `R-18`) | Sliding block register with `INC` and `TDEC` (test, then decrement unless zero), as in the book `S-11` ch. 9; cell-exact reactions in `R-18` §4 |
-| `Q-7` | Which circuit technology: clocked LWSS tiles (HOL4-verified design), period-30 glider streams, or stable circuitry? Is general logic needed at all for a register machine? | `N-10`, `N-15` | open, leaning (after `R-18`) | No Boolean gate network is needed for a register machine; needed are reflectors, splitters, merges, latches, eaters. Leaning to stable (gun-free) circuitry; exact component set to be fixed in `N-10` |
+| `Q-7` | Which circuit technology: clocked LWSS tiles (HOL4-verified design), period-30 glider streams, or stable circuitry? Is general logic needed at all for a register machine? | `N-10`, `N-15` | answered (user decision 2026-11-14) | Own design D1: gated, terminated period-30 streams of Gosper guns; no stable conduits; no transcription of the book's circuits (`N-15`, `N-10`) |
 | `Q-8` | How are components specified and composed, and how are unbounded-time behaviours (a gun emitting forever) stated on finite configurations? | `N-07`, `N-08`, `N-09`–`N-11`, `N-15` | open; first instance solved | Unbounded-time statements work as invariants (`gosperGun_evolve`, `IsGun`); the general component interface is still to be designed in `N-08`, using the band-separation pattern of `N-07` |
-| `Q-9` | Where does cell-exact pattern data come from, with what provenance and licence? | `N-05`–`N-11`, `N-18` | partly answered | The book's PDF embeds 1020 RLE files (primary pattern source); Chapman's and Hickerson's files retrieved; licences not stated anywhere found. Provenance rule of `N-18` adopted |
+| `Q-9` | Where does cell-exact pattern data come from, with what provenance and licence? | `N-05`–`N-11`, `N-18` | answered (user decision 2026-11-14) | Patterns are found by our own search and certified; sources give guidance only. The two block salvos transcribed earlier are to be re-derived |
 | `Q-10` | What is the right definition of self-replication, which explicit pattern would be proved, and is it feasible? | `G-8`; `N-17` | open | Definitions disputed in the sources; known patterns are ≈ 3 × 10⁵ cells with period ≈ 2 × 10⁸ |
 | `Q-11` | What JSON schema, and what level of round-trip assurance (theorem at string level, at `Json` value level, or tests)? | `N-02` | answered | Round trip proved for JSON values, by `rfl` on RLE/plaintext fixtures, tested only at string level; schema in `N-02` |
 | `Q-12` | How is counter-machine universality linked to Mathlib: from `Nat.Partrec.Code` directly or via `Turing.TM2`? | `N-14` | answered | Via Mathlib's vector basis `Nat.Partrec'` and a structured loop language compiled to counter programs; no pairing or Gödel numbering needed (`N-14`) |
@@ -110,12 +107,12 @@ extensions of the catalogue. See §7.
 | `N-07` | [Guns and streams](research/N-07-guns-streams.md) | `G-4`; `Q-8` | `N-03`, `N-04`, `N-06` | moderate | **verified** | gun with eater; other orientations (optional) |
 | `N-08` | [Component interfaces](research/N-08-component-interfaces.md) | `G-3`, `G-5`; `Q-8` | `N-04`; informed by `N-07` | hard | exploratory; first calculus **compiled** (`Reaction`, `par`, `seq`, `translate`), tested on `pull_reaction` | rectangular footprints; a multi-component example |
 | `N-09` | [Elementary reactions](research/N-09-elementary-reactions.md) | `G-5` | `N-03`, `N-05`, `N-06`, `N-08`, `N-18` | routine each | stated; data available (`R-18` §4); blocked on `N-08` for the format | Certify the three block reactions and glider-into-eater as plain certificates first |
-| `N-10` | [Logic gates and wiring](research/N-10-logic-gates.md) | `G-5`; `Q-7` | `N-08`, `N-09`, `N-13`, `N-18` | hard | exploratory; scope reduced by `R-18` (no gate network needed) | Fix the component set: reflector, splitter, merge, latch |
+| `N-10` | [Logic gates and wiring](research/N-10-logic-gates.md) | `G-5`; `Q-7` | `N-08`, `N-09`, `N-13`, `N-18` | hard | technology decided (D1); geometries to be found | annihilation and absorption reactions; one blocked stream; one gate |
 | `N-11` | [Sliding block memory](research/N-11-sliding-block-memory.md) | `G-5`; `Q-6` | `N-03`, `N-04`, `N-05`, `N-06`, `N-08`, `N-18` | moderate | partly **verified**: `pull`, `push` for every position; generators and zero test open | Certify the register circuit's `INC`/`TDEC` (needs `N-08`) |
 | `N-12` | [Meaning of universality](research/N-12-meaning-of-universality.md) | `G-7`; `Q-4` | Mathlib (compiled); `N-01` (types only) | moderate | stated in outline; machine model now fixed (`N-14`); **ready** | Write the exact Lean statements against `Program.Computes` |
 | `N-13` | [Route assessment](research/N-13-route-assessment.md) | `G-7`; `Q-5`, `Q-6` | `N-12`; sources | moderate | decided: route R1, confirmed against the sources (`R-18`) with corrections | none |
 | `N-14` | [Counter machines](research/N-14-counter-machines.md) | `G-6`; `Q-12` | Mathlib (compiled); `N-13` (conditional) | hard | **verified** | none |
-| `N-15` | [Register machine in Life](research/N-15-register-machine-in-life.md) | `G-7` | `N-08`, `N-10`, `N-11`, `N-12`, `N-13`, `N-14` | research-level engineering | blocked | Replace sketch by a component list from sources |
+| `N-15` | [Register machine in Life](research/N-15-register-machine-in-life.md) | `G-7` | `N-08`, `N-10`, `N-11`, `N-12`, `N-13`, `N-14` | research-level engineering | exploratory: own design D1 drafted; components to be found by search | search for collision geometries, a blocked stream and a gate; certify them |
 | `N-16` | [Universality theorem](research/N-16-universality-theorem.md) | `G-7` | `N-12`, `N-14`, `N-15` | moderate | blocked | — |
 | `N-17` | [Self-replication](research/N-17-self-replication.md) | `G-8`; `Q-10` | `N-01`, `N-04` (types); sources | research | exploratory; sources surveyed (`R-18` §E); formal goal postponed | Draft definitions when `G-8` is activated |
 | `N-18` | [Source acquisition](research/N-18-source-acquisition.md) | `Q-9` | none | routine | largely done: report `reports/R-18-source-report.md` | licences; remaining unread sources (`S-02`, `S-03`, `S-09`) only if needed |
@@ -336,6 +333,8 @@ There are no empirical inputs; every gate is a compiled proof.
   and `N-11`. Goals `G-1`, `G-2`, `G-4`, `G-6` achieved. Full build 3268 jobs, 0 warnings;
   axiom audit 7800 declarations. Stopped for a user decision on how to obtain the register and
   control circuitry (see §0).
+- **2026-11-14 — decision.** The user chose an own design (no copying from the book). Design D1
+  recorded in `N-15`; `Q-7`, `Q-9` answered; search for the elementary reactions started.
 
 ## 12. Implementation and workstation log
 

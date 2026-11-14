@@ -17,7 +17,7 @@
 | Implementation evidence | `LeanTheory/Theory/Life/SlidingBlock.lean` |
 | Lean evidence | `counter`, `pullSalvo`, `pushSalvo`, `evolve_flight`, `evolve_eq_translate_mod`, `pull_zero`, `push_zero`, `pull : ∀ k : ℕ, conway.evolve (4 * k + 26) (pullSalvo ∪ counter k) = counter (k - 1)`, `push : ∀ k : ℕ, conway.evolve (4 * k + 32) (pushSalvo ∪ counter k) = counter (k + 1)`, `counter_injective`, `counter_isStillLife`, `pull_then_push`, `pull_misplaced_block_ne` |
 | Audit evidence | build and axiom audit after the work unit; statements reviewed by the author |
-| Last updated | 2026-11-14: block reactions implemented |
+| Last updated | 2026-11-14: block reactions implemented; register design D1 chosen (`N-15`) |
 
 ## Purpose and scope
 
@@ -100,6 +100,19 @@ Remaining for a register (in order of size): the circuitry producing a salvo fro
 signal; the zero test (`TDEC` semantics of the book); return signals; and non-interference with
 the rest of a machine. Pulling at position 0 moves the block to `-1`; a register must prevent
 it.
+
+## Register design after the user decision (2026-11-14)
+
+The register is not the book's circuit. In design D1 (`N-15`) it consists of the block, a
+salvo generator for `push`, one for `pull` and a zero test at the fixed zero position, all made
+of gated gun streams. New theorems needed here, in order:
+
+1. *pipelining*: two (then any number of) salvos launched one behind the other, far enough
+   apart, act on the block in order — the reactions do not interfere with salvos in flight;
+2. the invariant "logical value = position + pending pushes − pending pulls";
+3. a certified zero-test reaction.
+
+The pulling and pushing salvos should be re-derived by our own search (provenance).
 
 ## Claims and evidence
 

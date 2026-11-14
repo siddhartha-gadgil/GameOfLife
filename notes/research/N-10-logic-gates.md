@@ -12,12 +12,12 @@
 | Dependency requirement | the component format and composition theorem; verified reactions; the route decision |
 | Produces | a recorded technology decision; `LeanTheory/Theory/Life/Circuits/*.lean` with gate specifications and a theorem that a combinational circuit description compiles to a pattern computing it |
 | Difficulty | hard: timing and routing across many components; mitigated by reusing a published, already verified design |
-| Status | exploratory |
+| Status | scope fixed by the user decision of 2026-11-14 (own design D1, see `N-15`): gated blocked streams of Gosper guns; geometries to be found by search |
 | Implementation status | not started |
 | Implementation evidence | none |
 | Lean evidence | none |
 | Audit evidence | not audited |
-| Last updated | 2026-11-14: seeded |
+| Last updated | 2026-11-14: technology decided |
 
 ## Purpose and scope
 
@@ -79,6 +79,15 @@ Its numerical observations are simulations, not proofs.
 - Consequence: the technology choice `Q-7` leans to stable circuitry (technology 3). Verified
   NOT/AND/OR gates remain a deliverable of `G-5` in their own right but are not on the path to
   `G-7`.
+
+## Decision (2026-11-14)
+
+`Q-7` is decided by the user's choice of an own design: technology 2 (period-30 glider streams of
+Gosper guns), in the form of *blocked streams and gates* described in `N-15` (design D1), with
+every stream terminated. A gate with two inputs is at the same time the classical NOT/AND
+element (`a ∧ ¬ b` on streams), so the verified gates that `G-5` asks for come out of the same
+components. Stable reflectors and conduits are not used. First deliverables: the annihilation
+and absorption reactions, then one blocked stream as a certified oscillator, then one gate.
 
 ## Claims and evidence
 
