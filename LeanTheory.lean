@@ -6,6 +6,7 @@ Authors: LeanTheory contributors
 module
 
 public import LeanTheory.Bridge.Example
+public import LeanTheory.Bridge.LifeIO
 public import LeanTheory.Certificates.BlockBounds
 public import LeanTheory.Certificates.BoolCert
 public import LeanTheory.Certificates.Contraction
@@ -86,6 +87,7 @@ public import LeanTheory.Theory.KAM.WeightedEll1Z2
 public import LeanTheory.Theory.Life.Guns
 public import LeanTheory.Theory.Life.Locality
 public import LeanTheory.Theory.Life.Patterns
+public import LeanTheory.Theory.Life.SlidingBlock
 public import LeanTheory.Theory.Stability.AbstractEnergy
 public import LeanTheory.Theory.Stability.BlockBounds
 public import LeanTheory.Theory.Stability.Newcomb

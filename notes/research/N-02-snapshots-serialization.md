@@ -12,12 +12,12 @@
 | Dependency requirement | compiled `Cell`, `step`, `evolve` and the coordinate convention of `Q-1` |
 | Produces | `LeanTheory/Bridge/LifeIO.lean` (or similar): `Snapshot`, `Evolution`, instances, validity predicate for evolutions, RLE parser/printer; fixtures |
 | Difficulty | routine; the only open point is how strong a round-trip guarantee is provable for Lean's `Json` |
-| Status | stated |
-| Implementation status | not started |
-| Implementation evidence | none |
-| Lean evidence | none |
-| Audit evidence | not audited |
-| Last updated | 2026-11-14: seeded |
+| Status | verified, with the gaps listed under "Results" |
+| Implementation status | complete |
+| Implementation evidence | `LeanTheory/Bridge/LifeIO.lean` (written by a sub-agent, checked and integrated by the coordinator) |
+| Lean evidence | `Snapshot`, `Snapshot.cells`, `toCellList`, `ofCellList`, `cells_ofCellList`, `trim`, `cells_trim`, `Snapshot.step`, `cells_step`, `Snapshot.evolve`, `cells_evolve`; `Evolution`, `Evolution.valid`, `Evolution.cells_getElem_of_valid`, `Evolution.run`, `valid_run`; instances `Repr`, `ToJson`, `FromJson` for both; `Snapshot.toRLE`, `Snapshot.ofRLE?`; `Snapshot.fromJson?_toJson`, `Snapshot.cells_fromJson?_toJson`, `Evolution.fromJson?_toJson`; elaborators `rle%`, `cells%` |
+| Audit evidence | build (0 warnings) and axiom audit (7225 declarations) after integration; module docstring and main statements read by the coordinator |
+| Last updated | 2026-11-14: implemented |
 
 ## Purpose and scope
 
@@ -59,6 +59,32 @@ Proposed design:
 `Lean.Json` functions reduce or have usable lemmas; if not, the fallback is a proved round trip
 for the intermediate `Json` *value* built by our own encoder/decoder (structural, no string
 parsing), plus executable fixtures for the string level. Record which level was achieved.
+
+## Results (2026-11-14)
+
+User requirement `A-3` is met: `Repr`, `ToJson` and `FromJson` instances exist for `Snapshot`
+and `Evolution`.
+
+- A snapshot is a window `(x₀, y₀, rows)` in the encoding of `ofRows` (not a sorted cell list as
+  proposed above; cell lists are a derived view). JSON schema as built:
+  `{"x", "y", "rle", "cells"}` for a snapshot (written for the trimmed form; `"cells"` preferred
+  on input) and `{"generations", "frames"}` for an evolution, with the initial snapshot as the
+  first frame. Rows are never written as JSON numbers.
+- `Snapshot.step`/`evolve` are proved to compute `conway.step`/`conway.evolve`;
+  `Evolution.valid` is a Boolean check with a soundness theorem, so deserialized evolutions can
+  be checked inside Lean.
+- **Answer to `Q-11`** (assurance level): the round trip is *proved at the level of JSON values*
+  (`Snapshot.cells_fromJson?_toJson`: decoding the encoding of `s` succeeds and gives the cells
+  of `s`), proved by `rfl` on fixtures for RLE and plaintext, and *tested only* (`#guard`) at
+  the string level through `Json.compress`/`Json.parse`. Lean's own `Json.mkObj` and friends are
+  not exposed to proofs, so the encoders use the constructors of `Lean.Json` directly; a test
+  checks agreement with Lean's encoder.
+- Pattern literals `rle% "…"` and `cells% "…"` elaborate to explicit lists of rows.
+
+Gaps (not proved): `Snapshot.trim` is a normal form (hence completeness of `Evolution.valid` and
+the exact form of the JSON round trip); `toCellList` sorted and duplicate-free; anything about
+strings in general. `ofRows_inj` in `Certificates/LifeSim` (uniqueness of trimmed windows) was
+proved independently and could close the first gap.
 
 ## Claims and evidence
 

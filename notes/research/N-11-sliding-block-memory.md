@@ -12,12 +12,12 @@
 | Dependency requirement | certificates for the push, pull and test reactions; translation equivariance to transfer one certificate to every block position; the component format |
 | Produces | `LeanTheory/Theory/Life/Memory/SlidingBlock.lean`: `counter k` (block at diagonal offset `k`), `inc`, `dec`, `isZero` specifications valid for every `k : ℕ` |
 | Difficulty | moderate: three small reactions plus a uniform-in-`k` argument; the zero test and the salvo generators are the delicate parts |
-| Status | stated |
-| Implementation status | not started |
-| Implementation evidence | none |
-| Lean evidence | none |
-| Audit evidence | not audited |
-| Last updated | 2026-11-14: seeded |
+| Status | partly verified: the block reactions for every position are compiled; salvo generators and the zero test are open |
+| Implementation status | in progress |
+| Implementation evidence | `LeanTheory/Theory/Life/SlidingBlock.lean` |
+| Lean evidence | `counter`, `pullSalvo`, `pushSalvo`, `evolve_flight`, `evolve_eq_translate_mod`, `pull_zero`, `push_zero`, `pull : ∀ k : ℕ, conway.evolve (4 * k + 26) (pullSalvo ∪ counter k) = counter (k - 1)`, `push : ∀ k : ℕ, conway.evolve (4 * k + 32) (pushSalvo ∪ counter k) = counter (k + 1)`, `counter_injective`, `counter_isStillLife`, `pull_then_push`, `pull_misplaced_block_ne` |
+| Audit evidence | build and axiom audit after the work unit; statements reviewed by the author |
+| Last updated | 2026-11-14: block reactions implemented |
 
 ## Purpose and scope
 
@@ -81,6 +81,25 @@ Its numerical observations are simulations, not proofs.
 - Decision to take when this note is worked on: formalize the book's `TDEC` semantics, which
   matches the `decJz` instruction of `N-14`.
 - Licence of the pattern files: not stated by the sources (`Q-9` stays open).
+
+## Results (2026-11-14): the block reactions, for every position
+
+Compiled in `Theory/Life/SlidingBlock.lean`, with the salvos of the book's Fig. 8.37 (b), (c)
+(data from `R-18` §4.1):
+
+- `pull`: for every `k : ℕ`, the two-glider salvo launched from a fixed place moves the block
+  from position `k` to `k - 1` in `4 k + 26` generations, leaving nothing else;
+- `push`: the three-glider salvo moves it from `k` to `k + 1` in `4 k + 32` generations.
+
+Each is one certificate at position 0 plus the general flight lemma `evolve_flight` (a pattern
+moving diagonally and a still life evolve independently while a band of empty rows separates
+them) and translation equivariance — the uniform-in-`k` argument sketched above, now a theorem.
+As expected the duration depends on `k`.
+
+Remaining for a register (in order of size): the circuitry producing a salvo from one input
+signal; the zero test (`TDEC` semantics of the book); return signals; and non-interference with
+the rest of a machine. Pulling at position 0 moves the block to `-1`; a register must prevent
+it.
 
 ## Claims and evidence
 

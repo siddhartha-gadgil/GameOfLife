@@ -26,8 +26,12 @@ to a proof that Life is Turing complete, and ultimately self-replication.
   period and displacement.
 
 - Gosper glider gun `Theory/Life/Guns.lean` (`N-07`): `gosperGun_evolve`, for all time.
+- Serialization `Bridge/LifeIO.lean` (`N-02`, goal `G-2`): snapshots and evolutions with `Repr`,
+  `ToJson`, `FromJson`, RLE and pattern literals.
+- Sliding block reactions `Theory/Life/SlidingBlock.lean` (part of `N-11`): `pull` and `push`
+  for every position of the block.
 
-Not verified: any reaction or component beyond the gun, any computability statement.
+Not verified: salvo generators, the zero test, signal routing, any computability statement.
 
 **Sourced, unverified.** Pattern statistics and the history of universal constructions
 (`sources.md`). One formal precedent exists: verified Life circuits in HOL4 (`S-07`), which
@@ -56,10 +60,10 @@ statements), block reactions of `N-11`/`N-09` as plain certificates. In progress
 | ID | Goal and success criterion | Supports / supported by | Status | Evidence needed |
 | --- | --- | --- | --- | --- |
 | `G-1` | **Kernel.** Life on finite configurations: compiled definitions of cells, neighbours, `step`, `evolve`, with an independent set-level specification proved equivalent, and the full sanity suite (degenerate, concrete, counterexample, symmetry, speed of light). | supports all goals | **achieved** (2026-11-14, commit `0ae423d`) | `N-01` compiled; strict kernel audit passed (§4) |
-| `G-2` | **Serialization.** `Repr`, `ToJson`, `FromJson` instances for snapshots and finite time evolutions, a certified validity check for evolutions, and a recorded round-trip guarantee. | supported by `G-1`; tooling for `G-4`, `G-5` | open | `N-02` compiled; round-trip theorem or documented fallback (`Q-11`) |
+| `G-2` | **Serialization.** `Repr`, `ToJson`, `FromJson` instances for snapshots and finite time evolutions, a certified validity check for evolutions, and a recorded round-trip guarantee. | supported by `G-1`; tooling for `G-4`, `G-5` | **achieved** (2026-11-14) at the assurance level recorded in `N-02` | `N-02` compiled; round-trip theorem or documented fallback (`Q-11`) |
 | `G-3` | **Compositional theory and certified simulation.** Locality, independence of separated patterns, equivariance; a certificate tactic proving `evolve n P = Q` with standard axioms only; a component interface with a composition theorem. | supported by `G-1`; supports `G-4`, `G-5`, `G-7`, `G-8` | partly achieved: locality/independence/equivariance (`N-04`) and certified simulation (`N-03`) compiled; component interfaces (`N-08`) open | `N-03`, `N-04`, `N-08` compiled; benchmark table for `Q-3` |
 | `G-4` | **Pattern catalogue.** Named definitions and theorems: still lifes (block, beehive, loaf, boat, pond, eater 1) fixed; oscillators (blinker, toad, beacon, traffic light, pulsar, pentadecathlon) with exact periods; spaceships (glider, LWSS, MWSS, HWSS) with period and displacement in every orientation; the Gosper gun emitting one glider per 30 generations for all time. | supported by `G-1`, `G-3`; supports `G-5` | **achieved** for the stated list (2026-11-14): `N-05`, `N-06`, `N-07` compiled | `N-05`, `N-06`, `N-07` compiled |
-| `G-5` | **Ingredients of computation.** Verified specifications, in one composable format, of the reactions, signal routing, logic and unbounded memory needed by the machine of `G-7` (including NOT/AND/OR gates in at least one technology and the sliding block counter for every value). | supported by `G-3`, `G-4`; supports `G-7` | open | `N-09`, `N-10`, `N-11` compiled |
+| `G-5` | **Ingredients of computation.** Verified specifications, in one composable format, of the reactions, signal routing, logic and unbounded memory needed by the machine of `G-7` (including NOT/AND/OR gates in at least one technology and the sliding block counter for every value). | supported by `G-3`, `G-4`; supports `G-7` | open; first ingredient compiled (block reactions `pull`, `push` for every position) | `N-09`, `N-10`, `N-11` compiled |
 | `G-6` | **Universal machine model in Lean.** A counter-machine model with compiled proof that it computes every partial recursive function in Mathlib's sense. Independent of Life. | supports `G-7` | open | `N-14` compiled |
 | `G-7` | **Turing completeness of Life.** For every program of the model of `G-6` a computable finite pattern with a compiled simulation theorem; corollaries: every `Nat.Partrec.Code` is computed by a finite pattern, and a stated natural predicate on finite configurations is not computable. Exact statement fixed by `N-12`. | supported by `G-5`, `G-6`; top-level | open | `N-15`, `N-16` compiled; scope statement; user confirmation of the statement (`A-4`) |
 | `G-8` | **Self-replication.** A precise definition and a compiled proof that an explicit finite pattern satisfies it. | supported by `G-3`, `G-5`; top-level | postponed (activation rule in `N-17`: after `G-7` or its component theory, and once an explicit decomposable pattern is identified, or by user decision) | definition with sanity instances; compositional proof |
@@ -79,7 +83,7 @@ statements), block reactions of `N-11`/`N-09` as plain certificates. In progress
 | `Q-8` | How are components specified and composed, and how are unbounded-time behaviours (a gun emitting forever) stated on finite configurations? | `N-07`, `N-08`, `N-09`–`N-11`, `N-15` | open; first instance solved | Unbounded-time statements work as invariants (`gosperGun_evolve`, `IsGun`); the general component interface is still to be designed in `N-08`, using the band-separation pattern of `N-07` |
 | `Q-9` | Where does cell-exact pattern data come from, with what provenance and licence? | `N-05`–`N-11`, `N-18` | partly answered | The book's PDF embeds 1020 RLE files (primary pattern source); Chapman's and Hickerson's files retrieved; licences not stated anywhere found. Provenance rule of `N-18` adopted |
 | `Q-10` | What is the right definition of self-replication, which explicit pattern would be proved, and is it feasible? | `G-8`; `N-17` | open | Definitions disputed in the sources; known patterns are ≈ 3 × 10⁵ cells with period ≈ 2 × 10⁸ |
-| `Q-11` | What JSON schema, and what level of round-trip assurance (theorem at string level, at `Json` value level, or tests)? | `N-02` | open | Proposal: theorem at value level, fixtures at string level |
+| `Q-11` | What JSON schema, and what level of round-trip assurance (theorem at string level, at `Json` value level, or tests)? | `N-02` | answered | Round trip proved for JSON values, by `rfl` on RLE/plaintext fixtures, tested only at string level; schema in `N-02` |
 | `Q-12` | How is counter-machine universality linked to Mathlib: from `Nat.Partrec.Code` directly or via `Turing.TM2`? | `N-14` | open | Mathlib has no counter machine model (checked by search); choose after reading `ToPartrec` |
 
 ## 3. Note registry and dependency graph
@@ -87,7 +91,7 @@ statements), block reactions of `N-11`/`N-09` as plain certificates. In progress
 | ID | Note | Addresses | Depends on | Difficulty | Status / Lean readiness | Next action |
 | --- | --- | --- | --- | --- | --- | --- |
 | `N-01` | [Kernel](research/N-01-kernel.md) | `G-1`; `Q-1`, `Q-2` | Mathlib | routine–moderate | **verified** (commit `0ae423d`) | none; re-audit on any kernel change |
-| `N-02` | [Snapshots and serialization](research/N-02-snapshots-serialization.md) | `G-2`; `Q-11` | `N-01` | routine | stated; **in progress** (sub-agent) | integrate the sub-agent's result |
+| `N-02` | [Snapshots and serialization](research/N-02-snapshots-serialization.md) | `G-2`; `Q-11` | `N-01` | routine | **verified** with stated gaps | optional: prove `trim` is a normal form using `ofRows_inj` |
 | `N-03` | [Certified simulation engine](research/N-03-certified-simulation.md) | `G-3`; `Q-3` | `N-01`; template tactics (compiled) | moderate | **verified** (commits `584f5bb`, `47f841c`) | none; precompile the `meta` simulation if runs get long |
 | `N-04` | [Locality and composition](research/N-04-locality-composition.md) | `G-3` | `N-01` | moderate | **verified** (commit `584f5bb`) | none |
 | `N-05` | [Still lifes and oscillators](research/N-05-still-lifes-oscillators.md) | `G-4` | `N-01`, `N-03` | routine | **verified** for the initial list (commit `47f841c`) | optional extensions (traffic light as four blinkers, T-tetromino) |
@@ -96,7 +100,7 @@ statements), block reactions of `N-11`/`N-09` as plain certificates. In progress
 | `N-08` | [Component interfaces](research/N-08-component-interfaces.md) | `G-3`, `G-5`; `Q-8` | `N-04`; informed by `N-07` | hard | exploratory; **ready** as design work | Compare GOL-IO with a minimal format on the gun and one reaction |
 | `N-09` | [Elementary reactions](research/N-09-elementary-reactions.md) | `G-5` | `N-03`, `N-05`, `N-06`, `N-08`, `N-18` | routine each | stated; data available (`R-18` §4); blocked on `N-08` for the format | Certify the three block reactions and glider-into-eater as plain certificates first |
 | `N-10` | [Logic gates and wiring](research/N-10-logic-gates.md) | `G-5`; `Q-7` | `N-08`, `N-09`, `N-13`, `N-18` | hard | exploratory; scope reduced by `R-18` (no gate network needed) | Fix the component set: reflector, splitter, merge, latch |
-| `N-11` | [Sliding block memory](research/N-11-sliding-block-memory.md) | `G-5`; `Q-6` | `N-03`, `N-04`, `N-05`, `N-06`, `N-08`, `N-18` | moderate | stated; data available (`R-18` §4.1, §4.7); larger than estimated | Certify block reactions; then the register circuit's `INC`/`TDEC` at one position |
+| `N-11` | [Sliding block memory](research/N-11-sliding-block-memory.md) | `G-5`; `Q-6` | `N-03`, `N-04`, `N-05`, `N-06`, `N-08`, `N-18` | moderate | partly **verified**: `pull`, `push` for every position; generators and zero test open | Certify the register circuit's `INC`/`TDEC` (needs `N-08`) |
 | `N-12` | [Meaning of universality](research/N-12-meaning-of-universality.md) | `G-7`; `Q-4` | Mathlib (compiled); `N-01` (types only) | moderate | stated in outline; `S-14` read (`R-18`); **ready** | Write the exact Lean statements |
 | `N-13` | [Route assessment](research/N-13-route-assessment.md) | `G-7`; `Q-5`, `Q-6` | `N-12`; sources | moderate | decided: route R1, confirmed against the sources (`R-18`) with corrections | none |
 | `N-14` | [Counter machines](research/N-14-counter-machines.md) | `G-6`; `Q-12` | Mathlib (compiled); `N-13` (conditional) | hard | stated; **in progress** (sub-agent) | integrate the sub-agent's result |
@@ -211,7 +215,6 @@ missing authorization or absence of useful ready work.
 Current priority order (provisional):
 
 1. `N-08` — interface design, informed by `N-07` (done); unblocks `N-09`–`N-11`, `N-15`.
-2. Block reactions (`N-11`, `N-09`) as plain certificates from the data in `R-18` §4.
 3. `N-12` — exact Lean statements of the universality theorems.
 4. Integration of the sub-agent results for `N-02` and `N-14`.
 5. `N-10` — fix the component set of the control circuitry.
@@ -299,6 +302,12 @@ There are no empirical inputs; every gate is a compiled proof.
   its `n` emitted gliders after `30 n` generations, for all `n`), `IsGun`, `gosperGun_isGun`,
   `gosperGun_not_bounded`. First theorem combining certificates, a signal-in-flight lemma and
   independence along a run; `G-4` achieved for its stated list.
+- **2026-11-14 — `N-02` serialization** (sub-agent, checked by the coordinator).
+  `Bridge/LifeIO.lean`: `Snapshot`, `Evolution`, `Repr`/`ToJson`/`FromJson`, RLE, plaintext,
+  `rle%`/`cells%`; `G-2` achieved; `Q-11` answered.
+- **2026-11-14 — `N-11` block reactions.** `Theory/Life/SlidingBlock.lean`: `pull` and `push`
+  for every block position, via the flight lemma `evolve_flight`. First compiled ingredient of
+  `G-5`.
 
 ## 12. Implementation and workstation log
 
