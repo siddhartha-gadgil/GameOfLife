@@ -1,0 +1,21 @@
+DZ1 in the world frame of REG1:
+  D  local ('NE', -10, 19)  world ('NE', -398, 1159)
+  A  local ('NE', -10, 49)  world ('NE', -398, 1189)
+  B  local ('NE', -10, 79)  world ('NE', -398, 1219)
+  S  local ('SW', 8, 58)  world ('SW', 396, 2382)
+  V  local ('NW', 13, 87)  world ('NW', 105, 2411)
+  O  local ('SE', 60, 73)  world ('SE', -32, 1213)
+  eater E local ofRows -12 1 [3, 2, 10, 12], world ofRows 136 241 [3, 2, 10, 12]
+  salvo (world): (SE, -97, 1140), (SE, -91, 1111)
+  D: distance of its line (|t - t_register| <= 2400) to the REG1 envelope: 90
+  A: distance of its line (|t - t_register| <= 2400) to the REG1 envelope: 90
+  B: distance of its line (|t - t_register| <= 2400) to the REG1 envelope: 90
+  S: distance of its line (|t - t_register| <= 2400) to the REG1 envelope: 90
+  V: distance of its line (|t - t_register| <= 2400) to the REG1 envelope: 0
+  O: distance of its line (|t - t_register| <= 2400) to the REG1 envelope: 0
+  eater to REG1 envelope: 109
+  k =  0: evolve 4650 (R ∪ C0 ∪ inputs ∪ E ∪ B_0) = R ∪ E ∪ B_0 ∪ Z: checked; box x -358..509, y -399..541
+  k =  1: evolve 4650 (R ∪ C0 ∪ inputs ∪ E ∪ B_1) = R ∪ E ∪ B_0 ∪ NZ: checked; box x -358..515, y -399..297
+  k =  2: evolve 4680 (R ∪ C0 ∪ inputs ∪ E ∪ B_2) = R ∪ E ∪ B_1 ∪ NZ: checked; box x -358..522, y -399..297
+  k =  3: evolve 4680 (R ∪ C0 ∪ inputs ∪ E ∪ B_3) = R ∪ E ∪ B_2 ∪ NZ: checked; box x -358..522, y -399..297
+  k = 40: evolve 4830 (R ∪ C0 ∪ inputs ∪ E ∪ B_40) = R ∪ E ∪ B_39 ∪ NZ: checked; box x -358..560, y -399..297

@@ -421,6 +421,9 @@ There are no empirical inputs; every gate is a compiled proof.
   `decJz` component started (report `R-26`).
 - **2026-11-14 — joint register found** (search `R-24`, sub-agent): `REG1`, one block served by
   a DEC and an INC input (shared glider via an OR gate). Not yet certified.
+- **2026-11-14 — decrement-from-zero decision** (search `R-26`, sub-agent): `DZ1` works with free
+  gliders, also inside `REG1`, but its NZ output runs into a restore glider's emitter (`O3`);
+  not yet suppliable.
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom

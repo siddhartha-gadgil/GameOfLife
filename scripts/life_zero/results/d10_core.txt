@@ -1,0 +1,3 @@
+mirrored pull salvo [((1, 1), -2, -6), ((1, 1), -8, -11)] : counter k -> counter (k - 1) for k = 0..5 (checked)
+valid detector taus: [41, 42, 43, 44, 45] .. [157, 158, 159] 119
+tauD 41 valid s: []

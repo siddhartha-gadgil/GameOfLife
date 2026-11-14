@@ -25,3 +25,5 @@ declaration.
   current components, and a partly designed replacement logic (`scripts/life_zero`).
 - [`R-24-register.md`](R-24-register.md): the joint register `REG1` (one block, DEC and INC
   inputs, a shared glider through an OR gate); `scripts/life_machine`.
+- [`R-26-decjz.md`](R-26-decjz.md): the decrement-from-zero decision `DZ1` (free gliders) and
+  the supply obstruction `O3`; `scripts/life_zero`.

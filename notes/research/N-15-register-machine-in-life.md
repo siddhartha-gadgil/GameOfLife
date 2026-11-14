@@ -331,6 +331,17 @@ by an OR gate (a gate released by either control), makes 18 pairs fit. The pull 
 done: continue gliders for `REG1`, its certification, the zero test (search `R-26` running,
 told to target `REG1`).
 
+**Decrement-from-zero decision `DZ1` (2026-11-14, report `R-26`, sub-agent; observations,
+not certified).** With free gliders: after the unconditional pull, a detector glider and four
+restore gliders (three of them on one lane, 30 generations apart) plus one eater give: `k = 0` →
+block restored to `counter 0`, output `Z` (an SE glider); `k ≥ 1` → block at `k - 1`, output `NZ`
+(an NE glider). Exact for `k = 0..7`, `40`, also inside `REG1`. Searches show only four single
+gliders can detect the block at `-1` while passing all blocks at `≥ 0`, and no single glider
+restores the block to 0. Obstruction `O3`: in case NZ the output flies two lanes beside the
+incoming path of a restore glider, i.e. into that glider's emitter; the same collision prevents
+reuse. So `DZ1` cannot yet be supplied from guns. Ideas: wider two- and three-glider
+catalogues; making NZ the output of a two-release gate; using `REG1`'s INC input for the restore.
+
 ## Claims and evidence
 
 No claims beyond the sourced existence of Chapman's pattern.

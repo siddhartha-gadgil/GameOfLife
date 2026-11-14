@@ -1,0 +1,3 @@
+SW9 unit1 [('SW', 8, 2), ('SW', 9, -17)] block (4, 3) unit2 [('SW', 9, 12), ('SE', 9, -31)] NZ survivors [('SW', 9, -17), ('SE', 9, -31)]
+SW9 unit1 [('SE', 3, -42), ('SW', 7, 14)] block (8, 4) unit2 [('SE', 9, -50), ('SW', 9, 42)] NZ survivors [('SW', 7, 14), ('SW', 9, 42)]
+SW9 unit1 [('SE', 3, -42), ('NW', -6, 20)] block (6, 4) unit2 [('SW', 4, 2), ('SE', 4, -10)] NZ survivors [('NE', -13, -48), ('SE', 4, -10)]

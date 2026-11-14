@@ -1,0 +1,15 @@
+  a (salvo)  ('SE', -5, 0)    at time -120: ofRows -30 -25 [2, 4, 7]
+  b (salvo)  ('SE', 1, -29)   at time -120: ofRows -23 -23 [5, 6, 2]
+  D          ('NE', -10, 19)  at time -120: ofRows -35 44 [2, 6, 5]
+  A          ('NE', -10, 49)  at time -120: ofRows -42 52 [3, 6, 1]
+  B          ('NE', -10, 79)  at time -120: ofRows -50 59 [2, 6, 5]
+  S          ('SW', 8, 58)    at time -120: ofRows 45 -36 [1, 5, 3]
+  V          ('NW', 13, 87)   at time -120: ofRows 52 64 [2, 3, 5]
+  O          ('SE', 60, 73)   at time -120: ofRows -48 -108 [1, 6, 3]
+  minimum distance between the inputs, the eater and counter 0 at time -120: 5
+  eater E: ofRows -12 1 [3, 2, 10, 12]
+  k =  0: evolve 360 (inputs ∪ E ∪ counter 0) = E ∪ counter 0 ∪ Z ofRows 42 -18 [1, 6, 3]: exact; box x -50..54, y -108..66
+  k =  1: evolve 360 (inputs ∪ E ∪ counter 1) = E ∪ counter 0 ∪ NZ ofRows 48 -38 [3, 6, 1]: exact; box x -50..54, y -108..66
+  k =  2: evolve 360 (inputs ∪ E ∪ counter 2) = E ∪ counter 1 ∪ NZ ofRows 48 -38 [3, 6, 1]: exact; box x -50..54, y -108..66
+  k =  3: evolve 360 (inputs ∪ E ∪ counter 3) = E ∪ counter 2 ∪ NZ ofRows 48 -38 [3, 6, 1]: exact; box x -50..54, y -108..66
+  k = 40: evolve 520 (inputs ∪ E ∪ counter 40) = E ∪ counter 39 ∪ NZ ofRows 88 -78 [3, 6, 1]: exact; box x -50..90, y -108..66
