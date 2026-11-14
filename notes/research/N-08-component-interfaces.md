@@ -12,12 +12,12 @@
 | Dependency requirement | compiled independence and locality theorems; the gun theorem as a test case |
 | Produces | a chosen specification format for components (region, ports, signals, timing), a composition theorem, and a decision on how much of the HOL4 GOL-IO design to adopt |
 | Difficulty | hard: this is the main design problem of the project; the mathematics is elementary but a poor interface makes every later proof expensive |
-| Status | exploratory |
+| Status | exploratory; a concrete proposal is recorded under "Lessons and proposal" (2026-11-14), not yet tested on a multi-component example |
 | Implementation status | not started |
 | Implementation evidence | none |
 | Lean evidence | none |
 | Audit evidence | not audited |
-| Last updated | 2026-11-14: seeded |
+| Last updated | 2026-11-14: lessons from `N-07` and `N-11` recorded; proposal drafted |
 
 ## Purpose and scope
 
@@ -64,6 +64,52 @@ Candidate minimal formulation: a component is a triple (region, internal state f
 list); its specification is a transition relation on (internal state, pending port events) with
 a duration, proved by certificates on the region with a margin; composition follows from
 `N-04` items 1 and 4. Compare with GOL-IO on the gun-plus-eater example before deciding.
+
+## Lessons and proposal (2026-11-14)
+
+Two component-style theorems are now compiled without any interface layer: the Gosper gun for
+all time (`gosperGun_evolve`) and the block reactions for every position (`pull`, `push`). Both
+proofs have the same three parts, which suggests what the interface should package.
+
+1. **A certificate at a reference placement**, for a fixed number of generations
+   (`gosperGun_evolve_sixty`, `pull_zero`).
+2. **A confinement statement for every intermediate generation**: where the evolving pattern is
+   while the certificate runs (`gosperGun_snd_le`, `pullSalvo_snd`). In both proofs a bound on
+   one coordinate was enough, and it was obtained by one `life_eval` per generation.
+3. **Independence along a run** (`Rule.evolve_union_of_forall_sep`) against everything else,
+   using only the confinement statements, followed by translation equivariance.
+
+Proposal (to be tested before it is formalized):
+
+- **Reaction record.** `Reaction P Q n box`: `conway.evolve n P = Q` together with
+  `∀ i ≤ n, conway.evolve i P ⊆ box i`, where `box i` is a rectangle (or a finite union of
+  rectangles) of cells. Still lifes, oscillators, spaceships in flight and one-shot reactions
+  are all instances.
+- **Parallel composition.** If the boxes of two reactions are at Chebyshev distance greater than
+  2 at every time, the union of the patterns is a reaction with the union of the boxes. This is
+  `Rule.evolve_union_of_forall_sep` plus a lemma that separated boxes give `Sep 2`
+  (`sep_of_snd_lt` is its one-coordinate case).
+- **Sequential composition.** `Reaction P Q n box` and `Reaction Q R m box'` give
+  `Reaction P R (n + m)` (`Rule.evolve_add`).
+- **Placement.** Reactions are transported by every symmetry of the grid
+  (`Rule.evolve_map`), so one certificate serves all positions and orientations.
+- **Signals.** A signal is a spaceship with a lane and a phase; its flight is a reaction whose
+  box moves linearly (`evolve_flight` is the instance for one direction against a still life).
+- **Certificates should deliver the boxes.** The `Evolves` certificate of `N-03` already
+  passes through the trimmed window of every generation, so a variant of its soundness theorem
+  can give `∀ i ≤ n, conway.evolve i P ⊆ box i` from the same proof term, replacing one
+  `life_eval` per generation by a single certificate. This is the first implementation step.
+
+What this does not yet cover: components that are triggered repeatedly (a register used many
+times: a reaction from each of its states back to a state, which the record does express), and
+timing constraints between signals ("asynchronous is not timing-free", `R-18`): these become
+side conditions on the durations `n` when reactions are composed, and need an example before a
+general formulation. GOL-IO (`S-07`) handles clocked streams through fixed tiles; the proposal
+above is closer to a Hoare-style calculus of one-shot reactions with footprints, which fits
+the gun-free register machine chosen in `N-13`.
+
+Smallest test of the proposal: the gun with an eater (a bounded periodic assembly of two
+components), or two block registers side by side receiving salvos at different times.
 
 ## Claims and evidence
 
