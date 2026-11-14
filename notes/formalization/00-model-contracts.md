@@ -38,9 +38,15 @@ contract states the model, the object, the quantifiers and what is controlled. A
 | `Simulates` (machine by Life) | Machine model, computable encoding, duration function, halting observable | `N-12` |
 | `IsReplicator` | Number and position of copies, treatment of the parent and of debris | `N-17` |
 
-Model conventions to record here when `N-01` fixes them: coordinate orientation, the rule
-(B3/S23, or a rule parameter instantiated at `conway`), and that configurations are finite sets
-of live cells on `ℤ × ℤ`.
+Model conventions (fixed by `N-01`, compiled in `LeanTheory/Kernel/Life.lean`):
+
+- a cell is a point of `ℤ × ℤ`; the first coordinate `x` increases to the right and the second
+  coordinate `y` increases **downward**, as in the RLE pattern format;
+- a configuration is a `Finset` of live cells, so finitely many cells are alive at every time;
+- the dynamics is `Rule.step` for a `Rule` (birth and survival counts, with no birth at zero
+  neighbours); statements about Life use the instance `conway` (B3/S23);
+- `Rule.stepSet` is the cell-by-cell specification on arbitrary sets; `Rule.coe_step` proves
+  that the computable step agrees with it on finite configurations.
 
 In the template's worked example the contract is "every trajectory
 obeying `OscillatorLaw params23` and starting in `initialStates` satisfies `3 x(t)² ≤ 1` for all
