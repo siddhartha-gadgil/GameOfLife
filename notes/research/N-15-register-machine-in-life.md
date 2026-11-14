@@ -17,7 +17,7 @@
 | Implementation evidence | `LeanTheory/Theory/Life/Gates.lean`, `Collisions.lean`, `SalvoGenerator.lean`, `SlidingBlock.lean`, `Register.lean` |
 | Lean evidence | none |
 | Audit evidence | not audited |
-| Last updated | 2026-11-14: pull-salvo generator certified; decrement for every position proved |
+| Last updated | 2026-11-14: `R-22` integrated (continue glider found; push generator not found) |
 
 ## Purpose and scope
 
@@ -206,6 +206,30 @@ would be within two rows of the generator's box).
 Still open for one complete instruction: repeated use; a generator for
 the pushing salvo (three gliders; estimated by the search at about ten guns and five or six
 reflectors); a "continue" glider; the zero-test logic.
+
+## Continue glider, push generator, zero-test logic (2026-11-14, report `R-22`)
+
+Search `scripts/life_machine` (sub-agent), observations by full simulation, not yet certified:
+
+- **Continue glider: found (`CG1`).** A fan-out (`F1` of `R-21`, translated by `(-162, -216)`)
+  placed in front of `pullGenerator`: one control glider `ofRows (-130) (-225) [2, 4, 7]` gives,
+  after 2010 generations, the generator back in its cycle, the pulling salvo, and a continue
+  glider `ofRows (-479) 177 [5, 3, 2]` travelling down-left. 8 guns, 3 reflectors; reuse after
+  450 generations; with the block, `k → k - 1` for `k = 1..4` and `40`. The new pieces are at
+  least 113 cells from the box of `pullGenerator_reaction`, so a proof can compose the fan-out,
+  the flight of the linking glider and the certified generator.
+- **Push generator: not found.** Of the 176 three-glider pushes only 31 can be assembled by
+  reflectors at all (an insertion rule found by the search), and `pushSalvo` is not among them.
+  A comb fan-out (three outputs, 2611 placements) was found, but every exact lane/timing
+  solution of the generator search has overlapping pieces: one reflection cannot re-time a
+  glider, and the comb's outputs are 600–800 generations apart. Next ideas: paths with two or
+  more turns for every salvo glider; a PG1-type generator for two gliders of an assemblable push
+  plus the third from a continue glider; a period-60 clock.
+- **Zero-test logic: decision part found with free gliders.** The three-glider test of
+  `zeroTestSalvo_hit` plus a detector glider and two eaters: at `k = 0` the block is restored and
+  only the detector flies on (`Z`); at `k ≥ 1` (checked `1..12`, `40`) a test glider kicks the
+  detector back (`NZ`) and the others are eaten. Generating the four gliders from one control
+  glider is a salvo-generation problem like the push.
 
 ## Claims and evidence
 

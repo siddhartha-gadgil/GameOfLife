@@ -1,0 +1,5 @@
+pushes that can be assembled as (any, L, L): 17; path 1 entries: 32680
+combs 40, control records 88: exact solutions of the lane and timing equations: 2360119; kept (boxes of the pieces >= 5 apart, 400 smallest per job): 0 (1265 s)
+by mode (tt: both teeth; ts: one tooth and the spare glider): {}
+causal, separated and with clear flight segments: 0 of the first 0 (1265 s)
+simulated 0: {} (1265 s)

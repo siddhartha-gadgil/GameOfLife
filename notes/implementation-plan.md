@@ -55,10 +55,10 @@ side-tracking; Hickerson's shotgun with suppression, 1990; Chapman 2002; stable 
 `S-11`), see `N-15`. One formal precedent: verified Life circuits in HOL4 (`S-07`), which proves
 self-simulation on generally infinite states and leaves the link to computability open.
 
-**Latest result.** The search `scripts/life_machine` (report `R-21`) found a fan-out, a
-reflector and a generator of the pulling salvo from one control glider; the reflector and the
-generator are certified (`SalvoGenerator.lean`). Not found yet: a generator of the pushing salvo
-and a "continue" glider.
+**Latest result.** Certified: reflector, pull-salvo generator and `decrement` for every
+position `k ≥ 1`. Found by search (`R-22`), not certified: a continue glider (`CG1`) and the
+decision part of the zero test. Not found: a generator of the pushing salvo — this is now the
+main open component.
 
 **Main barriers.** (i) The push-salvo generator, the continue signal and the zero-test logic are
 not yet designed. (ii) The layout
@@ -382,6 +382,10 @@ There are no empirical inputs; every gate is a compiled proof.
   the first complete register operation triggered by a single glider, for a block at any
   position `k ≥ 1`, composed with the reaction calculus from the generator certificate, the
   block reaction, flight and independence.
+- **2026-11-14 — search `R-22`** (sub-agent; interrupted once by an API rate limit and resumed).
+  Continue glider found (`CG1`: fan-out in front of the pull generator); push generator not
+  found (obstruction: re-timing by reflection and the spacing of comb outputs); decision part of
+  the zero-test logic found with free gliders. Observations only; recorded in `N-15`.
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom

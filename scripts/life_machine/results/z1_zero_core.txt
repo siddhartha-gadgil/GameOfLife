@@ -1,0 +1,30 @@
+zeroTestGlider    = (SW, lane 11, tau 20)
+zeroRestoreGlider = (NE, lane -22, tau -25); the register (blocks counter k) is on the SE lane -4
+zeroTest_hit (9 generations) and zeroTest_restore (20 generations): checked
+positions j of the kick with both cases correct: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  j =   8: D = (SE, lane -11, tau 37) [7 lanes left of the register], NZ = (NW, lane 13, tau 25); distance from all blocks counter 0 .. 59: D 3, NZ 3
+  j =   9: D = (SE, lane -13, tau 45) [9 lanes left of the register], NZ = (NW, lane 15, tau 25); distance from all blocks counter 0 .. 59: D 4, NZ 4
+  j =  10: D = (SE, lane -15, tau 53) [11 lanes left of the register], NZ = (NW, lane 17, tau 25); distance from all blocks counter 0 .. 59: D 5, NZ 5
+  j =  11: D = (SE, lane -17, tau 61) [13 lanes left of the register], NZ = (NW, lane 19, tau 25); distance from all blocks counter 0 .. 59: D 6, NZ 6
+  j =  12: D = (SE, lane -19, tau 69) [15 lanes left of the register], NZ = (NW, lane 21, tau 25); distance from all blocks counter 0 .. 59: D 7, NZ 7
+  j =  13: D = (SE, lane -21, tau 77) [17 lanes left of the register], NZ = (NW, lane 23, tau 25); distance from all blocks counter 0 .. 59: D 8, NZ 8
+  j =  14: D = (SE, lane -23, tau 85) [19 lanes left of the register], NZ = (NW, lane 25, tau 25); distance from all blocks counter 0 .. 59: D 9, NZ 9
+  j =  15: D = (SE, lane -25, tau 93) [21 lanes left of the register], NZ = (NW, lane 27, tau 25); distance from all blocks counter 0 .. 59: D 10, NZ 10
+  j =  16: D = (SE, lane -27, tau 101) [23 lanes left of the register], NZ = (NW, lane 29, tau 25); distance from all blocks counter 0 .. 59: D 11, NZ 11
+  j =  17: D = (SE, lane -29, tau 109) [25 lanes left of the register], NZ = (NW, lane 31, tau 25); distance from all blocks counter 0 .. 59: D 12, NZ 12
+  j =  18: D = (SE, lane -31, tau 117) [27 lanes left of the register], NZ = (NW, lane 33, tau 25); distance from all blocks counter 0 .. 59: D 13, NZ 13
+  j =  19: D = (SE, lane -33, tau 125) [29 lanes left of the register], NZ = (NW, lane 35, tau 25); distance from all blocks counter 0 .. 59: D 14, NZ 14
+  j =  20: D = (SE, lane -35, tau 133) [31 lanes left of the register], NZ = (NW, lane 37, tau 25); distance from all blocks counter 0 .. 59: D 15, NZ 15
+  j =  21: D = (SE, lane -37, tau 141) [33 lanes left of the register], NZ = (NW, lane 39, tau 25); distance from all blocks counter 0 .. 59: D 16, NZ 16
+  j =  22: D = (SE, lane -39, tau 149) [35 lanes left of the register], NZ = (NW, lane 41, tau 25); distance from all blocks counter 0 .. 59: D 17, NZ 17
+  j =  23: D = (SE, lane -41, tau 157) [37 lanes left of the register], NZ = (NW, lane 43, tau 25); distance from all blocks counter 0 .. 59: D 18, NZ 18
+  j =  24: D = (SE, lane -43, tau 165) [39 lanes left of the register], NZ = (NW, lane 45, tau 25); distance from all blocks counter 0 .. 59: D 19, NZ 19
+  j =  25: D = (SE, lane -45, tau 173) [41 lanes left of the register], NZ = (NW, lane 47, tau 25); distance from all blocks counter 0 .. 59: D 20, NZ 20
+  j =  26: D = (SE, lane -47, tau 181) [43 lanes left of the register], NZ = (NW, lane 49, tau 25); distance from all blocks counter 0 .. 59: D 21, NZ 21
+  j =  27: D = (SE, lane -49, tau 189) [45 lanes left of the register], NZ = (NW, lane 51, tau 25); distance from all blocks counter 0 .. 59: D 22, NZ 22
+  j =  28: D = (SE, lane -51, tau 197) [47 lanes left of the register], NZ = (NW, lane 53, tau 25); distance from all blocks counter 0 .. 59: D 23, NZ 23
+  j =  29: D = (SE, lane -53, tau 205) [49 lanes left of the register], NZ = (NW, lane 55, tau 25); distance from all blocks counter 0 .. 59: D 24, NZ 24
+  j =  30: D = (SE, lane -55, tau 213) [51 lanes left of the register], NZ = (NW, lane 57, tau 25); distance from all blocks counter 0 .. 59: D 25, NZ 25
+example j = 15, windows at time 0 (frame of SlidingBlock.lean):
+   T = ofRows 5 6 [2, 1, 7], D = ofRows -23 2 [1, 6, 3]
+   NZ at time 400 = ofRows -94 -67 [6, 3, 4], D at time 400 = ofRows 77 102 [1, 6, 3]

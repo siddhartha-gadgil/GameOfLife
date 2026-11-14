@@ -40,7 +40,16 @@ transformed by `sym_k`, translated by `(vx, vy)` and delayed by `s` generations
 | `g4_pull3.py` | pull-salvo generator from one control glider: fan-out + third gate + three reflectors |
 | `g5_clearance.py` | clearances of the flight segments of the recommended generator |
 | `report_data.py` | windows of the recommended designs, each statement re-checked with the set simulator |
-| `results/` | outputs quoted in `R-21` |
+| `results/` | outputs quoted in `R-21` and `R-22` |
+| `net.py` | (R-22) pieces (assemblies, reflectors) as data, `PG1`, composites `Net` with `react` / `trace`, exact envelope and flight distances, reflector maps on world lines, the insertion rule for parallel gliders |
+| `p1_pushes.py` | (R-22) the 176 three-glider pushes of `scripts/life_search` as world lines, each re-checked |
+| `c1_continue.py` | (R-22) continue glider: a fan-out in series with `PG1` (its first output is `PG1`'s control glider) |
+| `s4_salvo4.py` | (R-22) pull salvo + two gliders on lanes a reflector beside `PG1` can reach: all outcomes |
+| `f3_comb.py` | (R-22) comb fan-out: one control glider, three outputs, three assemblies |
+| `g6_push.py` | (R-22) push generator: fan-out F2 + comb + reflectors (search) |
+| `z1_zero_core.py`, `z2_zero_logic.py` | (R-22) zero-test logic with free gliders: detector glider and kickback |
+| `x1_insertion.py` | (R-22) scan behind the insertion rule `net.insertion_clear` |
+| `report22.py` | (R-22) windows and checks of the recommended designs |
 
 ## Results in one paragraph
 
@@ -50,7 +59,8 @@ each. Found instead: the reflector `RF0` (queen bee shuttle + eater, right-angle
 a fan-out by a round trip through the source gate (`results/f2_roundtrip.txt`, 77 placements); and
 the pull-salvo generator `PG1` (`results/pg1.json`): `blockedStream`, two more copies of it and
 three reflectors, `evolve 1170 (R ∪ C) = R ∪ translate (51, 143) pullSalvo`, reuse spacing 330.
-Push salvo and continue glider: not done.
+Push salvo and continue glider: not done in R-21. R-22 adds the continue glider (`CG1`: fan-out F1
+in series with `PG1`), the zero-test logic with free gliders, and a negative push-generator search.
 
 ## Reproducing the runs of R-21
 
@@ -104,3 +114,22 @@ simulator on the unbounded plane, including the block for `k = 0 .. 3` and the r
   result must be the two sets of output gliders, `T` generations apart.
 * *Block test*: the same with a block `counter k` (translated) added; the result must be the
   cycle and the block at `k - 1`, and nothing else.
+
+## Reproducing the runs of R-22
+
+```bash
+cd scripts/life_machine
+python3 p1_pushes.py        > results/p1_pushes.txt       # 5 s; writes results/p1_pushes.json
+python3 c1_continue.py      > results/c1_continue.txt     # 1 min (u in -260 .. -20, 120 simulated)
+python3 report22.py continue -162 -216 0 420 450 > results/report_continue.txt   # 3 min
+python3 s4_salvo4.py -100 60 > results/s4_salvo4.txt      # 6 min, 20 processes
+python3 -u f3_comb.py       > results/f3_comb.txt         # 6 min + reuse tests of 12 combs
+python3 -u g6_push.py 150 40 > results/g6_push.txt        # see R-22
+python3 x1_insertion.py     > results/x1_insertion.txt    # 10 min
+python3 z1_zero_core.py     > results/z1_zero_core.txt    # 1 min
+python3 z2_zero_logic.py    > results/z2_zero_logic.txt   # 3 min
+```
+
+The insertion rule `net.insertion_clear` (when a reflector can put a glider beside a parallel
+glider already in flight) was read off a scan of `net.insertion_ok` over lane offsets 4 .. 20 and
+delays -80 .. 80 (R-22, section 2).

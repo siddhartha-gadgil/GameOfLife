@@ -17,3 +17,5 @@ declaration.
   reflector and salvo generators (`scripts/life_machine`); obstructions (gun shadow, uncrossable
   streams, parity). Reflector and pull-salvo generator certified in
   `LeanTheory/Theory/Life/SalvoGenerator.lean`.
+- [`R-22-push-and-continue.md`](R-22-push-and-continue.md): continue glider (`CG1`), the failed
+  push-generator search with its obstructions, and the decision part of the zero test.
