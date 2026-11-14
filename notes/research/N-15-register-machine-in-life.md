@@ -270,6 +270,15 @@ i.e. with column bounds) and `continueDecrement`: for every `k ≥ 1`, one contr
 flight, generator and fan-out in their cycles, nothing else. Three phases composed with the
 reaction calculus; no new certificate of a large component.
 
+**Zero-test decision certified (2026-11-14).** `Theory/Life/ZeroTestLogic.lean`:
+`zeroTest_decision : ∀ k, conway.evolve 196 (zeroTestInput ∪ zeroEaters ∪ counter k) =
+zeroEaters ∪ counter k ∪ (if k = 0 then zOut else nzOut)` — the block is unchanged in both cases,
+`zOut` is the detector flying on, `nzOut` the detector kicked back. Certificates for `k = 0`,
+`k = 1` and for the run without a block; for `k ≥ 2` a separation argument using the new tactic
+`life_invariant` (`Theory/Life/Invariant.lean`: a predicate on cells certified at every
+generation; here "off the register's lane or above its anti-diagonals"). Open: producing the
+four input gliders from one control glider.
+
 ## Claims and evidence
 
 No claims beyond the sourced existence of Chapman's pattern.

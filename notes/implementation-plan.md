@@ -33,6 +33,7 @@ to a proof that Life is Turing complete, and ultimately self-replication.
 | `Theory/Life/ContinueGlider` | `N-15` | `continueGenerator_reaction`: one control glider ⟶ pulling salvo + continue glider |
 | `Theory/Life/Increment` | `N-15` | `increment`: for every `k`, push generator + control glider + block at `k` ⟶ generator + block at `k + 1` |
 | `Theory/Life/ContinueDecrement` | `N-15` | `continueDecrement`: decrement for every `k ≥ 1` that also emits a continue glider |
+| `Theory/Life/Invariant`, `ZeroTestLogic` | `N-15` | `life_invariant`; `zeroTest_decision`: test gliders + detector ⟶ `zOut` (k = 0) or `nzOut` (k ≥ 1), block unchanged |
 | `Theory/Life/Decision` | `N-12` | `WindowData`, `EverAlive`, reduction from a computable family to the general decision problem |
 | `Theory/Computability/*` | `N-14` | Counter machines; `exists_computes_code`; an undecidable halting problem |
 
@@ -399,6 +400,9 @@ There are no empirical inputs; every gate is a compiled proof.
   footprints (`pull_reaction_quad`) and `continueDecrement` (`ContinueDecrement.lean`): the
   continue glider now composes with the register block. RAM watchdog started at the user's
   request (pauses the search if available memory < 3 GB).
+- **2026-11-14 — zero-test decision** (user request). `Theory/Life/Invariant.lean` (tactic
+  `life_invariant`) and `Theory/Life/ZeroTestLogic.lean`: `zeroTest_decision` for every register
+  position. Open: generating its four input gliders from one control glider.
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom

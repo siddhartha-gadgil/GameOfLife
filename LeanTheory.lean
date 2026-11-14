@@ -97,12 +97,14 @@ public import LeanTheory.Theory.Life.Decrement
 public import LeanTheory.Theory.Life.Gates
 public import LeanTheory.Theory.Life.Guns
 public import LeanTheory.Theory.Life.Increment
+public import LeanTheory.Theory.Life.Invariant
 public import LeanTheory.Theory.Life.Locality
 public import LeanTheory.Theory.Life.Patterns
 public import LeanTheory.Theory.Life.Reactions
 public import LeanTheory.Theory.Life.Register
 public import LeanTheory.Theory.Life.SalvoGenerator
 public import LeanTheory.Theory.Life.SlidingBlock
+public import LeanTheory.Theory.Life.ZeroTestLogic
 public import LeanTheory.Theory.Stability.AbstractEnergy
 public import LeanTheory.Theory.Stability.BlockBounds
 public import LeanTheory.Theory.Stability.Newcomb
