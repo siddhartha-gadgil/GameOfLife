@@ -291,6 +291,13 @@ block (needs column bounds for `push3_reaction`, as was done for the pull).
 Lesson (recorded in the plan): a `life_invariant` certificate checking every cell of a wide window
 for 450 generations used over 20 GB of RAM in the kernel; per-row checks (`life_corner`) are cheap.
 
+**Increment with a continue glider (2026-11-14).** `Theory/Life/ContinueIncrement.lean`:
+`push3_reaction_quad` (column-bounded footprint for the push) and `continueIncrement`: for every
+`k`, one control glider into `pushGenerator ∪ pushFan` moves the block from `k` to `k + 1` and
+leaves the continue glider in flight, both assemblies in their cycles, nothing else. Four phases
+composed with the reaction calculus. With `continueDecrement` both register operations now emit
+a continue glider (each on its own block).
+
 ## Claims and evidence
 
 No claims beyond the sourced existence of Chapman's pattern.

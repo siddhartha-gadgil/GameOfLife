@@ -35,6 +35,7 @@ to a proof that Life is Turing complete, and ultimately self-replication.
 | `Theory/Life/ContinueDecrement` | `N-15` | `continueDecrement`: decrement for every `k ≥ 1` that also emits a continue glider |
 | `Theory/Life/Invariant`, `ZeroTestLogic` | `N-15` | `life_invariant`; `zeroTest_decision`: test gliders + detector ⟶ `zOut` (k = 0) or `nzOut` (k ≥ 1), block unchanged |
 | `Theory/Life/IncrementContinue` | `N-15` | `incrementContinue_evolve`: one control glider ⟶ pushing salvo + continue glider |
+| `Theory/Life/ContinueIncrement` | `N-15` | `continueIncrement`: increment for every `k` that also emits a continue glider |
 | `Theory/Life/Decision` | `N-12` | `WindowData`, `EverAlive`, reduction from a computable family to the general decision problem |
 | `Theory/Computability/*` | `N-14` | Counter machines; `exists_computes_code`; an undecidable halting problem |
 
@@ -410,6 +411,8 @@ There are no empirical inputs; every gate is a compiled proof.
   filled the RAM; the watchdog paused both searches as designed; the process was killed, the
   searches resumed. Fix: the per-row check `life_corner`. Since then Lean checks run under an
   8 GB RSS cap (`leancap.sh` in the scratchpad).
+- **2026-11-14 — increment with continue glider** (user request). `continueIncrement` for every
+  position, with `push3_reaction_quad`. Both register operations now have continue gliders.
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom

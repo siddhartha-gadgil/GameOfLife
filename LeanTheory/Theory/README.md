@@ -40,6 +40,7 @@ These modules build on `Kernel/Life` (definitions only; there is no law).
 | `Boxes` | Rectangular footprints: `Box`, `Box.farApart`, `boxCheck` with `coe_ofRows_subset_box`, flight with a moving box (`reaction_flight_box`), resting still lifes and oscillators |
 | `Collisions` | Elementary reactions found by own search: eater absorbs glider, annihilations, kickback, turn-round, a shorter push, and the zero test (`zeroTest_hit`, `zeroTest_restore`, `zeroTest_pass` for every position `k ≥ 1`, `zeroTestSalvo_hit`) |
 | `ContinueDecrement` | Decrement with a continue glider, for every position `k ≥ 1` (`continueDecrement`); salvo footprints bounding columns (`pull_reaction_quad`) |
+| `ContinueIncrement` | Increment with a continue glider, for every position `k` (`continueIncrement`); push salvo footprint bounding columns (`push3_reaction_quad`) |
 | `ContinueGlider` | A fan-out in front of the pull generator: one control glider ⟶ the pulling salvo and a continue glider, assembly back in its cycle after 2010 generations (`continueGenerator_reaction`, compositional proof) |
 | `Decision` | Finite configurations as data (`WindowData`), the predicate `EverAlive`, and the reduction from a computable family to the general decision problem |
 | `Decrement` | The first complete register operation: for every `k ≥ 1`, generator + one control glider + block at position `k` evolve into generator + block at `k - 1` (`decrement`, `decrement_reaction` with footprint) |

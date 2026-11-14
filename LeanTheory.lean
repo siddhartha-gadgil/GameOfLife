@@ -92,6 +92,7 @@ public import LeanTheory.Theory.Life.Boxes
 public import LeanTheory.Theory.Life.Collisions
 public import LeanTheory.Theory.Life.ContinueDecrement
 public import LeanTheory.Theory.Life.ContinueGlider
+public import LeanTheory.Theory.Life.ContinueIncrement
 public import LeanTheory.Theory.Life.Decision
 public import LeanTheory.Theory.Life.Decrement
 public import LeanTheory.Theory.Life.Gates
