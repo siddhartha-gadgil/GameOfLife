@@ -97,6 +97,7 @@ public import LeanTheory.Theory.Life.Decrement
 public import LeanTheory.Theory.Life.Gates
 public import LeanTheory.Theory.Life.Guns
 public import LeanTheory.Theory.Life.Increment
+public import LeanTheory.Theory.Life.IncrementContinue
 public import LeanTheory.Theory.Life.Invariant
 public import LeanTheory.Theory.Life.Locality
 public import LeanTheory.Theory.Life.Patterns

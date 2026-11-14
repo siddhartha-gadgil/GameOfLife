@@ -46,7 +46,8 @@ These modules build on `Kernel/Life` (definitions only; there is no law).
 | `Gates` | Components of the machine design, found by own search: `terminatedGun` (gun + eater, period exactly 30), `blockedStream` (two guns annihilating each other's streams, period exactly 30), and `gate` (a control glider releases exactly one glider) |
 | `Guns` | The Gosper glider gun for all time (`gosperGun_evolve`, `IsGun`), gliders in flight (`evolve_train`), window unions (`ofRows_orRows`, `ofRows_padRows`) |
 | `Increment` | The push generator (ten guns, four reflectors) and the increment for every block position: `pushGenerator_reaction` (1650 generations), `push3_reaction`, `increment` |
-| `Invariant` | Evolution certificates for a predicate on cells at every generation (`EvolvesP`, tactic `life_invariant`), e.g. diagonal bands |
+| `IncrementContinue` | The push generator with a continue glider: `incrementContinue_evolve` (one control glider ⟶ pushing salvo + continue glider, 2100 generations) |
+| `Invariant` | Evolution certificates with a check on every generation's window (`EvolvesW`); tactics `life_invariant` (predicate on cells) and `life_corner` (cheap `x ≤ X ∨ y ≤ Y`) |
 | `Locality` | Translation, Chebyshev neighbourhoods, locality of `evolve`, independence of separated patterns (with sharp one-step constant), equivariance, periodicity algebra, bounded implies eventually periodic |
 | `Patterns` | Classes `IsStillLife`, `IsOscillator`, `IsSpaceship` and a catalogue with proved behaviour: block, beehive, loaf, boat, pond, eater 1; blinker, toad, beacon, traffic light, pulsar, pentadecathlon; glider, LWSS, MWSS, HWSS |
 | `SalvoGenerator` | Found by own search: `reflector` (period exactly 30, turns a glider by a right angle) and `pullGenerator` (six guns, three reflectors): one control glider yields exactly the pulling salvo in 1170 generations (`pullGenerator_reaction`, with a box footprint) |

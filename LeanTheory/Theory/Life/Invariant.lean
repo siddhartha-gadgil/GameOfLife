@@ -18,9 +18,12 @@ diagonals (`x - y`, `x + y`), which is what gliders on diagonal lanes need.
 
 * `rowCheck`, `cellCheck`: Boolean checks that every set bit of a row, resp. every live cell of a
   window, satisfies `p`; `cellCheck_sound`.
-* `EvolvesP p n x y ts x' y' ts'`: the certificate predicate `Evolves` with one additional kernel
-  fact per generation, `cellCheck p x y rows 128 = true`.
-* `EvolvesP.forall_le`: soundness, every cell at every generation `i ≤ n` satisfies `p`.
+* `EvolvesW chk n x y ts x' y' ts'`: the certificate predicate `Evolves` with one additional
+  kernel fact per generation, `chk x y rows = true`, for a check `chk` on windows.
+* `EvolvesW.forall_le`: soundness, from a soundness lemma for `chk`.
+* `cornerCheck`, `cornerCheck_sound` and the tactic **`life_corner`**: the cheap check
+  `x ≤ X ∨ y ≤ Y` (one comparison per row); use it rather than `life_invariant` for wide
+  windows and long runs.
 * The tactic **`life_invariant`** proves goals
   `∀ i ≤ n, ∀ c ∈ conway.evolve i W, p c.1 c.2 = true` for a closed window `W` (or a definition
   that unfolds to one) and a closed predicate `p`.
@@ -92,36 +95,38 @@ theorem cellCheck_sound {p : ℤ → ℤ → Bool} {x y : ℤ} {rows : List ℕ}
   have := rowCheck_sound hr j hjw hc
   rwa [show x + (j : ℤ) = c.1 by omega, show y + (i : ℤ) = c.2 by omega] at this
 
-/-- Evolution certificate with a predicate on cells: as `Evolves`, and the window of every
-generation passes `cellCheck p … 128`. Rows are tagged literals. -/
-inductive EvolvesP (p : ℤ → ℤ → Bool) : ℕ → ℤ → ℤ → List ℕ → ℤ → ℤ → List ℕ → Prop where
+/-- Evolution certificate with a check on windows: as `Evolves`, and the window of every
+generation passes `chk`. Rows are tagged literals. -/
+inductive EvolvesW (chk : ℤ → ℤ → List ℕ → Bool) : ℕ → ℤ → ℤ → List ℕ → ℤ → ℤ → List ℕ → Prop where
   /-- No generation: the window passes the check. -/
-  | done (x y : ℤ) (rows : List ℕ) (hb : cellCheck p x y (rows.map untag) 128 = true) :
-      EvolvesP p 0 x y rows x y rows
+  | done (x y : ℤ) (rows : List ℕ) (hb : chk x y (rows.map untag) = true) :
+      EvolvesW chk 0 x y rows x y rows
   /-- One generation, certified row by row, from a window that passes the check. -/
   | step (n : ℕ) (x y : ℤ) (rows rows₁ : List ℕ) (x' y' : ℤ) (rows' : List ℕ)
-      (hb : cellCheck p x y (rows.map untag) 128 = true) (h : RowsStep 0 0 rows rows₁)
-      (e : EvolvesP p n (x - 1) (y - 1) rows₁ x' y' rows') :
-      EvolvesP p (n + 1) x y rows x' y' rows'
+      (hb : chk x y (rows.map untag) = true) (h : RowsStep 0 0 rows rows₁)
+      (e : EvolvesW chk n (x - 1) (y - 1) rows₁ x' y' rows') :
+      EvolvesW chk (n + 1) x y rows x' y' rows'
   /-- Replace a window by its trimmed form. -/
   | trim (n : ℕ) (x y : ℤ) (full : List ℕ) (t pre : ℕ) (rows : List ℕ) (x' y' : ℤ)
       (rows' : List ℕ) (h : Padded t pre rows full)
-      (e : EvolvesP p n (x + t) (y + pre) rows x' y' rows') :
-      EvolvesP p n x y full x' y' rows'
+      (e : EvolvesW chk n (x + t) (y + pre) rows x' y' rows') :
+      EvolvesW chk n x y full x' y' rows'
 
-/-- **Soundness**: every live cell at every generation `i ≤ n` satisfies `p`. -/
-theorem EvolvesP.forall_le {p : ℤ → ℤ → Bool} {n : ℕ} {x y : ℤ} {rows : List ℕ} {x' y' : ℤ}
-    {rows' : List ℕ} (h : EvolvesP p n x y rows x' y' rows') :
-    ∀ i ≤ n, ∀ c ∈ conway.evolve i (ofRows x y (rows.map untag)), p c.1 c.2 = true := by
+/-- **Soundness**: if every window passing `chk` has only cells satisfying `P`, then every live
+cell at every generation `i ≤ n` satisfies `P`. -/
+theorem EvolvesW.forall_le {chk : ℤ → ℤ → List ℕ → Bool} {P : Cell → Prop}
+    (hchk : ∀ x y rows, chk x y rows = true → ∀ c ∈ ofRows x y rows, P c) {n : ℕ} {x y : ℤ}
+    {rows : List ℕ} {x' y' : ℤ} {rows' : List ℕ} (h : EvolvesW chk n x y rows x' y' rows') :
+    ∀ i ≤ n, ∀ c ∈ conway.evolve i (ofRows x y (rows.map untag)), P c := by
   induction h with
   | done x y rows hb =>
     intro i hi
     obtain rfl : i = 0 := by omega
-    exact cellCheck_sound hb
+    exact hchk _ _ _ hb
   | step n x y rows rows₁ x' y' rows' hb h e ih =>
     intro i hi
     cases i with
-    | zero => exact cellCheck_sound hb
+    | zero => exact hchk _ _ _ hb
     | succ j =>
       have h1 := h.eq
       rw [untag_zero] at h1
@@ -133,19 +138,58 @@ theorem EvolvesP.forall_le {p : ℤ → ℤ → Bool} {n : ℕ} {x y : ℤ} {row
     exact ih i hi
 
 /-- Soundness on plain rows. -/
-theorem EvolvesP.forall_le' {p : ℤ → ℤ → Bool} {n : ℕ} {x y : ℤ} {ts rows : List ℕ} {x' y' : ℤ}
-    {ts' : List ℕ} (h₀ : Tagged ts rows) (h : EvolvesP p n x y ts x' y' ts') :
-    ∀ i ≤ n, ∀ c ∈ conway.evolve i (ofRows x y rows), p c.1 c.2 = true := by
+theorem EvolvesW.forall_le' {chk : ℤ → ℤ → List ℕ → Bool} {P : Cell → Prop}
+    (hchk : ∀ x y rows, chk x y rows = true → ∀ c ∈ ofRows x y rows, P c) {n : ℕ} {x y : ℤ}
+    {ts rows : List ℕ} {x' y' : ℤ} {ts' : List ℕ} (h₀ : Tagged ts rows)
+    (h : EvolvesW chk n x y ts x' y' ts') :
+    ∀ i ≤ n, ∀ c ∈ conway.evolve i (ofRows x y rows), P c := by
   rw [← h₀.eq]
-  exact h.forall_le
+  exact h.forall_le hchk
+
+/-- Check that every live cell of a window lies left of the column `X` or above the row `Y`:
+each row lies above `Y`, or fits in the columns up to `X`. One comparison per row. -/
+def cornerCheck (X Y x y : ℤ) (rows : List ℕ) : Bool :=
+  (List.range rows.length).all fun i =>
+    decide (y + i ≤ Y) || decide (rows.getD i 0 < 2 ^ (X + 1 - x).toNat)
+
+/-- **Soundness of `cornerCheck`.** -/
+theorem cornerCheck_sound {X Y : ℤ} (x y : ℤ) (rows : List ℕ)
+    (h : cornerCheck X Y x y rows = true) : ∀ c ∈ ofRows x y rows, c.1 ≤ X ∨ c.2 ≤ Y := by
+  intro c hc
+  have hx := (le_of_mem_ofRows hc).1
+  have hy := (le_of_mem_ofRows hc).2
+  have hlen := snd_lt_of_mem_ofRows hc
+  rw [mem_ofRows, bitAt] at hc
+  obtain ⟨j, hj⟩ := Int.eq_ofNat_of_zero_le (show 0 ≤ c.1 - x by omega)
+  obtain ⟨i, hi⟩ := Int.eq_ofNat_of_zero_le (show 0 ≤ c.2 - y by omega)
+  rw [hj, hi, rowZ_natCast, tb_natCast] at hc
+  simp only [cornerCheck, List.all_eq_true, List.mem_range, Bool.or_eq_true,
+    decide_eq_true_eq] at h
+  rcases h i (by omega) with h1 | h1
+  · right
+    omega
+  · left
+    by_contra hcon
+    have h2 := Nat.ge_two_pow_of_testBit hc
+    have h3 : 2 ^ (X + 1 - x).toNat ≤ 2 ^ j := Nat.pow_le_pow_right (by norm_num) (by omega)
+    omega
+
+/-- The window check of `life_invariant`: `cellCheck p … 128`. -/
+def cellCheckW (p : ℤ → ℤ → Bool) (x y : ℤ) (rows : List ℕ) : Bool := cellCheck p x y rows 128
+
+/-- Soundness of `cellCheckW`, in the form used by `EvolvesW.forall_le`. -/
+theorem cellCheckW_sound (p : ℤ → ℤ → Bool) :
+    ∀ x y rows, cellCheckW p x y rows = true → ∀ c ∈ ofRows x y rows,
+      (fun c : Cell => p c.1 c.2 = true) c :=
+  fun _ _ _ h => cellCheck_sound h
 
 namespace Cert
 
 open Lean Meta Elab Tactic
 
 /-- Simulates `n` generations from the window `(x, y, rows)` and builds a proof of
-`EvolvesP p n x y ts x' y' ts'`; the predicate is checked by the kernel only. -/
-meta def mkEvolvesP (pE : Expr) (n : Nat) (x y : Int) (rows : List Nat) :
+`EvolvesW chk n x y ts x' y' ts'`; the check is evaluated by the kernel only. -/
+meta def mkEvolvesW (pE : Expr) (n : Nat) (x y : Int) (rows : List Nat) :
     Int × Int × List Nat × Expr × Expr × Expr := Id.run do
   let rowsE₀ := listE rows
   let mut stages : Array Stage := #[]
@@ -165,13 +209,13 @@ meta def mkEvolvesP (pE : Expr) (n : Nat) (x y : Int) (rows : List Nat) :
     curE := trimmedE
   let xE := intE cx
   let yE := intE cy
-  let mut pf := mkAppN (mkConst ``EvolvesP.done) #[pE, xE, yE, curE, boxLeaf]
+  let mut pf := mkAppN (mkConst ``EvolvesW.done) #[pE, xE, yE, curE, boxLeaf]
   let mut k := 0
   for s in stages.reverse do
-    let inner := mkAppN (mkConst ``EvolvesP.trim)
+    let inner := mkAppN (mkConst ``EvolvesW.trim)
       #[pE, natE k, intE (s.x - 1), intE (s.y - 1), s.rows₁E, natE s.t, natE s.pre,
         s.trimmedE, xE, yE, curE, s.padPf, pf]
-    pf := mkAppN (mkConst ``EvolvesP.step)
+    pf := mkAppN (mkConst ``EvolvesW.step)
       #[pE, natE k, intE s.x, intE s.y, s.rowsE, s.rows₁E, xE, yE, curE, boxLeaf, s.stepPf,
         inner]
     k := k + 1
@@ -179,7 +223,7 @@ meta def mkEvolvesP (pE : Expr) (n : Nat) (x y : Int) (rows : List Nat) :
 
 /-- **`life_invariant`**: prove `∀ i ≤ n, ∀ c ∈ conway.evolve i W, p c.1 c.2 = true` for closed
 `n`, a closed window `W` and a closed predicate `p`, by an explicit proof term
-(`EvolvesP.forall_le'`) whose leaves are kernel facts. -/
+(`EvolvesW.forall_le'`) whose leaves are kernel facts. -/
 syntax (name := lifeInvariant) "life_invariant" : tactic
 
 /-- The elaborator of `life_invariant`. -/
@@ -203,10 +247,47 @@ syntax (name := lifeInvariant) "life_invariant" : tactic
     let x ← intOf xe
     let y ← intOf ye
     let rows ← natListOf rowse
-    let (x', y', _, tsE, ts'E, pf) := mkEvolvesP pE n x y rows
+    let chkE ← mkAppM ``cellCheckW #[pE]
+    let (x', y', _, tsE, ts'E, pf) := mkEvolvesW chkE n x y rows
     let (_, rowsE, tagPf) := mkTagged rows
-    g.assign (mkAppN (mkConst ``EvolvesP.forall_le')
-      #[pE, natE n, intE x, intE y, tsE, rowsE, intE x', intE y', ts'E, tagPf, pf])
+    let hchk ← mkAppM ``cellCheckW_sound #[pE]
+    g.assign (← mkAppOptM ``EvolvesW.forall_le'
+      #[chkE, none, hchk, natE n, intE x, intE y, tsE, rowsE, intE x', intE y', ts'E, tagPf, pf])
+  replaceMainGoal []
+
+/-- **`life_corner`**: prove `∀ i ≤ n, ∀ c ∈ conway.evolve i W, c.1 ≤ X ∨ c.2 ≤ Y` for closed
+data, with one comparison per row and generation (`cornerCheck`). -/
+syntax (name := lifeCorner) "life_corner" : tactic
+
+/-- The elaborator of `life_corner`. -/
+@[tactic lifeCorner] meta def evalLifeCorner : Tactic := fun _ => do
+  let g ← getMainGoal
+  let ty ← instantiateMVars (← g.getType)
+  let err : MetaM Unit := throwError
+    "life_corner: expected `∀ i ≤ n, ∀ c ∈ conway.evolve i W, c.1 ≤ X ∨ c.2 ≤ Y`"
+  forallTelescope ty fun xs body => do
+    unless xs.size == 4 do err
+    let hiTy ← inferType xs[1]!
+    let_expr LE.le _ _ _ nE := hiTy | err
+    let hcTy ← inferType xs[3]!
+    let_expr Membership.mem _ _ _ evE _ := hcTy | err
+    unless evE.isAppOfArity ``Rule.evolve 3 do err
+    let_expr Or l r := body | err
+    let_expr LE.le _ _ _ XE := l | err
+    let_expr LE.le _ _ _ YE := r | err
+    let n ← natOf nE
+    let (xe, ye, rowse) ← asOfRows (evE.getArg! 2)
+    let x ← intOf xe
+    let y ← intOf ye
+    let rows ← natListOf rowse
+    let X ← intOf XE
+    let Y ← intOf YE
+    let chkE := mkApp2 (mkConst ``cornerCheck) (intE X) (intE Y)
+    let (x', y', _, tsE, ts'E, pf) := mkEvolvesW chkE n x y rows
+    let (_, rowsE, tagPf) := mkTagged rows
+    let hchk := mkApp2 (mkConst ``cornerCheck_sound) (intE X) (intE Y)
+    g.assign (← mkAppOptM ``EvolvesW.forall_le'
+      #[chkE, none, hchk, natE n, intE x, intE y, tsE, rowsE, intE x', intE y', ts'E, tagPf, pf])
   replaceMainGoal []
 
 end Cert
@@ -217,6 +298,12 @@ theorem glider_invariant_fixture :
     ∀ i ≤ 16, ∀ c ∈ conway.evolve i (ofRows 0 0 [2, 4, 7]),
       (fun x y : ℤ => decide (-2 ≤ x - y) && decide (x - y ≤ 2)) c.1 c.2 = true := by
   life_invariant
+
+/-- **Sanity** (`life_corner`): the glider flying down and to the right stays left of column 8 or
+above row 3 during 20 generations. -/
+theorem glider_corner_fixture :
+    ∀ i ≤ 20, ∀ c ∈ conway.evolve i (ofRows 0 0 [2, 4, 7]), c.1 ≤ 8 ∨ c.2 ≤ 3 := by
+  life_corner
 
 /-- **Sanity** (the check has content): the narrower band `x - y = 0` fails already at
 generation 0. A certificate for it is refused by the kernel (the `meta` builder does not check

@@ -34,6 +34,7 @@ to a proof that Life is Turing complete, and ultimately self-replication.
 | `Theory/Life/Increment` | `N-15` | `increment`: for every `k`, push generator + control glider + block at `k` ⟶ generator + block at `k + 1` |
 | `Theory/Life/ContinueDecrement` | `N-15` | `continueDecrement`: decrement for every `k ≥ 1` that also emits a continue glider |
 | `Theory/Life/Invariant`, `ZeroTestLogic` | `N-15` | `life_invariant`; `zeroTest_decision`: test gliders + detector ⟶ `zOut` (k = 0) or `nzOut` (k ≥ 1), block unchanged |
+| `Theory/Life/IncrementContinue` | `N-15` | `incrementContinue_evolve`: one control glider ⟶ pushing salvo + continue glider |
 | `Theory/Life/Decision` | `N-12` | `WindowData`, `EverAlive`, reduction from a computable family to the general decision problem |
 | `Theory/Computability/*` | `N-14` | Counter machines; `exists_computes_code`; an undecidable halting problem |
 
@@ -403,6 +404,12 @@ There are no empirical inputs; every gate is a compiled proof.
 - **2026-11-14 — zero-test decision** (user request). `Theory/Life/Invariant.lean` (tactic
   `life_invariant`) and `Theory/Life/ZeroTestLogic.lean`: `zeroTest_decision` for every register
   position. Open: generating its four input gliders from one control glider.
+- **2026-11-14 — push generator with continue glider** (user request, in parallel with the
+  zero-test supply search). `Theory/Life/IncrementContinue.lean`: `incrementContinue_evolve`.
+  Incident: a first version's `life_invariant` certificate grew a Lean process to 20.5 GB and
+  filled the RAM; the watchdog paused both searches as designed; the process was killed, the
+  searches resumed. Fix: the per-row check `life_corner`. Since then Lean checks run under an
+  8 GB RSS cap (`leancap.sh` in the scratchpad).
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom
@@ -416,5 +423,7 @@ There are no empirical inputs; every gate is a compiled proof.
 - 2026-11-14: `Sanity/Life.lean` builds in ≈ 3 s; the block and blinker proofs enumerate 12–16
   cells each by `interval_cases` and `simp`.
 - Benchmark table for `Q-3`: in `research/N-03-certified-simulation.md` ("Results").
+- Memory note: per-cell checks over wide windows for hundreds of generations exhaust the
+  kernel's memory (20 GB observed); use per-row checks (`life_corner`, `boxCheck`).
 - Kernel performance note: every `Nat` literal in a large proof term should have distinguishing
   low 64 bits (see `Certificates/LifeSim.lean`, section on certificates).

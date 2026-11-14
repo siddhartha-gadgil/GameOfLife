@@ -279,6 +279,18 @@ zeroEaters ∪ counter k ∪ (if k = 0 then zOut else nzOut)` — the block is u
 generation; here "off the register's lane or above its anti-diagonals"). Open: producing the
 four input gliders from one control glider.
 
+**Push generator with continue glider certified (2026-11-14).**
+`Theory/Life/IncrementContinue.lean`: `incrementContinue_evolve` — `pushGenerator ∪ pushFan` with one
+control glider evolves in 2100 generations into itself, the pushing salvo and a continue glider.
+Design `PSG1C` of `R-23` with the fan-out moved 15 cells further back along the control lane (so
+that boxes separate). The fan-out's own reaction overlaps the generator's, so the proof runs the
+first three parts of `pushGenerator_reaction` beside the fan-out's second phase (footprint
+`x ≤ -92 ∨ y ≤ -130`, new cheap certificate `life_corner`). Not yet combined with the register
+block (needs column bounds for `push3_reaction`, as was done for the pull).
+
+Lesson (recorded in the plan): a `life_invariant` certificate checking every cell of a wide window
+for 450 generations used over 20 GB of RAM in the kernel; per-row checks (`life_corner`) are cheap.
+
 ## Claims and evidence
 
 No claims beyond the sourced existence of Chapman's pattern.
