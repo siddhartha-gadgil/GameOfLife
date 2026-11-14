@@ -48,7 +48,9 @@ public import LeanTheory.Certificates.ValidatedTrig
 public import LeanTheory.Certificates.ValidatedTrigFast
 public import LeanTheory.Certificates.WeightedEll1
 public import LeanTheory.Kernel.Example
+public import LeanTheory.Kernel.Life
 public import LeanTheory.Sanity.Example
+public import LeanTheory.Sanity.Life
 public import LeanTheory.Sanity.QuasisymmetryNotSymmetry
 public import LeanTheory.SubsetSum
 public import LeanTheory.Theory.Fields.FieldLineExistence
