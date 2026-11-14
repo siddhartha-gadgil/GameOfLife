@@ -231,6 +231,15 @@ Search `scripts/life_machine` (sub-agent), observations by full simulation, not 
   detector back (`NZ`) and the others are eaten. Generating the four gliders from one control
   glider is a salvo-generation problem like the push.
 
+**Continue glider certified (2026-11-14).** `Theory/Life/ContinueGlider.lean`:
+`fanOut_reaction` (new certificate, 840 generations in seven parts) and
+`continueGenerator_reaction`: `pullGenerator ∪ fanOut` with one control glider evolves in 2010
+generations into itself, the pulling salvo and the continue glider `contEnd`, inside a stated
+box. Proved by composition: the fan-out beside the generator at rest, then
+`pullGenerator_reaction` beside the fan-out at rest and the continue glider in flight. Not yet
+combined with the register block (the footprint of `Op.reaction` bounds rows only; the continue
+glider crosses those rows far to the left, so columns are needed).
+
 ## Claims and evidence
 
 No claims beyond the sourced existence of Chapman's pattern.
