@@ -108,7 +108,7 @@ extensions of the catalogue. See §7.
 | `N-08` | [Component interfaces](research/N-08-component-interfaces.md) | `G-3`, `G-5`; `Q-8` | `N-04`; informed by `N-07` | hard | exploratory; first calculus **compiled** (`Reaction`, `par`, `seq`, `translate`), tested on `pull_reaction` | rectangular footprints; a multi-component example |
 | `N-09` | [Elementary reactions](research/N-09-elementary-reactions.md) | `G-5` | `N-03`, `N-05`, `N-06`, `N-08`, `N-18` | routine each | stated; data available (`R-18` §4); blocked on `N-08` for the format | Certify the three block reactions and glider-into-eater as plain certificates first |
 | `N-10` | [Logic gates and wiring](research/N-10-logic-gates.md) | `G-5`; `Q-7` | `N-08`, `N-09`, `N-13`, `N-18` | hard | technology decided (D1); geometries to be found | annihilation and absorption reactions; one blocked stream; one gate |
-| `N-11` | [Sliding block memory](research/N-11-sliding-block-memory.md) | `G-5`; `Q-6` | `N-03`, `N-04`, `N-05`, `N-06`, `N-08`, `N-18` | moderate | partly **verified**: `pull`, `push` for every position; generators and zero test open | Certify the register circuit's `INC`/`TDEC` (needs `N-08`) |
+| `N-11` | [Sliding block memory](research/N-11-sliding-block-memory.md) | `G-5`; `Q-6` | `N-03`, `N-04`, `N-05`, `N-06`, `N-08`, `N-18` | moderate | partly **verified**: `pull`, `push` for every position; `pipeline` for trains of salvos; generators and zero test open | Zero-test reaction and salvo generators (design D1) |
 | `N-12` | [Meaning of universality](research/N-12-meaning-of-universality.md) | `G-7`; `Q-4` | Mathlib (compiled); `N-01` (types only) | moderate | stated in outline; machine model now fixed (`N-14`); **ready** | Write the exact Lean statements against `Program.Computes` |
 | `N-13` | [Route assessment](research/N-13-route-assessment.md) | `G-7`; `Q-5`, `Q-6` | `N-12`; sources | moderate | decided: route R1, confirmed against the sources (`R-18`) with corrections | none |
 | `N-14` | [Counter machines](research/N-14-counter-machines.md) | `G-6`; `Q-12` | Mathlib (compiled); `N-13` (conditional) | hard | **verified** | none |
@@ -335,6 +335,10 @@ There are no empirical inputs; every gate is a compiled proof.
   control circuitry (see §0).
 - **2026-11-14 — decision.** The user chose an own design (no copying from the book). Design D1
   recorded in `N-15`; `Q-7`, `Q-9` answered; search for the elementary reactions started.
+- **2026-11-14 — `N-12` statements; boxes; pipelining.** `Theory/Life/Decision.lean` (exact
+  targets `EverAlive`, reduction lemma); `Theory/Life/Boxes.lean` (rectangular footprints);
+  `Theory/Life/Register.lean` (sub-agent): `pipeline`, operations launched at least 13 cells
+  apart act on the block in order.
 
 ## 12. Implementation and workstation log
 

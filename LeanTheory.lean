@@ -93,6 +93,7 @@ public import LeanTheory.Theory.Life.Guns
 public import LeanTheory.Theory.Life.Locality
 public import LeanTheory.Theory.Life.Patterns
 public import LeanTheory.Theory.Life.Reactions
+public import LeanTheory.Theory.Life.Register
 public import LeanTheory.Theory.Life.SlidingBlock
 public import LeanTheory.Theory.Stability.AbstractEnergy
 public import LeanTheory.Theory.Stability.BlockBounds

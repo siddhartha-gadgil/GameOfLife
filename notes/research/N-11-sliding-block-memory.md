@@ -17,7 +17,7 @@
 | Implementation evidence | `LeanTheory/Theory/Life/SlidingBlock.lean` |
 | Lean evidence | `counter`, `pullSalvo`, `pushSalvo`, `evolve_flight`, `evolve_eq_translate_mod`, `pull_zero`, `push_zero`, `pull : ∀ k : ℕ, conway.evolve (4 * k + 26) (pullSalvo ∪ counter k) = counter (k - 1)`, `push : ∀ k : ℕ, conway.evolve (4 * k + 32) (pushSalvo ∪ counter k) = counter (k + 1)`, `counter_injective`, `counter_isStillLife`, `pull_then_push`, `pull_misplaced_block_ne` |
 | Audit evidence | build and axiom audit after the work unit; statements reviewed by the author |
-| Last updated | 2026-11-14: block reactions implemented; register design D1 chosen (`N-15`) |
+| Last updated | 2026-11-14: block reactions and pipelining implemented; register design D1 chosen (`N-15`) |
 
 ## Purpose and scope
 
@@ -113,6 +113,25 @@ of gated gun streams. New theorems needed here, in order:
 3. a certified zero-test reaction.
 
 The pulling and pushing salvos should be re-derived by our own search (provenance).
+
+## Pipelining (2026-11-14)
+
+`Theory/Life/Register.lean` (sub-agent work, checked by the coordinator) proves item 1 of the
+list above. With `Op = inc | dec`, a train `launch l` of salvos (`l : List (Op × ℤ)`, each salvo
+placed `d` cells behind its standard launch position) and `SpacedLaunch 13 (-k) l` (consecutive
+launch distances at least 13 cells, that is 52 generations, apart):
+
+`pipeline : conway.evolve t (launch l ∪ counter k) = counter (run l k)` at `t = finishTime k l`,
+
+where `run` applies the operations in order. No sign condition is needed (by translation
+invariance the block may be at any integer position). The constant 13 is what row-only
+footprints give; by simulation the true thresholds are 11 after `inc` and 9 after `dec`
+(unproved; would need rectangular footprints). `two_ops_inc_inc_ten_ne` shows the spacing
+hypothesis has content: at distance 10 the result is different.
+
+Not yet done: the train as a `Reaction` with a footprint for all intermediate generations (only
+the final configuration is given), and the value invariant in the form "position + pending
+pushes − pending pulls".
 
 ## Claims and evidence
 

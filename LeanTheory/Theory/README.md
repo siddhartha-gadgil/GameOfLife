@@ -42,6 +42,7 @@ These modules build on `Kernel/Life` (definitions only; there is no law).
 | `Locality` | Translation, Chebyshev neighbourhoods, locality of `evolve`, independence of separated patterns (with sharp one-step constant), equivariance, periodicity algebra, bounded implies eventually periodic |
 | `Patterns` | Classes `IsStillLife`, `IsOscillator`, `IsSpaceship` and a catalogue with proved behaviour: block, beehive, loaf, boat, pond, eater 1; blinker, toad, beacon, traffic light, pulsar, pentadecathlon; glider, LWSS, MWSS, HWSS |
 | `SlidingBlock` | Sliding block memory: `counter k`, the two-glider `pull` and three-glider `push` for every position `k`, and the flight lemma `evolve_flight` |
+| `Register` | Pipelined operations on the block: `Op`, `launch`, `SpacedLaunch`, `pipeline` (salvos launched at least 13 cells apart act in order), `two_ops` |
 | `Reactions` | Reactions with footprints: `Reaction P Q n F`, parallel and sequential composition, placement; the block decrement rebuilt from these rules (`pull_reaction`) |
 
 ## Stability/ — comparison and energy methods
