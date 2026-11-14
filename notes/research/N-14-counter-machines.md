@@ -12,12 +12,12 @@
 | Dependency requirement | compiled Mathlib declarations (`Nat.Partrec.Code`, `Turing.TM2`, `Turing.ToPartrec`); a recorded route decision (conditional start is acceptable, see readiness) |
 | Produces | `LeanTheory/Theory/Computability/CounterMachine.lean`: syntax, semantics, sanity programs, and a universality theorem relative to `Nat.Partrec.Code.eval` |
 | Difficulty | hard: a standard result, but a complete formal compiler-correctness proof; no Life content |
-| Status | stated |
-| Implementation status | not started |
-| Implementation evidence | none |
-| Lean evidence | none |
-| Audit evidence | not audited |
-| Last updated | 2026-11-14: seeded |
+| Status | verified |
+| Implementation status | complete |
+| Implementation evidence | `LeanTheory/Theory/Computability/CounterMachine.lean`, `CounterMachineWhile.lean`, `CounterMachineUniversal.lean` (written by a sub-agent; definitions and main statements checked by the coordinator) |
+| Lean evidence | namespace `LeanTheory.Computability`: `Instr` (`inc`, `decJz`, `halt`), `Program`, `Cfg`, `Program.step`, `Program.eval`, `Program.Halts`, `Program.Computes`, `Program.WellFormed`; `Stmt`, `Exec`, `Stmt.compile`, `mem_eval_compile`; `exists_computes_of_partrec`, `exists_computes_code : ∀ c : Nat.Partrec.Code, ∃ P, P.WellFormed ∧ P.Computes c.eval`, `Program.Computes.halts_iff`, `exists_program_halts_not_computable`; sanity `addProg_eval`, `loopProg_eval`, `compile_double_computes` |
+| Audit evidence | full build (0 warnings) and axiom audit (7800 declarations) after integration; the definitions of `step`, `eval`, `Computes`, `WellFormed` and the statements of the main theorems were read by the coordinator |
+| Last updated | 2026-11-14: implemented |
 
 ## Purpose and scope
 
@@ -59,11 +59,38 @@ Mathlib: compiled. `N-13`: undecided; this note is useful under R1 only.
 - Target: for every `c : Nat.Partrec.Code` there is a counter program `P` with
   `P.eval (input n) = (c.eval n).map output`.
 
+## Results (2026-11-14)
+
+Universality is compiled: every partial recursive function (every `Nat.Partrec.Code`) is
+computed by a well-formed counter program with the instructions `inc`, `decJz` and `halt` only,
+and there is one such program whose halting problem is not computable
+(`exists_program_halts_not_computable`, by reduction from `ComputablePred.halting_problem`).
+
+Route taken (answer to `Q-12`): neither of the two routes proposed above. Mathlib's vector
+basis `Nat.Partrec'` (`Mathlib/Computability/PartrecBasis.lean`) maps one argument to one
+register, so no pairing function, multiplication or division is needed. The proof goes through a
+structured loop language (`Stmt`: `skip`, `inc`, `seq`, `loop`) with a big-step semantics and a
+compiler to counter programs proved correct in both directions.
+
+Conventions that the Life construction (`N-15`) must match:
+
+- registers are `ℕ → ℕ`; a program reads and writes only the registers it mentions
+  (`step_regs_of_forall_ne`, `step_congr`);
+- `decJz r l` jumps to `l` if register `r` is zero and otherwise decrements it and continues —
+  exactly the `TDEC` operation of the book's register (`R-18`);
+- there is no unconditional jump: loops close with `decJz z 0` on a register `z` that is always
+  zero, so the Life machine needs one register that stays at zero;
+- input in register 0 with all other registers 0; output in register 0; the compiled programs
+  halt only at their final `halt` (`WellFormed`).
+
+Not done (not needed so far): the converse direction, Minsky's two-counter reduction, a
+`Primcodable` structure on programs.
+
 ## Claims and evidence
 
 | Claim | Status |
 | --- | --- |
-| Counter machines with finitely many registers compute every partial recursive function | classical theorem; no source retrieved; not compiled |
+| Counter machines compute every partial recursive function | compiled: `exists_computes_code` |
 | Mathlib lacks this model | observation on the pinned checkout |
 
 ## Difficulty, barriers and readiness

@@ -20,6 +20,16 @@ depend on a kernel law.
 | `ParamInterp` | Interpolation in a parameter with an analytic remainder bound |
 | `KamSequence` | Convergence of KAM/Newton iterations with loss of analyticity |
 
+## Computability/ — counter machines
+
+Independent of the Game of Life; connects to Mathlib's `Nat.Partrec`.
+
+| Module | Content |
+| --- | --- |
+| `CounterMachine` | Counter (Minsky register) machines with instructions `inc`, `decJz`, `halt`: semantics, determinism, relocation and embedding of subprograms, `Program.Computes`, sanity programs |
+| `CounterMachineWhile` | A structured loop language on registers, verified macros, and a compiler to counter programs proved correct in both directions (`mem_eval_compile`) |
+| `CounterMachineUniversal` | **Universality**: `exists_computes_code`, every `Nat.Partrec.Code` is computed by a well-formed counter program; `exists_program_halts_not_computable` |
+
 ## Life/ — general theory of the Game of Life
 
 These modules build on `Kernel/Life` (definitions only; there is no law).
@@ -30,6 +40,7 @@ These modules build on `Kernel/Life` (definitions only; there is no law).
 | `Locality` | Translation, Chebyshev neighbourhoods, locality of `evolve`, independence of separated patterns (with sharp one-step constant), equivariance, periodicity algebra, bounded implies eventually periodic |
 | `Patterns` | Classes `IsStillLife`, `IsOscillator`, `IsSpaceship` and a catalogue with proved behaviour: block, beehive, loaf, boat, pond, eater 1; blinker, toad, beacon, traffic light, pulsar, pentadecathlon; glider, LWSS, MWSS, HWSS |
 | `SlidingBlock` | Sliding block memory: `counter k`, the two-glider `pull` and three-glider `push` for every position `k`, and the flight lemma `evolve_flight` |
+| `Reactions` | Reactions with footprints: `Reaction P Q n F`, parallel and sequential composition, placement; the block decrement rebuilt from these rules (`pull_reaction`) |
 
 ## Stability/ — comparison and energy methods
 

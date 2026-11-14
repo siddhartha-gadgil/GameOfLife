@@ -12,12 +12,12 @@
 | Dependency requirement | compiled independence and locality theorems; the gun theorem as a test case |
 | Produces | a chosen specification format for components (region, ports, signals, timing), a composition theorem, and a decision on how much of the HOL4 GOL-IO design to adopt |
 | Difficulty | hard: this is the main design problem of the project; the mathematics is elementary but a poor interface makes every later proof expensive |
-| Status | exploratory; a concrete proposal is recorded under "Lessons and proposal" (2026-11-14), not yet tested on a multi-component example |
-| Implementation status | not started |
-| Implementation evidence | none |
-| Lean evidence | none |
-| Audit evidence | not audited |
-| Last updated | 2026-11-14: lessons from `N-07` and `N-11` recorded; proposal drafted |
+| Status | exploratory; a first calculus is compiled and tested on one example (`pull_reaction`); rectangular footprints and timing constraints open |
+| Implementation status | in progress |
+| Implementation evidence | `LeanTheory/Theory/Life/Reactions.lean` |
+| Lean evidence | `FarApart`, `Reaction`, `Reaction.par`, `Reaction.seq`, `Reaction.translate`, `Reaction.mono`, `IsStillLife.reaction`, `reaction_flight`, `pull_zero_reaction`, `pull_reaction`, `pull_reaction_snd_le` |
+| Audit evidence | build and axiom audit after the work unit |
+| Last updated | 2026-11-14: first calculus implemented |
 
 ## Purpose and scope
 
@@ -110,6 +110,19 @@ the gun-free register machine chosen in `N-13`.
 
 Smallest test of the proposal: the gun with an eater (a bounded periodic assembly of two
 components), or two block registers side by side receiving salvos at different times.
+
+## First implementation (2026-11-14)
+
+`Theory/Life/Reactions.lean` implements the reaction record with set-valued footprints and the
+rules for parallel composition (`Reaction.par`, footprints `FarApart 2`), sequential composition
+(`Reaction.seq`), placement (`Reaction.translate`) and enlargement (`Reaction.mono`), with still
+lifes and diagonal flight as basic reactions. Test: `pull_reaction` rebuilds the block decrement
+for every position from these rules and yields a footprint for the whole operation
+(`pull_reaction_snd_le`: no cell below row `12 + k` is ever alive during it).
+
+Still open: rectangular footprints (the certificates give row extents cheaply but not column
+extents); symmetries other than translations in `Reaction`; timing side conditions between
+signals; a multi-component example.
 
 ## Claims and evidence
 

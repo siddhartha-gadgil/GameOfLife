@@ -6,7 +6,7 @@ Identifiers are stable; detailed work lives in the notes under `notes/research/`
 
 ## 0. Current status
 
-*As of 2026-11-14 (kernel, simulation engine, locality theory and pattern catalogue compiled).*
+*As of 2026-11-14, end of the first autonomous run.*
 
 **Domain.** Conway's Game of Life on the infinite grid `ℤ × ℤ`, restricted to configurations
 with finitely many live cells at every time. Aims: a coherent, fully formalized theory from the
@@ -30,6 +30,9 @@ to a proof that Life is Turing complete, and ultimately self-replication.
   `ToJson`, `FromJson`, RLE and pattern literals.
 - Sliding block reactions `Theory/Life/SlidingBlock.lean` (part of `N-11`): `pull` and `push`
   for every position of the block.
+- Reactions with footprints `Theory/Life/Reactions.lean` (first form of `N-08`).
+- Counter machines `Theory/Computability/` (`N-14`, goal `G-6`): universality
+  (`exists_computes_code`) and an undecidable halting problem.
 
 Not verified: salvo generators, the zero test, signal routing, any computability statement.
 
@@ -51,9 +54,17 @@ declarations, and it still needs a uniform argument in the block position. (iii)
 pattern files are not stated by their sources (`Q-9`). (iv) Self-replication is far beyond
 direct simulation (`Q-10`).
 
-**Ready choices.** `N-08` (interface design), `N-12` (exact
-statements), block reactions of `N-11`/`N-09` as plain certificates. In progress by sub-agents:
-`N-02`, `N-14`. See §7.
+**Decision needed from the user.** The remaining path to `G-7` is the Life machine itself
+(`N-10`, `N-11`, `N-15`): circuitry that turns one signal into a salvo, the zero test, latches
+and routing. The only documented cell-exact design is the book's (a 2316-cell register and
+its companions, `R-18`); its pattern files carry no licence statement. Options: (a) transcribe
+those patterns into the repository as data and certify them; (b) design smaller circuitry
+ourselves from verified elementary reactions; (c) ask the authors. This choice also fixes the
+size of the certificates and should be made before `N-10`/`N-11` continue.
+
+**Ready choices.** `N-12` (exact Lean statements of the universality theorems, now that the
+machine model is fixed), `N-08` (rectangular footprints; a multi-component example), optional
+extensions of the catalogue. See §7.
 
 ## 1. Goal registry
 
@@ -61,10 +72,10 @@ statements), block reactions of `N-11`/`N-09` as plain certificates. In progress
 | --- | --- | --- | --- | --- |
 | `G-1` | **Kernel.** Life on finite configurations: compiled definitions of cells, neighbours, `step`, `evolve`, with an independent set-level specification proved equivalent, and the full sanity suite (degenerate, concrete, counterexample, symmetry, speed of light). | supports all goals | **achieved** (2026-11-14, commit `0ae423d`) | `N-01` compiled; strict kernel audit passed (§4) |
 | `G-2` | **Serialization.** `Repr`, `ToJson`, `FromJson` instances for snapshots and finite time evolutions, a certified validity check for evolutions, and a recorded round-trip guarantee. | supported by `G-1`; tooling for `G-4`, `G-5` | **achieved** (2026-11-14) at the assurance level recorded in `N-02` | `N-02` compiled; round-trip theorem or documented fallback (`Q-11`) |
-| `G-3` | **Compositional theory and certified simulation.** Locality, independence of separated patterns, equivariance; a certificate tactic proving `evolve n P = Q` with standard axioms only; a component interface with a composition theorem. | supported by `G-1`; supports `G-4`, `G-5`, `G-7`, `G-8` | partly achieved: locality/independence/equivariance (`N-04`) and certified simulation (`N-03`) compiled; component interfaces (`N-08`) open | `N-03`, `N-04`, `N-08` compiled; benchmark table for `Q-3` |
+| `G-3` | **Compositional theory and certified simulation.** Locality, independence of separated patterns, equivariance; a certificate tactic proving `evolve n P = Q` with standard axioms only; a component interface with a composition theorem. | supported by `G-1`; supports `G-4`, `G-5`, `G-7`, `G-8` | mostly achieved: `N-03`, `N-04` verified; reaction calculus of `N-08` compiled in a first form | `N-03`, `N-04`, `N-08` compiled; benchmark table for `Q-3` |
 | `G-4` | **Pattern catalogue.** Named definitions and theorems: still lifes (block, beehive, loaf, boat, pond, eater 1) fixed; oscillators (blinker, toad, beacon, traffic light, pulsar, pentadecathlon) with exact periods; spaceships (glider, LWSS, MWSS, HWSS) with period and displacement in every orientation; the Gosper gun emitting one glider per 30 generations for all time. | supported by `G-1`, `G-3`; supports `G-5` | **achieved** for the stated list (2026-11-14): `N-05`, `N-06`, `N-07` compiled | `N-05`, `N-06`, `N-07` compiled |
 | `G-5` | **Ingredients of computation.** Verified specifications, in one composable format, of the reactions, signal routing, logic and unbounded memory needed by the machine of `G-7` (including NOT/AND/OR gates in at least one technology and the sliding block counter for every value). | supported by `G-3`, `G-4`; supports `G-7` | open; first ingredient compiled (block reactions `pull`, `push` for every position) | `N-09`, `N-10`, `N-11` compiled |
-| `G-6` | **Universal machine model in Lean.** A counter-machine model with compiled proof that it computes every partial recursive function in Mathlib's sense. Independent of Life. | supports `G-7` | open | `N-14` compiled |
+| `G-6` | **Universal machine model in Lean.** A counter-machine model with compiled proof that it computes every partial recursive function in Mathlib's sense. Independent of Life. | supports `G-7` | **achieved** (2026-11-14): `exists_computes_code` | `N-14` compiled |
 | `G-7` | **Turing completeness of Life.** For every program of the model of `G-6` a computable finite pattern with a compiled simulation theorem; corollaries: every `Nat.Partrec.Code` is computed by a finite pattern, and a stated natural predicate on finite configurations is not computable. Exact statement fixed by `N-12`. | supported by `G-5`, `G-6`; top-level | open | `N-15`, `N-16` compiled; scope statement; user confirmation of the statement (`A-4`) |
 | `G-8` | **Self-replication.** A precise definition and a compiled proof that an explicit finite pattern satisfies it. | supported by `G-3`, `G-5`; top-level | postponed (activation rule in `N-17`: after `G-7` or its component theory, and once an explicit decomposable pattern is identified, or by user decision) | definition with sanity instances; compositional proof |
 | `G-9` | **Readable universal programs (optional).** A small Lisp with Lean semantics compiled to the model of `G-6`, used to exhibit a universal program transparently. | supported by `G-6`; would decorate `G-7` | inactive, pending `Q-5` and user decision | to be defined if activated |
@@ -84,7 +95,7 @@ statements), block reactions of `N-11`/`N-09` as plain certificates. In progress
 | `Q-9` | Where does cell-exact pattern data come from, with what provenance and licence? | `N-05`–`N-11`, `N-18` | partly answered | The book's PDF embeds 1020 RLE files (primary pattern source); Chapman's and Hickerson's files retrieved; licences not stated anywhere found. Provenance rule of `N-18` adopted |
 | `Q-10` | What is the right definition of self-replication, which explicit pattern would be proved, and is it feasible? | `G-8`; `N-17` | open | Definitions disputed in the sources; known patterns are ≈ 3 × 10⁵ cells with period ≈ 2 × 10⁸ |
 | `Q-11` | What JSON schema, and what level of round-trip assurance (theorem at string level, at `Json` value level, or tests)? | `N-02` | answered | Round trip proved for JSON values, by `rfl` on RLE/plaintext fixtures, tested only at string level; schema in `N-02` |
-| `Q-12` | How is counter-machine universality linked to Mathlib: from `Nat.Partrec.Code` directly or via `Turing.TM2`? | `N-14` | open | Mathlib has no counter machine model (checked by search); choose after reading `ToPartrec` |
+| `Q-12` | How is counter-machine universality linked to Mathlib: from `Nat.Partrec.Code` directly or via `Turing.TM2`? | `N-14` | answered | Via Mathlib's vector basis `Nat.Partrec'` and a structured loop language compiled to counter programs; no pairing or Gödel numbering needed (`N-14`) |
 
 ## 3. Note registry and dependency graph
 
@@ -97,13 +108,13 @@ statements), block reactions of `N-11`/`N-09` as plain certificates. In progress
 | `N-05` | [Still lifes and oscillators](research/N-05-still-lifes-oscillators.md) | `G-4` | `N-01`, `N-03` | routine | **verified** for the initial list (commit `47f841c`) | optional extensions (traffic light as four blinkers, T-tetromino) |
 | `N-06` | [Spaceships](research/N-06-spaceships.md) | `G-4` | `N-01`, `N-03`, `N-04` | routine | **verified** for one orientation each (commit `47f841c`) | other orientations and the `gliderAt` family, with `N-07` |
 | `N-07` | [Guns and streams](research/N-07-guns-streams.md) | `G-4`; `Q-8` | `N-03`, `N-04`, `N-06` | moderate | **verified** | gun with eater; other orientations (optional) |
-| `N-08` | [Component interfaces](research/N-08-component-interfaces.md) | `G-3`, `G-5`; `Q-8` | `N-04`; informed by `N-07` | hard | exploratory; proposal drafted (reaction records with footprints); **ready** | Extend `Evolves` to deliver per-generation boxes; test on gun + eater |
+| `N-08` | [Component interfaces](research/N-08-component-interfaces.md) | `G-3`, `G-5`; `Q-8` | `N-04`; informed by `N-07` | hard | exploratory; first calculus **compiled** (`Reaction`, `par`, `seq`, `translate`), tested on `pull_reaction` | rectangular footprints; a multi-component example |
 | `N-09` | [Elementary reactions](research/N-09-elementary-reactions.md) | `G-5` | `N-03`, `N-05`, `N-06`, `N-08`, `N-18` | routine each | stated; data available (`R-18` §4); blocked on `N-08` for the format | Certify the three block reactions and glider-into-eater as plain certificates first |
 | `N-10` | [Logic gates and wiring](research/N-10-logic-gates.md) | `G-5`; `Q-7` | `N-08`, `N-09`, `N-13`, `N-18` | hard | exploratory; scope reduced by `R-18` (no gate network needed) | Fix the component set: reflector, splitter, merge, latch |
 | `N-11` | [Sliding block memory](research/N-11-sliding-block-memory.md) | `G-5`; `Q-6` | `N-03`, `N-04`, `N-05`, `N-06`, `N-08`, `N-18` | moderate | partly **verified**: `pull`, `push` for every position; generators and zero test open | Certify the register circuit's `INC`/`TDEC` (needs `N-08`) |
-| `N-12` | [Meaning of universality](research/N-12-meaning-of-universality.md) | `G-7`; `Q-4` | Mathlib (compiled); `N-01` (types only) | moderate | stated in outline; `S-14` read (`R-18`); **ready** | Write the exact Lean statements |
+| `N-12` | [Meaning of universality](research/N-12-meaning-of-universality.md) | `G-7`; `Q-4` | Mathlib (compiled); `N-01` (types only) | moderate | stated in outline; machine model now fixed (`N-14`); **ready** | Write the exact Lean statements against `Program.Computes` |
 | `N-13` | [Route assessment](research/N-13-route-assessment.md) | `G-7`; `Q-5`, `Q-6` | `N-12`; sources | moderate | decided: route R1, confirmed against the sources (`R-18`) with corrections | none |
-| `N-14` | [Counter machines](research/N-14-counter-machines.md) | `G-6`; `Q-12` | Mathlib (compiled); `N-13` (conditional) | hard | stated; **in progress** (sub-agent) | integrate the sub-agent's result |
+| `N-14` | [Counter machines](research/N-14-counter-machines.md) | `G-6`; `Q-12` | Mathlib (compiled); `N-13` (conditional) | hard | **verified** | none |
 | `N-15` | [Register machine in Life](research/N-15-register-machine-in-life.md) | `G-7` | `N-08`, `N-10`, `N-11`, `N-12`, `N-13`, `N-14` | research-level engineering | blocked | Replace sketch by a component list from sources |
 | `N-16` | [Universality theorem](research/N-16-universality-theorem.md) | `G-7` | `N-12`, `N-14`, `N-15` | moderate | blocked | — |
 | `N-17` | [Self-replication](research/N-17-self-replication.md) | `G-8`; `Q-10` | `N-01`, `N-04` (types); sources | research | exploratory; sources surveyed (`R-18` §E); formal goal postponed | Draft definitions when `G-8` is activated |
@@ -132,7 +143,7 @@ The canonical first command is `start`. Record the audit before new theory build
 
 | Audit | Value |
 | --- | --- |
-| Audited commit | Kernel: `0ae423d` (unchanged since). Later modules checked at `47f841c` (2026-11-14): build, axiom audit and review of statements, see "Commands run". First audit: `bf3e472` (template) |
+| Audited commit | Kernel: `0ae423d` (unchanged since). Later modules checked after each work unit, last at the commit recording this line (2026-11-14): full build 3268 jobs, 0 warnings; axiom audit 7800 declarations. First audit: `bf3e472` (template) |
 | Scope | Full startup audit of the template at `bf3e472`; then every change since: the new modules `Kernel/Life.lean` and `Sanity/Life.lean` (no existing module was modified apart from the import list in `LeanTheory.lean`) |
 | Kernel coverage | Complete. **`Kernel/Life.lean`**: every declaration reviewed (`Cell`, `nbrs`, `liveNbrs`, `Rule`, `conway`, `Rule.step`, `Rule.evolve`, `liveNbrsSet`, `stepSetCore`, `Rule.stepSet`, `mem_nbrs`, `notMem_nbrs_self`, `mem_nbrs_comm`, `liveNbrs_ne_zero`, `Rule.mem_step`, the `evolve` lemmas). Red-team points: neighbourhood shape checked three ways (`mem_nbrs_iff_max`, `nbrs_eq`, `card_nbrs`); the filter over `S ∪ S.biUnion nbrs` loses no cell because `Rule` excludes birth at zero neighbours (`Rule.mem_step`; necessity shown by `not_finite_stepSetCore_birth_zero`); the totalized `ncard` in the specification is always applied to a finite set (`liveNbrsSet_le_eight`); the specification is exercised on an infinite set (`conway_stepSet_univ`); `conway` is B3/S23 by definition. **`Kernel/Example.lean`** (template) (`OscParams`, `energy`, `OscillatorLaw`, `energy_nonneg`, `hasDerivAt_energy`, `energy_conserved`, `potential_le_energy`); every declaration reviewed. Fields consistent (`m > 0`, `k ≥ 0`), no division by an unguarded quantity (`k / m` with `m > 0`), law quantified over all `t`, conclusions match docstrings |
 | Commands run | At `bf3e472`: `lake exe cache get` (Mathlib cache fetched; Lean 4.35.0 already installed); `lake build`: 3241 jobs, success, 0 warnings; `lake env lean scripts/check_axioms.lean`: passed for 6013 declarations; repo grep: no `axiom`/`sorry`/`admit`/`native_decide`; `decide` occurs only as the Bool function inside computable checkers. At `0ae423d`: `lake build`: 3243 jobs, success, 0 warnings; axiom audit passed for 6178 declarations (only `propext`, `Classical.choice`, `Quot.sound`); `#print axioms` on `Rule.mem_step`, `Rule.coe_step`, `conway_step_block`, `conway_step_blinkerH`, `Rule.step_map`, `Rule.exists_near_of_mem_evolve`; grep of the two new files: no `sorry`/`admit`/`axiom`/`decide` |
@@ -152,6 +163,13 @@ modules, each checked at `47f841c` by `lake build` (3250 jobs, 0 warnings) and t
   `N-04`; sharpness counterexample present.
 - `Theory/Life/Patterns.lean`: definitions of the three classes reviewed; each has a negative
   instance or an exactness clause.
+
+- `Theory/Life/Guns.lean`, `SlidingBlock.lean`, `Reactions.lean`: main statements reviewed;
+  each has negative fixtures (`not_isGun_block`, `pull_misplaced_block_ne`,
+  `not_reaction_blinker`).
+- `Bridge/LifeIO.lean`, `Theory/Computability/*.lean` (sub-agent work): compiled and audited
+  for axioms by the coordinator; definitions and main statements read; proofs not re-read line
+  by line.
 
 Observation recorded for later audits: pattern data other than the traffic light and the Gosper
 gun were written from memory; they are validated by the theorems about them, not by a source.
@@ -308,6 +326,16 @@ There are no empirical inputs; every gate is a compiled proof.
 - **2026-11-14 — `N-11` block reactions.** `Theory/Life/SlidingBlock.lean`: `pull` and `push`
   for every block position, via the flight lemma `evolve_flight`. First compiled ingredient of
   `G-5`.
+- **2026-11-14 — `N-14` counter machines** (sub-agent, checked by the coordinator).
+  `Theory/Computability/CounterMachine*.lean`: `exists_computes_code` (every
+  `Nat.Partrec.Code` is computed by a counter program with `inc`, `decJz`, `halt`) and
+  `exists_program_halts_not_computable`. `G-6` achieved; `Q-12` answered.
+- **2026-11-14 — `N-08` first calculus.** `Theory/Life/Reactions.lean`: reactions with
+  footprints, parallel and sequential composition, placement; `pull_reaction`.
+- **State at the end of this autonomous run.** Verified: `N-01`–`N-07`, `N-14`, parts of `N-08`
+  and `N-11`. Goals `G-1`, `G-2`, `G-4`, `G-6` achieved. Full build 3268 jobs, 0 warnings;
+  axiom audit 7800 declarations. Stopped for a user decision on how to obtain the register and
+  control circuitry (see §0).
 
 ## 12. Implementation and workstation log
 

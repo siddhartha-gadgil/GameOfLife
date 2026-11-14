@@ -56,6 +56,9 @@ public import LeanTheory.Sanity.Example
 public import LeanTheory.Sanity.Life
 public import LeanTheory.Sanity.QuasisymmetryNotSymmetry
 public import LeanTheory.SubsetSum
+public import LeanTheory.Theory.Computability.CounterMachine
+public import LeanTheory.Theory.Computability.CounterMachineUniversal
+public import LeanTheory.Theory.Computability.CounterMachineWhile
 public import LeanTheory.Theory.Fields.FieldLineExistence
 public import LeanTheory.Theory.Fields.InvariantBarrier
 public import LeanTheory.Theory.Fields.LieGradient
@@ -87,6 +90,7 @@ public import LeanTheory.Theory.KAM.WeightedEll1Z2
 public import LeanTheory.Theory.Life.Guns
 public import LeanTheory.Theory.Life.Locality
 public import LeanTheory.Theory.Life.Patterns
+public import LeanTheory.Theory.Life.Reactions
 public import LeanTheory.Theory.Life.SlidingBlock
 public import LeanTheory.Theory.Stability.AbstractEnergy
 public import LeanTheory.Theory.Stability.BlockBounds
