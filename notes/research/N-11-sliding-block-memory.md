@@ -55,6 +55,33 @@ geometries: **not retrieved**.
   salvo, and what happens when pulling at zero.
 - Negative fixtures: a salvo with wrong spacing destroys or misplaces the block.
 
+## Update from the source report `R-18` (2026-11-14)
+
+Source: [`reports/R-18-source-report.md`](reports/R-18-source-report.md), written by a sub-agent
+that read the primary sources (book `S-11` ch. 9 and parts of ch. 2, 6–8, 11, 12; Chapman's
+archived pages `S-10`; Hickerson's 1990 description; Durand–Róka's research report `S-14`).
+Its numerical observations are simulations, not proofs.
+
+- The block reactions exist cell-exactly (book Fig. 8.37, data in `R-18` §4.1): a one-glider
+  (2,1) pull (8 generations), a two-glider pull by one diagonal cell (26 generations, Hickerson)
+  and a three-glider push by one (32 generations, credited to Chapman 2004). Hickerson's own
+  1990 push is a different salvo. The statement "Hickerson pushes with 3 gliders" above
+  conflates the two.
+- Zero handling differs by design: Hickerson detects the 1 → 0 transition and a pull at zero
+  destroys the register; the book (Goucher's design) performs a separate non-destructive test
+  before the pull, packaged as `TDEC` ("test, then decrement unless zero") with a return glider
+  on a `Z` or an `NZ` lane; `INC` returns nothing.
+- **Correction to the difficulty estimate.** The reactions are small, but the register that a
+  machine uses is a stable circuit of 2316 cells in a 391 × 327 box whose `INC` takes about
+  1 700 generations and whose `TDEC` takes about 2 900–4 000 (observations). The salvo
+  generators and the test circuit, not the block reactions, are the bulk of the work. By the
+  benchmark of `N-03` a certificate of one operation at one block position is expected to be
+  feasible; the uniform-in-`k` argument (translation of the block and of the travelling salvo)
+  is still needed.
+- Decision to take when this note is worked on: formalize the book's `TDEC` semantics, which
+  matches the `decJz` instruction of `N-14`.
+- Licence of the pattern files: not stated by the sources (`Q-9` stays open).
+
 ## Claims and evidence
 
 | Claim | Status |

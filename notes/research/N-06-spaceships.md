@@ -12,12 +12,12 @@
 | Dependency requirement | compiled `evolve`; evolution certificates; equivariance (`N-04` item 5) and periodicity algebra (item 6) |
 | Produces | `LeanTheory/Theory/Life/Patterns/Spaceships.lean`: `IsSpaceship P p v`, glider, LWSS, MWSS, HWSS in all phases and orientations |
 | Difficulty | routine |
-| Status | stated |
-| Implementation status | not started |
-| Implementation evidence | none |
-| Lean evidence | none |
-| Audit evidence | not audited |
-| Last updated | 2026-11-14: seeded |
+| Status | verified (items listed under Lean evidence; extensions noted below remain open) |
+| Implementation status | complete for the initial list |
+| Implementation evidence | `LeanTheory/Theory/Life/Patterns.lean`, commit `47f841c` |
+| Lean evidence | `IsSpaceship`, `IsSpaceship.evolve_mul`, `IsSpaceship.translate`, `translate_ofRows`; `Pattern.glider_isSpaceship : IsSpaceship glider 4 (1, 1)`, `lwss_isSpaceship`, `mwss_isSpaceship`, `hwss_isSpaceship` (period 4, displacement `(-2, 0)`), `Pattern.glider_evolve_mul_four` |
+| Audit evidence | build and axiom audit at `47f841c` |
+| Last updated | 2026-11-14: implemented |
 
 ## Purpose and scope
 
@@ -42,6 +42,15 @@ orthogonally (`S-04`; `S-07`). The direction of travel in coordinates depends on
   symmetry and a time shift.
 - Sanity: the glider is not a spaceship with a smaller period; the *isolated* hypothesis matters
   (a glider next to a block does not translate) — a small counterexample certificate.
+
+## Results (2026-11-14)
+
+Compiled: the glider (period exactly 4, displacement `(1, 1)`: right and down in the `y`-down
+convention) and the LWSS, MWSS and HWSS (period exactly 4, displacement `(-2, 0)`), each for one
+orientation and phase; exactness means that no earlier generation is a translate of the
+pattern. Other orientations follow from `Rule.evolve_transpose` and `Rule.evolve_reflectX`
+but are not yet stated; the parameterized family `gliderAt` is left to `N-07`. Pattern data
+written from memory, validated by the theorems.
 
 ## Claims and evidence
 

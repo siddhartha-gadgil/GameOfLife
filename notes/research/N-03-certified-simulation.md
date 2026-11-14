@@ -12,12 +12,12 @@
 | Dependency requirement | compiled `step`/`evolve`; the certificate tactics as they exist in the audited template |
 | Produces | `LeanTheory/Certificates/LifeSim.lean`: bit-row representation, `fastStep`, refinement theorem, inductive certificate `Evolves`, tactic (working name `life_cert`); a benchmark table answering `Q-3` |
 | Difficulty | moderate: bit-level refinement proof and `meta` builder; the risk is performance at scale |
-| Status | stated (approach chosen provisionally; feasibility is conjecture `A-7`) |
-| Implementation status | not started |
-| Implementation evidence | none |
-| Lean evidence | none |
-| Audit evidence | not audited |
-| Last updated | 2026-11-14: seeded |
+| Status | verified (engine compiled; benchmark recorded below; `Q-3` answered) |
+| Implementation status | complete |
+| Implementation evidence | `LeanTheory/Certificates/LifeSim.lean`, `LeanTheory/Certificates/LifeCert.lean`, commits `584f5bb`, `47f841c` |
+| Lean evidence | `ofRows`, `mem_ofRows`, `nextRow`, `nextBit_eq_ruleB`, `step_ofRows`, `RowsStep`, `Padded`, `Tagged`, `Evolves`, `Evolves.sound`, `trimmedB`, `ofRows_inj`, `ofRows_ne`; tactics `life_cert`, `life_eval`; fixtures `glider_evolve_four`, `blinker_evolve_two`, `domino_evolve_one`, `glider_evolve_two_ne` |
+| Audit evidence | build and axiom audit at `47f841c` (0 warnings, standard axioms); semantic review by the author of the work unit; see plan §4 |
+| Last updated | 2026-11-14: implemented, benchmarked |
 
 ## Purpose and scope
 
@@ -64,12 +64,53 @@ to fit emitted gliders) × 30 and × 120; a 150 × 150 window × 60; 300 × 300 
 largest size that stays within the laptop budget (6 GB per Lean process). Report build time,
 memory and term size per case.
 
+## Results (2026-11-14)
+
+**Design as built.** As proposed, with two changes.
+
+- The window is **enlarged** by one cell on every side at each generation instead of being
+  checked for an empty margin, so the refinement theorem `step_ofRows` has no side condition;
+  a `Padded` certificate then trims the window back.
+- Rows are stored in certificates as **tagged literals** (`untag e = e >>> 64`, low 64 bits
+  arbitrary). Reason, found by measurement: Lean hashes a `Nat` literal by its low 64 bits, so
+  rows of a wide sparse window (nothing in the 64 leftmost columns) all had the same hash and
+  kernel checking became quadratic or worse (Gosper gun, 600 generations: 134 s of type
+  checking; with tags: 1.6 s). Soundness does not depend on the tags.
+
+**Benchmark** (laptop, one `lake env lean` process per case; total wall-clock time including
+≈ 1.5 s of start-up; peak memory of the process):
+
+| Case | Initial window | Generations | Final window | Time | Memory |
+| --- | --- | --- | --- | --- | --- |
+| Glider, blinker, catalogue (16 patterns, all periods) | ≤ 13 × 13 | ≤ 15 each | — | 1.6 s for the whole file | 1.9 GB |
+| Gosper gun | 36 × 9 | 30 | 36 × 12 | 1.6 s | 1.9 GB |
+| Gosper gun | 36 × 9 | 120 | 48 × 35 | 1.8 s | 1.9 GB |
+| Gosper gun | 36 × 9 | 600 | 168 × 155 | 5.1 s | 2.2 GB |
+| Random soup (density 0.35) | 150 × 150 | 60 | 177 × 177 | 5.1 s | 2.3 GB |
+| Random soup | 300 × 300 | 240 | 385 × 410 | 56 s | 5.2 GB |
+| Random soup | 64 × 64 | 1000 | 490 × 433 | 109 s | 5.1 GB |
+| Tall sparse window, 800 rows, 1 generation | 78 × 800 | 1 | — | 2.4 s | 1.9 GB |
+
+Cost is roughly linear in (rows × generations): about 0.5–1 ms per row-generation for dense
+windows a few hundred bits wide. Memory, not time, is the limit for one declaration (≈ 5 GB at
+≈ 10⁵ row-generations of dense 400-bit rows); longer runs must be split over several
+declarations and chained with `Rule.evolve_add`.
+
+**Answer to `Q-3`.** Gate-sized windows (150 × 150 for 60 generations) are easy. A window of the
+size of the register circuit reported in `R-18` (391 × 327, a few thousand generations per
+operation) is about 10⁶ row-generations: expected to be feasible in minutes when split over
+some tens of declarations. This last statement is an extrapolation, not a measurement.
+
+**Not done.** Symbolic inputs (item 5): to be handled by case enumeration when `N-09` needs it.
+The `meta` simulation runs in the interpreter; precompiling it (`LeanTheoryMeta`) is an
+available optimization.
+
 ## Claims and evidence
 
 | Claim | Status |
 | --- | --- |
-| A bit-parallel row step refines `step` when the window margin stays empty | conjecture, proof expected to be routine but tedious |
-| 150 × 150 × 60 certificates check within the laptop budget | conjecture `A-7`; **untested** |
+| A bit-parallel row step refines `step` | compiled: `step_ofRows` (unconditional, enlarged window) |
+| 150 × 150 × 60 certificates check within the laptop budget | confirmed by measurement (5 s, 2.3 GB); `A-7` holds |
 | Whole-machine direct simulation (e.g. a metacell, ≈ 10⁷ cells × 10⁴ generations) is infeasible this way | expectation, not measured; motivates the compositional theory `N-04`, `N-08` |
 
 ## Difficulty, barriers and readiness

@@ -12,12 +12,12 @@
 | Dependency requirement | compiled `step`, `evolve`, `nbrs`; symmetry and speed-of-light sanity theorems of `N-01` (may be proved here if not there) |
 | Produces | `LeanTheory/Theory/Life/Locality.lean`: the theorems listed below |
 | Difficulty | moderate: elementary combinatorics; the work is choosing statements that compose well over many generations |
-| Status | stated; mathematical proofs are elementary (proof sketches below) |
-| Implementation status | not started |
-| Implementation evidence | none |
-| Lean evidence | none |
-| Audit evidence | not audited |
-| Last updated | 2026-11-14: seeded |
+| Status | verified |
+| Implementation status | complete |
+| Implementation evidence | `LeanTheory/Theory/Life/Locality.lean` (written by a sub-agent, checked and integrated by the coordinator), commit `584f5bb` |
+| Lean evidence | `translate`, `Near`, `nbhd`, `AgreeOn`, `Sep`; `Rule.mem_step_congr`, `Rule.mem_evolve_congr`, `Rule.agreeOn_evolve`, `Rule.coe_evolve_subset_nbhd`, `Rule.step_union_of_sep`, `Rule.evolve_union_of_forall_sep`, `Rule.evolve_union_of_sep`, `Rule.evolve_union_of_sep_of_step_eq`, `Rule.evolve_map`, `Rule.evolve_translate`, `Rule.evolve_transpose`, `Rule.evolve_reflectX`, `Rule.evolve_mul_of_evolve_eq`, `Rule.evolve_mod_of_evolve_eq`, `Rule.evolve_mul_of_evolve_eq_translate`, `Rule.exists_evolve_eq_of_bounded`, `Rule.eventually_periodic_of_bounded`; adversarial `not_step_union_of_sep_one` |
+| Audit evidence | build and axiom audit at `47f841c`; statements of all main theorems read against this note by the coordinator |
+| Last updated | 2026-11-14: implemented |
 
 ## Purpose and scope
 
@@ -60,9 +60,22 @@ Adversarial checks: explicit pairs showing that 3 fails without the separation h
 with `N-01` item 4), and that the constant in the multi-step version is sharp or at least not
 improvable to `n`.
 
+## Results (2026-11-14)
+
+All seven statements are compiled. Exact constants: `Sep r S T` means every cell of `S` is at
+Chebyshev distance **greater than** `r` from every cell of `T`.
+
+- One step: `Sep 2 S T` (distance ≥ 3) gives `step (S ∪ T) = step S ∪ step T`; sharp, by the
+  compiled counterexample `not_step_union_of_sep_one` at distance 2.
+- `n` steps from time 0: `Sep (2 * n) S T` (distance ≥ 2n + 1) suffices. This is better than
+  the tentative "> 2n + 1" written above.
+- Along a run: `∀ k < n, Sep 2 (evolve k S) (evolve k T)` suffices.
+- Next to a still life `T`: `Sep (n + 1) S T` suffices for `n` steps.
+- Bounded ⇒ eventually periodic, with the explicit bound `i + p ≤ 2 ^ B.card`.
+
 ## Claims and evidence
 
-All seven statements: proof sketch, not compiled. No conjectural mathematics.
+All seven statements: compiled Lean theorems (declarations in the metadata).
 
 ## Difficulty, barriers and readiness
 

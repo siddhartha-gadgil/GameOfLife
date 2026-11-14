@@ -89,6 +89,26 @@ linking counter machines to Mathlib (`N-14`); keep "Lisp on top" as an optional 
 ch. 9, because it relies on the unverified expectation that a register machine needs only
 single-signal routing components.
 
+## Update from the source report `R-18` (2026-11-14)
+
+Source: [`reports/R-18-source-report.md`](reports/R-18-source-report.md), written by a sub-agent
+that read the primary sources (book `S-11` ch. 9 and parts of ch. 2, 6–8, 11, 12; Chapman's
+archived pages `S-10`; Hickerson's 1990 description; Durand–Róka's research report `S-14`).
+Its numerical observations are simulations, not proofs.
+
+**Route R1 is consistent with every source read**, with these corrections to the assessment:
+
+- The component list is: sliding block register with `INC` and `TDEC` (returning on a `Z` or
+  `NZ` lane), a pair of latches (demultiplexers) per state, splitters, transparent merges,
+  reflectors, eaters. The program counter is one glider on one of `n` state lanes.
+- "Possibly no clocked logic" holds for the book's design only after replacing its single clock
+  gun by path delay (the book says this is possible) and for an undocumented file of Chapman's.
+- "Only single-signal routing" must add the latches and one inhibition.
+- The register is a large circuit (2316 cells, thousands of generations per operation), so the
+  Life layer of R1 is larger than this note assumed, though still far smaller than R2.
+- The reported gap in Conway's argument (parasitic gun outputs) is a further reason to prefer a
+  gun-free design.
+
 ## Claims and evidence
 
 | Claim | Status |

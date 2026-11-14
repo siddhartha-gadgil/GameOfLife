@@ -59,6 +59,27 @@ and shrinks this note considerably.
 Regardless of the choice, the user outcome asks for gates as ingredients; a minimal verified
 NOT/AND/OR set in one technology is a deliverable in its own right.
 
+## Update from the source report `R-18` (2026-11-14)
+
+Source: [`reports/R-18-source-report.md`](reports/R-18-source-report.md), written by a sub-agent
+that read the primary sources (book `S-11` ch. 9 and parts of ch. 2, 6–8, 11, 12; Chapman's
+archived pages `S-10`; Hickerson's 1990 description; Durand–Róka's research report `S-14`).
+Its numerical observations are simulations, not proofs.
+
+- Neither explicit register-machine design uses Boolean gate networks. The components needed
+  are: reflectors and delay paths, splitter (fan-out), merge (transparent reflector), a one-bit
+  latch per branch target (demultiplexer with a boat, or a block latch), an eater, and one
+  inhibition of one signal by another inside the register. This confirms the conjecture recorded
+  below, with the addition of latches.
+- Chapman's documented 2002 machine is clocked throughout (period 30/60/120 guns, LWSS signals);
+  the book's design is stable except for one clock gun that the text says can be replaced by
+  path delay; an undocumented 2005 file of Chapman's is entirely gun-free.
+- "Asynchronous" is not "timing-free": both designs rely on ordering constraints between
+  signals, which a proof must state as explicit timing inequalities.
+- Consequence: the technology choice `Q-7` leans to stable circuitry (technology 3). Verified
+  NOT/AND/OR gates remain a deliverable of `G-5` in their own right but are not on the path to
+  `G-7`.
+
 ## Claims and evidence
 
 | Claim | Status |

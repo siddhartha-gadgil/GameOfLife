@@ -72,6 +72,31 @@ block memory the population nevertheless stays bounded.
 **Decided (user, 2026-11-14)**, following the recommendation: prove 2 for counter machines, derive 4 through `N-14`, and state 3
 as the headline corollary because it mentions no machine model at all.
 
+## Update from the source report `R-18` (2026-11-14)
+
+Source: [`reports/R-18-source-report.md`](reports/R-18-source-report.md), written by a sub-agent
+that read the primary sources (book `S-11` ch. 9 and parts of ch. 2, 6–8, 11, 12; Chapman's
+archived pages `S-10`; Hickerson's 1990 description; Durand–Róka's research report `S-14`).
+Its numerical observations are simulations, not proofs.
+
+- Durand–Róka (`S-14`, research report read in full): "pattern" means finitely many live cells.
+  Their definition of Turing universality has four parts: a recursive encoding (of the
+  non-periodic part of an almost-everywhere periodic configuration), a recursive halting
+  predicate, one automaton step per computation step, and a recursive decoding. Finite
+  configurations are the all-dead-background case. This is compatible with candidates 2–4.
+- Their own derivation goes through intrinsic universality on infinite periodic configurations;
+  the register-machine construction on finite patterns is a ten-line sketch.
+- They report an error in Conway's argument: free-running guns produce parasitic outputs that
+  can disturb registers, with no formal repair for the finite case. This favours a design
+  without free-running guns.
+- They reject "the dynamics becomes stable" as a general halting condition. For a gun-free
+  machine "eventually periodic" does not characterize halting (a loop with bounded registers is
+  also eventually periodic). The halting observable of candidate 3 should therefore be a marker
+  (a halt glider reaching a fixed place), as already preferred.
+- The book's chapter 9 gives compiled finite patterns for individual programs and one sentence
+  claiming Turing completeness, without definition or proof. No source read contains a proof
+  that counter machines are universal (only citations of Minsky 1967, §15.1).
+
 ## Claims and evidence
 
 No claims; this note produces definitions. Whether the Mathlib notions compose as hoped is
