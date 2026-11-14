@@ -120,8 +120,12 @@ lifes and diagonal flight as basic reactions. Test: `pull_reaction` rebuilds the
 for every position from these rules and yields a footprint for the whole operation
 (`pull_reaction_snd_le`: no cell below row `12 + k` is ever alive during it).
 
-Still open: rectangular footprints (the certificates give row extents cheaply but not column
-extents); symmetries other than translations in `Reaction`; timing side conditions between
+Added the same day (`Theory/Life/Boxes.lean`): rectangular footprints `Box a b lo hi` with
+`Box.farApart`, a Boolean check `boxCheck` (evaluated by `rfl`) that a window lies in a box, so
+that `life_eval` plus `coe_ofRows_subset_box rfl` gives the box of each generation, and flight
+with a moving box for any period and direction (`reaction_flight_box`), tested on the glider.
+
+Still open: symmetries other than translations in `Reaction`; timing side conditions between
 signals; a multi-component example.
 
 ## Claims and evidence

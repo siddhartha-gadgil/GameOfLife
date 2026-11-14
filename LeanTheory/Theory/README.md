@@ -36,6 +36,7 @@ These modules build on `Kernel/Life` (definitions only; there is no law).
 
 | Module | Content |
 | --- | --- |
+| `Boxes` | Rectangular footprints: `Box`, `Box.farApart`, `boxCheck` with `coe_ofRows_subset_box`, flight with a moving box (`reaction_flight_box`), resting still lifes and oscillators |
 | `Decision` | Finite configurations as data (`WindowData`), the predicate `EverAlive`, and the reduction from a computable family to the general decision problem |
 | `Guns` | The Gosper glider gun for all time (`gosperGun_evolve`, `IsGun`), gliders in flight (`evolve_train`), window unions (`ofRows_orRows`, `ofRows_padRows`) |
 | `Locality` | Translation, Chebyshev neighbourhoods, locality of `evolve`, independence of separated patterns (with sharp one-step constant), equivariance, periodicity algebra, bounded implies eventually periodic |
