@@ -263,6 +263,13 @@ With `decrement` this gives both register operations triggered by a single glide
 own register block. Open: one block served by both; continue gliders composed with the block
 (needs column bounds in the footprints of the salvo reactions); zero-test logic; layout.
 
+**Decrement with a continue glider (2026-11-14).** `Theory/Life/ContinueDecrement.lean`:
+`pull_reaction_quad` (the pull for every position, footprint in the quadrant `x ≥ 0`, `y ≥ 4`,
+i.e. with column bounds) and `continueDecrement`: for every `k ≥ 1`, one control glider into
+`pullGenerator ∪ fanOut` moves the block from `k` to `k - 1` and leaves the continue glider in
+flight, generator and fan-out in their cycles, nothing else. Three phases composed with the
+reaction calculus; no new certificate of a large component.
+
 ## Claims and evidence
 
 No claims beyond the sourced existence of Chapman's pattern.
