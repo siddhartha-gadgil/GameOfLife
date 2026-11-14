@@ -12,12 +12,12 @@
 | Dependency requirement | none |
 | Produces | upgraded access levels and locators in `notes/sources.md`; a data-provenance rule; pattern files (or references) for `N-05`–`N-11`; updates to `N-10`–`N-13`, `N-17` |
 | Difficulty | routine, but partly blocked by access: the LifeWiki refuses automated retrieval and several sources are books |
-| Status | stated |
+| Status | largely done; own searches now replace external pattern data |
 | Implementation status | not started |
 | Implementation evidence | none |
 | Lean evidence | none |
 | Audit evidence | not audited |
-| Last updated | 2026-11-14: seeded |
+| Last updated | 2026-11-14: reports R-18, R-19, R-20; literature check |
 
 ## Purpose and scope
 
@@ -59,6 +59,19 @@ Lean `def`, with a comment naming the source file or page, its retrieval date an
 string; an imported pattern has no authority — every property is proved from the cells. Check
 the licence of any pattern collection before copying files into the repository; a pattern's
 cell coordinates as such are facts, but record the question rather than assume.
+
+## Outcome (2026-11-14)
+
+- `reports/R-18-source-report.md`: primary sources read (book ch. 9 and related pages,
+  Chapman's pages, Hickerson's description, Durand–Róka's report).
+- After the user's decision to design the circuitry in this project, pattern data come from our
+  own searches: `reports/R-19-elementary-reactions.md` (`scripts/life_search`) and
+  `reports/R-20-gun-gates.md` (`scripts/life_gates`); a third search (`scripts/life_machine`) is
+  running. The data-provenance rule proposed above is adopted in this form: every pattern in the
+  library is explicit cells, named with the search that found it, and has authority only
+  through its certificate.
+- Literature check on salvo generators: recorded in `N-15`.
+- The licence question is moot as long as no external pattern file is copied.
 
 ## Claims and evidence
 

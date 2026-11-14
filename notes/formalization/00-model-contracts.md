@@ -31,11 +31,12 @@ contract states the model, the object, the quantifiers and what is controlled. A
 
 | Predicate | Required content | Note |
 | --- | --- | --- |
-| `IsStillLife`, `IsOscillator P p` | Kernel `evolve`; exact (minimal) period stated separately from `evolve p P = P` | `N-05` |
-| `IsSpaceship P p v` | Isolated pattern; displacement `v` in the fixed coordinate convention (`Q-1`) | `N-06` |
-| `IsGun G p …` | Invariant for every `n`: gun plus `n` emitted gliders evolves to gun plus `n + 1`; not periodicity | `N-07` |
-| Component specification | Region, ports, signals, timing, initial cells; what stays empty outside | `N-08` |
-| `Simulates` (machine by Life) | Machine model, computable encoding, duration function, halting observable | `N-12` |
+| `IsStillLife`, `IsOscillator P p` (compiled) | Kernel `evolve`; `IsOscillator` means period exactly `p ≥ 2` | `N-05` |
+| `IsSpaceship P p v` (compiled) | Isolated pattern; displacement `v` in the fixed coordinate convention; not a translate of itself before `p` | `N-06` |
+| `IsGun G p g` (compiled) | Invariant for every `n`: after `p n` generations the gun plus the `n` emitted copies of the spaceship `g`; not periodicity | `N-07` |
+| `Reaction P Q n F` (compiled) | Result after `n` generations and a footprint `F i` containing the pattern at every generation `i ≤ n`; composition needs footprints `FarApart 2` | `N-08` |
+| `EverAlive c S` (compiled) | A cell alive at some generation; the observable of the undecidability targets | `N-12` |
+| `Simulates` (machine by Life; not yet defined) | Counter programs of `N-14`; computable encoding allowing salvos in flight; fixed duration per instruction; marker cell as halting observable | `N-12`, `N-15` |
 | `IsReplicator` | Number and position of copies, treatment of the parent and of debris | `N-17` |
 
 Model conventions (fixed by `N-01`, compiled in `LeanTheory/Kernel/Life.lean`):

@@ -12,12 +12,12 @@
 | Dependency requirement | the candidate target statements; enough of the sources read to compare component counts and proof obligations |
 | Produces | a recorded decision for `Q-5` and `Q-6`, with reasons; revisions of `N-10`, `N-14`, `N-15` to match |
 | Difficulty | moderate: a comparison of proof-engineering cost under incomplete information |
-| Status | decided: route R1 (user, 2026-11-14, accepting the preliminary recommendation); confirmation against `S-10` and `S-11` ch. 9 outstanding |
+| Status | decided: route R1 (user, 2026-11-14), confirmed against the sources (`R-18`); circuitry by own design (user, same day; design D1 in `N-15`) |
 | Implementation status | not started |
 | Implementation evidence | none |
 | Lean evidence | none |
 | Audit evidence | not audited |
-| Last updated | 2026-11-14: seeded with preliminary assessment; decision recorded |
+| Last updated | 2026-11-14: decisions recorded; own-design decision added |
 
 ## Purpose and scope
 
@@ -108,6 +108,15 @@ Its numerical observations are simulations, not proofs.
   Life layer of R1 is larger than this note assumed, though still far smaller than R2.
 - The reported gap in Conway's argument (parasitic gun outputs) is a further reason to prefer a
   gun-free design.
+
+## Second decision: own design (2026-11-14)
+
+After the source report the user decided that the register and control circuitry are designed
+in this project from verified elementary reactions, with the literature used for ideas only.
+This replaces the earlier leaning towards the book's stable circuitry: design D1 (`N-15`) uses
+terminated streams of Gosper guns with gates, which is the technology of the classical argument
+(row "R1" above), made rigorous component by component. The Lisp layer remains an optional
+later goal (`G-9`).
 
 ## Claims and evidence
 

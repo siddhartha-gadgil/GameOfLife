@@ -40,6 +40,10 @@ Retrieval date for all online sources below: 2026-11-14.
 | `S-19` | S. Ninagawa, G. J. Martínez, visualization study of the universal register machine in Life, arXiv:2104.02920. | snippet | Secondary description of the URM (five parts) |
 | `S-20` | J.-P. Rennard, "Implementation of logical functions in the Game of Life", in *Collision-Based Computing* (Springer 2002). | recalled | Possible source for glider-stream gates; verify existence and content before use |
 
+Own search reports (not sources; observations by the project's untrusted oracles): [`research/reports/R-19-elementary-reactions.md`](research/reports/R-19-elementary-reactions.md) (two-glider collisions, eater, salvos against a block, zero tests; `scripts/life_search`) and [`research/reports/R-20-gun-gates.md`](research/reports/R-20-gun-gates.md) (terminated gun, blocked streams, gates; `scripts/life_gates`).
+
+Further sources seen on 2026-11-14 for the literature check recorded in `N-15`: `S-22`, LifeWiki mirror page "Side-tracking" and Life Lexicon entry "kickback reaction" (summary / snippet): side-tracking, based on the kickback reaction, is the mechanism of Conway's argument for producing gliders on any path with any timing; `S-23`, D. Greene's blog *b3s23life* (2014 post on slow-salvo construction; snippet): only an outline of Conway's proof was published. Hickerson's page <http://www.radicaleye.com/lifepage/patterns/sbm/sbm.html> is the locator of `S-21` (TLS error on direct retrieval that day).
+
 Additional source found by `R-18`: `S-21`, D. Hickerson, "Description of sliding block memory" (1990) with the pattern file `sbmem.lif` (locators in `R-18` §1, §4.3); access: read by sub-agent.
 
 The detailed source report is [`research/reports/R-18-source-report.md`](research/reports/R-18-source-report.md). It contains cell-exact pattern data and numerical observations (simulations, not proofs). Licences of the pattern files were not found.
@@ -76,6 +80,9 @@ catalogue; it becomes a theorem only when the corresponding Lean statement is pr
 | Register machines in Life need registers, latches, splitters, merges, reflectors, eaters, and no Boolean gate network | design description | `S-11` ch. 9; `S-10` |
 | Durand–Róka report an error in Conway's universality argument (parasitic outputs of free-running guns) | published claim | `S-14` (research report) |
 | Rendell's universal Turing machine with unlimited tape is dated February 2010 by the book and the Lexicon, 2010/2011 by the wiki | history, sources disagree | `S-11`, `S-06`, `S-05` |
+| The salvo generator of a sliding block register exists in the literature: side-tracking (Conway, outline), a period-120 "shotgun" with suppressor streams and a detector glider (Hickerson 1990), stable conduits (Goucher design in `S-11`) | history / design description; used for ideas only | `S-21`, `S-22`, `S-10`, `S-11` |
+| All two-glider collisions fall into 71 classes up to symmetry, 28 of them clean annihilations and 2 leaving exactly one glider | own search (`R-19`); agrees with the count reported by `S-05` | `R-19` §a |
+| A gate on the blocked stream accepts 12 of 30 input phases on odd lanes and 4 on even lanes; two guns cannot fire on lanes six apart | own search, observation | `R-20` §3; `scripts/life_machine` (interim) |
 | Mathlib has no counter/register machine model (no match for `minsky`, `counter machine`, `register machine` in `Mathlib/`) and no cellular automaton or Game of Life development | observation on the pinned checkout | `S-17`, grep on 2026-11-14 |
 
 ## Assumption ledger
@@ -90,6 +97,7 @@ The assumptions are definitional choices, user requirements and proposed models.
 | `A-3` | Snapshots and finite evolutions carry `Repr`, `ToJson`, `FromJson` instances | requirement | user constraint | `N-02`; assurance level is `Q-11` |
 | `A-4` | "Turing machines can be built" is to be read as a simulation theorem for a universal machine model, plus an undecidability corollary | proposed model | this seeding (`N-12`) | Proposal; the exact statement is `Q-4` and needs user confirmation |
 | `A-5` | A Lisp interpreter layer may be easier or more transparent than a direct machine | user idea | user | Unassessed conjecture about proof engineering; `Q-5`, `N-13` |
-| `A-6` | The classical constructions (glider logic, sliding block memory, register machine) work as described in the catalogues | sourced, unverified | `S-05`, `S-02` (not retrieved) | Each component needs cell-exact data (`Q-9`) and a compiled theorem |
+| `A-6` | The classical constructions (glider logic, sliding block memory, register machine) work as described in the catalogues | partly compiled | `S-05`, `S-02` (not retrieved) | Compiled: block pull and push for every position, zero test, annihilation, kickback, absorption, a gate. Not compiled: a salvo generator, a whole machine |
+| `A-9` | The circuitry is designed in this project; external patterns are not copied | requirement | user decision 2026-11-14 | Every geometry in `Collisions.lean`, `Gates.lean`, `SlidingBlock.lean` is (re)derived by `scripts/life_search` or `scripts/life_gates`; the Gosper gun and the traffic light were transcribed from the LifeWiki mirror before the decision and are standard objects |
 | `A-7` | Kernel-checked simulation without `decide` scales to gate-sized windows (≈ 150 × 150 cells for ≈ 60 generations) | confirmed by measurement | this seeding | 5 s and 2.3 GB for 150 × 150 × 60; benchmark in `N-03` |
 | `A-8` | Self-replication in Life can be proved in Lean with feasible effort | conjecture | user goal | Doubtful with known patterns; `Q-10`, `N-17`; goal `G-8` is postponed with an activation rule |
