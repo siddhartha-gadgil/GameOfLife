@@ -30,6 +30,8 @@ certified.
   released glider is the glider of the gun at age 90 (`gateOutput_eq_evolve`), so the output is
   timed by the gun, not by the input.
 * `glider_pair_annihilate`: the collision that keeps the streams blocked, in isolation.
+* `blockedStream_reaction`, `gate_reaction`: the resting assembly and the gate as reactions with
+  rectangular footprints (`Theory/Life/Boxes`), ready for composition with other components.
 
 **Sanity.** `gate_wrong_lane_ne` (a control glider one lane off does not give the output of the
 gate), `blockedStream_isOscillator` (without a control glider nothing is released),
@@ -145,20 +147,24 @@ theorem gateOutput_eq_evolve : gateOutput = conway.evolve 90 gunGlider := by
   life_cert
 
 set_option maxRecDepth 8192 in
+/-- The blocked stream with the control glider, as one window. -/
+theorem blockedStream_union_gateControl :
+    blockedStream ∪ gateControl = ofRows 0 0
+    [16777216, 73786976294859177984, 368934881525733797888, 455118177873004657149952,
+     644012837187738926121987, 1858139645101047596242387971, 1858223245745471122902680576,
+     1227889073085352547223552, 642241842655434167562240, 453347182355485948903424,
+     147573952589726744576, 110680464442282475520, 221360928884514619392, 0, 0, 0, 0,
+     5368709120, 1441151887201009664, 864691130602618880, 576460752303423488, 0, 0, 0,
+     274877906944, 4505248894812160, 3378524354248704, 6755399441055744] := by
+  rw [blockedStream, gateControl, ofRows_eq_padRows 47 6 6 47 _ rfl rfl, ← ofRows_orRows]
+  rfl
+
+set_option maxRecDepth 8192 in
 /-- **The gate.** A control glider arriving on the right lane at the right time is destroyed
 together with one glider of the second stream; the glider of the first stream that would have
 been annihilated escapes, and after 90 generations the two guns are back in their cycle. -/
 theorem gate :
     conway.evolve 90 (blockedStream ∪ gateControl) = blockedStream ∪ gateOutput := by
-  have hs : blockedStream ∪ gateControl = ofRows 0 0
-      [16777216, 73786976294859177984, 368934881525733797888, 455118177873004657149952,
-       644012837187738926121987, 1858139645101047596242387971, 1858223245745471122902680576,
-       1227889073085352547223552, 642241842655434167562240, 453347182355485948903424,
-       147573952589726744576, 110680464442282475520, 221360928884514619392, 0, 0, 0, 0,
-       5368709120, 1441151887201009664, 864691130602618880, 576460752303423488, 0, 0, 0,
-       274877906944, 4505248894812160, 3378524354248704, 6755399441055744] := by
-    rw [blockedStream, gateControl, ofRows_eq_padRows 47 6 6 47 _ rfl rfl, ← ofRows_orRows]
-    rfl
   have he : blockedStream ∪ gateOutput = ofRows 0 0
       [16777216, 73786976294859177984, 368934881525733797888, 455118177873004657149952,
        644012837187738926121987, 1858139645101047596242387971, 1858223245745189647925969920,
@@ -169,8 +175,29 @@ theorem gate :
        175921860444160, 211106232532992, 70368744177664] := by
     rw [blockedStream, gateOutput, ofRows_eq_padRows 45 32 32 45 _ rfl rfl, ← ofRows_orRows]
     rfl
-  rw [hs, he]
+  rw [blockedStream_union_gateControl, he]
   life_cert
+
+/-! ### The components as reactions with footprints -/
+
+/-- During its cycle the blocked stream stays in the box `0 ≤ x ≤ 90`, `0 ≤ y ≤ 32`. -/
+theorem blockedStream_subset_box (r : ℕ) (hr : r < 30) :
+    (conway.evolve r blockedStream : Set Cell) ⊆ Box 0 90 0 32 := by
+  interval_cases r <;> (life_eval; exact coe_ofRows_subset_box rfl)
+
+/-- The blocked stream at rest, as a reaction of any number of periods with a box footprint. -/
+theorem blockedStream_reaction (k : ℕ) :
+    Reaction blockedStream blockedStream (k * 30) (fun _ => Box 0 90 0 32) :=
+  blockedStream_isOscillator.reaction_box blockedStream_subset_box k
+
+/-- **The gate as a reaction**: during its 90 generations the gate with its control glider and
+the released glider stays in the box `0 ≤ x ≤ 90`, `0 ≤ y ≤ 34`. -/
+theorem gate_reaction :
+    Reaction (blockedStream ∪ gateControl) (blockedStream ∪ gateOutput) 90
+      (fun _ => Box 0 90 0 34) := by
+  refine ⟨gate, fun i hi => ?_⟩
+  rw [blockedStream_union_gateControl]
+  interval_cases i <;> (life_eval; exact coe_ofRows_subset_box rfl)
 
 /-! ### Sanity -/
 

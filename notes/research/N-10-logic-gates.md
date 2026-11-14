@@ -114,7 +114,10 @@ Observations of `R-20` not yet certified, relevant for the layout:
   used again 30 or 90 generations later;
 - exactly mirror-symmetric gun pairs have period 60; some gun pairs have two different cycles.
 
-Next: the gate as a `Reaction` with a box footprint; a fan-out; the salvo generators.
+Done since: `blockedStream_reaction` and `gate_reaction` (the resting assembly and the gate as
+reactions with box footprints `0 ≤ x ≤ 90`, `0 ≤ y ≤ 32` resp. `34`).
+
+Next: a fan-out; the salvo generators (search running, report `R-21` expected).
 
 ## Claims and evidence
 
