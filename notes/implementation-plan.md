@@ -30,6 +30,7 @@ to a proof that Life is Turing complete, and ultimately self-replication.
 | `Theory/Life/Gates` | `N-10` | `terminatedGun`, `blockedStream` (oscillators of period exactly 30), `gate`, both as reactions with boxes |
 | `Theory/Life/BoxCert`, `SalvoGenerator` | `N-08`, `N-15` | `life_reaction` (certificates with a box for every generation); `reflector`; `pullGenerator_reaction`: one control glider yields the pulling salvo |
 | `Theory/Life/Decrement` | `N-15` | `decrement`: for every `k ≥ 1`, generator + control glider + block at `k` ⟶ generator + block at `k - 1` |
+| `Theory/Life/ContinueGlider` | `N-15` | `continueGenerator_reaction`: one control glider ⟶ pulling salvo + continue glider |
 | `Theory/Life/Decision` | `N-12` | `WindowData`, `EverAlive`, reduction from a computable family to the general decision problem |
 | `Theory/Computability/*` | `N-14` | Counter machines; `exists_computes_code`; an undecidable halting problem |
 
@@ -56,8 +57,8 @@ side-tracking; Hickerson's shotgun with suppression, 1990; Chapman 2002; stable 
 self-simulation on generally infinite states and leaves the link to computability open.
 
 **Latest result.** Certified: reflector, pull-salvo generator and `decrement` for every
-position `k ≥ 1`. Found by search (`R-22`), not certified: a continue glider (`CG1`) and the
-decision part of the zero test. Not found: a generator of the pushing salvo — this is now the
+position `k ≥ 1`. Certified since: the continue glider (`ContinueGlider.lean`). Found by search (`R-22`), not
+certified: the decision part of the zero test. Not found: a generator of the pushing salvo — this is now the
 main open component.
 
 **Main barriers.** (i) The push-salvo generator, the continue signal and the zero-test logic are
@@ -386,6 +387,10 @@ There are no empirical inputs; every gate is a compiled proof.
   Continue glider found (`CG1`: fan-out in front of the pull generator); push generator not
   found (obstruction: re-timing by reflection and the spacing of comb outputs); decision part of
   the zero-test logic found with free gliders. Observations only; recorded in `N-15`.
+- **2026-11-14 — continue glider certified.** `Theory/Life/ContinueGlider.lean`:
+  `continueGenerator_reaction` (one control glider ⟶ pulling salvo + continue glider, 2010
+  generations), composed from a new 840-generation certificate of the fan-out and
+  `pullGenerator_reaction`.
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom
