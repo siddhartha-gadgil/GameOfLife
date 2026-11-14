@@ -7,6 +7,10 @@ instructions.
 
 - [`implementation-plan.md`](implementation-plan.md): registries for multiple goals, questions and
   notes, their dependency graph, priorities, evidence gates and progress log.
+- [`sources.md`](sources.md): source ledger (`S-*`) with access levels, sourced claims and the
+  assumption ledger (`A-*`) for the Game of Life project.
+- [`research/`](research/): the research notes `N-01`–`N-18` (kernel, simulation, pattern
+  catalogue, components, computation, self-replication, sources).
 - [`note-template.md`](note-template.md): required metadata and sections for a research note,
   including difficulty, barriers, readiness and Lean evidence.
 - [`domain-libraries.md`](domain-libraries.md): how interactive and autonomous theory development

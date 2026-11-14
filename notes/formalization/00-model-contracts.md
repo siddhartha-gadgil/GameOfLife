@@ -26,7 +26,23 @@ contract states the model, the object, the quantifiers and what is controlled. A
 | `ComponentFeasible` | Geometry, loads, constitutive data, tolerances, degradation |
 | `DesignFeasible` | Explicit conjunction of the required contracts for the same candidate and operating states |
 
-‹replace: the contracts of your domain›. In the worked example the contract is "every trajectory
+**Game of Life contracts** (proposed in the seeding of 2026-11-14; none compiled yet; details in
+`notes/research/`):
+
+| Predicate | Required content | Note |
+| --- | --- | --- |
+| `IsStillLife`, `IsOscillator P p` | Kernel `evolve`; exact (minimal) period stated separately from `evolve p P = P` | `N-05` |
+| `IsSpaceship P p v` | Isolated pattern; displacement `v` in the fixed coordinate convention (`Q-1`) | `N-06` |
+| `IsGun G p …` | Invariant for every `n`: gun plus `n` emitted gliders evolves to gun plus `n + 1`; not periodicity | `N-07` |
+| Component specification | Region, ports, signals, timing, initial cells; what stays empty outside | `N-08` |
+| `Simulates` (machine by Life) | Machine model, computable encoding, duration function, halting observable | `N-12` |
+| `IsReplicator` | Number and position of copies, treatment of the parent and of debris | `N-17` |
+
+Model conventions to record here when `N-01` fixes them: coordinate orientation, the rule
+(B3/S23, or a rule parameter instantiated at `conway`), and that configurations are finite sets
+of live cells on `ℤ × ℤ`.
+
+In the template's worked example the contract is "every trajectory
 obeying `OscillatorLaw params23` and starting in `initialStates` satisfies `3 x(t)² ≤ 1` for all
 `t`" (`Certificates/Example.amplitude_cert`): model, initial set, quantifiers and conclusion are
 all explicit.
@@ -57,7 +73,8 @@ inputs and remaining gaps. No result becomes established merely by appearing in 
 ## Corrections before formalizing
 
 Starting notes often contain statements that are true only under unstated hypotheses. Before
-formalizing, list each such claim with its precise replacement (‹replace: your corrections›).
+formalizing, list each such claim with its precise replacement (for this project: corrections `C-1`–`C-9` in
+`notes/implementation-plan.md` §5).
 Typical patterns:
 
 | Loose claim | Precise replacement |
@@ -69,7 +86,8 @@ Typical patterns:
 
 ## The model hierarchy
 
-Select the model by the phenomenon being certified (‹replace: your model ladder›). Every model
+Select the model by the phenomenon being certified (for this project: the ladder in
+`notes/implementation-plan.md` §6). Every model
 is a model: reduction arrows between levels require quantified theorems or explicitly supplied
 error envelopes.
 
