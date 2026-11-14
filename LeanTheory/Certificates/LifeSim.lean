@@ -36,6 +36,10 @@ GMP arithmetic); no `decide` of any kind is used.
 
 The proof-term builder and the tactic `life_cert` are in `Certificates/LifeCert`.
 
+* **Trimmed windows.** `trimmedB` checks the canonical form of a window; `ofRows_inj` shows that
+  a configuration has at most one trimmed window, so that different trimmed windows give
+  different configurations (`ofRows_ne`, `ofRows_ne_of_rows_ne`).
+
 **Sanity.** `mem_ofRows_glider` (the window encoding of the glider is the expected set of cells),
 `nextRow_zero`, `nextBit_eq_ruleB` (the bit formula is Conway's rule, all 512 cases),
 `step_ofRows_blinker` (the refinement reproduces the blinker step of `Sanity/Life`),
@@ -159,6 +163,114 @@ theorem decide_mem_ofRows (x₀ y₀ : ℤ) (rows : List ℕ) (c : Cell) :
 /-- The empty window is the empty configuration. -/
 @[simp] theorem ofRows_nil (x₀ y₀ : ℤ) : ofRows x₀ y₀ [] = ∅ := by
   simp [ofRows]
+
+/-! ### Trimmed windows are unique -/
+
+/-- Boolean check that a window is in **trimmed** form: its first and last rows are not empty
+and some row has its lowest bit set. A nonempty configuration has exactly one trimmed window
+(`ofRows_inj`). -/
+def trimmedB (rows : List ℕ) : Bool :=
+  (rows.getD 0 0 != 0) && (rows.getD (rows.length - 1) 0 != 0) && rows.any (·.testBit 0)
+
+/-- The cells of a window are to the right of and below its origin. -/
+theorem le_of_mem_ofRows {x y : ℤ} {rows : List ℕ} {c : Cell} (h : c ∈ ofRows x y rows) :
+    x ≤ c.1 ∧ y ≤ c.2 := by
+  rw [mem_ofRows, bitAt] at h
+  refine ⟨?_, ?_⟩ <;> by_contra hc
+  · rw [tb_of_neg _ (by omega)] at h
+    exact Bool.false_ne_true h
+  · rw [rowZ_of_neg _ (by omega), tb_zero] at h
+    exact Bool.false_ne_true h
+
+/-- A trimmed window has a cell in its first column. -/
+theorem exists_mem_ofRows_fst {rows : List ℕ} (h : trimmedB rows = true) (x y : ℤ) :
+    ∃ c ∈ ofRows x y rows, c.1 = x := by
+  simp only [trimmedB, Bool.and_eq_true, List.any_eq_true] at h
+  obtain ⟨-, r, hr, hbit⟩ := h
+  obtain ⟨i, hi, rfl⟩ := List.mem_iff_getElem.1 hr
+  refine ⟨(x, y + i), ?_, rfl⟩
+  rw [mem_ofRows, bitAt]
+  have e1 : (x, y + (i : ℤ)).1 - x = ((0 : ℕ) : ℤ) := by simp
+  have e2 : (x, y + (i : ℤ)).2 - y = (i : ℤ) := by simp
+  rw [e1, e2, rowZ_natCast, tb_natCast, List.getD_eq_getElem _ _ hi]
+  exact hbit
+
+/-- A trimmed window has a cell in its first row. -/
+theorem exists_mem_ofRows_snd {rows : List ℕ} (h : trimmedB rows = true) (x y : ℤ) :
+    ∃ c ∈ ofRows x y rows, c.2 = y := by
+  simp only [trimmedB, Bool.and_eq_true, bne_iff_ne, ne_eq] at h
+  obtain ⟨j, hj⟩ := Nat.exists_testBit_of_ne_zero h.1.1
+  refine ⟨(x + j, y), ?_, rfl⟩
+  rw [mem_ofRows, bitAt]
+  have e1 : (x + (j : ℤ), y).1 - x = (j : ℤ) := by simp
+  have e2 : (x + (j : ℤ), y).2 - y = ((0 : ℕ) : ℤ) := by simp
+  rw [e1, e2, rowZ_natCast, tb_natCast]
+  exact hj
+
+/-- If two windows at the same origin encode the same configuration and the second is trimmed,
+the first has at least as many rows. -/
+theorem length_le_of_getD_eq {rows rows' : List ℕ} (h' : trimmedB rows' = true)
+    (he : ∀ i : ℕ, rows.getD i 0 = rows'.getD i 0) : rows'.length ≤ rows.length := by
+  simp only [trimmedB, Bool.and_eq_true, bne_iff_ne, ne_eq] at h'
+  by_contra hlt
+  have h0 := he (rows'.length - 1)
+  rw [List.getD_eq_default _ _ (by omega)] at h0
+  exact h'.1.2 h0.symm
+
+/-- **Uniqueness of the trimmed window**: two trimmed windows encoding the same configuration
+have the same origin and the same rows. -/
+theorem ofRows_inj {x y x' y' : ℤ} {rows rows' : List ℕ} (h : trimmedB rows = true)
+    (h' : trimmedB rows' = true) (he : ofRows x y rows = ofRows x' y' rows') :
+    x = x' ∧ y = y' ∧ rows = rows' := by
+  have hx : x = x' := by
+    obtain ⟨c, hc, hcx⟩ := exists_mem_ofRows_fst h x y
+    obtain ⟨c', hc', hcx'⟩ := exists_mem_ofRows_fst h' x' y'
+    have h1 := (le_of_mem_ofRows (he ▸ hc)).1
+    have h2 := (le_of_mem_ofRows (he ▸ hc')).1
+    omega
+  have hy : y = y' := by
+    obtain ⟨c, hc, hcy⟩ := exists_mem_ofRows_snd h x y
+    obtain ⟨c', hc', hcy'⟩ := exists_mem_ofRows_snd h' x' y'
+    have h1 := (le_of_mem_ofRows (he ▸ hc)).2
+    have h2 := (le_of_mem_ofRows (he ▸ hc')).2
+    omega
+  subst hx hy
+  refine ⟨rfl, rfl, ?_⟩
+  have hrow : ∀ i : ℕ, rows.getD i 0 = rows'.getD i 0 := by
+    intro i
+    apply Nat.eq_of_testBit_eq
+    intro j
+    have hm : ((x + j, y + i) : Cell) ∈ ofRows x y rows ↔
+        ((x + j, y + i) : Cell) ∈ ofRows x y rows' := by rw [he]
+    rw [mem_ofRows, mem_ofRows, bitAt, bitAt] at hm
+    have e1 : ((x + (j : ℤ), y + (i : ℤ)) : Cell).1 - x = (j : ℤ) := by simp
+    have e2 : ((x + (j : ℤ), y + (i : ℤ)) : Cell).2 - y = (i : ℤ) := by simp
+    rw [e1, e2, rowZ_natCast, rowZ_natCast, tb_natCast, tb_natCast] at hm
+    exact Bool.eq_iff_iff.2 hm
+  have hlen : rows.length = rows'.length :=
+    le_antisymm (length_le_of_getD_eq h fun i => (hrow i).symm) (length_le_of_getD_eq h' hrow)
+  apply List.ext_getElem hlen
+  intro i h1 h2
+  have := hrow i
+  rwa [List.getD_eq_getElem _ _ h1, List.getD_eq_getElem _ _ h2] at this
+
+/-- Trimmed windows with different data encode different configurations. -/
+theorem ofRows_ne {x y x' y' : ℤ} {rows rows' : List ℕ} (h : trimmedB rows = true)
+    (h' : trimmedB rows' = true) (hne : ¬ (x = x' ∧ y = y' ∧ rows = rows')) :
+    ofRows x y rows ≠ ofRows x' y' rows' :=
+  fun he => hne (ofRows_inj h h' he)
+
+/-- Trimmed windows with different rows encode configurations that are not translates of each
+other. -/
+theorem ofRows_ne_of_rows_ne {x y x' y' : ℤ} {rows rows' : List ℕ} (h : trimmedB rows = true)
+    (h' : trimmedB rows' = true) (hne : rows ≠ rows') : ofRows x y rows ≠ ofRows x' y' rows' :=
+  fun he => hne (ofRows_inj h h' he).2.2
+
+/-- A trimmed window encodes a nonempty configuration. -/
+theorem ofRows_nonempty {rows : List ℕ} (h : trimmedB rows = true) (x y : ℤ) :
+    (ofRows x y rows).Nonempty :=
+  let ⟨c, hc, _⟩ := exists_mem_ofRows_fst h x y
+  ⟨c, hc⟩
 
 /-! ### The bit-parallel step -/
 

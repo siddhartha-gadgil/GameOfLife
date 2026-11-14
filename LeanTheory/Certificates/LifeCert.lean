@@ -32,9 +32,14 @@ The window on the right-hand side must be the **trimmed** window of the result (
 above or below, some row with its lowest bit set); otherwise the tactic fails and reports the
 trimmed result it computed.
 
-**Sanity.** `glider_evolve_four` (accepted: the glider moves one cell diagonally in four
-generations), `blinker_evolve_two` (accepted), `domino_evolve_one` (accepted, dies out), and a
-rejected fixture (`fail_if_success`: a false displacement of the glider is refused).
+`life_eval` rewrites a subterm `conway.evolve n W` of the goal into the trimmed window of the
+result, with the same kind of proof; it is used when the result is not stated in advance, for
+instance to show that an oscillator does not return to itself earlier than its period.
+
+**Sanity.** `glider_evolve_two_ne` (`life_eval`), `glider_evolve_four` (accepted: the glider
+moves one cell diagonally in four generations), `blinker_evolve_two` (accepted),
+`domino_evolve_one` (accepted, dies out), and a rejected fixture (`fail_if_success`: a false
+displacement of the glider is refused).
 -/
 
 public section
@@ -297,6 +302,35 @@ syntax (name := lifeCert) "life_cert" : tactic
     g.assign (mkAppN (mkConst ``Evolves.sound) (args ++ #[ts'E, rows'E, tagPf, pf, tagPf']))
   replaceMainGoal []
 
+/-- **`life_eval`**: rewrite the first closed subterm `conway.evolve n W` of the goal, where `W`
+is (or unfolds to) a window, into the trimmed window `ofRows x' y' rows'` of the result. The
+equation used for the rewriting is proved as by `life_cert`. -/
+syntax (name := lifeEval) "life_eval" : tactic
+
+/-- The elaborator of `life_eval`. -/
+@[tactic lifeEval] meta def evalLifeEval : Tactic := fun _ => do
+  let g ← getMainGoal
+  let ty ← instantiateMVars (← g.getType)
+  let some e := ty.find? fun e =>
+      e.isAppOfArity ``Rule.evolve 3 && (e.getArg! 0).isConstOf ``conway &&
+        !e.hasLooseBVars && !e.hasFVar
+    | throwError "life_eval: no closed subterm `conway.evolve n W` in the goal"
+  let n ← natOf (e.getArg! 1)
+  let (xe, ye, rowse) ← asOfRows (e.getArg! 2)
+  let x ← intOf xe
+  let y ← intOf ye
+  let rows ← natListOf rowse
+  let (x', y', rows', tsE, ts'E, pf) := mkEvolves n x y rows
+  let (_, rowsE, tagPf) := mkTagged rows
+  let (_, rows'E, tagPf') := mkTagged rows'
+  let proof := mkAppN (mkConst ``Evolves.sound)
+    #[natE n, intE x, intE y, tsE, rowsE, intE x', intE y', ts'E, rows'E, tagPf, pf, tagPf']
+  let rhs := mkApp3 (mkConst ``ofRows) (toExpr x') (toExpr y') (toExpr rows')
+  let h ← mkExpectedTypeHint proof (← mkEq e rhs)
+  let r ← g.rewrite ty h
+  let g' ← g.replaceTargetEq r.eNew r.eqProof
+  replaceMainGoal (g' :: r.mvarIds)
+
 end LeanTheory.Life.Cert
 
 namespace LeanTheory.Life
@@ -313,6 +347,14 @@ theorem blinker_evolve_two : conway.evolve 2 (ofRows (-1) 0 [7]) = ofRows (-1) 0
 /-- **Sanity** (accepted fixture, empty result): a domino dies in one generation. -/
 theorem domino_evolve_one : conway.evolve 1 (ofRows 0 0 [3]) = ∅ := by
   life_cert
+
+/-- **Sanity** (`life_eval`): the result need not be stated in advance; here the second
+generation of the glider is computed and compared with the glider itself, which it differs
+from. -/
+theorem glider_evolve_two_ne :
+    conway.evolve 2 (ofRows 0 0 [2, 4, 7]) ≠ ofRows 0 0 [2, 4, 7] := by
+  life_eval
+  exact ofRows_ne rfl rfl (by simp)
 
 /-- **Sanity** (rejected fixture): a false displacement of the glider is refused. -/
 example : True := by
