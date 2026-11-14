@@ -112,7 +112,8 @@ of gated gun streams. New theorems needed here, in order:
 2. the invariant "logical value = position + pending pushes − pending pulls";
 3. a certified zero-test reaction.
 
-The pulling and pushing salvos should be re-derived by our own search (provenance).
+The pulling and pushing salvos have been re-derived by our own search (`R-19` §d); the
+provenance comment of `SlidingBlock.lean` is updated.
 
 ## Pipelining (2026-11-14)
 
@@ -132,6 +133,22 @@ hypothesis has content: at distance 10 the result is different.
 Not yet done: the train as a `Reaction` with a footprint for all intermediate generations (only
 the final configuration is given), and the value invariant in the form "position + pending
 pushes − pending pulls".
+
+## Zero test (2026-11-14)
+
+Found by own search (`R-19` §e) and certified in `Theory/Life/Collisions.lean`:
+
+- `zeroTestGlider` (travelling down-left). At position 0 the block consumes it and is displaced
+  (`zeroTest_hit`, 9 generations); a second glider from the opposite direction restores the
+  block (`zeroTest_restore`, 20 generations). At every position `k ≥ 1` the test glider passes
+  without interaction at all times (`zeroTest_pass`, by separation of anti-diagonals).
+- The restoring glider would hit blocks at positions 1–5 (observation), so it must be sent
+  only after a positive test. Alternative without restoring glider: a three-glider test salvo,
+  destroyed by the block at position 0 with the block left in place (`zeroTestSalvo_hit`, 33
+  generations); by observation all three pass for `k ≥ 1`, one of them at distance 2 for
+  `k = 1`, which needs its own certificate.
+- Not yet examined: whether test gliders can meet a pull or push salvo in flight (a layout
+  timing question).
 
 ## Claims and evidence
 

@@ -1,0 +1,228 @@
+==========================================================================================
+eater orientation 0 (id) = ofRows 0 0 [3, 5, 4, 12]
+    OO..
+    O.O.
+    ..O.
+    ..OO
+lanes searched -14..14; interacting lanes -5..6 (12 lanes; exhaustive); the 4 phases agree: True
+  lane  glider at        n  outcome
+  -5    (-5, 0)         17  nothing
+  -4    (-5, -1)       420  ?8 + 2 beehives + blinker + 3 blocks + 2 loafs (p2)
+  -3    (-5, -2)       984  2 beehives + 9 blinkers + 8 blocks + boat + loaf + 3 ships (p2) + 3 gliders
+  -2    (-5, -3)        38  nothing
+  -1    (-4, -3)      1924  ?6 + 8 beehives + 15 blinkers + 16 blocks + 3 boats + 2 loafs + pond + 4 ships + tub (p2) + 11 gliders
+  0     (-4, -4)         6  EATER RESTORED, glider destroyed  box (-4, -4, 3, 3); period-30 stream of 10: eater restored, independent
+  1     (-3, -4)         6  nothing
+  2     (-3, -5)         8  nothing
+  3     (-2, -5)       284  2 beehives + 3 blinkers + 6 blocks + boat + loaf + pond + ship (p2) + 2 gliders
+  4     (-1, -5)       180  5 blinkers + 6 blocks + 2 ponds (p2)
+  5     (0, -5)        289  beehive + block + boat + loaf + pond
+  6     (1, -5)          8  nothing
+==========================================================================================
+eater orientation 1 (rot90) = ofRows 0 0 [12, 8, 7, 1]
+    ..OO
+    ...O
+    OOO.
+    O...
+lanes searched -14..14; interacting lanes -7..8 (16 lanes; exhaustive); the 4 phases agree: True
+  lane  glider at        n  outcome
+  -7    (-5, 2)         10  boat
+  -6    (-5, 1)          9  boat + pond
+  -5    (-5, 0)         40  4 blinkers (p2)
+  -4    (-5, -1)        11  nothing
+  -3    (-4, -1)       556  2 ?12s + 2 beehives + blinker + 8 blocks + 2 boats + loaf + ship (p2) + 2 gliders
+  -2    (-4, -2)         8  boat
+  -1    (-3, -2)         4  block
+  0     (-3, -3)        20  nothing
+  1     (-2, -3)         8  2 blinkers (p2)
+  2     (-2, -4)        52  4 beehives + block
+  3     (-1, -4)       456  4 beehives + 8 blinkers + boat (p2) + 1 glider
+  4     (-1, -5)        14  nothing
+  5     (0, -5)          4  boat + eater1  (eater intact, something added)
+  6     (1, -5)        164  blinker + 3 blocks + ship (p2) + 2 gliders
+  7     (2, -5)        304  2 beehives + 2 blinkers + eater1 + pond (p2) + 2 gliders
+  8     (3, -5)          8  blinker + loaf (p2)
+==========================================================================================
+eater orientation 2 (rot180) = ofRows 0 0 [3, 2, 10, 12]
+    OO..
+    .O..
+    .O.O
+    ..OO
+lanes searched -14..14; interacting lanes -5..6 (12 lanes; exhaustive); the 4 phases agree: True
+  lane  glider at        n  outcome
+  -5    (-4, 1)         39  nothing
+  -4    (-4, 0)         28  blinker (p2)
+  -3    (-4, -1)        32  blinker (p2)
+  -2    (-4, -2)        20  4 beehives
+  -1    (-4, -3)        11  loaf
+  0     (-4, -4)        24  blinker + block (p2)
+  1     (-3, -4)       108  block + 1 glider
+  2     (-3, -5)        32  4 beehives
+  3     (-2, -5)         4  boat + eater1  (eater intact, something added)
+  4     (-1, -5)       164  beehive + 3 blocks + ship + 2 gliders
+  5     (0, -5)          7  boat + pond
+  6     (1, -5)         17  nothing
+==========================================================================================
+eater orientation 3 (rot270) = ofRows 0 0 [8, 14, 1, 3]
+    ...O
+    .OOO
+    O...
+    OO..
+lanes searched -14..14; interacting lanes -7..8 (16 lanes; exhaustive); the 4 phases agree: True
+  lane  glider at        n  outcome
+  -7    (-5, 2)         13  1 glider
+  -6    (-5, 1)         45  block + boat
+  -5    (-5, 0)        184  5 blinkers + 6 blocks + 2 ponds (p2)
+  -4    (-5, -1)        12  blinker (p2)
+  -3    (-4, -1)         4  block
+  -2    (-4, -2)         8  block
+  -1    (-3, -2)         7  nothing
+  0     (-3, -3)         9  nothing
+  1     (-2, -3)        10  nothing
+  2     (-2, -4)       156  3 blocks + ship + 2 gliders
+  3     (-1, -4)         9  block
+  4     (0, -4)        868  2 beehives + 9 blinkers + 8 blocks + boat + loaf + 3 ships (p2) + 3 gliders
+  5     (0, -5)         15  loaf
+  6     (1, -5)         32  blinker (p2)
+  7     (2, -5)         22  4 beehives
+  8     (3, -5)          9  block + loaf
+==========================================================================================
+eater orientation 4 (flipx) = ofRows 0 0 [12, 10, 2, 3]
+    ..OO
+    .O.O
+    .O..
+    OO..
+lanes searched -14..14; interacting lanes -7..8 (16 lanes; exhaustive); the 4 phases agree: True
+  lane  glider at        n  outcome
+  -7    (-4, 3)          7  block + loaf
+  -6    (-4, 2)         20  4 beehives
+  -5    (-4, 1)         32  blinker (p2)
+  -4    (-4, 0)         13  loaf
+  -3    (-4, -1)       872  2 beehives + 9 blinkers + 8 blocks + boat + loaf + 3 ships (p2) + 3 gliders
+  -2    (-4, -2)        11  block
+  -1    (-3, -2)       156  3 blocks + ship + 2 gliders
+  0     (-3, -3)        12  nothing
+  1     (-2, -3)         7  nothing
+  2     (-2, -4)         9  nothing
+  3     (-1, -4)         6  block
+  4     (-1, -5)         6  block
+  5     (0, -5)         12  blinker (p2)
+  6     (1, -5)        180  5 blinkers + 6 blocks + 2 ponds (p2)
+  7     (2, -5)         43  block + boat
+  8     (3, -5)         11  1 glider
+==========================================================================================
+eater orientation 5 (flipy) = ofRows 0 0 [12, 4, 5, 3]
+    ..OO
+    ..O.
+    O.O.
+    OO..
+lanes searched -14..14; interacting lanes -7..8 (16 lanes; exhaustive); the 4 phases agree: True
+  lane  glider at        n  outcome
+  -7    (-5, 2)         12  blinker + loaf (p2)
+  -6    (-5, 1)        308  2 beehives + 2 blinkers + eater1 + pond (p2) + 2 gliders
+  -5    (-5, 0)        164  blinker + 3 blocks + ship (p2) + 2 gliders
+  -4    (-5, -1)         6  boat + eater1  (eater intact, something added)
+  -3    (-4, -1)        12  nothing
+  -2    (-4, -2)       460  4 beehives + 8 blinkers + boat (p2) + 1 glider
+  -1    (-3, -2)        50  4 beehives + block
+  0     (-3, -3)        12  2 blinkers (p2)
+  1     (-2, -3)        18  nothing
+  2     (-2, -4)         6  block
+  3     (-1, -4)         6  boat
+  4     (-1, -5)       560  2 ?12s + 2 beehives + blinker + 8 blocks + 2 boats + loaf + ship (p2) + 2 gliders
+  5     (0, -5)          9  nothing
+  6     (1, -5)         36  4 blinkers (p2)
+  7     (2, -5)          7  boat + pond
+  8     (3, -5)          8  boat
+==========================================================================================
+eater orientation 6 (transpose) = ofRows 0 0 [3, 1, 14, 8]
+    OO..
+    O...
+    .OOO
+    ...O
+lanes searched -14..14; interacting lanes -5..6 (12 lanes; exhaustive); the 4 phases agree: True
+  lane  glider at        n  outcome
+  -5    (-5, 0)         10  nothing
+  -4    (-5, -1)       291  beehive + block + boat + loaf + pond
+  -3    (-5, -2)       184  5 blinkers + 6 blocks + 2 ponds (p2)
+  -2    (-5, -3)       288  2 beehives + 3 blinkers + 6 blocks + boat + loaf + pond + ship (p2) + 2 gliders
+  -1    (-4, -3)         6  nothing
+  0     (-4, -4)         8  nothing
+  1     (-3, -4)         4  EATER RESTORED, glider destroyed  box (-3, -4, 3, 3); period-30 stream of 10: eater restored, independent
+  2     (-3, -5)      1924  ?6 + 8 beehives + 15 blinkers + 16 blocks + 3 boats + 2 loafs + pond + 4 ships + tub (p2) + 11 gliders
+  3     (-2, -5)        36  nothing
+  4     (-1, -5)       980  2 beehives + 9 blinkers + 8 blocks + boat + loaf + 3 ships (p2) + 3 gliders
+  5     (0, -5)        420  ?8 + 2 beehives + blinker + 3 blocks + 2 loafs (p2)
+  6     (1, -5)         15  nothing
+==========================================================================================
+eater orientation 7 (antitranspose) = ofRows 0 0 [1, 7, 8, 12]
+    O...
+    OOO.
+    ...O
+    ..OO
+lanes searched -14..14; interacting lanes -5..6 (12 lanes; exhaustive); the 4 phases agree: True
+  lane  glider at        n  outcome
+  -5    (-5, 0)         19  nothing
+  -4    (-5, -1)         9  boat + pond
+  -3    (-5, -2)       168  beehive + 3 blocks + ship + 2 gliders
+  -2    (-5, -3)         6  boat + eater1  (eater intact, something added)
+  -1    (-4, -3)        30  4 beehives
+  0     (-4, -4)       112  block + 1 glider
+  1     (-3, -4)        20  blinker + block (p2)
+  2     (-3, -5)        13  loaf
+  3     (-2, -5)        22  4 beehives
+  4     (-1, -5)        32  blinker (p2)
+  5     (0, -5)         28  blinker (p2)
+  6     (2, -4)         37  nothing
+==========================================================================================
+summary: orientation, interacting lanes, absorbing lanes
+  0 id             12  1
+  1 rot90          16  0
+  2 rot180         12  0
+  3 rot270         16  0
+  4 flipx          16  0
+  5 flipy          16  0
+  6 transpose      12  1
+  7 antitranspose  12  0
+==========================================================================================
+Lean-ready records of the absorptions
+
+-- absorption, eater orientation 0 (id), glider lane 0
+-- numerical observation (own search), not verified in Lean
+--   part eater      := ofRows 4 4 [3, 5, 4, 12]
+--   part glider     := ofRows 0 0 [2, 4, 7]   -- glider dir (+1,+1), phase 0 at (0,0), lane 0
+--   initial (union) := ofRows 0 0 [2, 4, 7, 0, 48, 80, 64, 192]
+--   generations     := 6
+--   final (union)   := ofRows 4 4 [3, 5, 4, 12]   -- eater1
+--   footprint box   := x in [0, 7], y in [0, 7]  (all generations 0..6)
+-- candidate statement:
+--   conway.evolve 6 (ofRows 0 0 [2, 4, 7, 0, 48, 80, 64, 192]) = ofRows 4 4 [3, 5, 4, 12]
+-- picture of the initial configuration:
+--   .O......
+--   ..O.....
+--   OOO.....
+--   ........
+--   ....OO..
+--   ....O.O.
+--   ......O.
+--   ......OO
+
+-- absorption, eater orientation 6 (transpose), glider lane 1
+-- numerical observation (own search), not verified in Lean
+--   part eater      := ofRows 3 4 [3, 1, 14, 8]
+--   part glider     := ofRows 0 0 [2, 4, 7]   -- glider dir (+1,+1), phase 0 at (0,0), lane 0
+--   initial (union) := ofRows 0 0 [2, 4, 7, 0, 24, 8, 112, 64]
+--   generations     := 4
+--   final (union)   := ofRows 3 4 [3, 1, 14, 8]   -- eater1
+--   footprint box   := x in [0, 6], y in [0, 7]  (all generations 0..4)
+-- candidate statement:
+--   conway.evolve 4 (ofRows 0 0 [2, 4, 7, 0, 24, 8, 112, 64]) = ofRows 3 4 [3, 1, 14, 8]
+-- picture of the initial configuration:
+--   .O.....
+--   ..O....
+--   OOO....
+--   .......
+--   ...OO..
+--   ...O...
+--   ....OOO
+--   ......O

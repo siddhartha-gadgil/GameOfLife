@@ -1,0 +1,445 @@
+====================================================================================================
+(e) part 1: one glider against the block at home (upper left cell (0,0))
+====================================================================================================
+direction SE (+1,+1): interacting lanes -5..6 (exhaustive)
+  lane  -5: glider at (-5,0) [phase 0], n =   11: BLOCK ONLY, displaced by (-2,-1)
+  lane  -4: glider at (-5,-1) [phase 0], n =   26: 4 beehives
+  lane  -3: glider at (-5,-2) [phase 0], n =  184: 5 blinkers + 6 blocks + 2 ponds (p2)
+  lane  -2: glider at (-5,-3) [phase 0], n =   31: nothing
+  lane  -1: glider at (-4,-3) [phase 0], n =    5: nothing
+  lane   0: glider at (-4,-4) [phase 0], n =    6: nothing
+  lane   1: glider at (-3,-4) [phase 0], n =    4: nothing
+  lane   2: glider at (-3,-5) [phase 0], n =    7: nothing
+  lane   3: glider at (-2,-5) [phase 0], n =   29: nothing
+  lane   4: glider at (-1,-5) [phase 0], n =  180: 5 blinkers + 6 blocks + 2 ponds (p2)
+  lane   5: glider at (0,-5) [phase 0], n =   24: 4 beehives
+  lane   6: glider at (1,-5) [phase 0], n =    9: BLOCK ONLY, displaced by (-1,-2)
+direction SW (-1,+1): interacting lanes -7..4 (exhaustive)
+  lane  -7: glider at (-2,-5) [phase 0], n =    9: BLOCK ONLY, displaced by (1,-2)
+  lane  -6: glider at (-1,-5) [phase 0], n =   24: 4 beehives
+  lane  -5: glider at (0,-5) [phase 0], n =  180: 5 blinkers + 6 blocks + 2 ponds (p2)
+  lane  -4: glider at (1,-5) [phase 0], n =   29: nothing
+  lane  -3: glider at (2,-5) [phase 0], n =    7: nothing
+  lane  -2: glider at (2,-4) [phase 0], n =    4: nothing
+  lane  -1: glider at (3,-4) [phase 0], n =    6: nothing
+  lane   0: glider at (3,-3) [phase 0], n =    5: nothing
+  lane   1: glider at (4,-3) [phase 0], n =   31: nothing
+  lane   2: glider at (4,-2) [phase 0], n =  184: 5 blinkers + 6 blocks + 2 ponds (p2)
+  lane   3: glider at (4,-1) [phase 0], n =   26: 4 beehives
+  lane   4: glider at (4,0) [phase 0], n =   11: BLOCK ONLY, displaced by (2,-1)
+direction NE (+1,-1): interacting lanes -6..5 (exhaustive)
+  lane  -6: glider at (-5,-1) [phase 0], n =   11: BLOCK ONLY, displaced by (-2,1)
+  lane  -5: glider at (-5,0) [phase 0], n =   26: 4 beehives
+  lane  -4: glider at (-5,1) [phase 0], n =  184: 5 blinkers + 6 blocks + 2 ponds (p2)
+  lane  -3: glider at (-5,2) [phase 0], n =   31: nothing
+  lane  -2: glider at (-4,2) [phase 0], n =    5: nothing
+  lane  -1: glider at (-4,3) [phase 0], n =    6: nothing
+  lane   0: glider at (-3,3) [phase 0], n =    4: nothing
+  lane   1: glider at (-3,4) [phase 0], n =    7: nothing
+  lane   2: glider at (-2,4) [phase 0], n =   29: nothing
+  lane   3: glider at (-1,4) [phase 0], n =  180: 5 blinkers + 6 blocks + 2 ponds (p2)
+  lane   4: glider at (0,4) [phase 0], n =   24: 4 beehives
+  lane   5: glider at (1,4) [phase 0], n =    9: BLOCK ONLY, displaced by (-1,2)
+direction NW (-1,-1): interacting lanes -6..5 (exhaustive)
+  lane  -6: glider at (-2,4) [phase 0], n =    9: BLOCK ONLY, displaced by (1,2)
+  lane  -5: glider at (-1,4) [phase 0], n =   24: 4 beehives
+  lane  -4: glider at (0,4) [phase 0], n =  180: 5 blinkers + 6 blocks + 2 ponds (p2)
+  lane  -3: glider at (1,4) [phase 0], n =   29: nothing
+  lane  -2: glider at (2,4) [phase 0], n =    7: nothing
+  lane  -1: glider at (2,3) [phase 0], n =    4: nothing
+  lane   0: glider at (3,3) [phase 0], n =    6: nothing
+  lane   1: glider at (3,2) [phase 0], n =    5: nothing
+  lane   2: glider at (4,2) [phase 0], n =   31: nothing
+  lane   3: glider at (4,1) [phase 0], n =  184: 5 blinkers + 6 blocks + 2 ponds (p2)
+  lane   4: glider at (4,0) [phase 0], n =   26: 4 beehives
+  lane   5: glider at (4,-1) [phase 0], n =   11: BLOCK ONLY, displaced by (2,1)
+
+====================================================================================================
+(e) part 2: passing a block at (k,k), k = 1..14 (list of the k with interaction)
+====================================================================================================
+direction SE: lanes free for all k >= 1: [-14, -13, -12, -11, -10, -9, -8, -7, -6, 7, 8, 9, 10, 11, 12, 13, 14]
+direction SW: lanes free for all k >= 1: [-14, -13, -12, -11, -10, -9, -8, -7, -6]
+direction NE: lanes free for all k >= 1: [-14, -13, -12, -11, -10, -9, -8, -7, -6, -5]
+direction NW: lanes free for all k >= 1: [-14, -13, -12, -11, -10, -9, -8, -7, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+consuming lanes:
+  NW lane  -6, displacement (1,2): interacts for k = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+  NW lane   5, displacement (2,1): interacts for k = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+  SW lane  -7, displacement (1,-2): FREE for all k >= 1
+  SW lane   4, displacement (2,-1): interacts for k = [1, 2, 3, 4, 5]
+  NE lane  -6, displacement (-2,1): FREE for all k >= 1
+  NE lane   5, displacement (-1,2): interacts for k = [1, 2, 3, 4, 5]
+  SE lane  -5, displacement (-2,-1): interacts for k = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+  SE lane   6, displacement (-1,-2): interacts for k = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+
+====================================================================================================
+(e) part 3: a second glider that brings the displaced block back home
+====================================================================================================
+test NW lane -6 (displacement (1,2), n = 9)  +  restore SE lane 5 (n = 9)
+    test glider free for all k >= 1: False;  restore glider free for all k >= 1: False  (interacts for k = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
+    timing: let the restoring glider be in its normal form (relative to the displaced
+    block) at generation n1 - j, n1 = 9 the end of the first reaction; tested j = -8..59;
+    the block is home again and nothing else is left for j in [-8, -7, -6, -5, -4, -3, -2]; safe choice j = -2
+test NW lane 5 (displacement (2,1), n = 11)  +  restore SE lane -4 (n = 11)
+    test glider free for all k >= 1: False;  restore glider free for all k >= 1: False  (interacts for k = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
+    timing: let the restoring glider be in its normal form (relative to the displaced
+    block) at generation n1 - j, n1 = 11 the end of the first reaction; tested j = -8..59;
+    the block is home again and nothing else is left for j in [-8, -7, -6, -5, -4, -3, -2, -1, 0]; safe choice j = 0
+test SW lane -7 (displacement (1,-2), n = 9)  +  restore NE lane 4 (n = 9)
+    test glider free for all k >= 1: True;  restore glider free for all k >= 1: False  (interacts for k = [1, 2, 3, 4, 5])
+    timing: let the restoring glider be in its normal form (relative to the displaced
+    block) at generation n1 - j, n1 = 9 the end of the first reaction; tested j = -8..59;
+    the block is home again and nothing else is left for j in [-8, -7, -6, -5, -4, -3, -2]; safe choice j = -2
+test SW lane 4 (displacement (2,-1), n = 11)  +  restore NE lane -5 (n = 11)
+    test glider free for all k >= 1: False;  restore glider free for all k >= 1: True
+    timing: let the restoring glider be in its normal form (relative to the displaced
+    block) at generation n1 - j, n1 = 11 the end of the first reaction; tested j = -8..59;
+    the block is home again and nothing else is left for j in [-8, -7, -6, -5, -4, -3, -2, -1, 0]; safe choice j = 0
+test NE lane -6 (displacement (-2,1), n = 11)  +  restore SW lane 3 (n = 11)
+    test glider free for all k >= 1: True;  restore glider free for all k >= 1: False  (interacts for k = [1, 2, 3, 4, 5])
+    timing: let the restoring glider be in its normal form (relative to the displaced
+    block) at generation n1 - j, n1 = 11 the end of the first reaction; tested j = -8..59;
+    the block is home again and nothing else is left for j in [-8, -7, -6, -5, -4, -3, -2, -1, 0]; safe choice j = 0
+test NE lane 5 (displacement (-1,2), n = 9)  +  restore SW lane -6 (n = 9)
+    test glider free for all k >= 1: False;  restore glider free for all k >= 1: True
+    timing: let the restoring glider be in its normal form (relative to the displaced
+    block) at generation n1 - j, n1 = 9 the end of the first reaction; tested j = -8..59;
+    the block is home again and nothing else is left for j in [-8, -7, -6, -5, -4, -3, -2]; safe choice j = -2
+test SE lane -5 (displacement (-2,-1), n = 11)  +  restore NW lane 4 (n = 11)
+    test glider free for all k >= 1: False;  restore glider free for all k >= 1: False  (interacts for k = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
+    timing: let the restoring glider be in its normal form (relative to the displaced
+    block) at generation n1 - j, n1 = 11 the end of the first reaction; tested j = -8..59;
+    the block is home again and nothing else is left for j in [-8, -7, -6, -5, -4, -3, -2, -1, 0]; safe choice j = 0
+test SE lane 6 (displacement (-1,-2), n = 9)  +  restore NW lane -5 (n = 9)
+    test glider free for all k >= 1: False;  restore glider free for all k >= 1: False  (interacts for k = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
+    timing: let the restoring glider be in its normal form (relative to the displaced
+    block) at generation n1 - j, n1 = 9 the end of the first reaction; tested j = -8..59;
+    the block is home again and nothing else is left for j in [-8, -7, -6, -5, -4, -3, -2]; safe choice j = -2
+
+====================================================================================================
+(e) part 4: unconditional test with two gliders (both free for all k >= 1)
+====================================================================================================
+free lanes that hit the block at home (glider 1): SW -7, SW -6, NE -6, NE -5
+free (d, c) for glider 2: 53; delays -100..100; pairs run: 40416; raw hits (block at home, nothing
+else, within 150 generations after the later glider would reach the block, in the box x, y in
+[-77, 78]): 1477;  83 s
+hits whose gliders do not interact without the block and pass every block at (k,k), k = 1..14: 0
+====================================================================================================
+Lean-ready records
+
+-- zero test: test NW lane -6, then restore SE lane 5 (j = -2)
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 3 5 [3, 3]
+--   part test       := ofRows 1 9 [7, 1, 2]   -- glider dir (-1,-1), phase 0 at (1,9), lane -8
+--   part restore    := ofRows 2 0 [5, 6, 2]   -- glider dir (+1,+1), phase 1 at (2,-1), lane 3
+--   initial (union) := ofRows 1 0 [10, 12, 4, 0, 0, 12, 12, 0, 0, 7, 1, 2]
+--   generations     := 20
+--   final (union)   := ofRows 3 5 [3, 3]   -- block
+--   footprint box   := x in [0, 8], y in [0, 11]  (all generations 0..20)
+-- candidate statement:
+--   conway.evolve 20 (ofRows 1 0 [10, 12, 4, 0, 0, 12, 12, 0, 0, 7, 1, 2]) = ofRows 3 5 [3, 3]
+-- picture of the initial configuration:
+--   ..O.O
+--   ...OO
+--   ...O.
+--   .....
+--   .....
+--   ...OO
+--   ...OO
+--   .....
+--   .....
+--   .OOO.
+--   .O...
+--   ..O..
+
+-- first half of the preceding: test NW lane -6 alone
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 3 0 [3, 3]
+--   part test       := ofRows 1 4 [7, 1, 2]   -- glider dir (-1,-1), phase 0 at (1,4), lane -3
+--   initial (union) := ofRows 1 0 [12, 12, 0, 0, 7, 1, 2]
+--   generations     := 9
+--   final (union)   := ofRows 4 2 [3, 3]   -- block
+--   footprint box   := x in [0, 5], y in [0, 6]  (all generations 0..9)
+-- candidate statement:
+--   conway.evolve 9 (ofRows 1 0 [12, 12, 0, 0, 7, 1, 2]) = ofRows 4 2 [3, 3]
+-- picture of the initial configuration:
+--   ...OO
+--   ...OO
+--   .....
+--   .....
+--   .OOO.
+--   .O...
+--   ..O..
+
+-- zero test: test NW lane 5, then restore SE lane -4 (j = 0)
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 6 3 [3, 3]
+--   part test       := ofRows 10 2 [7, 1, 2]   -- glider dir (-1,-1), phase 0 at (10,2), lane 8
+--   part restore    := ofRows 0 2 [5, 6, 2]   -- glider dir (+1,+1), phase 1 at (0,1), lane -1
+--   initial (union) := ofRows 0 2 [7173, 1222, 2242]
+--   generations     := 22
+--   final (union)   := ofRows 6 3 [3, 3]   -- block
+--   footprint box   := x in [0, 12], y in [0, 8]  (all generations 0..22)
+-- candidate statement:
+--   conway.evolve 22 (ofRows 0 2 [7173, 1222, 2242]) = ofRows 6 3 [3, 3]
+-- picture of the initial configuration:
+--   .............
+--   .............
+--   O.O.......OOO
+--   .OO...OO..O..
+--   .O....OO...O.
+
+-- first half of the preceding: test NW lane 5 alone
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 0 3 [3, 3]
+--   part test       := ofRows 4 2 [7, 1, 2]   -- glider dir (-1,-1), phase 0 at (4,2), lane 2
+--   initial (union) := ofRows 0 2 [112, 19, 35]
+--   generations     := 11
+--   final (union)   := ofRows 2 4 [3, 3]   -- block
+--   footprint box   := x in [0, 6], y in [0, 5]  (all generations 0..11)
+-- candidate statement:
+--   conway.evolve 11 (ofRows 0 2 [112, 19, 35]) = ofRows 2 4 [3, 3]
+-- picture of the initial configuration:
+--   .......
+--   .......
+--   ....OOO
+--   OO..O..
+--   OO...O.
+
+-- zero test: test SW lane -7, then restore NE lane 4 (j = -2); the TEST glider passes every block at (k,k), k >= 1
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 3 5 [3, 3]
+--   part test       := ofRows 1 0 [2, 1, 7]   -- glider dir (-1,+1), phase 0 at (1,0), lane 1
+--   part restore    := ofRows 2 9 [2, 6, 5]   -- glider dir (+1,-1), phase 1 at (2,10), lane 12
+--   initial (union) := ofRows 1 0 [2, 1, 7, 0, 0, 12, 12, 0, 0, 4, 12, 10]
+--   generations     := 20
+--   final (union)   := ofRows 3 5 [3, 3]   -- block
+--   footprint box   := x in [0, 8], y in [0, 11]  (all generations 0..20)
+-- candidate statement:
+--   conway.evolve 20 (ofRows 1 0 [2, 1, 7, 0, 0, 12, 12, 0, 0, 4, 12, 10]) = ofRows 3 5 [3, 3]
+-- picture of the initial configuration:
+--   ..O..
+--   .O...
+--   .OOO.
+--   .....
+--   .....
+--   ...OO
+--   ...OO
+--   .....
+--   .....
+--   ...O.
+--   ...OO
+--   ..O.O
+
+-- first half of the preceding: test SW lane -7 alone
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 3 5 [3, 3]
+--   part test       := ofRows 1 0 [2, 1, 7]   -- glider dir (-1,+1), phase 0 at (1,0), lane 1
+--   initial (union) := ofRows 1 0 [2, 1, 7, 0, 0, 12, 12]
+--   generations     := 9
+--   final (union)   := ofRows 4 3 [3, 3]   -- block
+--   footprint box   := x in [0, 5], y in [0, 6]  (all generations 0..9)
+-- candidate statement:
+--   conway.evolve 9 (ofRows 1 0 [2, 1, 7, 0, 0, 12, 12]) = ofRows 4 3 [3, 3]
+-- picture of the initial configuration:
+--   ..O..
+--   .O...
+--   .OOO.
+--   .....
+--   .....
+--   ...OO
+--   ...OO
+
+-- zero test: test SW lane 4, then restore NE lane -5 (j = 0)
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 6 4 [3, 3]
+--   part test       := ofRows 10 4 [2, 1, 7]   -- glider dir (-1,+1), phase 0 at (10,4), lane 14
+--   part restore    := ofRows 0 4 [2, 6, 5]   -- glider dir (+1,-1), phase 1 at (0,5), lane 5
+--   initial (union) := ofRows 0 4 [2242, 1222, 7173]
+--   generations     := 22
+--   final (union)   := ofRows 6 4 [3, 3]   -- block
+--   footprint box   := x in [0, 12], y in [0, 8]  (all generations 0..22)
+-- candidate statement:
+--   conway.evolve 22 (ofRows 0 4 [2242, 1222, 7173]) = ofRows 6 4 [3, 3]
+-- picture of the initial configuration:
+--   .............
+--   .............
+--   .............
+--   .............
+--   .O....OO...O.
+--   .OO...OO..O..
+--   O.O.......OOO
+
+-- first half of the preceding: test SW lane 4 alone
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 0 1 [3, 3]
+--   part test       := ofRows 4 1 [2, 1, 7]   -- glider dir (-1,+1), phase 0 at (4,1), lane 5
+--   initial (union) := ofRows 0 1 [35, 19, 112]
+--   generations     := 11
+--   final (union)   := ofRows 2 0 [3, 3]   -- block
+--   footprint box   := x in [0, 6], y in [0, 5]  (all generations 0..11)
+-- candidate statement:
+--   conway.evolve 11 (ofRows 0 1 [35, 19, 112]) = ofRows 2 0 [3, 3]
+-- picture of the initial configuration:
+--   .......
+--   OO...O.
+--   OO..O..
+--   ....OOO
+
+-- zero test: test NE lane -6, then restore SW lane 3 (j = 0); the TEST glider passes every block at (k,k), k >= 1
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 5 3 [3, 3]
+--   part test       := ofRows 0 2 [7, 4, 2]   -- glider dir (+1,-1), phase 0 at (0,2), lane 2
+--   part restore    := ofRows 10 2 [5, 3, 2]   -- glider dir (-1,+1), phase 1 at (10,1), lane 11
+--   initial (union) := ofRows 0 2 [5127, 3172, 2146]
+--   generations     := 22
+--   final (union)   := ofRows 5 3 [3, 3]   -- block
+--   footprint box   := x in [0, 12], y in [0, 8]  (all generations 0..22)
+-- candidate statement:
+--   conway.evolve 22 (ofRows 0 2 [5127, 3172, 2146]) = ofRows 5 3 [3, 3]
+-- picture of the initial configuration:
+--   .............
+--   .............
+--   OOO.......O.O
+--   ..O..OO...OO.
+--   .O...OO....O.
+
+-- first half of the preceding: test NE lane -6 alone
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 5 3 [3, 3]
+--   part test       := ofRows 0 2 [7, 4, 2]   -- glider dir (+1,-1), phase 0 at (0,2), lane 2
+--   initial (union) := ofRows 0 2 [7, 100, 98]
+--   generations     := 11
+--   final (union)   := ofRows 3 4 [3, 3]   -- block
+--   footprint box   := x in [0, 6], y in [0, 5]  (all generations 0..11)
+-- candidate statement:
+--   conway.evolve 11 (ofRows 0 2 [7, 100, 98]) = ofRows 3 4 [3, 3]
+-- picture of the initial configuration:
+--   .......
+--   .......
+--   OOO....
+--   ..O..OO
+--   .O...OO
+
+-- zero test: test NE lane 5, then restore SW lane -6 (j = -2)
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 4 5 [3, 3]
+--   part test       := ofRows 5 9 [7, 4, 2]   -- glider dir (+1,-1), phase 0 at (5,9), lane 14
+--   part restore    := ofRows 4 0 [5, 3, 2]   -- glider dir (-1,+1), phase 1 at (4,-1), lane 3
+--   initial (union) := ofRows 4 0 [5, 3, 2, 0, 0, 3, 3, 0, 0, 14, 8, 4]
+--   generations     := 20
+--   final (union)   := ofRows 4 5 [3, 3]   -- block
+--   footprint box   := x in [0, 8], y in [0, 11]  (all generations 0..20)
+-- candidate statement:
+--   conway.evolve 20 (ofRows 4 0 [5, 3, 2, 0, 0, 3, 3, 0, 0, 14, 8, 4]) = ofRows 4 5 [3, 3]
+-- picture of the initial configuration:
+--   ....O.O.
+--   ....OO..
+--   .....O..
+--   ........
+--   ........
+--   ....OO..
+--   ....OO..
+--   ........
+--   ........
+--   .....OOO
+--   .......O
+--   ......O.
+
+-- first half of the preceding: test NE lane 5 alone
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 1 0 [3, 3]
+--   part test       := ofRows 2 4 [7, 4, 2]   -- glider dir (+1,-1), phase 0 at (2,4), lane 6
+--   initial (union) := ofRows 1 0 [3, 3, 0, 0, 14, 8, 4]
+--   generations     := 9
+--   final (union)   := ofRows 0 2 [3, 3]   -- block
+--   footprint box   := x in [0, 5], y in [0, 6]  (all generations 0..9)
+-- candidate statement:
+--   conway.evolve 9 (ofRows 1 0 [3, 3, 0, 0, 14, 8, 4]) = ofRows 0 2 [3, 3]
+-- picture of the initial configuration:
+--   .OO..
+--   .OO..
+--   .....
+--   .....
+--   ..OOO
+--   ....O
+--   ...O.
+
+-- zero test: test SE lane -5, then restore NW lane 4 (j = 0)
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 5 4 [3, 3]
+--   part test       := ofRows 0 4 [2, 4, 7]   -- glider dir (+1,+1), phase 0 at (0,4), lane -4
+--   part restore    := ofRows 10 4 [2, 3, 5]   -- glider dir (-1,-1), phase 1 at (10,5), lane 5
+--   initial (union) := ofRows 0 4 [2146, 3172, 5127]
+--   generations     := 22
+--   final (union)   := ofRows 5 4 [3, 3]   -- block
+--   footprint box   := x in [0, 12], y in [0, 8]  (all generations 0..22)
+-- candidate statement:
+--   conway.evolve 22 (ofRows 0 4 [2146, 3172, 5127]) = ofRows 5 4 [3, 3]
+-- picture of the initial configuration:
+--   .............
+--   .............
+--   .............
+--   .............
+--   .O...OO....O.
+--   ..O..OO...OO.
+--   OOO.......O.O
+
+-- first half of the preceding: test SE lane -5 alone
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 5 1 [3, 3]
+--   part test       := ofRows 0 1 [2, 4, 7]   -- glider dir (+1,+1), phase 0 at (0,1), lane -1
+--   initial (union) := ofRows 0 1 [98, 100, 7]
+--   generations     := 11
+--   final (union)   := ofRows 3 0 [3, 3]   -- block
+--   footprint box   := x in [0, 6], y in [0, 5]  (all generations 0..11)
+-- candidate statement:
+--   conway.evolve 11 (ofRows 0 1 [98, 100, 7]) = ofRows 3 0 [3, 3]
+-- picture of the initial configuration:
+--   .......
+--   .O...OO
+--   ..O..OO
+--   OOO....
+
+-- zero test: test SE lane 6, then restore NW lane -5 (j = -2)
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 4 5 [3, 3]
+--   part test       := ofRows 5 0 [2, 4, 7]   -- glider dir (+1,+1), phase 0 at (5,0), lane 5
+--   part restore    := ofRows 4 9 [2, 3, 5]   -- glider dir (-1,-1), phase 1 at (4,10), lane -6
+--   initial (union) := ofRows 4 0 [4, 8, 14, 0, 0, 3, 3, 0, 0, 2, 3, 5]
+--   generations     := 20
+--   final (union)   := ofRows 4 5 [3, 3]   -- block
+--   footprint box   := x in [0, 8], y in [0, 11]  (all generations 0..20)
+-- candidate statement:
+--   conway.evolve 20 (ofRows 4 0 [4, 8, 14, 0, 0, 3, 3, 0, 0, 2, 3, 5]) = ofRows 4 5 [3, 3]
+-- picture of the initial configuration:
+--   ......O.
+--   .......O
+--   .....OOO
+--   ........
+--   ........
+--   ....OO..
+--   ....OO..
+--   ........
+--   ........
+--   .....O..
+--   ....OO..
+--   ....O.O.
+
+-- first half of the preceding: test SE lane 6 alone
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 1 5 [3, 3]
+--   part test       := ofRows 2 0 [2, 4, 7]   -- glider dir (+1,+1), phase 0 at (2,0), lane 2
+--   initial (union) := ofRows 1 0 [4, 8, 14, 0, 0, 3, 3]
+--   generations     := 9
+--   final (union)   := ofRows 0 3 [3, 3]   -- block
+--   footprint box   := x in [0, 5], y in [0, 6]  (all generations 0..9)
+-- candidate statement:
+--   conway.evolve 9 (ofRows 1 0 [4, 8, 14, 0, 0, 3, 3]) = ofRows 0 3 [3, 3]
+-- picture of the initial configuration:
+--   ...O.
+--   ....O
+--   ..OOO
+--   .....
+--   .....
+--   .OO..
+--   .OO..

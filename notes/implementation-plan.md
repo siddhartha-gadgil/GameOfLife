@@ -106,9 +106,9 @@ extensions of the catalogue. See §7.
 | `N-06` | [Spaceships](research/N-06-spaceships.md) | `G-4` | `N-01`, `N-03`, `N-04` | routine | **verified** for one orientation each (commit `47f841c`) | other orientations and the `gliderAt` family, with `N-07` |
 | `N-07` | [Guns and streams](research/N-07-guns-streams.md) | `G-4`; `Q-8` | `N-03`, `N-04`, `N-06` | moderate | **verified** | gun with eater; other orientations (optional) |
 | `N-08` | [Component interfaces](research/N-08-component-interfaces.md) | `G-3`, `G-5`; `Q-8` | `N-04`; informed by `N-07` | hard | exploratory; first calculus **compiled** (`Reaction`, `par`, `seq`, `translate`), tested on `pull_reaction` | rectangular footprints; a multi-component example |
-| `N-09` | [Elementary reactions](research/N-09-elementary-reactions.md) | `G-5` | `N-03`, `N-05`, `N-06`, `N-08`, `N-18` | routine each | stated; data available (`R-18` §4); blocked on `N-08` for the format | Certify the three block reactions and glider-into-eater as plain certificates first |
+| `N-09` | [Elementary reactions](research/N-09-elementary-reactions.md) | `G-5` | `N-03`, `N-05`, `N-06`, `N-08`, `N-18` | routine each | **verified** for absorption, annihilation, kickback, zero test (`Collisions.lean`) | stream versions as reactions with footprints |
 | `N-10` | [Logic gates and wiring](research/N-10-logic-gates.md) | `G-5`; `Q-7` | `N-08`, `N-09`, `N-13`, `N-18` | hard | partly **verified**: terminated gun, blocked stream, one gate (`Gates.lean`) | fan-out; salvo generators; gate as a `Reaction` |
-| `N-11` | [Sliding block memory](research/N-11-sliding-block-memory.md) | `G-5`; `Q-6` | `N-03`, `N-04`, `N-05`, `N-06`, `N-08`, `N-18` | moderate | partly **verified**: `pull`, `push` for every position; `pipeline` for trains of salvos; generators and zero test open | Zero-test reaction and salvo generators (design D1) |
+| `N-11` | [Sliding block memory](research/N-11-sliding-block-memory.md) | `G-5`; `Q-6` | `N-03`, `N-04`, `N-05`, `N-06`, `N-08`, `N-18` | moderate | partly **verified**: `pull`, `push`, `pipeline`, zero test (`zeroTest_hit`, `zeroTest_pass`); generators open | salvo generators (search running); zero-test logic |
 | `N-12` | [Meaning of universality](research/N-12-meaning-of-universality.md) | `G-7`; `Q-4` | Mathlib (compiled); `N-01` (types only) | moderate | stated in outline; machine model now fixed (`N-14`); **ready** | Write the exact Lean statements against `Program.Computes` |
 | `N-13` | [Route assessment](research/N-13-route-assessment.md) | `G-7`; `Q-5`, `Q-6` | `N-12`; sources | moderate | decided: route R1, confirmed against the sources (`R-18`) with corrections | none |
 | `N-14` | [Counter machines](research/N-14-counter-machines.md) | `G-6`; `Q-12` | Mathlib (compiled); `N-13` (conditional) | hard | **verified** | none |
@@ -343,6 +343,10 @@ There are no empirical inputs; every gate is a compiled proof.
   `R-20`, sub-agent) found, and `Theory/Life/Gates.lean` certifies: the gun terminated by an
   eater and the blocked stream of two guns (oscillators of period exactly 30) and a gate
   (`gate`: a control glider releases exactly one glider).
+- **2026-11-14 — elementary reactions.** Own exhaustive search (`scripts/life_search`, report
+  `R-19`, sub-agent); `Theory/Life/Collisions.lean` certifies absorption, annihilation,
+  kickback and the zero test, including `zeroTest_pass` for every position `k ≥ 1`. The block
+  salvos were rediscovered by the search (provenance updated).
 
 ## 12. Implementation and workstation log
 

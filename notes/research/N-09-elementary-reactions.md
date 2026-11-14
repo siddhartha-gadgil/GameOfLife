@@ -12,12 +12,12 @@
 | Dependency requirement | certificates for windows of a few tens of cells and generations; pattern definitions; the component specification format; cell-exact reaction geometries with provenance |
 | Produces | `LeanTheory/Theory/Life/Reactions/*.lean`: one theorem per reaction in the `N-08` format |
 | Difficulty | routine per reaction once the format exists; the effort is in selecting the minimal set and obtaining exact geometries |
-| Status | stated (inventory provisional) |
-| Implementation status | not started |
-| Implementation evidence | none |
-| Lean evidence | none |
+| Status | verified for the reactions listed under Lean evidence; stream versions and the gate as a reaction remain |
+| Implementation status | in progress |
+| Implementation evidence | `LeanTheory/Theory/Life/Collisions.lean`; search oracle `scripts/life_search/`; report `reports/R-19-elementary-reactions.md` |
+| Lean evidence | `eater_absorbs_glider`, `gliders_annihilate_perp`, `gliders_annihilate_headOn`, `glider_kickback`, `glider_turnRound`, `shortPush`, `zeroTest_hit`, `zeroTest_restore`, `zeroTest_pass`, `zeroTestSalvo_hit`; tools `diagCheck`, `sum_le_of_mem_ofRows`, `sep_of_sum_lt` |
 | Audit evidence | not audited |
-| Last updated | 2026-11-14: seeded |
+| Last updated | 2026-11-14: elementary reactions certified |
 
 ## Purpose and scope
 
@@ -57,6 +57,23 @@ Provisional inventory, to be pruned to what the chosen route (`N-13`, `Q-7`) nee
 
 For each: the positive theorem, and a *negative fixture* with a wrong offset or phase showing
 the stated geometry matters (for example, a glider that damages the eater).
+
+## Results (2026-11-14)
+
+An exhaustive search by our own oracle (`scripts/life_search`, report `R-19`, sub-agent work)
+classified all two-glider collisions (71 classes up to symmetry: 28 clean annihilations, 2
+leaving exactly one glider, the rest still lifes, oscillators or other), the eater, and salvos
+of up to three gliders against a block. Certified from it in `Theory/Life/Collisions.lean`:
+absorption by the eater (6 generations), annihilation at a right angle (4) and head-on (3),
+kickback (10) and a head-on turn-round (6), a shorter push (19), and the zero test.
+
+Observations not yet certified: all 18 fast perpendicular annihilations stay clean for
+period-30 streams and a single glider deletes exactly one glider of a stream; the eater absorbs
+a period-30 stream (certified in another form: `terminatedGun_isOscillator`); the eater absorbs
+on exactly one lane, with no tolerance; no two-glider push exists in the searched range.
+
+Provenance: the search rediscovered `pullSalvo` (the only two-glider pull in range up to
+mirror image) and `pushSalvo` (one of 176 three-glider pushes).
 
 ## Claims and evidence
 

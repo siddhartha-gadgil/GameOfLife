@@ -1,0 +1,278 @@
+
+-- R1 absorption: eater 1 (catalogue orientation, translated by (4,4)) eats an SE glider
+-- numerical observation (own search), not verified in Lean
+--   part eater      := ofRows 4 4 [3, 5, 4, 12]
+--   part glider     := ofRows 0 0 [2, 4, 7]   -- glider dir (+1,+1), phase 0 at (0,0), lane 0
+--   initial (union) := ofRows 0 0 [2, 4, 7, 0, 48, 80, 64, 192]
+--   generations     := 6
+--   final (union)   := ofRows 4 4 [3, 5, 4, 12]   -- eater1
+--   footprint box   := x in [0, 7], y in [0, 7]  (all generations 0..6)
+-- candidate statement:
+--   conway.evolve 6 (ofRows 0 0 [2, 4, 7, 0, 48, 80, 64, 192]) = ofRows 4 4 [3, 5, 4, 12]
+-- picture of the initial configuration:
+--   .O......
+--   ..O.....
+--   OOO.....
+--   ........
+--   ....OO..
+--   ....O.O.
+--   ......O.
+--   ......OO
+
+-- R1' absorption, mirror image in the diagonal (eater transposed)
+-- numerical observation (own search), not verified in Lean
+--   part eater      := ofRows 3 4 [3, 1, 14, 8]
+--   part glider     := ofRows 0 0 [2, 4, 7]   -- glider dir (+1,+1), phase 0 at (0,0), lane 0
+--   initial (union) := ofRows 0 0 [2, 4, 7, 0, 24, 8, 112, 64]
+--   generations     := 4
+--   final (union)   := ofRows 3 4 [3, 1, 14, 8]   -- eater1
+--   footprint box   := x in [0, 6], y in [0, 7]  (all generations 0..4)
+-- candidate statement:
+--   conway.evolve 4 (ofRows 0 0 [2, 4, 7, 0, 24, 8, 112, 64]) = ofRows 3 4 [3, 1, 14, 8]
+-- picture of the initial configuration:
+--   .O.....
+--   ..O....
+--   OOO....
+--   .......
+--   ...OO..
+--   ...O...
+--   ....OOO
+--   ......O
+
+-- R2 annihilation at a right angle: SE glider and SW glider
+-- numerical observation (own search), not verified in Lean
+--   part gliderA    := ofRows 0 0 [2, 4, 7]   -- glider dir (+1,+1), phase 0 at (0,0), lane 0
+--   part gliderB    := ofRows 4 1 [2, 1, 7]   -- glider dir (-1,+1), phase 0 at (4,1), lane 5
+--   initial (union) := ofRows 0 0 [2, 36, 23, 112]
+--   generations     := 4
+--   final           := ∅
+--   footprint box   := x in [0, 6], y in [0, 4]  (all generations 0..4)
+-- candidate statement:
+--   conway.evolve 4 (ofRows 0 0 [2, 36, 23, 112]) = ∅
+-- picture of the initial configuration:
+--   .O.....
+--   ..O..O.
+--   OOO.O..
+--   ....OOO
+
+-- R2' annihilation head-on: SE glider and NW glider
+-- numerical observation (own search), not verified in Lean
+--   part gliderA    := ofRows 0 1 [2, 4, 7]   -- glider dir (+1,+1), phase 0 at (0,1), lane -1
+--   part gliderB    := ofRows 4 1 [7, 1, 2]   -- glider dir (-1,-1), phase 0 at (4,1), lane 3
+--   initial (union) := ofRows 0 1 [114, 20, 39]
+--   generations     := 3
+--   final           := ∅
+--   footprint box   := x in [0, 6], y in [0, 4]  (all generations 0..3)
+-- candidate statement:
+--   conway.evolve 3 (ofRows 0 1 [114, 20, 39]) = ∅
+-- picture of the initial configuration:
+--   .......
+--   .O..OOO
+--   ..O.O..
+--   OOO..O.
+
+-- R3 kickback: SE glider A meets SW glider B; B is destroyed and A returns as an NW glider
+-- numerical observation (own search), not verified in Lean
+--   part gliderA    := ofRows 0 0 [2, 4, 7]   -- glider dir (+1,+1), phase 0 at (0,0), lane 0
+--   part gliderB    := ofRows 2 5 [5, 3, 2]   -- glider dir (-1,+1), phase 1 at (2,4), lane 6
+--   initial (union) := ofRows 0 0 [2, 4, 7, 0, 0, 20, 12, 8]
+--   generations     := 10
+--   final part      := ofRows 1 2 [3, 5, 1]   -- glider dir (-1,-1), phase 2 at (1,3), lane -2
+--   final (union)   := ofRows 1 2 [3, 5, 1]   -- glider
+--   footprint box   := x in [0, 4], y in [0, 9]  (all generations 0..10)
+-- candidate statement:
+--   conway.evolve 10 (ofRows 0 0 [2, 4, 7, 0, 0, 20, 12, 8]) = ofRows 1 2 [3, 5, 1]
+-- picture of the initial configuration:
+--   .O...
+--   ..O..
+--   OOO..
+--   .....
+--   .....
+--   ..O.O
+--   ..OO.
+--   ...O.
+
+-- R3' head-on collision leaving one NW glider on the line of A
+-- numerical observation (own search), not verified in Lean
+--   part gliderA    := ofRows 2 0 [2, 4, 7]   -- glider dir (+1,+1), phase 0 at (2,0), lane 2
+--   part gliderB    := ofRows 2 5 [3, 5, 1]   -- glider dir (-1,-1), phase 2 at (2,6), lane -4
+--   initial (union) := ofRows 2 0 [2, 4, 7, 0, 0, 3, 5, 1]
+--   generations     := 6
+--   final part      := ofRows 3 0 [2, 3, 5]   -- glider dir (-1,-1), phase 1 at (3,1), lane 2
+--   final (union)   := ofRows 3 0 [2, 3, 5]   -- glider
+--   footprint box   := x in [0, 5], y in [0, 7]  (all generations 0..6)
+-- candidate statement:
+--   conway.evolve 6 (ofRows 2 0 [2, 4, 7, 0, 0, 3, 5, 1]) = ofRows 3 0 [2, 3, 5]
+-- picture of the initial configuration:
+--   ...O.
+--   ....O
+--   ..OOO
+--   .....
+--   .....
+--   ..OO.
+--   ..O.O
+--   ..O..
+
+-- R4 pull, block displaced by (-1,-1): the salvo pullSalvo of SlidingBlock.lean (rediscovered)
+-- numerical observation (own search), not verified in Lean
+-- this is pull_zero; the search finds it one generation earlier (normal form, n = 27)
+--   part block      := ofRows 7 11 [3, 3]
+--   part glider1    := ofRows 0 5 [2, 4, 7]   -- glider dir (+1,+1), phase 0 at (0,5), lane -5
+--   part glider2    := ofRows 7 7 [5, 6, 2]   -- glider dir (+1,+1), phase 1 at (7,6), lane 1
+--   initial (union) := ofRows 0 5 [2, 4, 647, 768, 256, 0, 384, 384]
+--   generations     := 26
+--   final (union)   := ofRows 6 10 [3, 3]   -- block
+--   footprint box   := x in [0, 14], y in [4, 12]  (all generations 0..26)
+-- candidate statement:
+--   conway.evolve 26 (ofRows 0 5 [2, 4, 647, 768, 256, 0, 384, 384]) = ofRows 6 10 [3, 3]
+-- picture of the initial configuration (its bounding box):
+--   .O........
+--   ..O.......
+--   OOO....O.O
+--   ........OO
+--   ........O.
+--   ..........
+--   .......OO.
+--   .......OO.
+
+-- R5 push, block displaced by (+1,+1): the salvo pushSalvo of SlidingBlock.lean (rediscovered)
+-- numerical observation (own search), not verified in Lean
+-- this is push_zero; the search finds it one generation earlier (normal form, n = 33)
+--   part block      := ofRows 7 11 [3, 3]
+--   part glider1    := ofRows 0 5 [2, 4, 7]   -- glider dir (+1,+1), phase 0 at (0,5), lane -5
+--   part glider2    := ofRows 7 7 [5, 6, 2]   -- glider dir (+1,+1), phase 1 at (7,6), lane 1
+--   part glider3    := ofRows 1 0 [2, 4, 7]   -- glider dir (+1,+1), phase 0 at (1,0), lane 1
+--   initial (union) := ofRows 0 0 [4, 8, 14, 0, 0, 2, 4, 647, 768, 256, 0, 384, 384]
+--   generations     := 32
+--   final (union)   := ofRows 8 12 [3, 3]   -- block
+--   footprint box   := x in [0, 14], y in [0, 13]  (all generations 0..32)
+-- candidate statement:
+--   conway.evolve 32 (ofRows 0 0 [4, 8, 14, 0, 0, 2, 4, 647, 768, 256, 0, 384, 384]) = ofRows 8 12 [3, 3]
+-- picture of the initial configuration (its bounding box):
+--   ..O.......
+--   ...O......
+--   .OOO......
+--   ..........
+--   ..........
+--   .O........
+--   ..O.......
+--   OOO....O.O
+--   ........OO
+--   ........O.
+--   ..........
+--   .......OO.
+--   .......OO.
+
+-- R5' push, block displaced by (+1,+1): the shortest three-glider salvo found
+-- numerical observation (own search), not verified in Lean
+--   part block      := ofRows 7 9 [3, 3]
+--   part glider1    := ofRows 5 4 [2, 4, 7]   -- glider dir (+1,+1), phase 0 at (5,4), lane 1
+--   part glider2    := ofRows 0 5 [1, 6, 3]   -- glider dir (+1,+1), phase 3 at (-1,4), lane -5
+--   part glider3    := ofRows 2 0 [5, 6, 2]   -- glider dir (+1,+1), phase 1 at (2,-1), lane 3
+--   initial (union) := ofRows 0 0 [20, 24, 8, 0, 64, 129, 230, 3, 0, 384, 384]
+--   generations     := 19
+--   final (union)   := ofRows 8 10 [3, 3]   -- block
+--   footprint box   := x in [0, 10], y in [0, 12]  (all generations 0..19)
+-- candidate statement:
+--   conway.evolve 19 (ofRows 0 0 [20, 24, 8, 0, 64, 129, 230, 3, 0, 384, 384]) = ofRows 8 10 [3, 3]
+-- picture of the initial configuration:
+--   ..O.O....
+--   ...OO....
+--   ...O.....
+--   .........
+--   ......O..
+--   O......O.
+--   .OO..OOO.
+--   OO.......
+--   .........
+--   .......OO
+--   .......OO
+
+-- R6 zero test: an SW glider is destroyed by the block at position 0, which moves by (1,-2)
+-- numerical observation (own search), not verified in Lean
+-- frame of SlidingBlock.lean: the block is counter 0
+--   part block      := ofRows 7 11 [3, 3]
+--   part test       := ofRows 5 6 [2, 1, 7]   -- glider dir (-1,+1), phase 0 at (5,6), lane 11
+--   initial (union) := ofRows 5 6 [2, 1, 7, 0, 0, 12, 12]
+--   generations     := 9
+--   final (union)   := ofRows 8 9 [3, 3]   -- block
+--   footprint box   := x in [4, 9], y in [6, 12]  (all generations 0..9)
+-- candidate statement:
+--   conway.evolve 9 (ofRows 5 6 [2, 1, 7, 0, 0, 12, 12]) = ofRows 8 9 [3, 3]
+-- picture of the initial configuration (its bounding box):
+--   .O..
+--   O...
+--   OOO.
+--   ....
+--   ....
+--   ..OO
+--   ..OO
+
+-- R6 zero test with restoring NE glider: both gliders destroyed, block back at position 0
+-- numerical observation (own search), not verified in Lean
+-- frame of SlidingBlock.lean: the block is counter 0
+--   part block      := ofRows 7 11 [3, 3]
+--   part test       := ofRows 5 6 [2, 1, 7]   -- glider dir (-1,+1), phase 0 at (5,6), lane 11
+--   part restore    := ofRows 6 15 [2, 6, 5]   -- glider dir (+1,-1), phase 1 at (6,16), lane 22
+--   initial (union) := ofRows 5 6 [2, 1, 7, 0, 0, 12, 12, 0, 0, 4, 12, 10]
+--   generations     := 20
+--   final (union)   := ofRows 7 11 [3, 3]   -- block
+--   footprint box   := x in [4, 12], y in [6, 17]  (all generations 0..20)
+-- candidate statement:
+--   conway.evolve 20 (ofRows 5 6 [2, 1, 7, 0, 0, 12, 12, 0, 0, 4, 12, 10]) = ofRows 7 11 [3, 3]
+-- picture of the initial configuration (its bounding box):
+--   .O..
+--   O...
+--   OOO.
+--   ....
+--   ....
+--   ..OO
+--   ..OO
+--   ....
+--   ....
+--   ..O.
+--   ..OO
+--   .O.O
+
+-- R6: the test glider ofRows 5 6 [2, 1, 7] (SW) stays at Chebyshev distance >= 3 from
+-- counter k for every k = 1..39 at every generation -40..400, and evolves freely
+-- (numerical observation)
+
+-- R7 unconditional zero test: three SW gliders are destroyed by the block at position 0, which is at position 0 again afterwards
+-- numerical observation (own search), not verified in Lean
+-- frame of SlidingBlock.lean: the block is counter 0
+--   part block      := ofRows 7 11 [3, 3]
+--   part glider1    := ofRows 6 6 [2, 1, 7]   -- glider dir (-1,+1), phase 0 at (6,6), lane 12
+--   part glider2    := ofRows 5 0 [2, 1, 7]   -- glider dir (-1,+1), phase 0 at (5,0), lane 5
+--   part glider3    := ofRows 13 (-2) [1, 5, 3]   -- glider dir (-1,+1), phase 2 at (13,-3), lane 10
+--   initial (union) := ofRows 5 (-2) [256, 1280, 770, 1, 7, 0, 0, 0, 4, 2, 14, 0, 0, 12, 12]
+--   generations     := 33
+--   final (union)   := ofRows 7 11 [3, 3]   -- block
+--   footprint box   := x in [3, 15], y in [-2, 12]  (all generations 0..33)
+-- candidate statement:
+--   conway.evolve 33 (ofRows 5 (-2) [256, 1280, 770, 1, 7, 0, 0, 0, 4, 2, 14, 0, 0, 12, 12]) = ofRows 7 11 [3, 3]
+-- picture of the initial configuration (its bounding box):
+--   ........O..
+--   ........O.O
+--   .O......OO.
+--   O..........
+--   OOO........
+--   ...........
+--   ...........
+--   ...........
+--   ..O........
+--   .O.........
+--   .OOO.......
+--   ...........
+--   ...........
+--   ..OO.......
+--   ..OO.......
+
+-- R7: for every k = 1..39 the three gliders, started 160 generations earlier, evolve freely
+-- past counter k for 700 generations.  Smallest Chebyshev distance of gliders 1, 2, 3 from
+-- counter k:  k = 1: [2, 6, 3];  k = 2: [3, 7, 4];  k = 3: [4, 8, 5];  at least 3 for all k = 2..39.
+-- So for k = 1 a glider passes at distance 2 without effect: this needs its own certificate,
+-- the separation lemma (distance > 2) does not apply.
+-- (numerical observation)
+
+all recommended reactions re-checked

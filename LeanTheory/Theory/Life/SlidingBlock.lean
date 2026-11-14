@@ -31,10 +31,13 @@ Scope: these are the bare reactions. A register of a machine also needs circuitr
 the salvos on demand and a test for zero; pulling at position `0` moves the block to position
 `-1`, which a register must prevent. None of that is in this module.
 
-Pattern data: the salvos are those of Figure 8.37 (b) and (c) of Johnston and Greene, *Conway's
-Game of Life: Mathematics and Construction* (pattern file `synchronized_block_movers`), as
-transcribed in `notes/research/reports/R-18-source-report.md` §4.1; (b) is attributed there to
-Dean Hickerson (1990) and (c) to Paul Chapman (2004).
+Pattern data: both salvos are found by the project's own exhaustive search of salvos of gliders
+against a block (`scripts/life_search/block_salvo.py`, report
+`notes/research/reports/R-19-elementary-reactions.md`): `pullSalvo` is, up to mirror image, the
+only two-glider salvo in the searched range that moves the block by `(-1, -1)`, and `pushSalvo`
+is one of 176 three-glider salvos moving it by `(1, 1)`. They coincide with reactions known in
+the literature (attributed to Dean Hickerson, 1990, and Paul Chapman, 2004); the coordinates in
+this file were first transcribed from a figure and then confirmed by that search.
 
 **Sanity.** `counter_injective` (different numbers are stored as different configurations),
 `counter_isStillLife`, `pull_then_push` (the two operations are inverse to each other),
