@@ -128,6 +128,38 @@ transcribed from the book's Fig. 8.37 via `R-18`; they are two- and three-glider
 a block (facts about the rule rather than a design), but to respect the decision they should be
 re-derived by our own search and their provenance comment updated.
 
+## Literature check on the salvo generator (2026-11-14, at the user's request)
+
+Question: has the part "one signal in, a block salvo out" been worked out publicly? Yes, at
+least three times, in different technologies (web search plus the sources read for `R-18`):
+
+1. **Conway, 1982** (*Winning Ways*, outline only; not retrieved). Gliders are put on any lane
+   with any timing by *side-tracking*, built on the kickback reaction (LifeWiki mirror page
+   "Side-tracking"; Life Lexicon). No explicit pattern was published; secondary sources call
+   the resulting guns slow and complicated.
+2. **Hickerson, 1990** (`S-21`, read for `R-18` §B2). An explicit gun-based design: a
+   "shotgun" of four period-120 guns, four period-30 guns, four buckaroos (period-30
+   reflectors made from the queen bee shuttle) and two rephaser blocks fires, every 120
+   generations, a four-glider salvo containing both the increment and the decrement salvo;
+   suppressor streams delete all of it unless an external signal removes a suppressor glider;
+   a detector glider reports the transition from 1 to 0. Test pattern: 1685 cells, 240 × 192.
+   He notes that the period-120 guns used are obsolete.
+3. **Chapman, 2002** (`S-10`). His register wraps Hickerson's unit with period-60-to-120
+   converters, buckaroo ladders and signal duplicators.
+4. **Johnston–Greene / Goucher** (`S-11` ch. 9): the same function with stable conduits and no
+   guns.
+
+Not accessible this time: Hickerson's page directly (TLS error; it was read earlier for
+`R-18`), Rendell's thesis (HTTP 403), *Winning Ways*.
+
+Relevance to design D1. Our own search hit exactly the obstruction these designs deal with: two
+guns cannot fire on lanes only six apart, so not every salvo glider can come straight from a
+gun. The literature's answers are (a) a reflector that brings a glider in from the side, (b)
+side-tracking by kickbacks, (c) a slower clock (period 120), and (d) an always-firing shotgun
+with suppression instead of generation on demand — which is our certified `gate` applied to the
+salvo. In keeping with the user's decision these are used as ideas only; geometries are found
+by our own search. The running search has been given these four ideas.
+
 ## Claims and evidence
 
 No claims beyond the sourced existence of Chapman's pattern.
