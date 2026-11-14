@@ -298,6 +298,19 @@ leaves the continue glider in flight, both assemblies in their cycles, nothing e
 composed with the reaction calculus. With `continueDecrement` both register operations now emit
 a continue glider (each on its own block).
 
+**Zero-test supply: obstruction (2026-11-14, report `R-25`, sub-agent; observations).** No
+assembly of the current components can produce `zeroTestInput`:
+(O1) two test gliders are parallel and only 2 lanes apart, and no emitter (reflector, gun gate,
+free collision) lets a parallel glider pass at offset < 4; (O2) `nzOut` is a kickback of the
+detector and flies back 2 lanes beside the detector's incoming path, into whatever emitted the
+detector. Hence the certified `zeroTest_decision` cannot be used in the gun machine as it stands
+(its decision is correct, its inputs cannot be supplied). Design rules for a replacement: parallel
+test gliders on one lane 30·m apart or ≥ 4 lanes apart; the detector is *annihilated* (not kicked
+back) in case NZ, a surviving test glider being the NZ output. Partial progress: a three-glider
+test (two on one lane) and 732 detector placements; open: in case NZ the two survivors are only 4
+lanes apart and no eater takes one without touching the other — a test with pairs ≥ 7 lanes apart
+is needed (search started, no hit in 95 minutes).
+
 ## Claims and evidence
 
 No claims beyond the sourced existence of Chapman's pattern.

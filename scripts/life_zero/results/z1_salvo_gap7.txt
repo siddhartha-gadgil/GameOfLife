@@ -1,0 +1,1 @@
+stopped by hand after about 95 minutes (8 processes) without any hit; the jobs finished before the stop were not logged (results are printed only for hits)

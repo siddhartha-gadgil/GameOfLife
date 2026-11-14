@@ -1,0 +1,34 @@
+design salvo (frame SlidingBlock.lean, SW): (SW, 12, 0) (SW, 12, 30) (SW, 8, 53) ; detector options (killer A1): 273
+mirror frame M: A1' (SE, -14, 8) A2' (SE, -14, 38) B' (SE, -10, 61)
+  insertion of A1', A2' beside B' (B' inserted first): R R
+  insertion of B' beside A1', A2' (A' pair first): L
+two-glider multi-release gates (30 apart), control turned to SW, output direction: {'NE': 644, 'SE': 9, 'NW': 9, 'SW': 154}
+core fan-outs (NW + SW outputs): 38; upstream fan-outs (SE + SW outputs): 39
+I_d = tau - 4 lane of the continue glider (independent of u), values: [615, 623, 735, 743, 855, 863, 975, 1095, 1215, 1335, 1455, 1575]
+exact (m, core, U) solutions of I_a(m) = I_d - J over all detector options: 8910
+  D (SE, -43, 120): J -73, I_d 615, core 0, m 8, U 0
+  D (SE, -43, 128): J -65, I_d 615, core 0, m 10, U 0
+  D (SE, -41, 112): J -73, I_d 615, core 0, m 8, U 0
+  D (SE, -41, 120): J -65, I_d 615, core 0, m 10, U 0
+  D (SE, -39, 104): J -73, I_d 615, core 0, m 8, U 0
+  D (SE, -39, 112): J -65, I_d 615, core 0, m 10, U 0
+  D (SE, -37, 96): J -73, I_d 615, core 0, m 8, U 0
+  D (SE, -37, 104): J -65, I_d 615, core 0, m 10, U 0
+  D (SE, -35, 88): J -73, I_d 615, core 0, m 8, U 0
+  D (SE, -35, 96): J -65, I_d 615, core 0, m 10, U 0
+  D (SE, -33, 80): J -73, I_d 615, core 0, m 8, U 0
+  D (SE, -33, 88): J -65, I_d 615, core 0, m 10, U 0
+  D (SE, -31, 72): J -73, I_d 615, core 0, m 8, U 0
+  D (SE, -31, 80): J -65, I_d 615, core 0, m 10, U 0
+  D (SE, -29, 64): J -73, I_d 615, core 0, m 8, U 0
+  D (SE, -29, 72): J -65, I_d 615, core 0, m 10, U 0
+  D (SE, -27, 56): J -73, I_d 615, core 0, m 8, U 0
+  D (SE, -27, 64): J -65, I_d 615, core 0, m 10, U 0
+  D (SE, -25, 48): J -73, I_d 615, core 0, m 8, U 0
+  D (SE, -25, 56): J -65, I_d 615, core 0, m 10, U 0
+  D (SE, -23, 40): J -73, I_d 615, core 0, m 8, U 0
+  D (SE, -23, 48): J -65, I_d 615, core 0, m 10, U 0
+  D (SE, -21, 32): J -73, I_d 615, core 0, m 8, U 0
+  D (SE, -21, 40): J -65, I_d 615, core 0, m 10, U 0
+  D (SE, -19, 24): J -73, I_d 615, core 0, m 8, U 0
+detector options with at least one solution: 27 of 273

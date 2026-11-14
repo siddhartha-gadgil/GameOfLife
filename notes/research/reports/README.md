@@ -21,3 +21,5 @@ declaration.
   push-generator search with its obstructions, and the decision part of the zero test.
 - [`R-23-push-generator.md`](R-23-push-generator.md): the push-salvo generator `PSG1` (and
   `PSG1C` with a continue glider); certified in `LeanTheory/Theory/Life/Increment.lean`.
+- [`R-25-zero-supply.md`](R-25-zero-supply.md): why the zero-test inputs cannot be supplied by the
+  current components, and a partly designed replacement logic (`scripts/life_zero`).

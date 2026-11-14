@@ -1,0 +1,20 @@
+zeroTestInput (time 0) = 4 gliders: (SW, lane 5, tau 20), (SW, lane 10, tau 50), (SW, lane 12, tau 24), (SE, lane -20, tau 107)
+zOut  at time 196: (SE, lane -20, tau 107)
+nzOut at time 196: (NW, lane 22, tau 55)
+zeroTest_decision re-checked for k = 0, 1, 2, 3, 40 (evolve 196): ok
+
+(O1) SW test gliders, lanes: [5, 10, 12] -> pairwise lane offsets [2, 5, 7]
+(O2) detector D = (SE, lane -20, tau 107); nzOut = (NW, lane 22, tau 55); mean (x - y) of the cells: nzOut - D = -0.8; in the lane coordinates of z0_rfpass (SE lane of a NW glider = -its NW lane): -2
+     nzOut flies NW, i.e. back along the path on which D came, 2 lanes beside it.
+
+head-on SE (0,0) + NW (lane, tau): interaction for every tau iff NW lane in -5 .. 7 (13 lanes); all other lanes pass for every tau
+
+RF0 idle, one glider passing (120 relative phases each); offsets that pass for all/none:
+  input NE, passing SE, offsets -10..10 from the out lane: pass always [-10, -9, -8, -7, -6, -5, -4]; sometimes none
+  input NE, passing NW, offsets -10..10 from the out lane: pass always [-10, -9, -8, -7, -6, -5]; sometimes none
+  input NE, passing NE, offsets -10..10 from the in lane: pass always none; sometimes none
+  input NE, passing SW, offsets -10..10 from the in lane: pass always none; sometimes none
+  input SW, passing SE, offsets -10..10 from the out lane: pass always [4, 5, 6, 7, 8, 9, 10]; sometimes none
+  input SW, passing NW, offsets -10..10 from the out lane: pass always [3, 4, 5, 6, 7, 8, 9, 10]; sometimes none
+  input SW, passing SW, offsets -10..10 from the in lane: pass always none; sometimes none
+  input SW, passing NE, offsets -10..10 from the in lane: pass always none; sometimes none

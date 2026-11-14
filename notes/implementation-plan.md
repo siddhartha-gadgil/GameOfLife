@@ -413,6 +413,10 @@ There are no empirical inputs; every gate is a compiled proof.
   8 GB RSS cap (`leancap.sh` in the scratchpad).
 - **2026-11-14 — increment with continue glider** (user request). `continueIncrement` for every
   position, with `push3_reaction_quad`. Both register operations now have continue gliders.
+- **2026-11-14 — zero-test supply: obstruction** (search `R-25`, sub-agent). The inputs of the
+  certified `zeroTest_decision` cannot be produced by guns, reflectors or free collisions (lanes 2
+  apart; the NZ output flies back into the detector's emitter). A replacement decision logic
+  without a kickback is partly designed; the next search needs test pairs ≥ 7 lanes apart.
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom
