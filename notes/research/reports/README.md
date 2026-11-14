@@ -19,3 +19,5 @@ declaration.
   `LeanTheory/Theory/Life/SalvoGenerator.lean`.
 - [`R-22-push-and-continue.md`](R-22-push-and-continue.md): continue glider (`CG1`), the failed
   push-generator search with its obstructions, and the decision part of the zero test.
+- [`R-23-push-generator.md`](R-23-push-generator.md): the push-salvo generator `PSG1` (and
+  `PSG1C` with a continue glider); certified in `LeanTheory/Theory/Life/Increment.lean`.

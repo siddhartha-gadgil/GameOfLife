@@ -31,6 +31,7 @@ to a proof that Life is Turing complete, and ultimately self-replication.
 | `Theory/Life/BoxCert`, `SalvoGenerator` | `N-08`, `N-15` | `life_reaction` (certificates with a box for every generation); `reflector`; `pullGenerator_reaction`: one control glider yields the pulling salvo |
 | `Theory/Life/Decrement` | `N-15` | `decrement`: for every `k ≥ 1`, generator + control glider + block at `k` ⟶ generator + block at `k - 1` |
 | `Theory/Life/ContinueGlider` | `N-15` | `continueGenerator_reaction`: one control glider ⟶ pulling salvo + continue glider |
+| `Theory/Life/Increment` | `N-15` | `increment`: for every `k`, push generator + control glider + block at `k` ⟶ generator + block at `k + 1` |
 | `Theory/Life/Decision` | `N-12` | `WindowData`, `EverAlive`, reduction from a computable family to the general decision problem |
 | `Theory/Computability/*` | `N-14` | Counter machines; `exists_computes_code`; an undecidable halting problem |
 
@@ -56,13 +57,12 @@ side-tracking; Hickerson's shotgun with suppression, 1990; Chapman 2002; stable 
 `S-11`), see `N-15`. One formal precedent: verified Life circuits in HOL4 (`S-07`), which proves
 self-simulation on generally infinite states and leaves the link to computability open.
 
-**Latest result.** Certified: reflector, pull-salvo generator and `decrement` for every
-position `k ≥ 1`. Certified since: the continue glider (`ContinueGlider.lean`). Found by search (`R-22`), not
-certified: the decision part of the zero test. Not found: a generator of the pushing salvo — this is now the
-main open component.
+**Latest result.** Certified: both register operations triggered by one glider, for every block
+position — `decrement` (pull generator, `k ≥ 1`) and `increment` (push generator, all `k`) — and
+the pull generator with a continue glider. Each generator serves its own block.
 
-**Main barriers.** (i) The push-salvo generator, the continue signal and the zero-test logic are
-not yet designed. (ii) The layout
+**Main barriers.** (i) One register block served by both generators (needs a joint design), the
+zero-test logic with its glider supply, and continue signals composed with the block. (ii) The layout
 of a whole machine and its proof by the reaction calculus (`N-15`) is a large piece of work not
 yet started; timing constraints between signals are not yet formalized. (iii) Gates accept only
 some input phases (12 of 30 on odd lanes, 4 on even), which quantizes placements. (iv)
@@ -121,7 +121,7 @@ test for `k ≥ 1`; the train of operations as a `Reaction`; optional catalogue 
 | `N-12` | [Meaning of universality](research/N-12-meaning-of-universality.md) | `G-7`; `Q-4` | Mathlib (compiled); `N-01` (types only) | moderate | stated: exact Lean targets fixed and type-checked; `Decision.lean` compiled (definitions and reduction) | decoding clause of T2; `Computable` for the pattern family, when the layout exists |
 | `N-13` | [Route assessment](research/N-13-route-assessment.md) | `G-7`; `Q-5`, `Q-6` | `N-12`; sources | moderate | decided: route R1 (user), confirmed against the sources (`R-18`); circuitry by own design (user) | none |
 | `N-14` | [Counter machines](research/N-14-counter-machines.md) | `G-6`; `Q-12` | Mathlib (compiled); `N-13` (conditional) | hard | **verified** | none |
-| `N-15` | [Register machine in Life](research/N-15-register-machine-in-life.md) | `G-7` | `N-08`, `N-10`, `N-11`, `N-12`, `N-13`, `N-14` | research-level engineering | exploratory: design D1; **compiled**: `decrement` (one control glider lowers a register at any position `k ≥ 1` by one). Open: push generator, continue signal, zero-test logic, repeated use, layout | push-salvo generator (search); zero-test logic |
+| `N-15` | [Register machine in Life](research/N-15-register-machine-in-life.md) | `G-7` | `N-08`, `N-10`, `N-11`, `N-12`, `N-13`, `N-14` | research-level engineering | exploratory: design D1; **compiled**: `decrement`, `increment` (each on its own block), continue glider for the pull generator. Open: one block for both, zero-test logic, layout | joint push/pull design for one block (search); zero-test logic |
 | `N-16` | [Universality theorem](research/N-16-universality-theorem.md) | `G-7` | `N-12`, `N-14`, `N-15` | moderate | blocked on `N-15`; the reduction step is compiled (`not_computablePred_everAlive_of_family`) | — |
 | `N-17` | [Self-replication](research/N-17-self-replication.md) | `G-8`; `Q-10` | `N-01`, `N-04` (types); sources | research | exploratory; sources surveyed (`R-18` §E); formal goal postponed | Draft definitions when `G-8` is activated |
 | `N-18` | [Source acquisition](research/N-18-source-acquisition.md) | `Q-9` | none | routine | largely done: reports `R-18` (sources), `R-19`, `R-20` (own searches); literature check on salvo generators in `N-15` | licences only matter if external patterns are ever used; remaining unread sources (`S-02`, `S-03`, `S-09`) only if needed |
@@ -391,6 +391,9 @@ There are no empirical inputs; every gate is a compiled proof.
   `continueGenerator_reaction` (one control glider ⟶ pulling salvo + continue glider, 2010
   generations), composed from a new 840-generation certificate of the fan-out and
   `pullGenerator_reaction`.
+- **2026-11-14 — push generator and increment.** Search report `R-23` (sub-agent) found a push
+  generator (`PSG1`); `Theory/Life/Increment.lean` certifies it and proves `increment` for every
+  block position. Both register operations are now proved, each on its own block.
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom

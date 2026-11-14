@@ -50,6 +50,10 @@ transformed by `sym_k`, translated by `(vx, vy)` and delayed by `s` generations
 | `z1_zero_core.py`, `z2_zero_logic.py` | (R-22) zero-test logic with free gliders: detector glider and kickback |
 | `x1_insertion.py` | (R-22) scan behind the insertion rule `net.insertion_clear` |
 | `report22.py` | (R-22) windows and checks of the recommended designs |
+| `g7_push.py` | (R-23) push-salvo generator: upstream fan-out U (its SE output is the core's control glider, its SW output becomes salvo glider c through one reflector) + re-solved `PG1`-type core (path 1 for a, gate Gb + RF3 for b); exact lane/timing solving by invariants, filters, simulation |
+| `s7_select.py` | (R-23) exact clearances and reuse spacing of the verified push generators; ranking |
+| `report23.py` | (R-23) windows and checks of the recommended push generator `PSG1` (set simulator), block tests, the salvo in the frame of `counter 0` |
+| `c7_continue.py` | (R-23) continue glider for `PSG1`: a further fan-out V in series (as `c1_continue.py`) |
 
 ## Results in one paragraph
 
@@ -61,6 +65,10 @@ the pull-salvo generator `PG1` (`results/pg1.json`): `blockedStream`, two more c
 three reflectors, `evolve 1170 (R ∪ C) = R ∪ translate (51, 143) pullSalvo`, reuse spacing 330.
 Push salvo and continue glider: not done in R-21. R-22 adds the continue glider (`CG1`: fan-out F1
 in series with `PG1`), the zero-test logic with free gliders, and a negative push-generator search.
+R-23 adds the push-salvo generator `PSG1` (`results/psg1.json`, `results/report_push.txt`): an
+upstream fan-out in series with a re-solved `PG1`-type core, 5 assemblies and 4 reflectors, salvo
+= the three-glider push `(5, -42), (12, -27), (0, 0)` (block moves by (1, 1)); and `PSG1C` with a
+continue glider (`results/psg1c.json`, `results/c7_continue.txt`).
 
 ## Reproducing the runs of R-21
 
@@ -129,6 +137,26 @@ python3 x1_insertion.py     > results/x1_insertion.txt    # 10 min
 python3 z1_zero_core.py     > results/z1_zero_core.txt    # 1 min
 python3 z2_zero_logic.py    > results/z2_zero_logic.txt   # 3 min
 ```
+
+## Reproducing the runs of R-23
+
+```bash
+cd scripts/life_machine
+python3 -u g7_push.py 200 2000 > results/g7_push.txt          # 2 min, 20 processes (gaps 5/4/2)
+G7_GAP_PIECE=8 G7_GAP_ASM=6 G7_GAP_RF=3 G7_OUT=results/g7_push_wide.json.gz \
+    python3 -u g7_push.py 200 2000 > results/g7_push_wide.txt # 2 min; 200 of 200 simulated verified
+python3 s7_select.py results/g7_push_wide.json.gz 200 300 1200 > results/s7_select.txt   # 5 min
+python3 report23.py --pick results/g7_push_wide.json.gz 10 results/psg1.json
+python3 report23.py results/psg1.json 540 570 > results/report_push.txt                 # 1 min
+python3 c7_continue.py 40 540 570 600 > results/c7_continue.txt                         # 2 min; writes results/psg1c.json
+```
+
+`g7_push.py` ranges: lane of a `-460 .. -60`, SW lane `m` of the leg `-240 .. 10`, `Gb` at
+`vx = -240 .. 39` along `G2`, all 712 repeatable gates of the catalogue in the symmetries that fit,
+all 38 core fan-outs with an NW output, all 39 upstream fan-outs with an SE output, `u = -60 ..
+-419`; 4 662 753 exact solutions, of which the 28 000 (resp. 12 000) with the smallest rough box
+were filtered, 200 simulated. Accepted as in R-21 (board, then set simulator on the unbounded plane).
+Search ranges are not exhausted: the filter stops once 2 000 candidates are found.
 
 The insertion rule `net.insertion_clear` (when a reflector can put a glider beside a parallel
 glider already in flight) was read off a scan of `net.insertion_ok` over lane offsets 4 .. 20 and

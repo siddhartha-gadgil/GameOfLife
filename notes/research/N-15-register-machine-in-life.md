@@ -17,7 +17,7 @@
 | Implementation evidence | `LeanTheory/Theory/Life/Gates.lean`, `Collisions.lean`, `SalvoGenerator.lean`, `SlidingBlock.lean`, `Register.lean` |
 | Lean evidence | none |
 | Audit evidence | not audited |
-| Last updated | 2026-11-14: `R-22` integrated (continue glider found; push generator not found) |
+| Last updated | 2026-11-14: push generator and `increment` certified |
 
 ## Purpose and scope
 
@@ -239,6 +239,29 @@ box. Proved by composition: the fan-out beside the generator at rest, then
 `pullGenerator_reaction` beside the fan-out at rest and the continue glider in flight. Not yet
 combined with the register block (the footprint of `Op.reaction` bounds rows only; the continue
 glider crosses those rows far to the left, so columns are needed).
+
+## Push generator and increment (2026-11-14)
+
+Search report `R-23` (sub-agent, design `PSG1`): idea (A) worked — a PG1-type core produces two
+salvo gliders and an upstream fan-out stage supplies the third through one reflector. The
+timing was solved exactly by invariants of reflection (`tau + 4 lane` resp. `tau` are kept), so
+the push fixes the leg lane. The salvo is a three-glider push from our own search, not
+`pushSalvo`. Also found (not certified): a variant with a continue glider (`PSG1C`). Not found:
+serving the same block as `pullGenerator` (a reflector passes parallel gliders on one side only;
+the insertion stages of the two generators exclude each other) — needs a joint design with
+shared final reflectors.
+
+Certified in `Theory/Life/Increment.lean`: `push3_reaction` (the salvo pushes the block from
+every position `k`), `pushGenerator_reaction` (one control glider ⟶ the salvo, 1650 generations,
+in eleven parts, with a box), and
+
+`increment : ∀ k, conway.evolve (1650 + (k * 4 + 32))
+  (pushGenerator ∪ pushGeneratorControl ∪ pushRegister k) =
+  conway.evolve (k * 4 + 32) pushGenerator ∪ pushRegister (k + 1)`.
+
+With `decrement` this gives both register operations triggered by a single glider, each for its
+own register block. Open: one block served by both; continue gliders composed with the block
+(needs column bounds in the footprints of the salvo reactions); zero-test logic; layout.
 
 ## Claims and evidence
 
