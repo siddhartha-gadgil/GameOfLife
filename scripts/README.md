@@ -8,6 +8,7 @@
 | [`requirements.txt`](requirements.txt) | Python packages for untrusted oracle scripts and the workstation pipeline |
 | [`life_search/`](life_search/README.md) | Untrusted search oracle for elementary Game of Life reactions (two-glider collisions, eater, salvos against a block, zero tests); results are observations until certified in `LeanTheory/Theory/Life/Collisions.lean` and `SlidingBlock.lean` |
 | [`life_gates/`](life_gates/README.md) | Untrusted search oracle for Game of Life components made of Gosper guns (terminated gun, blocked streams, gates); results are observations until certified in `LeanTheory/Theory/Life/Gates.lean` |
+| [`life_machine/`](life_machine/README.md) | Untrusted search oracle for composite components (fan-out, reflector, salvo generators); results are observations until certified in `LeanTheory/Theory/Life/SalvoGenerator.lean` |
 | [`workstation/`](workstation/README.md) | Workstation pipeline: heavy numerics and builds on a big machine, re-checked on the laptop |
 
 At the first Lean use, run `scripts/setup.sh --check-axioms`; it installs `elan` when Lean is not

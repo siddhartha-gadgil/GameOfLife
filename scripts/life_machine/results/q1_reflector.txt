@@ -1,0 +1,20 @@
+step 1: 4347 placements, 6 oscillators of least period 30 (13 s)
+   block at (20, 4): transient 0, envelope (0, 2, 21, 8), 24 cells: ofRows 0 2 [12288, 34816, 3212291, 3359747, 66560, 34816, 12288]
+   block at (20, 5): transient 0, envelope (0, 2, 21, 8), 24 cells: ofRows 0 2 [12288, 34816, 66563, 3359747, 3212288, 34816, 12288]
+   eater1 at (18, 5): transient 9, envelope (0, 2, 21, 8), 24 cells: ofRows 0 2 [12288, 34816, 66563, 3359747, 3212288, 34816, 12288]
+   eater7 at (18, 2): transient 9, envelope (0, 2, 21, 8), 24 cells: ofRows 0 2 [12288, 34816, 3212291, 3359747, 66560, 34816, 12288]
+   eater0 at (19, 7): transient 0, envelope (0, 2, 22, 10), 27 cells: ofRows 0 2 [12288, 34816, 66563, 214019, 66560, 1607680, 2633728, 2097152, 6291456]
+   eater5 at (19, 0): transient 0, envelope (0, 0, 22, 8), 27 cells: ofRows 0 0 [6291456, 2097152, 2633728, 1607680, 66563, 214019, 66560, 34816, 12288]
+step 2: block at (20, 4): restored outcomes by (direction in, directions out): {('NE', '-'): 46, ('NW', '-'): 46, ('SE', '-'): 4, ('SW', '-'): 4}
+step 2: block at (20, 5): restored outcomes by (direction in, directions out): {('NE', '-'): 29, ('NW', '-'): 21, ('SE', '-'): 21, ('SW', '-'): 29}
+step 2: eater1 at (18, 5): restored outcomes by (direction in, directions out): {('NE', '-'): 29, ('NW', '-'): 21, ('SE', '-'): 21, ('SW', '-'): 29}
+step 2: eater7 at (18, 2): restored outcomes by (direction in, directions out): {('NE', '-'): 46, ('NW', '-'): 46, ('SE', '-'): 4, ('SW', '-'): 4}
+step 2: eater0 at (19, 7): restored outcomes by (direction in, directions out): {('NE', '-'): 29, ('NW', '-'): 18, ('SE', '-'): 6, ('SE', 'NW'): 1, ('SW', '-'): 14, ('SW', 'NW'): 1}
+      REFLECTOR 90: in SW lane 19 tau 18 -> out NW lane -14 tau 13  (t_ins -59, t_end 10)
+step 2: eater5 at (19, 0): restored outcomes by (direction in, directions out): {('NE', '-'): 31, ('NE', 'SW'): 1, ('NW', '-'): 31, ('NW', 'SW'): 1, ('SE', '-'): 4, ('SW', '-'): 1}
+      REFLECTOR 90: in NW lane -11 tau 18 -> out SW lane 22 tau 13  (t_ins -59, t_end 10)
+19 s
+
+real	0m19.513s
+user	6m11.882s
+sys	0m2.703s

@@ -36,6 +36,7 @@ These modules build on `Kernel/Life` (definitions only; there is no law).
 
 | Module | Content |
 | --- | --- |
+| `BoxCert` | Evolution certificates that deliver a box for every generation: `EvolvesIn`, `EvolvesIn.reaction`, tactic `life_reaction`; `Reaction.seq_const` |
 | `Boxes` | Rectangular footprints: `Box`, `Box.farApart`, `boxCheck` with `coe_ofRows_subset_box`, flight with a moving box (`reaction_flight_box`), resting still lifes and oscillators |
 | `Collisions` | Elementary reactions found by own search: eater absorbs glider, annihilations, kickback, turn-round, a shorter push, and the zero test (`zeroTest_hit`, `zeroTest_restore`, `zeroTest_pass` for every position `k ≥ 1`, `zeroTestSalvo_hit`) |
 | `Decision` | Finite configurations as data (`WindowData`), the predicate `EverAlive`, and the reduction from a computable family to the general decision problem |
@@ -43,6 +44,7 @@ These modules build on `Kernel/Life` (definitions only; there is no law).
 | `Guns` | The Gosper glider gun for all time (`gosperGun_evolve`, `IsGun`), gliders in flight (`evolve_train`), window unions (`ofRows_orRows`, `ofRows_padRows`) |
 | `Locality` | Translation, Chebyshev neighbourhoods, locality of `evolve`, independence of separated patterns (with sharp one-step constant), equivariance, periodicity algebra, bounded implies eventually periodic |
 | `Patterns` | Classes `IsStillLife`, `IsOscillator`, `IsSpaceship` and a catalogue with proved behaviour: block, beehive, loaf, boat, pond, eater 1; blinker, toad, beacon, traffic light, pulsar, pentadecathlon; glider, LWSS, MWSS, HWSS |
+| `SalvoGenerator` | Found by own search: `reflector` (period exactly 30, turns a glider by a right angle) and `pullGenerator` (six guns, three reflectors): one control glider yields exactly the pulling salvo in 1170 generations (`pullGenerator_reaction`, with a box footprint) |
 | `SlidingBlock` | Sliding block memory: `counter k`, the two-glider `pull` and three-glider `push` for every position `k`, and the flight lemma `evolve_flight` |
 | `Register` | Pipelined operations on the block: `Op`, `launch`, `SpacedLaunch`, `pipeline` (salvos launched at least 13 cells apart act in order), `two_ops` |
 | `Reactions` | Reactions with footprints: `Reaction P Q n F`, parallel and sequential composition, placement; the block decrement rebuilt from these rules (`pull_reaction`) |

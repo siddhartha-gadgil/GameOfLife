@@ -13,4 +13,7 @@ declaration.
   (`scripts/life_search`). Certified in `LeanTheory/Theory/Life/Collisions.lean`.
 - [`R-20-gun-gates.md`](R-20-gun-gates.md): own search of terminated guns, blocked streams and
   gates (`scripts/life_gates`). Certified in `LeanTheory/Theory/Life/Gates.lean`.
-- `R-21-salvo-generators.md`: expected from the search in `scripts/life_machine`.
+- [`R-21-salvo-generators.md`](R-21-salvo-generators.md): own search for a fan-out, a
+  reflector and salvo generators (`scripts/life_machine`); obstructions (gun shadow, uncrossable
+  streams, parity). Reflector and pull-salvo generator certified in
+  `LeanTheory/Theory/Life/SalvoGenerator.lean`.

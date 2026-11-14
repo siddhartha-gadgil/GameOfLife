@@ -1,0 +1,72 @@
+interacting roots 252, stats {'runs': 51511, 'fail': 8075, 'root-fail': 16}, recipes (empty rest, >= 1 glider out): 110, 64.4 s
+recipes by (number of input gliders, input directions, output directions):
+    (2, 'NE SE', 'NW') 1
+    (2, 'NE SE', 'SW') 1
+    (2, 'NE SW', 'NE') 2
+    (2, 'NE SW', 'SW') 2
+    (2, 'SE SW', 'NE') 1
+    (2, 'SE SW', 'NW') 1
+    (3, 'NE SE SW', 'NE') 4
+    (3, 'NE SE SW', 'SE') 4
+    (3, 'NE SE SW', 'SW') 4
+    (4, 'NE NE SE SW', 'NW SE') 1
+    (4, 'NE NE SE SW', 'SE') 8
+    (4, 'NE NE SE SW', 'SW') 5
+    (4, 'NE SE SE SW', 'NE') 7
+    (4, 'NE SE SE SW', 'NW') 2
+    (4, 'NE SE SE SW', 'SW') 6
+    (4, 'NE SE SW SW', 'NE') 6
+    (4, 'NE SE SW SW', 'NW SE') 1
+    (4, 'NE SE SW SW', 'SE') 7
+    (4, 'NE SE SW SW', 'SW') 1
+    (5, 'NE NE NE SE SW', 'SW') 4
+    (5, 'NE NE SE SE SW', 'NE') 7
+    (5, 'NE NE SE SE SW', 'NW') 1
+    (5, 'NE NE SE SE SW', 'SE') 6
+    (5, 'NE NE SE SW SW', 'NE NE') 1
+    (5, 'NE NE SE SW SW', 'SE') 2
+    (5, 'NE NE SE SW SW', 'SW SW') 1
+    (5, 'NE SE SE SE SW', 'NE SW') 2
+    (5, 'NE SE SE SE SW', 'NW') 4
+    (5, 'NE SE SE SW SW', 'NW') 1
+    (5, 'NE SE SE SW SW', 'SE') 6
+    (5, 'NE SE SE SW SW', 'SW') 7
+    (5, 'NE SE SW SW SW', 'NE') 4
+recipes with exactly one output glider, whose direction is not opposite to any input:
+   in [('SE', 0, 0), ('SW', 0, -4), ('NE', 5, 60), ('SW', 0, 176)] out [('SE', 12, 23)]
+   in [('SE', 0, 0), ('SW', 0, -4), ('NE', 5, 59), ('NE', 5, 89)] out [('SE', 12, 23)]
+   in [('SE', 0, 0), ('SW', 0, -4), ('NE', 6, 64)] out [('SE', 12, 23)]
+   in [('SE', 0, 0), ('SW', 0, -4), ('NE', 9, 75), ('NE', 9, 135)] out [('SE', 12, 23)]
+   in [('SE', 0, 0), ('SW', 0, -4), ('NE', 10, 79), ('NE', 10, 139)] out [('SE', 12, 23)]
+   in [('SE', 0, 0), ('SW', 0, -4), ('NE', 13, 80)] out [('SE', 12, 23)]
+   in [('SE', 0, 0), ('SW', 0, -4), ('NE', 14, 79), ('NE', 14, 109)] out [('SE', 12, 23)]
+   in [('SE', 0, 0), ('NE', 0, -4), ('SW', -16, 13), ('SW', -16, 43)] out [('SE', -12, 71)]
+   in [('SE', 0, 0), ('NE', 0, -4), ('SW', -15, 18)] out [('SE', -12, 71)]
+   in [('SE', 0, 0), ('NE', 0, -4), ('SW', -12, 29), ('SW', -12, 89)] out [('SE', -12, 71)]
+   in [('SE', 0, 0), ('NE', 0, -4), ('SW', -11, 33), ('SW', -11, 93)] out [('SE', -12, 71)]
+   in [('SE', 0, 0), ('NE', 0, -4), ('SW', -8, 34)] out [('SE', -12, 71)]
+   in [('SE', 0, 0), ('NE', 0, -4), ('SW', -7, 34), ('NE', 0, 176)] out [('SE', -12, 71)]
+   in [('SE', 0, 0), ('NE', 0, -4), ('SW', -7, 33), ('SW', -7, 63)] out [('SE', -12, 71)]
+   in [('SE', 0, 0), ('SW', 1, -3), ('SW', 1, 57), ('SE', 0, 180), ('NE', 10, 193)] out [('SE', -13, 158)]
+   in [('SE', 0, 0), ('SW', 1, -3), ('SW', 1, 57), ('SE', 0, 180), ('NE', 11, 197)] out [('SE', -13, 158)]
+   in [('SE', 0, 0), ('SW', 1, -3), ('SW', 1, 57), ('SE', 0, 180), ('NE', 12, 201)] out [('SE', -13, 158)]
+   in [('SE', 0, 0), ('SW', 1, -3), ('SW', 1, 57), ('SE', 0, 180), ('NE', 13, 200)] out [('SE', -13, 158)]
+   in [('SE', 0, 0), ('SW', 1, -3), ('SW', 1, 57), ('SE', 0, 180), ('NE', 14, 200)] out [('SE', -13, 158)]
+   in [('SE', 0, 0), ('SW', 1, -3), ('SW', 1, 57), ('SE', 0, 180), ('NE', 15, 200)] out [('SE', -13, 158)]
+   in [('SE', 0, 0), ('SW', 1, -3), ('SW', 1, 57), ('NE', 8, 164)] out [('SE', -13, 158)]
+   in [('SE', 0, 0), ('SW', 1, -3), ('SW', 1, 57), ('NE', 10, 172), ('NE', 10, 202)] out [('SE', -13, 158)]
+   in [('SE', 0, 0), ('SW', 1, -3), ('SW', 1, 57), ('NE', 12, 180)] out [('SE', -13, 158)]
+   in [('SE', 0, 0), ('NE', 1, -7), ('NE', 1, 53), ('SE', 0, 210), ('SW', -19, 150)] out [('SE', 13, 106)]
+   in [('SE', 0, 0), ('NE', 1, -7), ('NE', 1, 53), ('SE', 0, 210), ('SW', -18, 154)] out [('SE', 13, 106)]
+   in [('SE', 0, 0), ('NE', 1, -7), ('NE', 1, 53), ('SE', 0, 210), ('SW', -17, 158)] out [('SE', 13, 106)]
+   in [('SE', 0, 0), ('NE', 1, -7), ('NE', 1, 53), ('SE', 0, 210), ('SW', -16, 163)] out [('SE', 13, 106)]
+   in [('SE', 0, 0), ('NE', 1, -7), ('NE', 1, 53), ('SE', 0, 210), ('SW', -15, 167)] out [('SE', 13, 106)]
+   in [('SE', 0, 0), ('NE', 1, -7), ('NE', 1, 53), ('SE', 0, 210), ('SW', -14, 167)] out [('SE', 13, 106)]
+   in [('SE', 0, 0), ('NE', 1, -7), ('NE', 1, 53), ('SW', -22, 94)] out [('SE', 13, 106)]
+   in [('SE', 0, 0), ('NE', 1, -7), ('NE', 1, 53), ('SW', -16, 118)] out [('SE', 13, 106)]
+   in [('SE', 0, 0), ('NE', 1, -7), ('NE', 1, 53), ('SW', -14, 118), ('SW', -14, 148)] out [('SE', 13, 106)]
+   in [('SE', 0, 0), ('NE', 1, -7), ('NE', 1, 53), ('SW', -12, 118)] out [('SE', 13, 106)]
+
+real	1m4.428s
+user	13m35.809s
+sys	0m0.372s

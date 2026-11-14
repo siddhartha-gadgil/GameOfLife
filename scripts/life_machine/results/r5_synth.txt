@@ -1,0 +1,41 @@
+candidates satisfying the lane and mod-30 conditions: 1380
+VERIFIED synthesis (free gliders -> pull salvo -> counter k -> counter (k - 1), k = 300 .. 303):
+  parameters j1=4 j2=6 jH=6 j6=-2 j7=8 order=['SW', 'NE']
+   e1  SE lane   -5 tau     0 (tau mod 30 =  0)
+   k1  NE lane   -9 tau   -17 (tau mod 30 = 13)
+   k2  NE lane   27 tau   115 (tau mod 30 = 25)
+   k3  NE lane   -9 tau   103 (tau mod 30 = 13)
+   k4  NE lane   27 tau   235 (tau mod 30 = 25)
+   k5  NE lane   -9 tau   223 (tau mod 30 = 13)
+   e2  SE lane   -5 tau   330 (tau mod 30 =  0)
+   k6  SW lane    3 tau   316 (tau mod 30 = 16)
+   k7  NE lane   27 tau   416 (tau mod 30 = 26)
+   a   SE lane   -5 tau   450 (tau mod 30 =  0)
+   -> a = SE lane -5 tau 450,  b = SE lane 1 tau 421
+VERIFIED synthesis (free gliders -> pull salvo -> counter k -> counter (k - 1), k = 300 .. 303):
+  parameters j1=4 j2=6 jH=6 j6=-1 j7=7 order=['SW', 'NE']
+   e1  SE lane   -5 tau     0 (tau mod 30 =  0)
+   k1  NE lane   -9 tau   -17 (tau mod 30 = 13)
+   k2  NE lane   27 tau   115 (tau mod 30 = 25)
+   k3  NE lane   -9 tau   103 (tau mod 30 = 13)
+   k4  NE lane   27 tau   235 (tau mod 30 = 25)
+   k5  NE lane   -9 tau   223 (tau mod 30 = 13)
+   e2  SE lane   -5 tau   330 (tau mod 30 =  0)
+   k6  SW lane    5 tau   324 (tau mod 30 = 24)
+   k7  NE lane   25 tau   416 (tau mod 30 = 26)
+   a   SE lane   -5 tau   450 (tau mod 30 =  0)
+   -> a = SE lane -5 tau 450,  b = SE lane 1 tau 421
+VERIFIED synthesis (free gliders -> pull salvo -> counter k -> counter (k - 1), k = 300 .. 303):
+  parameters j1=4 j2=6 jH=6 j6=0 j7=6 order=['SW', 'NE']
+   e1  SE lane   -5 tau     0 (tau mod 30 =  0)
+   k1  NE lane   -9 tau   -17 (tau mod 30 = 13)
+   k2  NE lane   27 tau   115 (tau mod 30 = 25)
+   k3  NE lane   -9 tau   103 (tau mod 30 = 13)
+   k4  NE lane   27 tau   235 (tau mod 30 = 25)
+   k5  NE lane   -9 tau   223 (tau mod 30 = 13)
+   e2  SE lane   -5 tau   330 (tau mod 30 =  0)
+   k6  SW lane    7 tau   332 (tau mod 30 =  2)
+   k7  NE lane   23 tau   416 (tau mod 30 = 26)
+   a   SE lane   -5 tau   450 (tau mod 30 =  0)
+   -> a = SE lane -5 tau 450,  b = SE lane 1 tau 421
+verified: 40 of the first 1380 candidates tried in order of time span

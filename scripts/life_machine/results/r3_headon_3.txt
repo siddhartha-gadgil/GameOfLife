@@ -1,0 +1,5 @@
+K = 3: runs by outcome {'gliders': 5922, 'rest': 1534, 'fail': 544}; with a glider at a right angle: 0; 6.6 s
+
+real	0m6.621s
+user	1m59.472s
+sys	0m0.476s

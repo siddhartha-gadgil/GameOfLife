@@ -1,0 +1,5 @@
+eater offset n = 24; candidates 1020; outcomes {'too close': 120, 'debris': 298, 'other gliders': 540, 'timeout': 62}; 6 s
+
+real	0m6.308s
+user	1m43.348s
+sys	0m1.375s

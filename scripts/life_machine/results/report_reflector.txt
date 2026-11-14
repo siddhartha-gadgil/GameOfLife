@@ -1,0 +1,16 @@
+Reflector RF0 (queen bee shuttle of the gun = cells of gosperGun with x <= 17, and eater 1 at (19, 7))
+  RF0:                               ofRows 0 2 [12288, 34816, 66563, 214019, 66560, 1607680, 2633728, 2097152, 6291456]   -- 27 cells, box x 0..22, y 2..10
+  period 30 (least); envelope x 0..22, y 2..10
+  evolve 30 (RF0 ∪ ofRows 20 0 [1, 5, 3]) = RF0 ∪ ofRows 11 -4 [2, 3, 5]      [in (SW, lane 19, tau 18), out (NW, lane -14, tau 13)]
+  evolve 60 (RF0 ∪ ofRows 20 0 [1, 5, 3]) = RF0 ∪ ofRows 3 -11 [6, 3, 4]      [in (SW, lane 19, tau 18), out (NW, lane -14, tau 13)]
+....................O..
+....................O.O
+............OO......OO.
+...........O...O.......
+OO........O.....O......
+OO........O...O.OO.....
+..........O.....O......
+...........O...O...OO..
+............OO.....O.O.
+.....................O.
+.....................OO

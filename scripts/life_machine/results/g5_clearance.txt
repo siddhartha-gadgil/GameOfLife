@@ -1,0 +1,10 @@
+world lines: G0 ((1, 1), 14, 119), G1 ((-1, -1), 29, 730), leg ((-1, 1), -2, 725), G2 ((-1, 1), 75, 771), o ((1, -1), -46, 1092), P1 ((1, 1), -97, 1116), P2 ((1, 1), -91, 1087)
+  C0 (control, before S)   SE lane 41: K 28, Gb 84, RF1 29, RF2 69, RF3 55
+  G0 (S to K)              SE lane 14: Gb 62, RF1 55, RF2 92, RF3 49
+  G1 (K to RF1)            NW lane 29: S 11, Gb 41, RF2 36, RF3 21
+  leg (RF1 to RF2)         SW lane -2: S 26, K 84, Gb 42, RF3 18
+  P1 (RF2 onwards)         SE lane -97: S 54, K 24, Gb 6, RF1 46, RF3 3
+  G2 (S to Gb)             SW lane 75: K 32, RF1 39, RF2 35, RF3 6
+  o (Gb to RF3)            NE lane -46: S 54, K 82, RF1 56, RF2 19
+  P2 (RF3 onwards)         SE lane -91: S 52, K 21, Gb 9, RF1 66, RF2 38
+minimum over all segments: 3

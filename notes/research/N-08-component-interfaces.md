@@ -17,7 +17,7 @@
 | Implementation evidence | `LeanTheory/Theory/Life/Reactions.lean` |
 | Lean evidence | `FarApart`, `Reaction`, `Reaction.par`, `Reaction.seq`, `Reaction.translate`, `Reaction.mono`, `IsStillLife.reaction`, `reaction_flight`, `pull_zero_reaction`, `pull_reaction`, `pull_reaction_snd_le` |
 | Audit evidence | build and axiom audit after the work unit |
-| Last updated | 2026-11-14: first calculus implemented |
+| Last updated | 2026-11-14: certificates now deliver boxes (`life_reaction`) |
 
 ## Purpose and scope
 
@@ -124,6 +124,11 @@ Added the same day (`Theory/Life/Boxes.lean`): rectangular footprints `Box a b l
 `Box.farApart`, a Boolean check `boxCheck` (evaluated by `rfl`) that a window lies in a box, so
 that `life_eval` plus `coe_ofRows_subset_box rfl` gives the box of each generation, and flight
 with a moving box for any period and direction (`reaction_flight_box`), tested on the glider.
+
+Certificates deliver the boxes (`Theory/Life/BoxCert.lean`): `EvolvesIn` is `Evolves` with one
+Boolean box check per generation, `EvolvesIn.reaction` its soundness, and the tactic
+`life_reaction` proves `Reaction S T n (fun _ => Box a b lo hi)` directly; `Reaction.seq_const`
+chains parts. First use: the 1170-generation `pullGenerator_reaction`, in nine parts.
 
 Still open: symmetries other than translations in `Reaction`; timing side conditions between
 signals; a multi-component example.

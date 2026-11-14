@@ -12,12 +12,12 @@
 | Dependency requirement | compiled component specifications (memory operations, routing or gates) in a common format with a composition theorem; the counter-machine model; the chosen target statement |
 | Produces | `LeanTheory/Design/LifeMachine.lean`: `compile : Program → Config`, `enc : Cfg → Config`, the simulation theorem |
 | Difficulty | research-level engineering: the mathematics is known informally, but no formal proof exists in any prover; layout, timing and non-interference for an arbitrary program |
-| Status | exploratory: own design D1 drafted (2026-11-14); components not yet found or verified |
-| Implementation status | not started |
-| Implementation evidence | none |
+| Status | exploratory: design D1; certified so far: blocked stream, gate, reflector, zero test, block operations, and a generator of the pulling salvo; push generator, continue signal, zero-test logic and the layout are open |
+| Implementation status | in progress (components only) |
+| Implementation evidence | `LeanTheory/Theory/Life/Gates.lean`, `Collisions.lean`, `SalvoGenerator.lean`, `SlidingBlock.lean`, `Register.lean` |
 | Lean evidence | none |
 | Audit evidence | not audited |
-| Last updated | 2026-11-14: user decision (own design); architecture D1 drafted |
+| Last updated | 2026-11-14: pull-salvo generator certified |
 
 ## Purpose and scope
 
@@ -159,6 +159,39 @@ side-tracking by kickbacks, (c) a slower clock (period 120), and (d) an always-f
 with suppression instead of generation on demand — which is our certified `gate` applied to the
 salvo. In keeping with the user's decision these are used as ideas only; geometries are found
 by our own search. The running search has been given these four ideas.
+
+## Salvo generator: found and certified (2026-11-14)
+
+The search `scripts/life_machine` (report `R-21`, sub-agent) found, and
+`Theory/Life/SalvoGenerator.lean` certifies:
+
+- `reflector`: the queen bee shuttle of the gun with an eater, period exactly 30, turning a
+  glider by a right angle (`reflector_reflects`). Its eight images give all right-angle turns
+  (observation).
+- `pullGenerator`: six guns (three blocked pairs) and three reflectors in a 177 × 133 box,
+  period 30. `pullGenerator_reaction`: one control glider gives, 1170 generations later, the
+  generator back in its cycle together with exactly `translate (51, 143) pullSalvo`, and during
+  that time the whole configuration stays in the box `-86 ≤ x ≤ 90`, `-9 ≤ y ≤ 152`.
+
+How the design differs from the draft D1 above (findings of `R-21`, observations):
+
+1. *Gun shadow*: no glider can pass a gun within about 24 lanes of its stream, so "one gate
+   per salvo glider" is impossible (the salvo lanes are 6 apart).
+2. *A period-30 stream cannot be crossed at a right angle* by a glider, so signal routing is
+   planar; a kicked-back glider can only return to its source gate, which is why the fan-out is
+   a round trip through the first gate (77 placements verified by simulation; not yet certified
+   separately — it is part of `pullGenerator`).
+3. *Parity*: kickbacks keep the timing parity and a reflection flips lane and timing parity
+   together, so two fan-out outputs cannot be brought to the salvo by reflectors alone; a third
+   gate re-times one path.
+4. A period-60 or 120 clock was not needed for the pulling salvo.
+5. By simulation the generator can be used again after 330 generations (not after 300), and
+   with a block at `translate (100, 192) (counter k)`, `k = 0..3`, the block ends at `k - 1`.
+
+Still open for one complete instruction: the same statement with the block present, for every
+`k` (next step: compose `pullGenerator_reaction` with `pull`); repeated use; a generator for
+the pushing salvo (three gliders; estimated by the search at about ten guns and five or six
+reflectors); a "continue" glider; the zero-test logic.
 
 ## Claims and evidence
 

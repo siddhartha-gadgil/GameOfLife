@@ -1,0 +1,7 @@
+fan-outs 77; exact solutions of the lane and timing equations: 0 (7 s)
+without overlap: 0, by number of reflectors: {}
+simulated 0: {} (7 s)
+
+real	0m6.755s
+user	1m36.228s
+sys	0m0.582s

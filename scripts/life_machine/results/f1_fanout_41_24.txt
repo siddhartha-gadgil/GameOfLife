@@ -1,0 +1,8 @@
+kickbacks used: 1; candidates after the geometric filters: 40981 (215 s)
+C flies through assembly 2 unchanged (0 of 2173 world lines pass): 0 candidates (218 s)
+simulating 0 candidates
+verified fan-outs: 0 (0 reusable), 218 s
+
+real	3m37.794s
+user	4m16.573s
+sys	0m0.537s

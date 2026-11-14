@@ -1,0 +1,173 @@
+runs 2650252, outcomes with gliders only (and some interaction): 707575, 2504.1 s
+by output directions:
+   (nothing)            35966
+   NE                   284791
+   NE NE                13020
+   NE NW                12495
+   NE SE                9121
+   NE SW                3
+   NW                   280
+   NW SE                2
+   NW SW                4924
+   SE                   219618
+   SE SW                8586
+   SW                   113771
+   SW SW                4998
+single SE glider out: lane shift (relative to the SE input), tau shift: count
+   lane -16 tau +49: 1
+   lane -14 tau +88: 1
+   lane -13 tau +72: 1
+   lane -12 tau +77: 1
+   lane -12 tau +87: 1
+   lane -11 tau +98: 1
+   lane -10 tau +26: 1
+   lane -10 tau +62: 1
+   lane -9 tau +8: 1
+   lane -9 tau +66: 1
+   lane -8 tau +7: 4
+   lane -8 tau +10: 1
+   lane -8 tau +94: 1
+   lane -7 tau +20: 1
+   lane -7 tau +21: 1
+   lane -7 tau +26: 1
+   lane -7 tau +42: 1
+   lane -6 tau +4: 1
+   lane -6 tau +17: 1
+   lane -6 tau +20: 1
+   lane -6 tau +40: 3
+   lane -6 tau +42: 1
+   lane -6 tau +50: 1
+   lane -6 tau +67: 1
+   lane -5 tau +2: 1
+   lane -5 tau +5: 4
+   lane -5 tau +15: 1
+   lane -5 tau +43: 1
+   lane -5 tau +47: 1
+   lane -4 tau -2: 1
+   lane -4 tau +3: 1
+   lane -4 tau +6: 1
+   lane -4 tau +9: 1
+   lane -4 tau +10: 1
+   lane -4 tau +12: 1
+   lane -4 tau +23: 1
+   lane -4 tau +39: 1
+   lane -3 tau -4: 1
+   lane -3 tau +0: 1
+   lane -3 tau +6: 1
+   lane -3 tau +8: 1
+   lane -3 tau +13: 2
+   lane -3 tau +19: 1
+   lane -3 tau +25: 1
+   lane -3 tau +47: 1
+   lane -3 tau +68: 4
+   lane -3 tau +120: 1
+   lane -3 tau +123: 1
+   lane -2 tau -9: 1
+   lane -2 tau -6: 1
+   lane -2 tau -3: 1
+   lane -2 tau +4: 1
+   lane -2 tau +5: 8
+   lane -2 tau +10: 1
+   lane -2 tau +11: 1
+   lane -2 tau +16: 1
+   lane -2 tau +22: 1
+   lane -2 tau +34: 1
+   lane -1 tau -14: 1
+   lane -1 tau -8: 1
+   lane -1 tau -5: 1
+   lane -1 tau -4: 1
+   lane -1 tau -3: 1
+   lane -1 tau -1: 1
+   lane -1 tau +1: 1
+   lane -1 tau +5: 1
+   lane -1 tau +12: 1
+   lane -1 tau +34: 1
+   lane +0 tau -13: 2
+   lane +0 tau -8: 2
+   lane +0 tau +0: 219181
+   lane +0 tau +2: 2
+   lane +0 tau +5: 2
+   lane +0 tau +16: 2
+   lane +0 tau +24: 2
+   lane +0 tau +32: 2
+   lane +0 tau +40: 2
+   lane +0 tau +48: 2
+   lane +1 tau -18: 1
+   lane +1 tau -12: 1
+   lane +1 tau -9: 1
+   lane +1 tau -8: 1
+   lane +1 tau -7: 1
+   lane +1 tau -5: 1
+   lane +1 tau -3: 1
+   lane +1 tau +1: 1
+   lane +1 tau +8: 1
+   lane +1 tau +30: 1
+   lane +1 tau +65: 1
+   lane +2 tau -17: 1
+   lane +2 tau -14: 1
+   lane +2 tau -11: 1
+   lane +2 tau -4: 1
+   lane +2 tau -3: 5
+   lane +2 tau +2: 1
+   lane +2 tau +3: 1
+   lane +2 tau +8: 1
+   lane +2 tau +14: 1
+   lane +2 tau +26: 1
+   lane +2 tau +88: 1
+   lane +3 tau -16: 1
+   lane +3 tau -12: 1
+   lane +3 tau -6: 1
+   lane +3 tau -4: 1
+   lane +3 tau +1: 2
+   lane +3 tau +7: 1
+   lane +3 tau +13: 1
+   lane +3 tau +35: 1
+   lane +3 tau +56: 5
+   lane +3 tau +111: 1
+   lane +4 tau -18: 1
+   lane +4 tau -13: 1
+   lane +4 tau -12: 1
+   lane +4 tau -10: 1
+   lane +4 tau -7: 1
+   lane +4 tau -6: 1
+   lane +4 tau -4: 1
+   lane +4 tau +7: 1
+   lane +4 tau +23: 1
+   lane +5 tau -18: 1
+   lane +5 tau -15: 4
+   lane +5 tau -5: 1
+   lane +5 tau +27: 1
+   lane +5 tau +62: 1
+   lane +6 tau -20: 1
+   lane +6 tau -15: 1
+   lane +6 tau -7: 1
+   lane +6 tau -4: 1
+   lane +6 tau +16: 3
+   lane +6 tau +18: 1
+   lane +6 tau +26: 1
+   lane +6 tau +43: 1
+   lane +6 tau +200: 1
+   lane +7 tau -8: 1
+   lane +7 tau -7: 1
+   lane +7 tau -2: 1
+   lane +7 tau +14: 1
+   lane +7 tau +37: 1
+   lane +8 tau -25: 4
+   lane +8 tau -22: 1
+   lane +8 tau +4: 1
+   lane +8 tau +21: 1
+   lane +9 tau -28: 1
+   lane +10 tau -14: 1
+   lane +12 tau +23: 242
+   lane +12 tau +29: 1
+   lane +12 tau +55: 1
+   lane +12 tau +59: 1
+   lane +13 tau +20: 1
+   lane +14 tau +32: 1
+   lane +16 tau -15: 1
+   lane +18 tau +8: 1
+two SE gliders out: (lane difference, tau difference) : count   [pull salvo = (6, -29)]
+
+real	41m58.983s
+user	792m33.105s
+sys	0m15.440s

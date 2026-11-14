@@ -28,6 +28,7 @@ to a proof that Life is Turing complete, and ultimately self-replication.
 | `Theory/Life/Reactions`, `Boxes` | `N-08` | Reactions with footprints: parallel and sequential composition, placement; rectangular footprints |
 | `Theory/Life/Collisions` | `N-09`, `N-11` | Absorption, annihilation, kickback, turn-round; the zero test (`zeroTest_hit`, `zeroTest_pass`) |
 | `Theory/Life/Gates` | `N-10` | `terminatedGun`, `blockedStream` (oscillators of period exactly 30), `gate`, both as reactions with boxes |
+| `Theory/Life/BoxCert`, `SalvoGenerator` | `N-08`, `N-15` | `life_reaction` (certificates with a box for every generation); `reflector`; `pullGenerator_reaction`: one control glider yields the pulling salvo |
 | `Theory/Life/Decision` | `N-12` | `WindowData`, `EverAlive`, reduction from a computable family to the general decision problem |
 | `Theory/Computability/*` | `N-14` | Counter machines; `exists_computes_code`; an undecidable halting problem |
 
@@ -53,13 +54,13 @@ side-tracking; Hickerson's shotgun with suppression, 1990; Chapman 2002; stable 
 `S-11`), see `N-15`. One formal precedent: verified Life circuits in HOL4 (`S-07`), which proves
 self-simulation on generally infinite states and leaves the link to computability open.
 
-**In progress.** A search (sub-agent, `scripts/life_machine`, report `R-21` expected) for a
-fan-out and for generators of the pulling and pushing salvos. Interim finding: two guns cannot
-fire on lanes six apart, so the salvo cannot be produced by one gate per glider; the search has
-been given the ideas from the literature (reflector, side-tracking by kickbacks, a period-120
-clock, an always-firing shotgun with suppression).
+**Latest result.** The search `scripts/life_machine` (report `R-21`) found a fan-out, a
+reflector and a generator of the pulling salvo from one control glider; the reflector and the
+generator are certified (`SalvoGenerator.lean`). Not found yet: a generator of the pushing salvo
+and a "continue" glider.
 
-**Main barriers.** (i) The salvo generator and the fan-out are not yet found. (ii) The layout
+**Main barriers.** (i) The push-salvo generator, the continue signal and the zero-test logic are
+not yet designed. (ii) The layout
 of a whole machine and its proof by the reaction calculus (`N-15`) is a large piece of work not
 yet started; timing constraints between signals are not yet formalized. (iii) Gates accept only
 some input phases (12 of 30 on odd lanes, 4 on even), which quantizes placements. (iv)
@@ -111,14 +112,14 @@ test for `k ≥ 1`; the train of operations as a `Reaction`; optional catalogue 
 | `N-05` | [Still lifes and oscillators](research/N-05-still-lifes-oscillators.md) | `G-4` | `N-01`, `N-03` | routine | **verified** for the initial list (commit `47f841c`) | optional extensions (traffic light as four blinkers, T-tetromino) |
 | `N-06` | [Spaceships](research/N-06-spaceships.md) | `G-4` | `N-01`, `N-03`, `N-04` | routine | **verified** for one orientation each (commit `47f841c`) | other orientations and the `gliderAt` family, with `N-07` |
 | `N-07` | [Guns and streams](research/N-07-guns-streams.md) | `G-4`; `Q-8` | `N-03`, `N-04`, `N-06` | moderate | **verified** | gun with eater; other orientations (optional) |
-| `N-08` | [Component interfaces](research/N-08-component-interfaces.md) | `G-3`, `G-5`; `Q-8` | `N-04`; informed by `N-07` | hard | first form **verified**: `Reaction`, `par`, `seq`, `translate`, `Box`, `boxCheck`, `reaction_flight_box`; used by `pull_reaction`, `gate_reaction` | timing side conditions; a multi-component example; symmetries in `Reaction` |
+| `N-08` | [Component interfaces](research/N-08-component-interfaces.md) | `G-3`, `G-5`; `Q-8` | `N-04`; informed by `N-07` | hard | first form **verified**: `Reaction` calculus, boxes, and certificates that deliver boxes (`life_reaction`) | timing side conditions; symmetries in `Reaction` |
 | `N-09` | [Elementary reactions](research/N-09-elementary-reactions.md) | `G-5` | `N-03`, `N-05`, `N-06`, `N-08`, `N-18` | routine each | **verified** for absorption, annihilation, kickback, zero test (`Collisions.lean`) | stream versions as reactions with footprints |
-| `N-10` | [Logic gates and wiring](research/N-10-logic-gates.md) | `G-5`; `Q-7` | `N-08`, `N-09`, `N-13`, `N-18` | hard | partly **verified**: terminated gun, blocked stream, one gate (`Gates.lean`) | fan-out; salvo generators; gate as a `Reaction` |
+| `N-10` | [Logic gates and wiring](research/N-10-logic-gates.md) | `G-5`; `Q-7` | `N-08`, `N-09`, `N-13`, `N-18` | hard | partly **verified**: terminated gun, blocked stream, gate, reflector (`Gates.lean`, `SalvoGenerator.lean`) | fan-out as a separate certified component; gates with repeated controls |
 | `N-11` | [Sliding block memory](research/N-11-sliding-block-memory.md) | `G-5`; `Q-6` | `N-03`, `N-04`, `N-05`, `N-06`, `N-08`, `N-18` | moderate | partly **verified**: `pull`, `push`, `pipeline`, zero test (`zeroTest_hit`, `zeroTest_pass`); generators open | salvo generators (search running); zero-test logic |
 | `N-12` | [Meaning of universality](research/N-12-meaning-of-universality.md) | `G-7`; `Q-4` | Mathlib (compiled); `N-01` (types only) | moderate | stated: exact Lean targets fixed and type-checked; `Decision.lean` compiled (definitions and reduction) | decoding clause of T2; `Computable` for the pattern family, when the layout exists |
 | `N-13` | [Route assessment](research/N-13-route-assessment.md) | `G-7`; `Q-5`, `Q-6` | `N-12`; sources | moderate | decided: route R1 (user), confirmed against the sources (`R-18`); circuitry by own design (user) | none |
 | `N-14` | [Counter machines](research/N-14-counter-machines.md) | `G-6`; `Q-12` | Mathlib (compiled); `N-13` (conditional) | hard | **verified** | none |
-| `N-15` | [Register machine in Life](research/N-15-register-machine-in-life.md) | `G-7` | `N-08`, `N-10`, `N-11`, `N-12`, `N-13`, `N-14` | research-level engineering | exploratory: design D1; components found and certified so far: blocked stream, gate, zero test, block operations; salvo generator and fan-out being searched | certify `R-21`; then instruction components and layout |
+| `N-15` | [Register machine in Life](research/N-15-register-machine-in-life.md) | `G-7` | `N-08`, `N-10`, `N-11`, `N-12`, `N-13`, `N-14` | research-level engineering | exploratory: design D1; **certified** components include a generator of the pulling salvo (`pullGenerator_reaction`); push generator, continue signal, zero-test logic, layout open | decrement instruction with the block for every `k`; then push generator |
 | `N-16` | [Universality theorem](research/N-16-universality-theorem.md) | `G-7` | `N-12`, `N-14`, `N-15` | moderate | blocked on `N-15`; the reduction step is compiled (`not_computablePred_everAlive_of_family`) | — |
 | `N-17` | [Self-replication](research/N-17-self-replication.md) | `G-8`; `Q-10` | `N-01`, `N-04` (types); sources | research | exploratory; sources surveyed (`R-18` §E); formal goal postponed | Draft definitions when `G-8` is activated |
 | `N-18` | [Source acquisition](research/N-18-source-acquisition.md) | `Q-9` | none | routine | largely done: reports `R-18` (sources), `R-19`, `R-20` (own searches); literature check on salvo generators in `N-15` | licences only matter if external patterns are ever used; remaining unread sources (`S-02`, `S-03`, `S-09`) only if needed |
@@ -370,6 +371,12 @@ There are no empirical inputs; every gate is a compiled proof.
   `gate_reaction` (boxes). At the user's request a web search established that the salvo
   generator exists in the literature in three technologies (recorded in `N-15`); the ideas, not
   the patterns, were passed to the running search.
+- **2026-11-14 — salvo generator.** `Theory/Life/BoxCert.lean` (certificates that deliver a box
+  for every generation; tactic `life_reaction`) and `Theory/Life/SalvoGenerator.lean`:
+  `reflector` and `pullGenerator_reaction` (one control glider ⟶ the pulling salvo in 1170
+  generations, generator back in its cycle, all inside a stated box), from the search report
+  `R-21` (sub-agent). The search also reports obstructions that shape the layout: gun shadow,
+  uncrossable period-30 streams, parity.
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom
