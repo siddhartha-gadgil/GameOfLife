@@ -91,6 +91,7 @@ public import LeanTheory.Theory.Life.BoxCert
 public import LeanTheory.Theory.Life.Boxes
 public import LeanTheory.Theory.Life.Collisions
 public import LeanTheory.Theory.Life.Decision
+public import LeanTheory.Theory.Life.Decrement
 public import LeanTheory.Theory.Life.Gates
 public import LeanTheory.Theory.Life.Guns
 public import LeanTheory.Theory.Life.Locality

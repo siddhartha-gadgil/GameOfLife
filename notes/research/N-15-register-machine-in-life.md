@@ -17,7 +17,7 @@
 | Implementation evidence | `LeanTheory/Theory/Life/Gates.lean`, `Collisions.lean`, `SalvoGenerator.lean`, `SlidingBlock.lean`, `Register.lean` |
 | Lean evidence | none |
 | Audit evidence | not audited |
-| Last updated | 2026-11-14: pull-salvo generator certified |
+| Last updated | 2026-11-14: pull-salvo generator certified; decrement for every position proved |
 
 ## Purpose and scope
 
@@ -188,8 +188,22 @@ How the design differs from the draft D1 above (findings of `R-21`, observations
 5. By simulation the generator can be used again after 330 generations (not after 300), and
    with a block at `translate (100, 192) (counter k)`, `k = 0..3`, the block ends at `k - 1`.
 
-Still open for one complete instruction: the same statement with the block present, for every
-`k` (next step: compose `pullGenerator_reaction` with `pull`); repeated use; a generator for
+**Decrement for every position (compiled, `Theory/Life/Decrement.lean`).** With
+`registerBlock k := translate (51, 143) (counter k)`:
+
+`decrement : ∀ k ≥ 1, conway.evolve (1170 + 4 * (k + 8))
+  (pullGenerator ∪ pullGeneratorControl ∪ registerBlock k) =
+  conway.evolve (4 * (k + 8)) pullGenerator ∪ registerBlock (k - 1)`.
+
+One control glider, the generator and a block arbitrarily far away: the block moves one step
+closer, the generator stays in its cycle, nothing else is left; `decrement_reaction` adds a
+footprint for all intermediate generations. It is assembled by `Reaction.par` and `Reaction.seq`
+from `pullGenerator_reaction`, the resting block, the generator at rest
+(`reaction_of_periodic`) and the salvo's flight and reaction (`Op.reaction`). This is the first
+use of the calculus on a real multi-component configuration. `k = 0` is excluded (the block
+would be within two rows of the generator's box).
+
+Still open for one complete instruction: repeated use; a generator for
 the pushing salvo (three gliders; estimated by the search at about ten guns and five or six
 reflectors); a "continue" glider; the zero-test logic.
 

@@ -29,6 +29,7 @@ to a proof that Life is Turing complete, and ultimately self-replication.
 | `Theory/Life/Collisions` | `N-09`, `N-11` | Absorption, annihilation, kickback, turn-round; the zero test (`zeroTest_hit`, `zeroTest_pass`) |
 | `Theory/Life/Gates` | `N-10` | `terminatedGun`, `blockedStream` (oscillators of period exactly 30), `gate`, both as reactions with boxes |
 | `Theory/Life/BoxCert`, `SalvoGenerator` | `N-08`, `N-15` | `life_reaction` (certificates with a box for every generation); `reflector`; `pullGenerator_reaction`: one control glider yields the pulling salvo |
+| `Theory/Life/Decrement` | `N-15` | `decrement`: for every `k ≥ 1`, generator + control glider + block at `k` ⟶ generator + block at `k - 1` |
 | `Theory/Life/Decision` | `N-12` | `WindowData`, `EverAlive`, reduction from a computable family to the general decision problem |
 | `Theory/Computability/*` | `N-14` | Counter machines; `exists_computes_code`; an undecidable halting problem |
 
@@ -119,7 +120,7 @@ test for `k ≥ 1`; the train of operations as a `Reaction`; optional catalogue 
 | `N-12` | [Meaning of universality](research/N-12-meaning-of-universality.md) | `G-7`; `Q-4` | Mathlib (compiled); `N-01` (types only) | moderate | stated: exact Lean targets fixed and type-checked; `Decision.lean` compiled (definitions and reduction) | decoding clause of T2; `Computable` for the pattern family, when the layout exists |
 | `N-13` | [Route assessment](research/N-13-route-assessment.md) | `G-7`; `Q-5`, `Q-6` | `N-12`; sources | moderate | decided: route R1 (user), confirmed against the sources (`R-18`); circuitry by own design (user) | none |
 | `N-14` | [Counter machines](research/N-14-counter-machines.md) | `G-6`; `Q-12` | Mathlib (compiled); `N-13` (conditional) | hard | **verified** | none |
-| `N-15` | [Register machine in Life](research/N-15-register-machine-in-life.md) | `G-7` | `N-08`, `N-10`, `N-11`, `N-12`, `N-13`, `N-14` | research-level engineering | exploratory: design D1; **certified** components include a generator of the pulling salvo (`pullGenerator_reaction`); push generator, continue signal, zero-test logic, layout open | decrement instruction with the block for every `k`; then push generator |
+| `N-15` | [Register machine in Life](research/N-15-register-machine-in-life.md) | `G-7` | `N-08`, `N-10`, `N-11`, `N-12`, `N-13`, `N-14` | research-level engineering | exploratory: design D1; **compiled**: `decrement` (one control glider lowers a register at any position `k ≥ 1` by one). Open: push generator, continue signal, zero-test logic, repeated use, layout | push-salvo generator (search); zero-test logic |
 | `N-16` | [Universality theorem](research/N-16-universality-theorem.md) | `G-7` | `N-12`, `N-14`, `N-15` | moderate | blocked on `N-15`; the reduction step is compiled (`not_computablePred_everAlive_of_family`) | — |
 | `N-17` | [Self-replication](research/N-17-self-replication.md) | `G-8`; `Q-10` | `N-01`, `N-04` (types); sources | research | exploratory; sources surveyed (`R-18` §E); formal goal postponed | Draft definitions when `G-8` is activated |
 | `N-18` | [Source acquisition](research/N-18-source-acquisition.md) | `Q-9` | none | routine | largely done: reports `R-18` (sources), `R-19`, `R-20` (own searches); literature check on salvo generators in `N-15` | licences only matter if external patterns are ever used; remaining unread sources (`S-02`, `S-03`, `S-09`) only if needed |
@@ -377,6 +378,10 @@ There are no empirical inputs; every gate is a compiled proof.
   generations, generator back in its cycle, all inside a stated box), from the search report
   `R-21` (sub-agent). The search also reports obstructions that shape the layout: gun shadow,
   uncrossable period-30 streams, parity.
+- **2026-11-14 — decrement for every position.** `Theory/Life/Decrement.lean`: `decrement`,
+  the first complete register operation triggered by a single glider, for a block at any
+  position `k ≥ 1`, composed with the reaction calculus from the generator certificate, the
+  block reaction, flight and independence.
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom

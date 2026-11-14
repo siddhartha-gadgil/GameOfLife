@@ -40,6 +40,7 @@ These modules build on `Kernel/Life` (definitions only; there is no law).
 | `Boxes` | Rectangular footprints: `Box`, `Box.farApart`, `boxCheck` with `coe_ofRows_subset_box`, flight with a moving box (`reaction_flight_box`), resting still lifes and oscillators |
 | `Collisions` | Elementary reactions found by own search: eater absorbs glider, annihilations, kickback, turn-round, a shorter push, and the zero test (`zeroTest_hit`, `zeroTest_restore`, `zeroTest_pass` for every position `k ≥ 1`, `zeroTestSalvo_hit`) |
 | `Decision` | Finite configurations as data (`WindowData`), the predicate `EverAlive`, and the reduction from a computable family to the general decision problem |
+| `Decrement` | The first complete register operation: for every `k ≥ 1`, generator + one control glider + block at position `k` evolve into generator + block at `k - 1` (`decrement`, `decrement_reaction` with footprint) |
 | `Gates` | Components of the machine design, found by own search: `terminatedGun` (gun + eater, period exactly 30), `blockedStream` (two guns annihilating each other's streams, period exactly 30), and `gate` (a control glider releases exactly one glider) |
 | `Guns` | The Gosper glider gun for all time (`gosperGun_evolve`, `IsGun`), gliders in flight (`evolve_train`), window unions (`ofRows_orRows`, `ofRows_padRows`) |
 | `Locality` | Translation, Chebyshev neighbourhoods, locality of `evolve`, independence of separated patterns (with sharp one-step constant), equivariance, periodicity algebra, bounded implies eventually periodic |
