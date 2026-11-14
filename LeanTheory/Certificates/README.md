@@ -44,6 +44,8 @@ SubsetSum pattern. `eval_decide` and `fiv_decide` are evaluation certificates of
 | [`KronProof2D`](KronProof2D.lean) | Two-dimensional Kronecker ball checks as explicit proof terms (`kron2_proof`) | `kron2_proof` |
 | [`Kronecker2D`](Kronecker2D.lean) | Exact ℓ¹ norms of bivariate integer polynomials by Kronecker substitution |  |
 | [`Kronecker2DWeighted`](Kronecker2DWeighted.lean) | Weighted ℓ¹ norms of trigonometric polynomials by Kronecker substitution |  |
+| [`LifeCert`](LifeCert.lean) | Game of Life: evolution certificates as explicit proof terms (`life_cert`) | `life_cert` |
+| [`LifeSim`](LifeSim.lean) | Game of Life: windows of bit rows, the bit-parallel step and its refinement, certificate predicates |  |
 | [`PolyInterval`](PolyInterval.lean) | Exact polynomial positivity certificates on intervals |  |
 | [`RadiiPolynomial`](RadiiPolynomial.lean) | The radii polynomial theorem (Newton-like form) |  |
 | [`RationalIntervals`](RationalIntervals.lean) | Exact rational enclosure core |  |

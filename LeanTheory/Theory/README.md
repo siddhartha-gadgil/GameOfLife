@@ -20,6 +20,14 @@ depend on a kernel law.
 | `ParamInterp` | Interpolation in a parameter with an analytic remainder bound |
 | `KamSequence` | Convergence of KAM/Newton iterations with loss of analyticity |
 
+## Life/ — general theory of the Game of Life
+
+These modules build on `Kernel/Life` (definitions only; there is no law).
+
+| Module | Content |
+| --- | --- |
+| `Locality` | Translation, Chebyshev neighbourhoods, locality of `evolve`, independence of separated patterns (with sharp one-step constant), equivariance, periodicity algebra, bounded implies eventually periodic |
+
 ## Stability/ — comparison and energy methods
 
 | Module | Content |

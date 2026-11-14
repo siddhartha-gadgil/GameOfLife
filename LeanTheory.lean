@@ -37,6 +37,8 @@ public import LeanTheory.Certificates.KronProof
 public import LeanTheory.Certificates.KronProof2D
 public import LeanTheory.Certificates.Kronecker2D
 public import LeanTheory.Certificates.Kronecker2DWeighted
+public import LeanTheory.Certificates.LifeCert
+public import LeanTheory.Certificates.LifeSim
 public import LeanTheory.Certificates.PolyInterval
 public import LeanTheory.Certificates.RadiiPolynomial
 public import LeanTheory.Certificates.RationalIntervals
@@ -81,6 +83,7 @@ public import LeanTheory.Theory.KAM.StripPaleyWiener
 public import LeanTheory.Theory.KAM.StripSmooth
 public import LeanTheory.Theory.KAM.TorusFieldAna
 public import LeanTheory.Theory.KAM.WeightedEll1Z2
+public import LeanTheory.Theory.Life.Locality
 public import LeanTheory.Theory.Stability.AbstractEnergy
 public import LeanTheory.Theory.Stability.BlockBounds
 public import LeanTheory.Theory.Stability.Newcomb
