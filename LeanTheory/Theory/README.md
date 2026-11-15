@@ -64,6 +64,7 @@ These modules build on `Kernel/Life` (definitions only; there is no law).
 | `Salvos` | The pulling and pushing salvos of the machine as `Salvo`s (`regPull`, `regPush`) and diagonal parameters for both (`regParams_good`: gap 28) |
 | `Simulation` | From a simulation to undecidability (`N-21`): `Simulator P` (encoding, steps inside a region avoiding a halt cell, halting makes the cell alive), `everAlive_of_halts`, `not_everAlive_of_not_halts`, and `not_computablePred_everAlive_of_simulator` |
 | `LayoutLP` | The layout `LP` of `R-31` as computable functions of a program (units, modules, tracks, hairpins, channels, stations, tokens) and its arithmetic: the 17 separation inequalities for all programs and indices (`sep01_unitSlabs` … `sep17_diagonal_band`), the nesting lemma `decJz_nested`, residues mod 30 of the routes, token formulas |
+| `Placed` | Layer 1 of the assembly (`N-22`): pieces placed by translation and phase (`Piece.place`), and parts of the machine as single pieces (`Piece.ofList`) |
 | `RouteExamples` | Instances of stages: the reflector `rf0Stage`, `flightStage`, and a two-stage route `rf0_route` |
 | `Rf0Images` | The eight images of the reflector as route stages (`rf0SWNW`, …, `rf0SWSE`): the corner pieces of every route of the layout `R-31` |
 | `MergeSide` | The merge chain entered from the side input (residues 5, 6, 9 of `R-29`), for every length: `orChainSide5`, `orChainSide6`, `orChainSide9` (by `chain_side_reaction`) |
