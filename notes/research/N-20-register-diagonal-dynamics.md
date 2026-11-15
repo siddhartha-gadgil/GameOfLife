@@ -51,6 +51,25 @@ with the block as one generic process, the others as free flights).
 3. **Separation.** The strip is far from every other part of the machine (`R-31`, inequalities
    14–17), so the diagonals run in parallel with the rest.
 
+## Refined approach (2026-11-15): the isolated diagonal with virtual salvos
+
+Treat the diagonal of register `r` as an isolated system `C_r`: the initial block `counter k₀` and
+every salvo sent into it so far, each placed back along the diagonal at its *virtual* start (its
+position at time `0` if it had always been flying). In the isolated system nothing else is there,
+so a virtual salvo flies untouched until the time it is really emitted, and then it is exactly the
+real salvo. Hence the diagonal of the machine at time `t` is `conway.evolve t C_r`, and an operation
+adds one salvo: `evolve n (evolve t C_r ∪ S) = evolve (t + n) (C_r ∪ S_virtual)` by locality (the
+virtual salvo stays behind the others). The encoding of a register is this one trajectory. Needed:
+
+1. **Queue footprint**: for consecutive gaps `≥ G`, every `evolve t C_r` lies in the diagonal strip
+   (induction over the salvos; the front one and the block as the generic process
+   `salvo_track_all`, the others as flights).
+2. **Value**: after all salvos have arrived the block is at `k₀ + Σ dⱼ`; a salvo arrives within
+   `4 (k + e) + n` generations, so if the value is small the queue is empty by the next operation.
+3. **Probe**: when the detector of a `decJz` passes, near the start of the diagonal there is only
+   the block (if its position is small) or nothing; `dz2Detector_pass` and the `k = 0, 1`
+   certificates cover the interaction.
+
 ## Barriers
 
 * The times at which salvos arrive depend on `k`; segment boundaries of the network method must be
