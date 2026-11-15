@@ -422,3 +422,14 @@ instruction's fan-out to its tokens and chain inputs.
 **Modified `DZ2` certified (2026-11-15).** The version of `R-29` (gate `G_I`) replaces the
 standalone one in the library: `dz2mk1Run_rest` (k = 1, 46 segments) and `dz2mk0Run_rest` (k = 0,
 112 segments), `Theory/Life/Gen/Dz2mk*`. Regenerated mechanically by `scripts/life_cert`.
+
+**Program layout (2026-11-15, report `R-30`, numerical observation).** A computable rule
+`layout(program)` (`scripts/life_layout/l2_layout.py`): register modules side by side along
+`u = x − y` (each REG1 + DZ2' + chains + stations, block diagonal clear forever), instruction units
+in a row, every link routed source → OUT track → hairpin at `u = H` → BACK track → destination
+(Manhattan routing in `(u, v)`; `H` the only delay knob, steps of 8), a HALT line and HALT cell.
+Exact runs to halting: addition `[decJz 0→3, inc 1, decJz 2→0, halt]` for r0 = 0 … 3 (up to 622 740
+generations, 247 pieces) and a sharing program for r0 = 0, 1, 2; each ends with the circuit at
+rest, the blocks at the interpreter's values, and exactly one glider on the HALT line. Open: the
+crossing check of concurrent links is per layout, not proved for every program; DEC chains with
+`nd > 1` argued, not simulated.

@@ -454,6 +454,9 @@ There are no empirical inputs; every gate is a compiled proof.
   modified (gate `G_I` on REG1's INC lane).
 - **2026-11-15 — modified `DZ2` certified** (`dz2mk1Run_rest`, `dz2mk0Run_rest`); replaces the
   standalone certificates. Parallel: layout search `R-30` running.
+- **2026-11-15 — program layout** (search `R-30`, sub-agent): a uniform layout rule; two programs
+  simulated exactly to halting (7 runs). Next: certify components generically, then the
+  simulation theorem.
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom

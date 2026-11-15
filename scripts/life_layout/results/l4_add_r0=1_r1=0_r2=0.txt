@@ -1,0 +1,16 @@
+program add = [('dec', 0, 3), ('inc', 1), ('dec', 2, 0), ('halt',)]; input {0: 1, 1: 0, 2: 0}; interpreter: final {0: 0, 1: 1, 2: 0}, instruction trace [0, 1, 2, 0, 3]
+layout: 247 pieces, 70 eater cells; start (NE, 7785, 21570); halt line (SW, -4063, -2112)
+core box (-6537, -6536, 4791, 1507) (11328 x 8043)
+  t = 60 (5 s)
+  t = 30060 (251 s)
+  t = 60060 (494 s)
+  t = 90060 (731 s)
+  t = 120060 (926 s)
+  t = 150060 (1086 s)
+  t = 180060 (1243 s)
+  t = 210060 (1403 s)
+  t = 240060 (1562 s)
+  t = 262260: glider (SW, -4063, 239508) left the machine
+  t = 270060 (1720 s)
+halted: halt glider ['(SW, -4063, 239508)'] left at t = 262260 (start t = -480): 262740 generations
+end t = 292260: state == cycle of all pieces + eaters + blocks {0: 0, 1: 1, 2: 0}: ok

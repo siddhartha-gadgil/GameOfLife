@@ -33,3 +33,6 @@ declaration.
   of `O` by a re-timing gate, Z branch); simulated for k = 0, 1, 2, 3, 40, 100.
 - [`R-29-sharing.md`](R-29-sharing.md): sharing a register: OR-gate merge chains, dispatch
   stations, INC continue, reuse spacings; a modified `DZ2` (gate `G_I`); `scripts/life_route`.
+- [`R-30-layout.md`](R-30-layout.md): the program layout rule (register modules, instruction and
+  merge units, band routing with hairpin delays, timing rules) and exact simulations of whole
+  machines to halting (addition, register sharing); `scripts/life_layout`.

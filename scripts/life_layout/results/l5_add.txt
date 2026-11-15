@@ -1,0 +1,26 @@
+program add = [('dec', 0, 3), ('inc', 1), ('dec', 2, 0), ('halt',)]
+registers [0, 1, 2]: module u-shifts U_r {0: 1194, 1: 3922, 2: 6774} (translation (U_r/2, -U_r/2)); band v -6102 .. -3522; units at v -7762
+unit ('I', 0)  dec   n=4 copies, origin uv (-2942, -7762) = xy (-5352, -2410); inputs {"('z', 2)": 0, "('start',)": 1}; outputs {'KZ': 'D', 'KNZ': 'R', 'C': 'L'}
+unit ('I', 1)  inc   n=2 copies, origin uv (-2378, -7762) = xy (-5070, -2692); inputs {"('nz', 0)": 1}
+unit ('I', 2)  dec   n=2 copies, origin uv (-1665, -7763) = xy (-4714, -3049); inputs {"('cont', 1)": 1}; outputs {'KNZ': 'D', 'KZ': 'R', 'C': 'L'}
+unit ('I', 3)  halt  n=4 copies, origin uv (-1032, -7762) = xy (-4397, -3365); inputs {"('z', 0)": 0, "('nz', 2)": 1}
+unit ('M', 1)  merge n=2 copies, origin uv (-494, -7762) = xy (-4128, -3634); inputs {"('link', 1)": 1}
+
+link              h       H   c_src   c_dst   #rf   flight  timing
+dec0.C        -6102   -3257   -3097     361     5    14641  window residue 4 of 0..12
+dec0.KNZ      -5932   -4461   -2815     181     5    26927  token: tau - required tau = 0 (window [-3, -1, 0, 1, 2, 7, 8, 9]); C' = (SE, 1235, 24826)
+dec0.KZ       -5762   -3868   -2928    2848     6    29614  token: tau - required tau = -3 (window [-3, -1, 0, 1, 2, 7, 8, 9]); C' = (SE, 1235, 24826)
+dec0.nz       -5592   -2604     120   -2530     6    24576  window residue 4 of 0..12
+dec0.z        -5422   -1229    2787   -1099     7    26575  window residue 11 of 0..12; arrives 12762 after DZ2 is done
+inc1.link     -5252   -2382   -2310    -620     5     9445  window residue 7 of 0..12
+inc1.cont     -5082   -7821   -2221   -1961     5    29381  window residue 7 of 0..12; arrives 514 after the INC control reached the register
+dec2.C        -4912   -1896   -1820    5880     5    20673  window residue 2 of 0..12
+dec2.KNZ      -4742   -3291   -1651    5761     5    33355  token: tau - required tau = 0 (window [-3, -1, 0, 1, 2, 7, 8, 9]); C' = (SE, 6815, 21826)
+dec2.KZ       -4572   -2260   -1538    8428     6    34742  token: tau - required tau = -3 (window [-3, -1, 0, 1, 2, 7, 8, 9]); C' = (SE, 6815, 21826)
+dec2.nz       -4402   -1228    5700   -1158     6    32924  window residue 12 of 0..12
+dec2.z        -4232   -3249    8367   -3179     7    41995  window residue 11 of 0..12; arrives 28182 after DZ2 is done
+halt3         -4062    None   -1018    None     1        0  HALT line (SW, -4063, -2112)
+merge1        -3892    -552    -480    3088     5    12505  window residue 5 of 0..12
+
+dec 0: C' passes F_B at 22896; NZ answer leaves NZ station 0 at 33593 (+10697); an unpaired Z token passes Z station 0 at 35175 (+12279); a later call's Z output reaches the Z stations >= 12457 after its C' passes F_B, i.e. here >= 46050 (margin 10875)
+dec 2: C' passes F_B at 31056; NZ answer leaves NZ station 0 at 41753 (+10697); an unpaired Z token passes Z station 0 at 43335 (+12279); a later call's Z output reaches the Z stations >= 12457 after its C' passes F_B, i.e. here >= 54210 (margin 10875)

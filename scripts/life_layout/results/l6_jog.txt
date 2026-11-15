@@ -1,0 +1,4 @@
+start (SE, 0, 1000): corners [(0, 399), (-300, 399), (-300, 449), (-360, 449), (-360, 499), (300, 499)]; final (SE, 300, 2410) (plain hairpin (SE, 300, 2180), shift 230); min envelope distance 20; exact run: ok
+start (SE, 1, 1000): corners [(1, 400), (-301, 400), (-301, 450), (-361, 450), (-361, 500), (299, 500)]; final (SE, 299, 2418) (plain hairpin (SE, 299, 2188), shift 230); min envelope distance 20; exact run: ok
+start (SE, 0, 1001): corners [(0, 399), (-300, 399), (-300, 449), (-360, 449), (-360, 499), (300, 499)]; final (SE, 300, 2411) (plain hairpin (SE, 300, 2181), shift 230); min envelope distance 20; exact run: ok
+start (SE, 1, 1003): corners [(1, 400), (-301, 400), (-301, 450), (-361, 450), (-361, 500), (299, 500)]; final (SE, 299, 2421) (plain hairpin (SE, 299, 2191), shift 230); min envelope distance 20; exact run: ok

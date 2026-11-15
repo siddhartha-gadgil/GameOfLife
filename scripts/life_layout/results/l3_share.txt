@@ -1,0 +1,26 @@
+registers [0]: module u-shifts {0: 1434}; band v -6300 .. -3920; units at v -7960
+  unit ('I', 0) inc n=2 at uv (-3239, -7961), copies {('start',): 0} 
+  unit ('I', 1) dec n=2 at uv (-2526, -7960), copies {('cont', 0): 1} {'KZ': 'D', 'KNZ': 'R', 'C': 'L'}
+  unit ('I', 2) dec n=2 at uv (-1843, -7961), copies {('nz', 1): 0} {'KNZ': 'D', 'KZ': 'R', 'C': 'L'}
+  unit ('I', 3) halt n=6 at uv (-1090, -7960), copies {('z', 1): 0, ('nz', 2): 1, ('z', 2): 2} 
+  unit ('M', 0) merge n=2 at uv (-494, -7960), copies {('link', 0): 0} 
+  link inc0.link    h -6300 H -3241 src col -3171 dst col -561 -> (NE, 7884, 29996)
+  link inc0.cont    h -6130 H -7838 src col -3082 dst col -2822 -> (NE, 7983, 50236)
+  link dec1.C       h -5960 H -2757 src col -2681 dst col 601 -> (NE, 3648, 23916)
+  link dec1.KNZ     h -5790 H -4019 src col -2399 dst col 301 -> (NE, -1256, 28648)
+  link dec1.KZ      h -5620 H -3002 src col -2512 dst col 3352 -> (NW, -2664, 41663)
+  link dec1.nz      h -5450 H -2154 src col 240 dst col -2080 -> (NE, 7885, 78651)
+  link dec1.z       h -5280 H -1349 src col 3291 dst col -1157 -> (NE, 7884, 83568)
+  link dec2.C       h -5110 H -2068 src col -1998 dst col 420 -> (NE, 3351, 22528)
+  link dec2.KNZ     h -4940 H -3461 src col -1829 dst col 181 -> (NE, -1400, 26908)
+  link dec2.KZ      h -4770 H -2430 src col -1716 dst col 3232 -> (NW, -2808, 40499)
+  link dec2.nz      h -4600 H -1350 src col 120 dst col -1216 -> (NE, 7983, 74663)
+  link dec2.z       h -4430 H -1351 src col 3171 dst col -1277 -> (NE, 8082, 81508)
+  link halt3        h -4260 H None src col -1076 dst col None -> (SW, -4261, -2624)
+  link merge0       h -4090 H -550 src col -480 dst col 360 -> (NE, 2347, 17792)
+  pieces 159, eater cells 42, start (NE, 7885, 22406) at t = -30, halt line (SW, -4261, -2624)
+(a) min envelope distance between groups (< 40 box): 28, failures 0
+(b) route legs vs pieces they do not use: failures (distance < 13) 0
+(c) register diagonals B_-1..B_600 vs foreign pieces, eaters and route legs: failures (distance < 13) 0
+(d) min time difference at crossings of concurrent links: 159.0, failures 0
+(e) leftmost piece / corner at u = -7859; HALT cell (-6360, 2099) on the halt line (SW, -4261, -2624) (u = -8459)
