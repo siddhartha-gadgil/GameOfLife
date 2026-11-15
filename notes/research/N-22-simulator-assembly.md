@@ -200,3 +200,11 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   boxes between corners, run regions `u ≥ −738` in the module frame; every footprint at least 163
   inside the region); `inc_step'` is conditional only on `IncSep` (to be reformulated with the
   extended relay window).
+* 2026-11-16: **the final assembly** (`StartFamily.lean`, `MainTheorem.lean`, sub-agent; root import
+  pending the relay refactor): `exists_startFamily` (a computable window family with cells
+  `encM p (startM n)`), `MInv`, `simulatorOf` (`Simulator p` from `MachineSteps p`),
+  `not_computablePred_everAlive_of_machineSteps`, and **`exists_not_computablePred_everAlive`**:
+  `(∀ p, p.WellFormed → p.SingleHalt → MachineSteps p) → ∃ c, ¬ ComputablePred fun w :
+  WindowData => EverAlive c w.cells`. Remaining: the fields of `MachineSteps` — inc separation
+  (`IncSep`; `IncRegion` is already dischargeable), the decJz step, `HaltSep` for the last
+  instruction.
