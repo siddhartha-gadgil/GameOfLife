@@ -159,3 +159,11 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   `IncRegion` (footprints in the region). The register needs `RegS.Ready` (`Inv`, `Vb = 18`,
   `QBeforeL 29`), returned for the new state — to be folded into `InvM`. Numerically the continue
   arrives ≥ 810 generations after the increment ends (with the `+8500` margin).
+* 2026-11-16: static zero-test runs for values 2–7 (`Gen/Dz2mk2…7Run`, planned with
+  `DZ2_MOD=1 DZ2_K=k`, 46 segments, 11490 generations, answer at `ofRows 603 994 [1, 6, 3]` like
+  `dz2dOp`), their regions and splits (`dz2mkkRun_restG`, `dz2mkkRun_restS`, cut at 9503).
+* 2026-11-16: **`inc_step`** (`ActivationIncPlan.lean`, sub-agent, checked here): the plan of an
+  `inc` instruction is built from `incSpecs` / `mergeSpecs` (`incPlan`) and `incPlan_valid` proves
+  all of `IncPlan.Valid` for every well-formed program; `inc_step` is conditional only on
+  `IncSep` and `IncRegion` (and `RegS.Ready` of the register). Note: `late` holds with a margin of
+  about 6400 more than needed (`Tend ≥ Tg + 14396`).
