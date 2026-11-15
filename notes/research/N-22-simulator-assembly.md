@@ -185,3 +185,13 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   `Program.singleHalt` (every earlier `halt` becomes `decJz freshReg (length − 1)` on a fresh,
   always-zero register; `halts_init_singleHalt`). The corollary will use this program, so
   `HaltSep` is needed only for the unique halt.
+* 2026-11-16: **decJz building blocks** (`ActivationDec{Links,Timed,Module,Run,Station,Answers}`,
+  `Gen/ActSideDec`, sub-agent, checked here), for every program: the dec body, routes of KNZ, KZ
+  and C (lines, route law, closed-form final lines, tokens ending exactly on the station token
+  lines), C at its DEC copy at offset `4 + 2σ` (offset 8 needed a new side certificate `orSide10`),
+  the DEC chain and C' to the run input at `decShift − 300 ≡ 0 (mod 30)`, every run's answer at its
+  cut on the module's answer lines (`runAnsNZ_eq`, `runAnsZ_eq`), passes and captures at the
+  stations (`stationNZ_capture`, `stationZ_capture`: the dispatched answers are exactly `decSpecs`'
+  answer routes), unpaired tokens, answer routes (lines, closed forms, offsets 4/5), and lateness
+  of the next control (`decNZ_late`, `decZ_late`). Open: separation, `RouteTimed` of the answer
+  routes, packaging of two free flights, the composition `decJz_step`.
