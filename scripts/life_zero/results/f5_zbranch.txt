@@ -1,0 +1,2 @@
+phase/timing combos: 0
+no solution

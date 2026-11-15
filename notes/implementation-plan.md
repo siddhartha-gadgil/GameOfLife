@@ -441,6 +441,8 @@ There are no empirical inputs; every gate is a compiled proof.
   supply search `R-28`). `DecJzLocal.lean`: `dz2Detector_zero`, `dz2Detector_pass` (all `j`),
   `dz2Restore_zero`, `reg1_increment_neg_one`. `lake build` 3287 jobs, 0 warnings; axiom audit
   passed for 8656 declarations.
+- **2026-11-15 — `DZ2` complete** (search `R-28`, sub-agent): the whole decJz instruction from
+  one control glider, no free inputs; exact simulation for k = 0, 1, 2, 3, 40, 100 (not Lean).
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom

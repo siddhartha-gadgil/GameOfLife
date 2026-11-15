@@ -1,0 +1,3 @@
+  placement 1 (0, 5, 543, 0, 2, 900): no R_in route or gate
+  placement 2 (0, 5, 543, 0, 2, 900): R_in gate ok, no C_I gate
+  placement 3 (0, 5, 543, 0, 2, 953): no R_in route or gate

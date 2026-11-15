@@ -375,6 +375,15 @@ with a moving-box footprint), `dz2Restore_zero` (restore glider + `dz2DetectorBl
 `reg1_operation` now takes any position `k ≥ -1`. Not yet: the gliders' supply and timing in the
 world frame, the gate `G_N`, the front `F_A, RF_a, RF_b`.
 
+**`DZ2` complete (2026-11-15, report `R-28`).** One control glider `C' = (SE, 41, 4444)`, no free
+inputs, 41 pieces. Supply of `O` by a fan-out `F_B` upstream of `F_A`, a reflector and a
+re-timing gate `G_O` (obstruction `O4` overcome). Z branch: two fan-outs, five reflectors, using
+reversing reflector routes to tune phase and order. Simulated exactly (numerical observation):
+k = 0 → cycle, `B_0`, Z output in 27 540 generations; k = 1, 2, 3, 40, 100 → cycle, `B_(k-1)`, NZ
+output in 11 490. Correction to `R-27`: its `O` crossed the register diagonal near block 95; the
+new `O` clears blocks `-1 … 600`. Frozen pieces unchanged (the certified block reactions of
+`DecJzLocal` stand). Not yet: reuse spacing; Lean certification of the assembly.
+
 ## Claims and evidence
 
 No claims beyond the sourced existence of Chapman's pattern.
