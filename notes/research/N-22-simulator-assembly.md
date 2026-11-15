@@ -143,3 +143,10 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   `Reaction.split` (`RunSplit.lean`): a far-apart flight is split off a joint run, leaving the
   circuit's own reaction. Needed next for `decJz`: emitted footprints of the answer flight and of
   the rest from a cut segment on.
+* 2026-11-16: the `decJz` runs with the answer split off (`Gen/*Split.lean`, generator
+  `scripts/life_cert/emit_split.py`, tools `FootInT`, `Reaction.seqT`, `Reaction.split`):
+  `dz2dOpS` … `dz2d3OpS`, `dz2mk1Run_restS` (cut at 9503, the NZ answer `…A122/A150` flies alone
+  for the last 1987 generations), `dz2mk0Run_restS` (cut at 11995, the Z answer flies alone for
+  15545 generations of the Z restore): the run up to the cut inside `<p>Region`, then the circuit
+  alone inside `<p>RestRegion` (components far from the answer's moving box `<p>AnsF`), ending
+  exactly at the circuit at rest (and the register diagonal); `<p>AnsS` the answer's flight.
