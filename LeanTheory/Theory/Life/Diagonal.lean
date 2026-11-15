@@ -24,7 +24,10 @@ other on the diagonal of a register fly independently while they are far apart.
   the strip of its diagonal** (induction over the queue: the front salvo and the block as one
   process, the others in flight; when the front salvo is done the next one leads);
 * `diag_step`, `diag_end`: one salvo after the other moves the block; after `diagTime` generations
-  the block is at its start moved by all the salvos (`qMove`), and stays there.
+  the block is at its start moved by all the salvos (`qMove`), and stays there;
+* `diag_add`: a salvo emitted later is a salvo that started at the beginning, further back;
+* `diag_near`: when every salvo is far along, near the start of the diagonal there is only the
+  block at its final position (the zero test reads the value correctly).
 -/
 
 @[expose] public section
@@ -456,5 +459,174 @@ theorem diag_end (P : DiagParams) (hP : P.Good) :
       qMove]
     congr 1
     ring
+
+/-- Sets separated in `x + y` by more than four are far apart. -/
+theorem farApart_of_sum {A B : Set Cell} {W : ℤ} (hA : ∀ c ∈ A, c.1 + c.2 ≤ W)
+    (hB : ∀ c ∈ B, W + 5 ≤ c.1 + c.2) : FarApart 2 A B := by
+  rintro a ha b hb ⟨h1, h2, h3, h4⟩
+  have := hA a ha
+  have := hB b hb
+  push_cast at h1 h2 h3 h4
+  omega
+
+/-- Salvos in flight with one more at the back. -/
+theorem flights_append (q : List (Salvo × ℤ)) (σ : Salvo) (e : ℤ) :
+    flights (q ++ [(σ, e)]) = flights q ∪ σ.at e := by
+  induction q with
+  | nil => simp [flights]
+  | cons p q ih =>
+    obtain ⟨τ, f⟩ := p
+    simp only [List.cons_append, flights, ih, union_assoc]
+
+/-- **Adding a salvo at the back of a diagonal.** A salvo far enough behind a valid diagonal, in
+`x + y`, flies untouched while the diagonal evolves: after `t` generations (a multiple of four)
+the diagonal with the salvo is the evolved diagonal and the salvo `t / 4` cells further. -/
+theorem diag_add (P : DiagParams) (hP : P.Good) (q : List (Salvo × ℤ)) (Vs Vb K : ℤ)
+    (hv : DiagValid P Vs Vb K q) (σ : Salvo) (e : ℤ) (t : ℕ) (ht : t % 4 = 0)
+    (h1 : σ.b + σ.hi - 2 * e + 5 ≤ Vs)
+    (h2 : σ.b + σ.hi - 2 * e + 2 * ((t / 4 : ℕ) : ℤ) + 5 ≤ Vb) :
+    conway.evolve t (flights (q ++ [(σ, e)]) ∪ counter K) =
+      conway.evolve t (flights q ∪ counter K) ∪ σ.at (e - (t / 4 : ℕ)) := by
+  have hsep : ∀ k < t, Sep 2 (conway.evolve k (flights q ∪ counter K))
+      (conway.evolve k (σ.at e)) := by
+    intro k hk
+    refine (farApart_of_sum (W := σ.b + σ.hi - 2 * e + 2 * ((k / 4 : ℕ) : ℤ)) ?_ ?_).symm'.sep
+      (diag_strip P hP _ q Vs Vb K rfl hv k) (σ.subset_at e k)
+    · rintro c ⟨-, a2, -, a4⟩
+      linarith
+    · rintro c ⟨-, -, c3⟩
+      have hk4 : ((k / 4 : ℕ) : ℤ) ≤ ((t / 4 : ℕ) : ℤ) := by
+        have : k / 4 ≤ t / 4 := Nat.div_le_div_right hk.le
+        exact_mod_cast this
+      rcases min_choice (Vs + 2 * ((k / 4 : ℕ) : ℤ)) Vb with hm | hm <;> rw [hm] at c3 <;>
+        linarith
+  rw [flights_append, show flights q ∪ σ.at e ∪ counter K = (flights q ∪ counter K) ∪ σ.at e by
+    ac_rfl, conway.evolve_union_of_forall_sep hsep]
+  congr 1
+  rw [show t = (t / 4) * 4 by omega, σ.evolve_at, show t / 4 * 4 / 4 = t / 4 by omega]
+
+/-- The front phase of a valid queue: the front salvo with the block, and the other salvos in
+flight, side by side until the front salvo is done. -/
+theorem diag_phaseA (P : DiagParams) (hP : P.Good) (σ : Salvo) (Vs Vb e K : ℤ)
+    (q : List (Salvo × ℤ)) (hv : DiagValid P Vs Vb K ((σ, e) :: q)) :
+    Reaction ((σ.at e ∪ counter K) ∪ flights q)
+      (conway.evolve ((K + e).toNat * 4 + σ.n) ((σ.at e ∪ counter K) ∪ flights q))
+      ((K + e).toNat * 4 + σ.n) (fun i => frontFoot σ e K (K + e).toNat i ∪ flightsFoot q i) := by
+  rw [DiagValid] at hv
+  obtain ⟨hKe, hn4, hA, hB, hZA, hN, hd, -, -, -, -, -, -, -, -, hbeh, -, -⟩ := hv
+  obtain ⟨hg1, hg2, hg3, hg4, -, -⟩ := hP
+  set Kn := (K + e).toNat with hKn
+  have hK : (Kn : ℤ) = K + e := Int.toNat_of_nonneg hKe
+  have hg0 : 0 ≤ P.g := by
+    have : (0 : ℤ) ≤ (P.N : ℤ) / 4 := by positivity
+    linarith
+  have hsep : ∀ k < Kn * 4 + σ.n, FarApart 2 (frontFoot σ e K Kn k) (flightsFoot q k) := by
+    intro k hk
+    have hfl := flightsFoot_le hg0 q (e + P.g) hbeh k
+    have hk4 : ((k / 4 : ℕ) : ℤ) ≤ Kn + σ.n / 4 := by
+      have : k / 4 ≤ Kn + σ.n / 4 := by omega
+      exact_mod_cast this
+    refine (farApart_of_fst (X := P.B - (e + P.g) + ((k / 4 : ℕ) : ℤ)) hfl ?_).symm'
+    intro c hc
+    simp only [frontFoot] at hc
+    split_ifs at hc with h1 h2
+    · rcases hc with ⟨a1, -, -, -⟩ | ⟨a1, -, -, -⟩
+      · linarith
+      · have : ((k / 4 : ℕ) : ℤ) ≤ Kn := by
+          have : k / 4 ≤ Kn := by omega
+          exact_mod_cast this
+        linarith
+    · obtain ⟨a1, -, -, -⟩ := hc
+      have : ((σ.n : ℤ)) / 4 ≤ (P.N : ℤ) / 4 :=
+        Int.ediv_le_ediv (by norm_num) (by exact_mod_cast hN)
+      have : ((σ.n / 4 : ℕ) : ℤ) = (σ.n : ℤ) / 4 := by push_cast; ring_nf
+      linarith
+    · omega
+  have h := (show Reaction (σ.at e ∪ counter K) (conway.evolve (Kn * 4 + σ.n)
+      (σ.at e ∪ counter K)) (Kn * 4 + σ.n) (frontFoot σ e K Kn) from
+    ⟨rfl, fun j _ => σ.front_subset hK j⟩).par
+    (flights_reaction hg1 hg0 q (e + P.g) hbeh (Kn * 4 + σ.n)) hsep
+  exact ⟨rfl, h.subset⟩
+
+/-- Salvos in flight, all at least `L` cells along at generation `i`, lie at `x ≥ A + L`. -/
+theorem flightsFoot_ge {A B g : ℤ} (L : ℤ) : ∀ (q : List (Salvo × ℤ)) (e₀ : ℤ),
+    Behind A B g e₀ q → ∀ i, (∀ p ∈ q, L ≤ ((i / 4 : ℕ) : ℤ) - p.2) →
+      ∀ c ∈ flightsFoot q i, A + L ≤ c.1
+  | [], _, _, _, _, _, hc => hc.elim
+  | (σ, e) :: q, e₀, ⟨ha, _, _, hq⟩, i, hL, c, hc => by
+    rcases hc with ⟨a1, -, -, -⟩ | hc
+    · have := hL (σ, e) List.mem_cons_self
+      simp only at this
+      linarith
+    · exact flightsFoot_ge L q (e + g) hq i (fun p hp => hL p (List.mem_cons_of_mem _ hp)) c hc
+
+/-- **Near the start of the diagonal only the final block**: if at generation `t` every salvo of a
+valid queue is at least `L` cells along the diagonal (offset `e` with `L ≤ t / 4 - e`), then every
+live cell of the diagonal at generation `t` is far along (`x ≥ L - 40`) or belongs to the block at
+its final position. -/
+theorem diag_near (P : DiagParams) (hP : P.Good) (L : ℤ) (hA : -20 ≤ P.A) (hZ : -20 ≤ P.ZA)
+    (hN : P.N ≤ 40) :
+    ∀ (n : ℕ) (q : List (Salvo × ℤ)) (Vs Vb K : ℤ) (t : ℕ), q.length = n →
+      DiagValid P Vs Vb K q → (∀ p ∈ q, L ≤ ((t / 4 : ℕ) : ℤ) - p.2) →
+      ∀ c ∈ conway.evolve t (flights q ∪ counter K), L - 40 ≤ c.1 ∨ c ∈ counter (K + qMove q)
+  | _, [], _, _, K, t, _, _, _, c, hc => by
+    rw [flights, empty_union, (counter_isStillLife K).evolve] at hc
+    right
+    simpa [qMove] using hc
+  | n, (σ, e) :: q, Vs, Vb, K, t, hlen, hv, hfar, c, hc => by
+    have hstep := diag_step P hP σ Vs Vb e K q hv
+    have hpar := diag_phaseA P hP σ Vs Vb e K q hv
+    have hv' := hv
+    rw [DiagValid] at hv'
+    obtain ⟨hKe, hn4, hAσ, hB, hZA, hNσ, hd, -, -, -, -, -, -, -, -, hbeh, -, hrest⟩ := hv'
+    have he := hfar (σ, e) List.mem_cons_self
+    simp only at he
+    set Kn := (K + e).toNat with hKn
+    have hK : (Kn : ℤ) = K + e := Int.toNat_of_nonneg hKe
+    have hcfg : flights ((σ, e) :: q) ∪ counter K = (σ.at e ∪ counter K) ∪ flights q := by
+      rw [flights]; ac_rfl
+    by_cases ht : t ≤ Kn * 4 + σ.n
+    · -- the front salvo has not finished: everything is far along
+      left
+      rw [hcfg] at hc
+      rcases hpar.subset t ht (mem_coe.2 hc) with hc | hc
+      · simp only [frontFoot] at hc
+        split_ifs at hc with h1
+        · rcases hc with ⟨a1, -, -, -⟩ | ⟨a1, -, -, -⟩
+          · linarith
+          · have : ((t / 4 : ℕ) : ℤ) ≤ Kn := by
+              have : t / 4 ≤ Kn := by omega
+              exact_mod_cast this
+            linarith
+        · obtain ⟨a1, -, -, -⟩ := hc
+          have h4 : ((t / 4 : ℕ) : ℤ) ≤ Kn + 10 := by
+            have : t / 4 ≤ Kn + 10 := by omega
+            exact_mod_cast this
+          linarith
+      · have := flightsFoot_ge L q (e + P.g) hbeh t
+          (fun p hp => hfar p (List.mem_cons_of_mem _ hp)) c hc
+        linarith
+    · have hsplit : conway.evolve t (flights ((σ, e) :: q) ∪ counter K) =
+          conway.evolve (t - (Kn * 4 + σ.n)) (conway.evolve (Kn * 4 + σ.n)
+            (flights ((σ, e) :: q) ∪ counter K)) := by
+        rw [← Rule.evolve_add, show t - (Kn * 4 + σ.n) + (Kn * 4 + σ.n) = t by omega]
+      rw [hsplit, hstep] at hc
+      have hshift : ∀ p ∈ shiftQ q (K + e + σ.n / 4),
+          L ≤ (((t - (Kn * 4 + σ.n)) / 4 : ℕ) : ℤ) - p.2 := by
+        intro p hp
+        simp only [shiftQ, List.mem_map] at hp
+        obtain ⟨p', hp', rfl⟩ := hp
+        have := hfar p' (List.mem_cons_of_mem _ hp')
+        have h5 : (t - (Kn * 4 + σ.n)) / 4 = t / 4 - (Kn + σ.n / 4) := by omega
+        have h6 : Kn + σ.n / 4 ≤ t / 4 := by omega
+        rw [h5]
+        push_cast [h6]
+        omega
+      rcases diag_near P hP L hA hZ hN (n - 1) _ _ _ _ _ (by simp [shiftQ] at hlen ⊢; omega) hrest
+        hshift c hc with h | h
+      · exact Or.inl h
+      · right
+        rwa [qMove_shiftQ, show K + σ.d + qMove q = K + qMove ((σ, e) :: q) by
+          simp only [qMove]; ring] at h
 
 end LeanTheory.Life

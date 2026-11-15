@@ -77,6 +77,9 @@ virtual salvo stays behind the others). The encoding of a register is this one t
   (after `diagTime K q` generations the block is at `K + qMove q`). Next: the instances for the pull
   and push salvos (`DiagParams`, the reaction of the pull extended to a multiple of 4), then the
   probe lemma and the addition of a salvo (virtual start).
+* 2026-11-15: compiled: moving strip bounds, `diag_add` (adding a salvo = virtual start),
+  `diag_near` (probe: if every salvo is `L` cells along, the near part is the final block),
+  instances `regPull`, `regPush` (`Salvos.lean`).
 
 ## Barriers
 
