@@ -75,3 +75,9 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
 * 2026-11-15: phase mod 4 resolved: the salvos at all four phases (`SalvoPhases`), queue parameters
   widened (`N = 40`, `U₂ = 23`, gap `30`), the register operations with the diagonal regenerated for
   each phase (`dz2dOp`, `dz2d1Op` … `dz2d3Op`, `dz2eOp`, `dz2e1Op` … `dz2e3Op`).
+* 2026-11-15: `ActivationIncLinks` (lines and timing of the `inc` and merge links for every program:
+  `unitLink_timed`, `mergeCorners_lines`, `routeOK_of`), `ActivationIncModule` (`dz2eAny_module`: the
+  increment at a module for every phase; `RegS.val_pushAny`, `RegS.inv_pushAny`). Open for `inc_step`:
+  route separation (segments vs pieces), entry chains at the destination, merge link to the module
+  input, footprints of body and register runs, concurrent processes, other registers' strips,
+  composition.
