@@ -13,9 +13,9 @@
 | Produces | the top-level statement and its proof plan |
 | Difficulty | hard (assembly at scale) |
 | Status | stated |
-| Implementation status | not started |
+| Implementation status | in progress |
 | Implementation evidence | none |
-| Lean evidence | none |
+| Lean evidence | `Simulator`, `Simulator.everAlive_of_halts`, `Simulator.not_everAlive_of_not_halts`, `not_computablePred_everAlive_of_simulator` |
 | Audit evidence | not audited |
 | Last updated | 2026-11-15: created |
 
@@ -51,3 +51,9 @@ hold for an arbitrary well-formed `P`, since `P` is not explicit.
 4. **Induction** over the run: `sim_halts` from the reachable halting configuration; `sim_never` from
    the invariant "every generation lies in the machine region" over all steps (each step finite,
    the run infinite).
+
+## Progress
+
+* 2026-11-15: steps 4 and the corollary compiled, conditionally on a simulator
+  (`Theory/Life/Simulation.lean`): what remains is to construct `Simulator P` for every
+  well-formed `P` with a computable start family.
