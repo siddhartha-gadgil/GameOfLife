@@ -460,6 +460,8 @@ There are no empirical inputs; every gate is a compiled proof.
   simulation theorem.
 - **2026-11-15 — `DZ2` certified for every k** (`dz2gAll`, k ≥ 2; with k = 0, 1 concrete).
   `lake build` 3317 jobs, 0 warnings; axiom audit passed for 28 351 declarations.
+- **2026-11-15 — increment certified for every k** (`dz2iAll`). `lake build` 3324 jobs, 0 warnings;
+  axiom audit passed for 31 547 declarations. Note `N-19` records the plan of the simulation theorem.
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom

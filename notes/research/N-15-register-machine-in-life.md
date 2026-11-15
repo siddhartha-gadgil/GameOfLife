@@ -442,3 +442,8 @@ free) and the salvo with the block (after) are generic processes with symbolic f
 `4 k` generations. Together with `dz2mk1Run_rest` (k = 1) and `dz2mk0Run_rest` (k = 0) the zero test
 is certified for every register value (the three statements still use separately generated copies
 of the circuit; to be unified).
+
+**Increment for every k (2026-11-15).** `dz2iAll` (`Theory/Life/Gen/Dz2iRun.lean`), for every
+`k ≥ 0`: the circuit of `R-29` (REG1, DZ2', `G_I`) at rest with the increment control glider at the
+side input of `G_I` and the block at `k` evolves in `4 k + 6 990` generations into the circuit in
+its cycle and the block at `k + 1`. Same generic method (push salvo as generic process).

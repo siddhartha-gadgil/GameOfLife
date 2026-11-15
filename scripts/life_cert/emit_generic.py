@@ -23,11 +23,16 @@ def is_salvo(p):
 
 
 class GenEmitter(Emitter):
-    def __init__(self, plan, prefix, K0):
+    def __init__(self, plan, prefix, K0, d=-1):
         super().__init__(plan, prefix)
         self.K0 = K0
+        self.d = d
         segs = plan['segs']
-        self.js = min(j for j, sg in enumerate(segs) if any(is_salvo(p) for p in sg['procs']))
+        def scount(sg):
+            return sum(len(p['start']) for p in sg['procs'] if is_salvo(p))
+        full = scount(segs[-1])
+        self.js = min(j for j, sg in enumerate(segs) if scount(sg) == full and
+                      all(scount(s2) == full for s2 in segs[j:]))
         self.ts = segs[self.js]['a']
         for sg in segs[self.js:]:
             assert any(is_salvo(p) for p in sg['procs']), 'the salvo must stay free to the end'
@@ -58,7 +63,8 @@ class GenEmitter(Emitter):
         self.vx, self.vy = VX - c0, VY - c0
         pb = (pb[0] + c0, pb[1] + c0, pb[2] + c0, pb[3] + c0)
         blk0 = {(7, 11), (8, 11), (7, 12), (8, 12)}
-        tgt = {(6, 10), (7, 10), (6, 11), (7, 11)}
+        dd = self.d
+        tgt = {(7 + dd, 11 + dd), (8 + dd, 11 + dd), (7 + dd, 12 + dd), (8 + dd, 12 + dd)}
         c = set(S) | blk0
         zb = window_bbox(c)
         n0 = 0
@@ -85,14 +91,14 @@ class GenEmitter(Emitter):
                    '  intro r hr\n  interval_cases r <;> (rw [%sPullS]; life_eval; exact coe_ofRows_subset_box rfl)\n'
                    % (P, P, box(pb), P))
         out.append('set_option maxRecDepth 100000 in\n/-- **Certificate**: the salvo pulls the block at position `0` to `-1`. -/\n'
-                   'theorem %sPullHz :\n    Reaction (%sPullS ∪ counter 0) (counter (-1)) %d (fun _ => %s) := by\n'
+                   'theorem %sPullHz :\n    Reaction (%sPullS ∪ counter 0) (counter (%d)) %d (fun _ => %s) := by\n'
                    '  rw [show %sPullS ∪ counter 0 = %s by\n'
                    "      rw [%sPullS, counter, ofRows_eq_padRows' %s %s %s %s %d %d _ (by norm_num) (by norm_num),\n"
                    "        ofRows_eq_padRows' %s %s (7 + 0) (11 + 0) %d %d _ (by norm_num) (by norm_num),\n"
                    '        ← ofRows_orRows]\n      rfl,\n'
-                   '    show counter (-1) = ofRows 6 10 [3, 3] by rw [counter]; norm_num]\n  life_reaction\n'
-                   % (P, P, n0, box(zb), P, ofrows(U), P, z(Zx), z(Zy), z(Sx), z(Sy), Sy - Zy, Sx - Zx,
-                      z(Zx), z(Zy), 11 - Zy, 7 - Zx))
+                   '    show counter (%d) = ofRows %d %d [3, 3] by rw [counter]; norm_num]\n  life_reaction\n'
+                   % (P, P, self.d, n0, box(zb), P, ofrows(U), P, z(Zx), z(Zy), z(Sx), z(Sy), Sy - Zy, Sx - Zx,
+                      z(Zx), z(Zy), 11 - Zy, 7 - Zx, self.d, 7 + self.d, 11 + self.d))
         out.append('/-- The salvo and the register block at position `k`, placed at the register. -/\n'
                    'def %sPullX (k : ℕ) : Finset Cell :=\n  translate (%d, %d) (%sPullS ∪ counter ((k + %d : ℕ) : ℤ))\n'
                    % (P, self.vx, self.vy, P, c0))
@@ -111,14 +117,15 @@ class GenEmitter(Emitter):
         q = '((%s / 4 : ℕ) : ℤ)' % i
         kk = '(%s + %d)' % (k, self.c0)
         K = '((%s + %d : ℕ) : ℤ)' % (k, self.c0)
+        D = z(self.d)
         return ('if %s ≤ %s * 4 then Box (%s + %d + %s) (%s + %d + %s) (%s + %d + %s) (%s + %d + %s) ∪ '
                 'Box (7 + %d + %s) (8 + %d + %s) (11 + %d + %s) (12 + %d + %s) else if %s ≤ %s * 4 + %d then '
                 'Box (%s + %d + %s) (%s + %d + %s) (%s + %d + %s) (%s + %d + %s) else '
-                'Box (7 + -1 + %d + %s) (8 + -1 + %d + %s) (11 + -1 + %d + %s) (12 + -1 + %d + %s)'
+                'Box (7 + %s + %d + %s) (8 + %s + %d + %s) (11 + %s + %d + %s) (12 + %s + %d + %s)'
                 % (i, kk, z(a), VXc, q, z(b), VXc, q, z(lo), VYc, q, z(hi), VYc, q,
                    VXc, K, VXc, K, VYc, K, VYc, K, i, kk, self.n0,
                    z(za), VXc, K, z(zb), VXc, K, z(zlo), VYc, K, z(zhi), VYc, K,
-                   VXc, K, VXc, K, VYc, K, VYc, K))
+                   D, VXc, K, D, VXc, K, D, VYc, K, D, VYc, K))
 
     # ------------------------------------------------------------ separation with a generic process
     def gfar(self, gfp, other):
@@ -323,7 +330,9 @@ class GenEmitter(Emitter):
         M = last['b'] - self.ts
         flights = [p for p in last['procs'] if p['kind'] == 'flight' and not is_salvo(p)]
         others = [p for p in last['procs'] if p['kind'] in ('cert', 'still') and p['start']]
-        assert len(flights) == 1 and not others, 'the tail expects one output glider'
+        assert len(flights) <= 1 and not others, 'the tail expects at most one output glider'
+        if not flights:
+            return self.tail_noout(segs, M)
         f = flights[0]
         N1 = self.atom(f['stop'])
         cells = set(f['stop'])
@@ -375,12 +384,12 @@ class GenEmitter(Emitter):
                    '  all_goals ac_rfl\n' % (P, P, S - 1, P, P, S - 1, P, allg, unfG))
         c0, n0 = self.c0, self.n0
         out.append('/-- The salvo has pulled the block from `k` to `k - 1`. -/\n'
-                   'theorem %sPullEnd (k : ℕ) : conway.evolve (4 * k + %d) (%sPullX k) = reg1Block (↑k - 1) := by\n'
+                   'theorem %sPullEnd (k : ℕ) : conway.evolve (4 * k + %d) (%sPullX k) = reg1Block (↑k %s) := by\n'
                    '  rw [show 4 * k + %d = (k + %d) * 4 + %d by omega, %sPullX,\n'
                    '    salvo_world_end %sPullS_four %sPullS_box %sPullHz (by norm_num) _ _ _ _ (by norm_num),\n'
                    '    reg1Block, counter, counter, translate_ofRows, translate_ofRows]\n'
                    '  congr 1 <;> push_cast <;> omega\n'
-                   % (P, M, P, M, c0, M - 4 * c0, P, P, P, P))
+                   % (P, M, P, '- 1' if self.d == -1 else '+ 1', M, c0, M - 4 * c0, P, P, P, P))
         rest = ' ∪ ('.join('%sR%d' % (P, i) for i in range(len(self.pg))) + ')' * (len(self.pg) - 1)
         first = segs[0]
         ctrl = [p for p in first['procs'] if p['kind'] == 'flight']
@@ -415,6 +424,77 @@ class GenEmitter(Emitter):
         return '\n'.join(out).replace('%sRest ∪ %s ∪ reg1Block ↑k := by' % (P, C), '%sRest ∪ %s ∪ reg1Block ↑k := by' % (P, C))
 
 
+def _tail_noout(self, segs, M):
+    """Tail and statement for a run whose only result is the moved block (an increment)."""
+    P = self.P
+    allg = '%sPieces' % P
+    out = []
+    out.append('/-- The tail: 4 k generations more, block at `k`. -/\n'
+               'def %sLT (k : ℕ) : List (Proc (4 * k)) :=\n'
+               '  [{ P := conway.evolve %d (%sPullX k), Q := conway.evolve (4 * k + %d) (%sPullX k),\n'
+               '     F := fun i => %sPullG k (i + %d), reaction := trajectory_reaction (%sPullAll k) %d (4 * k) },\n'
+               '   Piece.bundle %s %sPieces_sep 0 (4 * k) ((4 * k + 0) %% 30) rfl]\n'
+               % (P, M, P, M, P, P, M, P, M, allg, P))
+    idle_all = list(range(len(self.pg)))
+    gb = 'Piece.indep_bundle _ _ _ _ _ _\n        ⟨' + ',\n         '.join(
+        ['(fun i _hi => %s)' % self.gfar(M, box(self.pg[gi][2])) for gi in idle_all] + ['trivial']) + '⟩'
+    parts = ['⟨' + gb + ', trivial⟩', 'trivial']
+    out.append('set_option maxRecDepth 100000 in\n/-- **The tail** of the run: the salvo finishes for every `k`. -/\n'
+               'theorem %sTail (k : ℕ) (_hk : %d ≤ k) :\n'
+               '    Reaction (Proc.start (%sLT k)) (Proc.stop (%sLT k)) (4 * k) (Proc.foot (%sLT k)) :=\n'
+               '  Reaction.parList _ (PairR.pairwise\n    %s)\n'
+               % (P, self.K0, P, P, P, self.nest(parts, '    ')))
+    unfG = ', '.join('%sG%d' % (P, i) for i in range(len(self.pg)))
+    S = len(segs)
+    out.append('set_option maxRecDepth 100000 in\n/-- The end of the run is the start of the tail. -/\n'
+               'theorem %sGlT (k : ℕ) : Proc.stop (%sL%d k) = Proc.start (%sLT k) := by\n'
+               '  simp only [%sL%d, %sLT, %s, %s, Proc.stop_cons, Proc.start_cons, Proc.stop_nil,\n'
+               '    Proc.start_nil, Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]\n'
+               '  all_goals ac_rfl\n' % (P, P, S - 1, P, P, S - 1, P, allg, unfG))
+    c0, n0 = self.c0, self.n0
+    sgn = '- 1' if self.d == -1 else '+ 1'
+    out.append('/-- The salvo has moved the block. -/\n'
+               'theorem %sPullEnd (k : ℕ) : conway.evolve (4 * k + %d) (%sPullX k) = reg1Block (↑k %s) := by\n'
+               '  rw [show 4 * k + %d = (k + %d) * 4 + %d by omega, %sPullX,\n'
+               '    salvo_world_end %sPullS_four %sPullS_box %sPullHz (by norm_num) _ _ _ _ (by norm_num),\n'
+               '    reg1Block, counter, counter, translate_ofRows, translate_ofRows]\n'
+               '  congr 1 <;> push_cast <;> omega\n'
+               % (P, M, P, sgn, M, c0, M - 4 * c0, P, P, P, P))
+    rest = ' ∪ ('.join('%sR%d' % (P, i) for i in range(len(self.pg))) + ')' * (len(self.pg) - 1)
+    first = segs[0]
+    ctrl = [p for p in first['procs'] if p['kind'] == 'flight']
+    assert len(ctrl) == 1
+    C = self.atom(ctrl[0]['start'])
+    lit = ofrows(set(ctrl[0]['start']))
+    out.append('/-- The whole circuit at rest at the reference time. -/\ndef %sRest : Finset Cell :=\n  %s\n'
+               % (P, rest))
+    tot = sum(sg['b'] - sg['a'] for sg in segs)
+    out.append(
+        'set_option maxRecDepth 100000 in\n'
+        '/-- **The run for every position `k >= %d`**: the circuit at rest, its control glider and the\n'
+        'block at `k` evolve, in `4 k + %d` generations, into the circuit (in its cycle) and the block\n'
+        'at `k %s`. -/\n'
+        'theorem %sAll (k : ℕ) (hk : %d ≤ k) :\n'
+        '    conway.evolve (4 * k + %d) (%sRest ∪ %s ∪ reg1Block ↑k) =\n'
+        '      conway.evolve (4 * k) %sRest ∪ reg1Block (↑k %s) := by\n'
+        '  have hs : Proc.start (%sL0 k) = %sRest ∪ %s ∪ reg1Block ↑k := by\n'
+        '    simp only [%sL0, %sRest, %s, %s, Proc.start_cons, Proc.start_nil, Piece.bundle, Piece.idle,\n'
+        '      List.map_cons, List.map_nil, union_empty, Rule.evolve_zero]\n    ac_rfl\n'
+        '  have hb := (Piece.bundle %s %sPieces_sep 0 (4 * k) ((4 * k + 0) %% 30) rfl).reaction.evolve_eq\n'
+        '  simp only [%s, %s, Proc.start_cons, Proc.start_nil, Proc.stop_cons, Proc.stop_nil,\n'
+        '    Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty, Rule.evolve_zero] at hb\n'
+        '  rw [Rule.evolve_add, ← hs, %sRun k hk, %sGlT k, (%sTail k hk).evolve_eq, %sRest, hb, ← %sPullEnd k]\n'
+        '  simp only [%sLT, %s, %s, Proc.stop_cons, Proc.stop_nil, Piece.bundle, Piece.idle,\n'
+        '    List.map_cons, List.map_nil, union_empty]\n'
+        '  ac_rfl\n'
+        % (self.K0, tot, sgn, P, self.K0, tot, P, lit, P, sgn, P, P, lit, P, P, C, unfG, allg, P, allg, unfG,
+           P, P, P, P, P, P, allg, unfG))
+    return '\n'.join(out)
+
+
+GenEmitter.tail_noout = _tail_noout
+
+
 def window_bbox(c):
     xs = [q[0] for q in c]
     ys = [q[1] for q in c]
@@ -424,10 +504,11 @@ def window_bbox(c):
 def main():
     plan_path, prefix, moddir, K0 = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4])
     per = int(sys.argv[5]) if len(sys.argv) > 5 else 8
+    dd = int(sys.argv[6]) if len(sys.argv) > 6 else -1
     plan = pickle.load(open(plan_path, 'rb'))
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'life_machine'))
     from net import piece_cells
-    em = GenEmitter(plan, prefix, K0)
+    em = GenEmitter(plan, prefix, K0, dd)
     em.rest = {}
     Ts = plan['Ts']
     for name, kind, env, members in plan['groups']:

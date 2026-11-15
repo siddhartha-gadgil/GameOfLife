@@ -2307,7 +2307,7 @@ def dz2gPullX (k : ℕ) : Finset Cell :=
   translate (42, 134) (dz2gPullS ∪ counter ((k + 106 : ℕ) : ℤ))
 
 /-- The footprint of the salvo and the block at generation `i`. -/
-def dz2gPullG (k i : ℕ) : Set Cell := if i ≤ (k + 106) * 4 then Box ((-1) + 42 + ((i / 4 : ℕ) : ℤ)) (9 + 42 + ((i / 4 : ℕ) : ℤ)) (5 + 134 + ((i / 4 : ℕ) : ℤ)) (9 + 134 + ((i / 4 : ℕ) : ℤ)) ∪ Box (7 + 42 + ((k + 106 : ℕ) : ℤ)) (8 + 42 + ((k + 106 : ℕ) : ℤ)) (11 + 134 + ((k + 106 : ℕ) : ℤ)) (12 + 134 + ((k + 106 : ℕ) : ℤ)) else if i ≤ (k + 106) * 4 + 29 then Box ((-1) + 42 + ((k + 106 : ℕ) : ℤ)) (14 + 42 + ((k + 106 : ℕ) : ℤ)) (4 + 134 + ((k + 106 : ℕ) : ℤ)) (12 + 134 + ((k + 106 : ℕ) : ℤ)) else Box (7 + -1 + 42 + ((k + 106 : ℕ) : ℤ)) (8 + -1 + 42 + ((k + 106 : ℕ) : ℤ)) (11 + -1 + 134 + ((k + 106 : ℕ) : ℤ)) (12 + -1 + 134 + ((k + 106 : ℕ) : ℤ))
+def dz2gPullG (k i : ℕ) : Set Cell := if i ≤ (k + 106) * 4 then Box ((-1) + 42 + ((i / 4 : ℕ) : ℤ)) (9 + 42 + ((i / 4 : ℕ) : ℤ)) (5 + 134 + ((i / 4 : ℕ) : ℤ)) (9 + 134 + ((i / 4 : ℕ) : ℤ)) ∪ Box (7 + 42 + ((k + 106 : ℕ) : ℤ)) (8 + 42 + ((k + 106 : ℕ) : ℤ)) (11 + 134 + ((k + 106 : ℕ) : ℤ)) (12 + 134 + ((k + 106 : ℕ) : ℤ)) else if i ≤ (k + 106) * 4 + 29 then Box ((-1) + 42 + ((k + 106 : ℕ) : ℤ)) (14 + 42 + ((k + 106 : ℕ) : ℤ)) (4 + 134 + ((k + 106 : ℕ) : ℤ)) (12 + 134 + ((k + 106 : ℕ) : ℤ)) else Box (7 + (-1) + 42 + ((k + 106 : ℕ) : ℤ)) (8 + (-1) + 42 + ((k + 106 : ℕ) : ℤ)) (11 + (-1) + 134 + ((k + 106 : ℕ) : ℤ)) (12 + (-1) + 134 + ((k + 106 : ℕ) : ℤ))
 
 /-- Every generation of the salvo and the block lies in its footprint. -/
 theorem dz2gPullAll (k i : ℕ) : (conway.evolve i (dz2gPullX k) : Set Cell) ⊆ dz2gPullG k i :=
