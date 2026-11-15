@@ -278,6 +278,21 @@ theorem linkFoot_region {a t : ℕ} {g : WL} {cs : List Corner} {T T0 : ℕ} (hd
   · exact WL.box_region (h2.trans (WL.uLo_mono hdx hdy (by omega)))
   · exact hent
 
+/-- **A link into an entry chain with a side window stays in the region** (`linkFootW`): the
+route, the flight with growing `u` after it, and the entry chain (assumed in the region). -/
+theorem linkFootW_region {a t : ℕ} {g : WL} {cs : List Corner} {T T0 : ℕ} (hd : g.Dir)
+    (hl : RouteLines g cs) (htim : RouteTimedX g cs T)
+    (hmem : ∀ x ∈ (route g cs).1, x.piece ∈ machPieces p) (h0 : uMin p - 300 ≤ g.uLo T)
+    (hdx : (route g cs).2.dx = 1) (hdy : (route g cs).2.dy = -1)
+    (hent : entryFoot p a t ⊆ machRegion p) (j : ℕ) :
+    linkFootW p a t g cs T T0 j ⊆ machRegion p := by
+  obtain ⟨h1, h2⟩ := route_region cs g T hd hl htim hmem h0
+  unfold linkFootW
+  split_ifs with ha hb
+  · exact h1 j ha
+  · exact WL.box_region (h2.trans (WL.uLo_mono hdx hdy (by omega)))
+  · exact hent
+
 /-! ### Units -/
 
 /-- **The box of the body** of unit `i` lies in the region (`u ≥ A_i - 173`). -/
@@ -421,6 +436,37 @@ theorem modFoot_region {r : ℕ} (h : uMin p ≤ U p r - 738) {k : ℤ} {Tg : �
       modDY] at hU ⊢
     omega
 
+/-- **The gate box of module `r`** lies in the region. -/
+theorem gateBox_region {r : ℕ} (h : uMin p ≤ U p r - 738) : gateBox p r ⊆ machRegion p := by
+  have hU := modD_uv p r
+  rintro _ ⟨c, ⟨c1, c2, c3, c4⟩, rfl⟩
+  rw [mem_machRegion]
+  simp only [Prod.fst_add, Prod.snd_add]
+  omega
+
+/-- **The module part before the increment, with the `RF_J` window** (`modFootW`), lies in the
+region. -/
+theorem modFootW_region {r : ℕ} (h : uMin p ≤ U p r - 738) {k : ℤ} {Tg : ℕ}
+    (hTg : (Tg : ℤ) = 194 + 30 * k) (j : ℕ) : modFootW p r k Tg j ⊆ machRegion p := by
+  have hU := modD_uv p r
+  have hE := U_even p r
+  unfold modFootW
+  split_ifs with h1 h2 h3
+  · exact gateBox_region h
+  · refine WL.box_region ?_
+    rw [WL.uLo_se rfl rfl]
+    simp only [gateOutWL, modWL, WL.shift]
+    omega
+  · intro x hx
+    have := relayBoxX_u hx
+    simp only [rfJCorner] at this
+    rw [mem_machRegion]
+    omega
+  · refine WL.box_region ?_
+    simp only [WL.uLo, WL.px, WL.py, WL.qt, rfJOutWL, modWL, incInWL, WL.shift, modDX,
+      modDY] at hU ⊢
+    omega
+
 /-! ### The region facts of the activation -/
 
 /-- **The region facts of the `inc` activation**, from the plan facts and the separation facts
@@ -447,7 +493,7 @@ theorem IncPlan.region {i r : ℕ} (hp : p.WellFormed) (P : IncPlan p i r) (hv :
   · -- the continue thread
     unfold IncPlan.contFoot
     split_ifs with h1
-    · refine Set.union_subset hLC (linkFoot_region ⟨Or.inl rfl, Or.inl rfl⟩ hv.linesC
+    · refine Set.union_subset hLC (linkFootW_region ⟨Or.inl rfl, Or.inl rfl⟩ hv.linesC
         hv.timedC (fun x hx => hv.memC _ (List.mem_append_left _ (List.mem_map_of_mem hx)))
         ?_ ((congrArg WL.dx hv.finC).trans rfl)
           ((congrArg WL.dy hv.finC).trans rfl) (entryFoot_region _ hAi1) j)
@@ -474,7 +520,7 @@ theorem IncPlan.region {i r : ℕ} (hp : p.WellFormed) (P : IncPlan p i r) (hv :
     · refine Set.union_subset ?_ ((regStrip_subset hR.1 p r j).trans (modLanes_region (hU r hr)))
       unfold IncPlan.earlyFoot
       split_ifs
-      · refine Set.union_subset hLI (linkFoot_region ⟨Or.inl rfl, Or.inl rfl⟩ hv.linesR
+      · refine Set.union_subset hLI (linkFootW_region ⟨Or.inl rfl, Or.inl rfl⟩ hv.linesR
           hv.timedR (fun x hx => hv.memI _ (by simp [IncPlan.LIraw, List.mem_map_of_mem hx]))
           ?_ ((congrArg WL.dx hv.finR).trans rfl)
           ((congrArg WL.dy hv.finR).trans rfl) (entryFoot_region _ hAm) j)
@@ -489,9 +535,10 @@ theorem IncPlan.region {i r : ℕ} (hp : p.WellFormed) (P : IncPlan p i r) (hv :
         · exact (congrArg WL.dy hv.finM).trans rfl
         · change ((P.eM : ℕ) : ℤ) ≤ _
           omega
+      · exact Set.union_subset hLI (gateBox_region (hU r hr))
     · have hL := dd_pairwise (machPieces_sep p hp) hv.memI
       have memI : ∀ x ∈ P.LIraw, x ∈ dd P.LIraw := fun x hx => mem_dd.2 hx
-      obtain ⟨R', -, -, hsub, -⟩ := module_run_n p r hL (memI _ (by simp [IncPlan.LIraw]))
+      obtain ⟨R', -, -, hsub, -⟩ := module_run_nW p r hL (memI _ (by simp [IncPlan.LIraw]))
         (memI _ (by simp [IncPlan.LIraw])) (fun x hx => memI _ (by simp [IncPlan.LIraw, hx]))
         hv.δmR hv.TgE (hR.later (P.Tg - 2010))
         (fun h hh hn => hs.gate h (mem_dd.1 hh) hn)
@@ -500,9 +547,9 @@ theorem IncPlan.region {i r : ℕ} (hp : p.WellFormed) (P : IncPlan p i r) (hv :
         (fun j h1 h2 h hh => hs.fl2 j h1 h2 h (mem_dd.1 hh)) hs.modLane hs.grpLane
         (P.Tend - P.Tg - 946) (by omega)
         (fun j hj h hh hn => hs.inc _ ((hR.later _).later 946) j hj h (mem_dd.1 hh) hn)
-      unfold modRunFoot
+      unfold modRunFootW
       split_ifs with h2
-      · exact Set.union_subset (Set.union_subset hLI (modFoot_region (hU r hr) hv.TgE _))
+      · exact Set.union_subset (Set.union_subset hLI (modFootW_region (hU r hr) hv.TgE _))
           ((regStrip_subset (hR.later _).1 p r _).trans (modLanes_region (hU r hr)))
       · refine Set.union_subset hLI ((hsub _ (by omega)).trans (Set.union_subset
           (Set.union_subset (incRunBox_region (hU r hr)) ?_) (modLanes_region (hU r hr))))

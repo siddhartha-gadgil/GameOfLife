@@ -264,3 +264,15 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   gate's exact footprint (gate in the active group); (3) `sepAN/sepAZ`: the dispatched answer stays
   within reach of its station for ~96 generations after dispatch — capture windows to grow by ≥ 100.
   Proved fields: `dsep_sepC/N/Z`, `dsep_grpLane`, `dsep_lanes`, `dsep_laneBody`.
+* 2026-11-16: **`IncSep` made satisfiable** (sub-agent, checked here): joint certificates of each OR gate
+  with its incoming side glider over the last 16 generations (`Gen/SideEarly.lean`, generator
+  `side_early.py`; `orGate_side6E/7E` inside `Box 0 90 0 38`), `entry_reactionW`, `link_entryW`,
+  `incGate_approach`, RF_J as a corner (`module_preW/runW/run_nW`, joint window `[Tg+871, Tg+931]` in
+  `relayBoxX`); `IncSep.flyC/flyR/flyM/fl1/rf/fl2` restated accordingly. A Lean-evaluated numerical
+  check (`scripts/life_cert/incsep_numeric.lean`, 11 inc activations) passes every field (and reports
+  the old defects with the old ranges).
+* 2026-11-16: **`decJz_step_full`, `decJz_step'`** (`ActivationDecStep*.lean`, sub-agent, checked here):
+  the decJz step for every program and every register value (diagonal pull for `≥ 8` by phase, static
+  runs `dz2mk1…7`, value 0 with `dz2mk0`), conditional on `DecSep`; new joint-approach certificates
+  `Gen/DecWindow.lean` (DEC side inputs 20 generations, station + token 90 generations). `DecSep`
+  is being reformulated (see the previous entry: `DecSepFalse.lean` refutes the current one).

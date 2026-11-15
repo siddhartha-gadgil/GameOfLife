@@ -122,7 +122,7 @@ theorem IncPlan.lane_contFoot_clear (hp : p.WellFormed) (P : IncPlan p i r) (hv 
   have hu1 := unitD_uv p (i + 1)
   unfold IncPlan.contFoot
   split_ifs with h1
-  · refine hpc.union (laneClear_of_le fun x hx => lane_linkFoot_vlow (-2000)
+  · refine hpc.union (laneClear_of_le fun x hx => lane_linkFootW_vlow (-2000)
       ⟨Or.inl rfl, Or.inl rfl⟩ hv.linesC hv.timedC (fun c hc => by have := hlow.1 c hc; omega)
       ?_ ((congrArg WL.dx hv.finC).trans rfl) ((congrArg WL.dy hv.finC).trans rfl)
       (by omega) j x hx)
@@ -148,7 +148,7 @@ theorem IncPlan.lane_earlyFoot_clear (hp : p.WellFormed) (P : IncPlan p i r) (hv
       omega)
   unfold IncPlan.earlyFoot
   split_ifs with h1 h2
-  · refine hpc.union (laneClear_of_le fun x hx => lane_linkFoot_vlow (-2000)
+  · refine hpc.union (laneClear_of_le fun x hx => lane_linkFootW_vlow (-2000)
       ⟨Or.inl rfl, Or.inl rfl⟩ hv.linesR hv.timedR (fun c hc => by have := hlow.2.1 c hc; omega)
       ?_ ((congrArg WL.dx hv.finR).trans rfl) ((congrArg WL.dy hv.finR).trans rfl)
       (by omega) j x hx)
@@ -162,6 +162,11 @@ theorem IncPlan.lane_earlyFoot_clear (hp : p.WellFormed) (P : IncPlan p i r) (hv
     have hdy : (route P.gM P.csM).2.dy = -1 := (congrArg WL.dy hv.finM).trans rfl
     rw [WL.vHi_const (by omega) (Or.inl hdx) _ (P.eM : ℤ)]
     exact hM2
+  · refine hpc.union ?_
+    by_cases hr' : r' = r
+    · rw [hr']
+      exact gateBox_laneClear p r
+    · exact (lane_gateBox_near p r).laneClear hr'
 
 /-- **The increment thread is low or in the band of module `r`** (for a ready register at the
 start), hence clear of the lanes of every other register. -/
@@ -172,10 +177,10 @@ theorem IncPlan.lane_incFoot_clear (hp : p.WellFormed) (P : IncPlan p i r) (hv :
   split_ifs with h1
   · exact (P.lane_earlyFoot_clear hp hv hlow r' j).union
       ((lane_regStrip_near p r R0 _).laneClear hne)
-  · unfold modRunFoot
+  · unfold modRunFootW
     split_ifs with h2
     · exact ((lane_dd_clear hp hv.memI r').union
-        ((lane_modFoot_near hv.TgE h2).laneClear hne)).union
+        ((lane_modFootW_near hv.TgE h2).laneClear hne)).union
         ((lane_regStrip_near p r _ _).laneClear hne)
     · exact (lane_dd_clear hp hv.memI r').union
         ((lane_incRun_near p r ((hR.later _).later 946) _).laneClear hne)
@@ -186,7 +191,7 @@ theorem IncPlan.lane_incFoot_clear (hp : p.WellFormed) (P : IncPlan p i r) (hv :
 `modLane`, `grpLane`, `earlyLane`, `lanes`, `laneBody`, `laneAct` of `IncSep`. -/
 structure IncLaneSep (P : IncPlan p i r) (R0 : RegS) : Prop where
   /-- The module part before the increment and the lanes of the register. -/
-  modLane : ∀ j < 946, FarApart 2 (boxesOf (dd P.LIraw) ∪ modFoot p r P.km P.Tg j)
+  modLane : ∀ j < 946, FarApart 2 (boxesOf (dd P.LIraw) ∪ modFootW p r P.km P.Tg j)
     (modLanes p r)
   /-- The register circuit and the lanes of its register. -/
   grpLane : FarApart 2 (boxesOf (modGroup p r)) (modLanes p r)
@@ -208,7 +213,7 @@ theorem incLaneSep (hp : p.WellFormed) (P : IncPlan p i r) (hv : P.Valid) (hlow 
   refine ⟨fun j hj => ?_, lane_modGroup_far p r,
     fun j _ => (P.lane_earlyFoot_clear hp hv hlow r j).farApart,
     fun r₁ _ r₂ _ h => modLanes_far p h, fun r' _ => ?_, fun j hj r' _ hne => ?_⟩
-  · exact ((lane_dd_clear hp hv.memI r).union (modFoot_laneClear hv.TgE (by omega))).farApart
+  · exact ((lane_dd_clear hp hv.memI r).union (modFootW_laneClear hv.TgE (by omega))).farApart
   · refine ((laneClear_boxesOf (machPieces_laneClear hp r')).union
       (laneClear_of_le fun c hc => ?_)).farApart
     have := lane_bodyBox_low p i c hc

@@ -442,6 +442,23 @@ theorem lane_linkFoot_vlow (V : ℤ) {a t : ℕ} {g : WL} {cs : List Corner} {T 
     exact h2
   · exact (lane_entryFoot_low p a t x hx).trans hent
 
+/-- **A low link into an entry chain with a side window has a low footprint** (`linkFootW`): the
+route, the flight on a `NE`/`SW` line after it, and the entry chain (low). -/
+theorem lane_linkFootW_vlow (V : ℤ) {a t : ℕ} {g : WL} {cs : List Corner} {T T0 : ℕ}
+    (hd : g.Dir) (hl : RouteLines g cs) (htim : RouteTimedX g cs T) (hcs : ∀ c ∈ cs, c.v + 70 ≤ V)
+    (h0 : g.vHi T ≤ V) (hdx : (route g cs).2.dx = 1) (hdy : (route g cs).2.dy = -1)
+    (hent : VU p + 150 ≤ V) (j : ℕ) :
+    ∀ x ∈ linkFootW p a t g cs T T0 j, x.1 + x.2 ≤ V := by
+  obtain ⟨h1, h2⟩ := lane_route_vlow V cs g T hd hl htim hcs h0
+  intro x hx
+  unfold linkFootW at hx
+  split_ifs at hx with ha hb
+  · exact h1 j ha x hx
+  · refine (WL.le_vHi hx).trans ?_
+    rw [WL.vHi_const (by omega) (Or.inl hdx) _ (routeEndX g cs T : ℤ)]
+    exact h2
+  · exact (lane_entryFoot_low p a t x hx).trans hent
+
 /-! ### The module part of the `inc` activation -/
 
 /-- **The module part before the increment** (INC gate, flight to `RF_J`, `RF_J`, flight to the
@@ -468,6 +485,56 @@ theorem lane_modFoot_u {r : ℕ} {k : ℤ} {Tg : ℕ} (hTg : (Tg : ℤ) = 194 + 
     simp only [rfJOutWL, modWL, incInWL, WL.shift, WL.px, WL.py, WL.qt, modDX,
       modDY] at hU c1 c2 c3 c4
     omega
+
+/-- **The module part before the increment, with the `RF_J` window** (`modFootW`), lies at
+`u ∈ [U_r + 99, U_r + 300]` (up to `946` generations after the arrival at the gate). -/
+theorem lane_modFootW_u {r : ℕ} {k : ℤ} {Tg : ℕ} (hTg : (Tg : ℤ) = 194 + 30 * k) {j : ℕ}
+    (hj : j ≤ 946) :
+    ∀ c ∈ modFootW p r k Tg j, U p r + 99 ≤ c.1 - c.2 ∧ c.1 - c.2 ≤ U p r + 300 := by
+  have hU := modD_uv p r
+  have hE := U_even p r
+  intro x hx
+  unfold modFootW at hx
+  split_ifs at hx with h1 h2 h3
+  · obtain ⟨c, ⟨c1, c2, c3, c4⟩, rfl⟩ := hx
+    simp only [Prod.fst_add, Prod.snd_add]
+    omega
+  · obtain ⟨c1, c2, c3, c4⟩ := hx
+    simp only [gateOutWL, modWL, WL.shift, WL.px, WL.py, WL.qt] at c1 c2 c3 c4
+    omega
+  · obtain ⟨c1, c2, c3, c4⟩ := hx
+    simp only [rxB, rxBox, rfJCorner, rfX, rfY, rfCU, rfCV] at c1 c2 c3 c4
+    omega
+  · obtain ⟨c1, c2, c3, c4⟩ := hx
+    simp only [rfJOutWL, modWL, incInWL, WL.shift, WL.px, WL.py, WL.qt, modDX,
+      modDY] at hU c1 c2 c3 c4
+    omega
+
+/-- The gate box of module `r` lies at `u ∈ [U_r + 99, U_r + 300]`. -/
+theorem lane_gateBox_u (p : Program) (r : ℕ) :
+    ∀ c ∈ gateBox p r, U p r + 99 ≤ c.1 - c.2 ∧ c.1 - c.2 ≤ U p r + 300 := by
+  have hU := modD_uv p r
+  rintro _ ⟨c, ⟨c1, c2, c3, c4⟩, rfl⟩
+  simp only [Prod.fst_add, Prod.snd_add]
+  omega
+
+/-- The module part with the `RF_J` window is clear of the lanes of its register. -/
+theorem modFootW_laneClear {r : ℕ} {k : ℤ} {Tg : ℕ} (hTg : (Tg : ℤ) = 194 + 30 * k) {j : ℕ}
+    (hj : j ≤ 946) : LaneClear p r (modFootW p r k Tg j) :=
+  fun c hc => Or.inr (Or.inl (by have := lane_modFootW_u hTg hj c hc; omega))
+
+/-- The module part with the `RF_J` window is in the band of the module. -/
+theorem lane_modFootW_near {r : ℕ} {k : ℤ} {Tg : ℕ} (hTg : (Tg : ℤ) = 194 + 30 * k) {j : ℕ}
+    (hj : j ≤ 946) : ModNear p r (modFootW p r k Tg j) :=
+  fun c hc => Or.inr (by have := lane_modFootW_u hTg hj c hc; omega)
+
+/-- The gate box of module `r` is in the band of the module. -/
+theorem lane_gateBox_near (p : Program) (r : ℕ) : ModNear p r (gateBox p r) :=
+  fun c hc => Or.inr (by have := lane_gateBox_u p r c hc; omega)
+
+/-- The gate box of module `r` is clear of the lanes of its register. -/
+theorem gateBox_laneClear (p : Program) (r : ℕ) : LaneClear p r (gateBox p r) :=
+  fun c hc => Or.inr (Or.inl (by have := lane_gateBox_u p r c hc; omega))
 
 /-- The module part before the increment is clear of the lanes of its register. -/
 theorem modFoot_laneClear {r : ℕ} {k : ℤ} {Tg : ℕ} (hTg : (Tg : ℤ) = 194 + 30 * k) {j : ℕ}

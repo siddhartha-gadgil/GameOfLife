@@ -210,7 +210,7 @@ theorem upLink_plan (p : Program) (i a : ℕ) (w τ b s H e' : ℤ)
       (route g cs).2 = (destWin p a ((t.toNat : ℕ) : ℤ)).shift 0 0
         (((route g cs).2.tau - (destWin p a t).tau) % 30 +
           30 * (((route g cs).2.tau - (destWin p a t).tau) / 30)) ∧
-      (routeEndX g cs 2010 : ℤ) + 2 ≤
+      (routeEndX g cs 2010 : ℤ) + 16 ≤
         180 + 30 * (((route g cs).2.tau - (destWin p a t).tau) / 30) + 16 * t % 30 := by
   subst hg hcs
   obtain ⟨hl, hdx, hdy, hth⟩ := unitLink_lines p i a w τ b s H e' hH
@@ -570,23 +570,23 @@ theorem incPlan_valid {p : Program} {i r : ℕ} (hp : p.WellFormed)
   · change _ = _ + _ + 16 * (((incTc p i).toNat : ℕ) : ℤ) % 30
     rw [htcN]
     exact hT0c
-  · have h : (routeEndX (unitWL p i incDWL) (incMkc p i (incG p i r) (incEc p i r)) 2010 : ℤ) ≤
-        (((180 + 30 * (incXc p i r / 30) + 16 * incTc p i % 30).toNat : ℕ) : ℤ) := by
+  · have h : (routeEndX (unitWL p i incDWL) (incMkc p i (incG p i r) (incEc p i r)) 2010 : ℤ) + 16
+        ≤ (((180 + 30 * (incXc p i r / 30) + 16 * incTc p i % 30).toNat : ℕ) : ℤ) := by
       rw [hT0c]
       omega
     exact_mod_cast h
   · change _ = _ + _ + 16 * (((incTl p i r).toNat : ℕ) : ℤ) % 30
     rw [htlN]
     exact hT0l
-  · have h : (routeEndX (unitWL p i incRWL) (incMkl p i r (incEl p i r)) 2010 : ℤ) ≤
+  · have h : (routeEndX (unitWL p i incRWL) (incMkl p i r (incEl p i r)) 2010 : ℤ) + 16 ≤
         ((incT0l p i r : ℕ) : ℤ) := by
       rw [hT0l]
       omega
     exact_mod_cast h
-  · have h : (routeEndX ((unitWL p (p.length + r) haltDWL).shift 0 0
-        ((incT1 p i r : ℤ) + 166 - 1080)) (mergeCorners p r (mergeE p r)) (incT1 p i r) : ℤ) ≤
-        (((194 + 30 * (incXm p i r / 30)).toNat : ℕ) : ℤ) := by
-      rw [hTgN]
+  · have h : ((routeEndX ((unitWL p (p.length + r) haltDWL).shift 0 0
+        ((incT1 p i r : ℤ) + 166 - 1080)) (mergeCorners p r (mergeE p r)) (incT1 p i r) + 16 : ℕ)
+          : ℤ) ≤ (((194 + 30 * (incXm p i r / 30)).toNat : ℕ) : ℤ) := by
+      rw [hTgN, Nat.cast_add]
       simp only [incPortV, uL] at hend hpar hch
       omega
     exact Int.ofNat_le.mp h

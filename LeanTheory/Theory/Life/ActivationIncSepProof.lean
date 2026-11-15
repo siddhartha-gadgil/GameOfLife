@@ -20,9 +20,9 @@ well-formed program:
 * `isep_sepM`: the merge link is the route of `mergeSpecs` delayed by `T1 + 166 - 1080`
   (`≡ 0 (mod 30)` by the arrival time of the INC link), from `T1`: `mergeLink_sep'`.
 
-These fields are not affected by the defect of `IncSep` (`ActivationIncSepFalse`: the flight
-fields `flyC`, `flyR`, `flyM`, `fl1`, `fl2` are unsatisfiable), and carry over to a reformulated
-structure.
+These fields were not affected by the former defect of `IncSep` (`ActivationIncSepFalse`: the
+former flight fields `flyC`, `flyR`, `flyM`, `fl1`, `fl2` were unsatisfiable) and are unchanged
+in the reformulated structure (side windows and the `RF_J` corner window).
 -/
 
 @[expose] public section

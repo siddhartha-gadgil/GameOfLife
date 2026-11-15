@@ -190,6 +190,17 @@ public import LeanTheory.Theory.Life.LaneSep3
 public import LeanTheory.Theory.Life.HaltSepProof
 public import LeanTheory.Theory.Life.ActivationIncSepProof
 public import LeanTheory.Theory.Life.ActivationIncSepFalse
+public import LeanTheory.Theory.Life.Gen.DecWindow
+public import LeanTheory.Theory.Life.ActivationDecStepTimed
+public import LeanTheory.Theory.Life.ActivationDecStepRun
+public import LeanTheory.Theory.Life.ActivationDecStepProc
+public import LeanTheory.Theory.Life.ActivationDecStepThread
+public import LeanTheory.Theory.Life.ActivationDecStepRegion
+public import LeanTheory.Theory.Life.ActivationDecStep
+public import LeanTheory.Theory.Life.DecSepProof
+public import LeanTheory.Theory.Life.DecSepFalse
+public import LeanTheory.Theory.Life.Gen.SideEarly
+public import LeanTheory.Theory.Life.ActivationIncEntryW
 public import LeanTheory.Theory.Life.ActivationHalt
 public import LeanTheory.Theory.Life.Gen.ActSideDec
 public import LeanTheory.Theory.Life.ActivationDecLinks

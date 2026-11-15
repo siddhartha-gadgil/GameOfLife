@@ -6,6 +6,7 @@ Authors: LeanTheory contributors
 module
 
 public import LeanTheory.Theory.Life.ActivationDecModule
+public import LeanTheory.Theory.Life.Gen.CapExt
 
 /-!
 # The stations of a `decJz` activation: passes, capture, unpaired token
@@ -24,7 +25,9 @@ activation of `decJz r _` at instruction `i` (caller `j`, shift `sh = decShift`)
   (Z) the answer on `ansNZWL` / `ansZWL` and the token of caller `j` on `tokNZWL j` / `tokZWL j`
   (where `decKNZ_target` / `decKZ_target` put the tokens) meet at station `j`, at phase `0`; `492`
   / `472` generations later the dispatched answer is on `nzAnsWL j` / `zAnsWL j`, the first world
-  line of the answer route of `decSpecs` (`decGN`, `decGZ`);
+  line of the answer route of `decSpecs` (`decGN`, `decGZ`); extended to `692` / `672`
+  generations, until the answer is clear of its station (`stationNZ_captureE`,
+  `stationZ_captureE`);
 * `stationNZ_unpaired`, `stationZ_unpaired`: the token of the other line is absorbed by its station
   (`292` / `272` generations);
 * `answerNZ_pass`, `answerZ_pass`: the answer passes the stations `0 … j - 1` before station `j`.
@@ -368,6 +371,98 @@ theorem stationZ_capture (p : Program) (r j : ℕ) (sh : ℤ) (hsh : sh % 30 = 0
     phase_congr stZG (a := 12 * j % 30 + T) (b := 0) (by omega),
     phase_congr stZG (a := 12 * j % 30 + (T + 472)) (b := 472) (by omega)]
   have h := stCaptureZ_relay
+  rw [stCaptureZG_eq] at h
+  have h' := h.translate (modDX p r + 72 * (j : ℤ), modDY p r - 72 * (j : ℤ))
+  rw [show phase stZG 0 = stZG by rw [phase, Nat.zero_mod, Rule.evolve_zero]]
+  convert h' using 3
+
+/-- The extended output of the NZ capture is the dispatched answer `200` generations later. -/
+theorem stCaptureNZOutE_eq : stCaptureNZOutE = (nzAnsWL 0).cells 11042 := rfl
+
+/-- The extended output of the Z capture is the dispatched answer `200` generations later. -/
+theorem stCaptureZOutE_eq : stCaptureZOutE = (zAnsWL 0).cells 13062 := rfl
+
+set_option maxRecDepth 100000 in
+/-- **The NZ capture, extended**: `692` generations, until the dispatched answer is clear of its
+station. -/
+theorem stCaptureNZ_relayE :
+    Reaction (stCaptureNZG ∪ stCaptureNZIn) (phase stCaptureNZG 692 ∪ stCaptureNZOutE) 692
+      (fun _ => Box 376 467 784 951) :=
+  (stCaptureNZ_relay.seq stCaptureNZ_ext).mono fun i _ => by
+    split_ifs
+    · exact box_subset_box (by norm_num) le_rfl le_rfl (by norm_num)
+    · exact box_subset_box le_rfl le_rfl (by norm_num) le_rfl
+
+set_option maxRecDepth 100000 in
+/-- **The Z capture, extended**: `672` generations, until the dispatched answer is clear of its
+station. -/
+theorem stCaptureZ_relayE :
+    Reaction (stCaptureZG ∪ stCaptureZIn) (phase stCaptureZG 672 ∪ stCaptureZOutE) 672
+      (fun _ => Box 849 1011 (-380) (-289)) :=
+  (stCaptureZ_relay.seq stCaptureZ_ext).mono fun i _ => by
+    split_ifs
+    · exact box_subset_box le_rfl (by norm_num) le_rfl (by norm_num)
+    · exact box_subset_box (by norm_num) le_rfl le_rfl le_rfl
+
+/-- **Capture at station `j` of the line NZ, extended**: as `stationNZ_capture`, run `692`
+generations, until the dispatched answer on `nzAnsWL j` is clear of the station. -/
+theorem stationNZ_captureE (p : Program) (r j : ℕ) (sh : ℤ) (hsh : sh % 30 = 0) (T : ℕ)
+    (hT : (T : ℤ) = sh + 10350 + 288 * j) :
+    Reaction (piecesAt (stNZOne p r j) T ∪ (((modWL p r ansNZWL).shift 0 0 sh).cells T ∪
+        ((modWL p r (tokNZWL j)).shift 0 0 sh).cells T))
+      (piecesAt (stNZOne p r j) (T + 692) ∪
+        ((modWL p r (nzAnsWL j)).shift 0 0 sh).cells (T + 692)) 692
+      (fun _ => (fun c => (modDX p r + 72 * (j : ℤ), modDY p r + 72 * (j : ℤ)) + c) ''
+        Box 376 467 784 951) := by
+  have hA : ansNZWL.Dir := ⟨Or.inl rfl, Or.inl rfl⟩
+  have hK : (tokNZWL 0).Dir := ⟨Or.inl rfl, Or.inr rfl⟩
+  have hN : (nzAnsWL 0).Dir := ⟨Or.inr rfl, Or.inl rfl⟩
+  have e1 : ((T : ℕ) : ℤ) = 10350 + 288 * (j : ℤ) + sh := by omega
+  rw [stNZOne, stNZ_one_at, stNZ_one_at, e1,
+    show (10350 + 288 * (j : ℤ) + sh + 692) = 11042 + 288 * (j : ℤ) + sh by ring]
+  rw [modShift_cells p r ⟨Or.inl rfl, Or.inl rfl⟩, modShift_cells p r ⟨Or.inl rfl, Or.inr rfl⟩,
+    modShift_cells p r ⟨Or.inr rfl, Or.inl rfl⟩, tokNZWL_step, nzAnsWL_step,
+    ← ansNZWL_step (j : ℤ), cells_step hA,
+    cells_step hK, cells_step hN, translate_translate, translate_translate, translate_translate,
+    ← translate_union, ← stCaptureNZIn_eq, ← stCaptureNZOutE_eq,
+    show ((modDX p r, modDY p r) + (72 * (j : ℤ), 72 * (j : ℤ)) : Cell) =
+      (modDX p r + 72 * (j : ℤ), modDY p r + 72 * (j : ℤ)) from rfl,
+    ← translate_union, ← translate_union,
+    phase_congr stNZG (a := 12 * j % 30 + T) (b := 0) (by omega),
+    phase_congr stNZG (a := 12 * j % 30 + (T + 692)) (b := 692) (by omega)]
+  have h := stCaptureNZ_relayE
+  rw [stCaptureNZG_eq] at h
+  have h' := h.translate (modDX p r + 72 * (j : ℤ), modDY p r + 72 * (j : ℤ))
+  rw [show phase stNZG 0 = stNZG by rw [phase, Nat.zero_mod, Rule.evolve_zero]]
+  convert h' using 3
+
+/-- **Capture at station `j` of the line Z, extended**: as `stationZ_capture`, run `672`
+generations, until the dispatched answer on `zAnsWL j` is clear of the station. -/
+theorem stationZ_captureE (p : Program) (r j : ℕ) (sh : ℤ) (hsh : sh % 30 = 0) (T : ℕ)
+    (hT : (T : ℤ) = sh + 12390 + 288 * j) :
+    Reaction (piecesAt (stZOne p r j) T ∪ (((modWL p r ansZWL).shift 0 0 sh).cells T ∪
+        ((modWL p r (tokZWL j)).shift 0 0 sh).cells T))
+      (piecesAt (stZOne p r j) (T + 672) ∪
+        ((modWL p r (zAnsWL j)).shift 0 0 sh).cells (T + 672)) 672
+      (fun _ => (fun c => (modDX p r + 72 * (j : ℤ), modDY p r - 72 * (j : ℤ)) + c) ''
+        Box 849 1011 (-380) (-289)) := by
+  have hA : ansZWL.Dir := ⟨Or.inl rfl, Or.inr rfl⟩
+  have hK : (tokZWL 0).Dir := ⟨Or.inr rfl, Or.inr rfl⟩
+  have hN : (zAnsWL 0).Dir := ⟨Or.inl rfl, Or.inl rfl⟩
+  have e1 : ((T : ℕ) : ℤ) = 12390 + 288 * (j : ℤ) + sh := by omega
+  rw [stZOne, stZ_one_at, stZ_one_at, e1,
+    show (12390 + 288 * (j : ℤ) + sh + 672) = 13062 + 288 * (j : ℤ) + sh by ring]
+  rw [modShift_cells p r ⟨Or.inl rfl, Or.inr rfl⟩, modShift_cells p r ⟨Or.inr rfl, Or.inr rfl⟩,
+    modShift_cells p r ⟨Or.inl rfl, Or.inl rfl⟩, tokZWL_step, zAnsWL_step,
+    ← ansZWL_step (j : ℤ), cells_step hA, cells_step hK, cells_step hN, translate_translate,
+    translate_translate, translate_translate,
+    ← translate_union, ← stCaptureZIn_eq, ← stCaptureZOutE_eq,
+    show ((modDX p r, modDY p r) + (72 * (j : ℤ), -72 * (j : ℤ)) : Cell) =
+      (modDX p r + 72 * (j : ℤ), modDY p r - 72 * (j : ℤ)) from Prod.ext rfl (by simp; ring),
+    ← translate_union, ← translate_union,
+    phase_congr stZG (a := 12 * j % 30 + T) (b := 0) (by omega),
+    phase_congr stZG (a := 12 * j % 30 + (T + 672)) (b := 672) (by omega)]
+  have h := stCaptureZ_relayE
   rw [stCaptureZG_eq] at h
   have h' := h.translate (modDX p r + 72 * (j : ℤ), modDY p r - 72 * (j : ℤ))
   rw [show phase stZG 0 = stZG by rw [phase, Nat.zero_mod, Rule.evolve_zero]]

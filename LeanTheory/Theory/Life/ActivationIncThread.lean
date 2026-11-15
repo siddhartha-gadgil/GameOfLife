@@ -6,6 +6,7 @@ Authors: LeanTheory contributors
 module
 
 public import LeanTheory.Theory.Life.ActivationIncReg
+public import LeanTheory.Theory.Life.ActivationIncEntryW
 
 /-!
 # A link into an entry chain, with exact footprints
@@ -21,7 +22,13 @@ Item (h) of the `inc` activation (research note `N-22`): the generic piece share
   the output of copy `0`; the pieces of a list `L` (containing the copies) idle beside it;
 * `routeEndX_snoc`, `upLink_endX`, `linkFootX`, `link_entryX`: the same with **corner windows**
   (`route_window_footX`): the reflector and the glider of each corner run together from
-  `meetT - 20` to `meetT + 40`, under the satisfiable separation conditions `RouteSepXM`.
+  `meetT - 20` to `meetT + 40`, under the separation conditions `RouteSepXM`;
+* `linkFootW`, `link_entryW`: **the satisfiable form** (side windows): as `link_entryX`, but the
+  flight to the side input is required far from the pieces only until `T0 - 16`; from `T0 - 16`
+  the gate of the entry copy and the glider run together (`entry_reactionW`, certificates
+  `Gen/SideEarly`), inside the entry footprint `entryFoot`. The hypothesis `hfly` of `link_entry`
+  and `link_entryX` (flight far from the pieces up to `T0`) is unsatisfiable: the glider touches
+  the gate of copy `t` in the last `10`-`11` generations (`ActivationIncSepFalse`).
 -/
 
 @[expose] public section
@@ -169,8 +176,10 @@ def linkFootX (p : Program) (a t : ℕ) (g : WL) (cs : List Corner) (T T0 j : �
   if T + j ≤ routeEndX g cs T then routeFootX g cs T j
   else if T + j ≤ T0 then (route g cs).2.box ((T : ℤ) + j) else entryFoot p a t
 
-/-- **A link into an entry chain, with corner windows** (`link_entry` under the satisfiable
-conditions `RouteTimedX`, `RouteSepXM`; the flight to the side input starts at `routeEndX`). -/
+/-- **A link into an entry chain, with corner windows** (`link_entry` under the conditions
+`RouteTimedX`, `RouteSepXM`; the flight to the side input starts at `routeEndX`). Its hypothesis
+`hfly` cannot hold in the layout (the glider touches the gate of copy `t` before `T0`); use
+`link_entryW`. -/
 theorem link_entryX (p : Program) {L : List Piece} (hL : L.Pairwise Piece.Sep) (a t : ℕ)
     {g : WL} {cs : List Corner} {T : ℕ} (hd : g.Dir) (hlines : RouteLines g cs)
     (htim : RouteTimedX g cs T) (hsep : RouteSepXM L g cs T) {δ k : ℤ} (hδ : δ = 4 ∨ δ = 5)
@@ -209,6 +218,70 @@ theorem link_entryX (p : Program) {L : List Piece} (hL : L.Pairwise Piece.Sep) (
       rw [hfin, show (e : ℤ) + ((j - (e - T) : ℕ) : ℤ) = (T : ℤ) + j by
         push_cast [Nat.cast_sub hTe, Nat.cast_sub (show e - T ≤ j by omega)]; ring]
     · simp only [hb, show ¬ T + j ≤ e by omega, show ¬ T + j ≤ T0 by omega, ↓reduceIte]
+      exact le_rfl
+
+/-! ### Links with corner windows and a side window -/
+
+/-- **The footprint of a link into an entry chain, with corner windows and a side window**: the
+route, then the flight on the final world line until `16` generations before the arrival time
+`T0`, then the entry chain (the gate of the entry copy and the glider together from `T0 - 16`). -/
+def linkFootW (p : Program) (a t : ℕ) (g : WL) (cs : List Corner) (T T0 j : ℕ) : Set Cell :=
+  if T + j ≤ routeEndX g cs T then routeFootX g cs T j
+  else if T + j + 16 ≤ T0 then (route g cs).2.box ((T : ℤ) + j) else entryFoot p a t
+
+/-- Sanity: after the flight, from `16` generations before the arrival, the footprint of a link
+is the entry footprint. -/
+theorem linkFootW_entry (p : Program) (a t : ℕ) (g : WL) (cs : List Corner) {T T0 j : ℕ}
+    (h1 : routeEndX g cs T < T + j) (h2 : T0 < T + j + 16) :
+    linkFootW p a t g cs T T0 j = entryFoot p a t := by
+  simp only [linkFootW, show ¬ T + j ≤ routeEndX g cs T by omega, show ¬ T + j + 16 ≤ T0 by omega,
+    ↓reduceIte]
+
+/-- **A link into an entry chain, with corner windows and a side window** (the satisfiable form of
+`link_entryX`): the glider of `g` at time `T` follows the corners `cs` (`RouteTimedX`,
+`RouteSepXM`), flies on its final world line, far from the pieces of `L`, until `T0 - 16`; then
+the gate of copy `t` of unit `a` and the glider run together (`entry_reactionW`), and the entry
+chain carries the glider to the output of copy `0` at `T0 + 134 + 254 t`; the pieces of `L` idle
+beside it, and the footprint is `linkFootW`. -/
+theorem link_entryW (p : Program) {L : List Piece} (hL : L.Pairwise Piece.Sep) (a t : ℕ)
+    {g : WL} {cs : List Corner} {T : ℕ} (hd : g.Dir) (hlines : RouteLines g cs)
+    (htim : RouteTimedX g cs T) (hsep : RouteSepXM L g cs T) {δ k : ℤ} (hδ : δ = 4 ∨ δ = 5)
+    (hfin : (route g cs).2 = (destWin p a t).shift 0 0 (δ + 30 * k)) {T0 : ℕ}
+    (hT0 : (T0 : ℤ) = 180 + 30 * k + 16 * (t : ℤ) % 30) (hle : routeEndX g cs T + 16 ≤ T0)
+    (hchain : ∀ x ∈ chainPieces p a t, x ∈ L)
+    (hfly : ∀ j : ℕ, routeEndX g cs T ≤ j → j + 16 < T0 → ∀ h ∈ L,
+      FarApart 2 ((route g cs).2.box j) h.box)
+    (hent : ∀ h ∈ L, h ∉ chainPieces p a t → FarApart 2 (entryFoot p a t) h.box) :
+    T ≤ T0 ∧ Reaction (piecesAt L T ∪ g.cells T)
+      (piecesAt L (T0 + (134 + t * 254)) ∪ translate (unitDX p a + 35, unitDY p a + 64) orIn)
+      (T0 + (134 + t * 254) - T) (fun j => boxesOf L ∪ linkFootW p a t g cs T T0 j) := by
+  obtain ⟨hTe, h1⟩ := route_window_footX hL cs g T hd hlines htim hsep
+  set e := routeEndX g cs T with he
+  have hdf : (route g cs).2.Dir := by
+    rw [hfin]
+    exact ⟨Or.inl rfl, Or.inr rfl⟩
+  have h2 := window hL e (T0 - 16 - e) (WL.flight hdf e (T0 - 16 - e)) fun j hj h hh =>
+    hfly (e + j) (by omega) (by omega) h hh |> fun x => by
+      rw [show ((e : ℤ) + (j : ℤ)) = ((e + j : ℕ) : ℤ) by push_cast; ring]; exact x
+  rw [show e + (T0 - 16 - e) = T0 - 16 by omega,
+    show (e : ℤ) + ((T0 - 16 - e : ℕ) : ℤ) = ((T0 - 16 : ℕ) : ℤ) by omega] at h2
+  have h3 := window_mem hL hchain (T0 - 16) (16 + (134 + t * 254))
+    (entry_reactionW p a t hδ k (T0 - 16) (by omega)) fun j _ h hh hne => hent h hh hne
+  rw [show T0 - 16 + (16 + (134 + t * 254)) = T0 + (134 + t * 254) by omega] at h3
+  rw [hfin] at h1 h2
+  have h123 := (h1.seq h2).seq h3
+  refine ⟨by omega, ?_⟩
+  rw [show T0 + (134 + t * 254) - T = e - T + (T0 - 16 - e) + (16 + (134 + t * 254)) by omega]
+  refine h123.mono fun j _ => ?_
+  simp only [linkFootW, ← he]
+  by_cases ha : j ≤ e - T
+  · simp only [show j ≤ e - T + (T0 - 16 - e) by omega, ha, show T + j ≤ e by omega, ↓reduceIte]
+    exact le_rfl
+  · by_cases hb : j ≤ e - T + (T0 - 16 - e)
+    · simp only [hb, ha, show ¬ T + j ≤ e by omega, show T + j + 16 ≤ T0 by omega, ↓reduceIte]
+      rw [hfin, show (e : ℤ) + ((j - (e - T) : ℕ) : ℤ) = (T : ℤ) + j by
+        push_cast [Nat.cast_sub hTe, Nat.cast_sub (show e - T ≤ j by omega)]; ring]
+    · simp only [hb, show ¬ T + j ≤ e by omega, show ¬ T + j + 16 ≤ T0 by omega, ↓reduceIte]
       exact le_rfl
 
 end LP

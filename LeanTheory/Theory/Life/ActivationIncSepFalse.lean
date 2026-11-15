@@ -9,12 +9,13 @@ public import LeanTheory.Theory.Life.MainTheorem
 public import LeanTheory.Theory.Life.ActivationIncEntrySep
 
 /-!
-# `IncSep` is unsatisfiable: five flight fields fail at the ends of their flights
+# The former `IncSep` was unsatisfiable: five flight fields failed at the ends of their flights
 
-Research note `N-22`. The separation structure `IncSep` (`ActivationIncStep`) asks, in five of its
-fields, a glider box to be far (`FarApart 2`) from a piece **up to the generation before that piece
-starts to react with the glider** (or from the generation the glider leaves it). At those
-generations the glider box touches (or overlaps) the box of the piece, exactly as the corner
+Research note `N-22`. **Documentation of a corrected defect.** The former separation structure
+`IncSep` (`ActivationIncStep`, before the change of 2026-11-16) asked, in five of its fields, a
+glider box to be far (`FarApart 2`) from a piece **up to the generation before that piece starts
+to react with the glider** (or from the generation the glider leaves it). At those generations
+the glider box touches (or overlaps) the box of the piece, exactly as the corner
 reflectors in the former conditions `RouteSep` / `RouteSepM` (`ActivationHalt.not_far_before_meet`,
 `RouteSep.rfIn_near`). For **every** plan (every program, every `inc` instruction, every register
 value) the following fail:
@@ -32,14 +33,17 @@ value) the following fail:
 * `flyM` at `j = Tg - 1`: the same at the INC OR gate of module `r` (`isep_gate_near`); the
   flight is not empty (`isep_eM_lt`: `eM < Tg`).
 
-Consequences: `isep_not_incSep` (`¬ IncSep P R0` for every plan with `Tg = 194 + 30 km`, in
-particular for `incPlan p i r` of every `inc` instruction of a well-formed program),
-`isep_not_machineSteps` (no well-formed program whose first instruction is an `inc` has
-`MachineSteps`), and `isep_not_all_machineSteps`: the hypothesis of the final corollary
-`exists_not_computablePred_everAlive` is false (the program `[inc 0, halt]`). `IncSep` (and the
-hypotheses `hfly` of `link_entryX`, `hfl1`, `hfl2` of `module_pre`) must be reformulated with
-windows at the side input of an OR gate and at `RF_J`, as was done for the route corners
-(`RouteSepX`).
+Consequences (former formulation): `¬ IncSep P R0` for every plan with `Tg = 194 + 30 km`, so no
+well-formed program whose first instruction is an `inc` had `MachineSteps`, and the hypothesis of
+the final corollary `exists_not_computablePred_everAlive` was false (the program `[inc 0, halt]`).
+
+**The fix** (`ActivationIncStep`): the flights to a side input end `16` generations before the
+side-input time, and the gate and the glider run together from there (`link_entryW`,
+`entry_reactionW`, `incGate_approach`, certificates `Gen/SideEarly`); `RF_J` is run as a corner
+(`module_preW`, `reflect_earlyX`): the flight to it ends at `Tg + 871`, the corner window is
+`[Tg + 871, Tg + 931]` inside `relayBoxX (rfJCorner p r)`, and the flight from it starts at
+`Tg + 931`. The statements below are kept as lemmas about the **old clauses** (stated explicitly,
+not through `IncSep`): they show why those clauses had to go.
 -/
 
 @[expose] public section
@@ -331,61 +335,6 @@ theorem isep_eM_lt (hins : p[i]? = some (.inc r)) :
   have e3 : (incPlan p i r).Tg = (194 + 30 * (incXm p i r / 30)).toNat := rfl
   rw [e2, e3]
   exact_mod_cast h
-
-/-! ### `IncSep` is unsatisfiable -/
-
-/-- **No plan with the arrival time `Tg = 194 + 30 km` has the separation facts `IncSep`** (the
-field `fl1` fails at `j = 890`). -/
-theorem isep_not_incSep_of_TgE (P : IncPlan p i r) (hTg : (P.Tg : ℤ) = 194 + 30 * P.km)
-    (R0 : RegS) : ¬ IncSep P R0 :=
-  fun h => isep_not_fl1 P hTg h.fl1
-
-/-- **`IncSep` fails for the plan of every `inc` instruction of a well-formed program**, for
-every register. -/
-theorem isep_not_incSep (hp : p.WellFormed) (hins : p[i]? = some (.inc r)) (R0 : RegS) :
-    ¬ IncSep (incPlan p i r) R0 :=
-  isep_not_incSep_of_TgE _ (incPlan_valid hp hins).TgE R0
-
-/-- **The five flight fields of `IncSep` fail separately** for the plan of every `inc`
-instruction of a well-formed program: `flyC`, `flyR`, `flyM`, `fl1`, `fl2`. -/
-theorem isep_flights_false (hp : p.WellFormed) (hins : p[i]? = some (.inc r)) :
-    (¬ ∀ j : ℕ, routeEndX (unitWL p i incDWL) (incPlan p i r).csC 2010 ≤ j →
-        j < (incPlan p i r).T0c → ∀ h ∈ (incPlan p i r).LCraw,
-        FarApart 2 ((route (unitWL p i incDWL) (incPlan p i r).csC).2.box j) h.box) ∧
-      (¬ ∀ j : ℕ, routeEndX (unitWL p i incRWL) (incPlan p i r).csR 2010 ≤ j →
-        j < (incPlan p i r).T0l → ∀ h ∈ (incPlan p i r).LIraw,
-        FarApart 2 ((route (unitWL p i incRWL) (incPlan p i r).csR).2.box j) h.box) ∧
-      (¬ ∀ j : ℕ, (incPlan p i r).eM ≤ j → j < (incPlan p i r).Tg → ∀ h ∈ (incPlan p i r).LIraw,
-        FarApart 2 ((route (incPlan p i r).gM (incPlan p i r).csM).2.box j) h.box) ∧
-      (¬ ∀ j : ℕ, 134 ≤ j → j < 891 → ∀ h ∈ (incPlan p i r).LIraw,
-        FarApart 2 ((gateOutWL p r (incPlan p i r).km).box (((incPlan p i r).Tg : ℤ) + j))
-          h.box) ∧
-      (¬ ∀ j : ℕ, 921 ≤ j → j < 946 → ∀ h ∈ (incPlan p i r).LIraw,
-        FarApart 2 ((rfJOutWL p r (incPlan p i r).km).box (((incPlan p i r).Tg : ℤ) + j))
-          h.box) := by
-  have hv := incPlan_valid hp hins
-  exact ⟨isep_not_flyC _ hv (by have := isep_endC_lt hp hins; omega),
-    isep_not_flyR _ hv (by have := isep_endR_lt hins; omega),
-    isep_not_flyM _ hv (isep_eM_lt hins), isep_not_fl1 _ hv.TgE, isep_not_fl2 _ hv.TgE⟩
-
-/-- **No well-formed program whose first instruction is an `inc` has `MachineSteps`**: its field
-`incSep` would give `IncSep` at the start state. -/
-theorem isep_not_machineSteps (hp : p.WellFormed) (h0 : p[0]? = some (.inc r)) :
-    ¬ MachineSteps p :=
-  fun M => isep_not_incSep hp h0 _ (M.incSep (startM 0) r (startM_minv hp 0) h0)
-
-/-- **The hypothesis of the final corollary `exists_not_computablePred_everAlive` is false**:
-the well-formed program `[inc 0, halt]` with a single `halt` has no `MachineSteps`. -/
-theorem isep_not_all_machineSteps :
-    ¬ ∀ p : Program, p.WellFormed → p.SingleHalt → MachineSteps p := by
-  intro h
-  have hp : Program.WellFormed [Instr.inc 0, .halt] := ⟨by simp, rfl⟩
-  have hs : Program.SingleHalt [Instr.inc 0, .halt] := by
-    intro j hj
-    have hj0 : j = 0 := by simp at hj; omega
-    subst hj0
-    simp
-  exact isep_not_machineSteps hp (r := 0) rfl (h _ hp hs)
 
 end LP
 
