@@ -135,6 +135,7 @@ test for `k ≥ 1`; the train of operations as a `Reaction`; optional catalogue 
 | `N-19` | Architecture of the simulation theorem (networks of processes, parametric parts, layout for provability, step theorem) | `G-7` | stated; components in progress |
 | `N-20` | Register diagonal dynamics: a block with a queue of salvos in flight (encoding and queue lemma for the step theorem) | `G-7` | stated |
 | `N-21` | Final reduction: one undecidable program, the family `Mach P ∪ block₀ n`, simulation for every well-formed program, `EverAlive` | `G-7` | stated |
+| `N-22` | Assembly of `Simulator P`: placed pieces, regions, activations, encoding, step and halt lemmas | `G-7` | stated |
 
 Dependency graph (an arrow means "is needed by"). Edges out of `N-01`–`N-07` and `N-14` are
 **established** (compiled); edges out of `N-08`–`N-12` are established for the parts listed as
