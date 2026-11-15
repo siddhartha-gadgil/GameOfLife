@@ -113,6 +113,7 @@ public import LeanTheory.Theory.Life.Chain
 public import LeanTheory.Theory.Life.MergeChain
 public import LeanTheory.Theory.Life.MergeSide
 public import LeanTheory.Theory.Life.Route
+public import LeanTheory.Theory.Life.Diagonal
 public import LeanTheory.Theory.Life.RouteExamples
 public import LeanTheory.Theory.Life.Rf0Images
 public import LeanTheory.Theory.Life.StationFacts

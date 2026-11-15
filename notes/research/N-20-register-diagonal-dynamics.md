@@ -13,9 +13,9 @@
 | Produces | the register part of the configuration encoding and its dynamics |
 | Difficulty | hard (induction over a queue with times depending on the register value) |
 | Status | stated |
-| Implementation status | not started |
-| Implementation evidence | none |
-| Lean evidence | none |
+| Implementation status | in progress |
+| Implementation evidence | `Theory/Life/Diagonal.lean` |
+| Lean evidence | `diag_strip`, `flights_reaction`, `flights_evolve_mul`, `Salvo.front_end` |
 | Audit evidence | not audited |
 | Last updated | 2026-11-15: created |
 
@@ -69,6 +69,12 @@ virtual salvo stays behind the others). The encoding of a register is this one t
 3. **Probe**: when the detector of a `decJz` passes, near the start of the diagonal there is only
    the block (if its position is small) or nothing; `dz2Detector_pass` and the `k = 0, 1`
    certificates cover the interaction.
+
+## Progress
+
+* 2026-11-15: claim 1 (queue footprint) compiled: `diag_strip` (`Theory/Life/Diagonal.lean`), by
+  induction over the queue with symbolic arrival times. Next: claim 2 (value after all salvos) is
+  the same induction with `Salvo.front_end`; then the instances for the pull and push salvos.
 
 ## Barriers
 
