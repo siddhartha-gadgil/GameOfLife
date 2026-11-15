@@ -96,3 +96,9 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   offset 4 or 5), `window_group` (a group of active pieces with the rest idle). Correction to
   `R-31`: "R-29 numbering = r0 + 1" should be `r0 + 2`; offset 5 needed new side certificates
   (`orSide7`, `orChainSide7`; also `orSide8`). Open: merge unit and module input, composition.
+* 2026-11-16: `ActivationIncMerge` (sub-agent, checked here): merge unit output on the merge line
+  (`mergeStart_eq`), merge link route law and offset (`downCorners_tau`, `mergeLink_offset`,
+  `mergeLink_timed`), the module's INC gate (`incWin_eq`, `module_side_arrival`,
+  `incGate_reaction`, `incGate_out`), RF_J as a route corner (`rfJ_reflect`, `rfJ_meet`) and the
+  hand-over to the increment (`rfJ_to_dz2e`: at `1140 + 30k` the glider is the input of `dz2eOp`
+  at module `r`). Open: composition of `inc_step`; `DiagValid` for an appended salvo.
