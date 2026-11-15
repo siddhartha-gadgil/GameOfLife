@@ -258,4 +258,89 @@ theorem chain_side_reaction {G In S : Finset Cell} {Δ Δs : ℕ} {v : Cell}
       ((Set.image_mono (chainFoot_mono hBR v _)).trans image_chainFoot_subset)
   · exact Set.union_subset (hBR.trans (box_subset_chainFoot (by omega))) image_chainFoot_subset
 
+/-! ### Chains with footprints of any shape -/
+
+/-- Copies of a set `A`, number `1, 2, …`: a set far from all of them is far from the footprint of
+a chain moved by `v`. -/
+theorem farApart_chain_of {A B : Set Cell} {v : Cell} {L : ℕ}
+    (h : ∀ j : ℕ, 1 ≤ j → FarApart 2 A {c | (c.1 - (j : ℤ) * v.1, c.2 - (j : ℤ) * v.2) ∈ B}) :
+    FarApart 2 A ((fun c => v + c) '' chainFoot B v L) := by
+  rintro x hx _ ⟨c, ⟨j, -, hc⟩, rfl⟩ hn
+  refine h (j + 1) (by omega) x hx (v + c) ?_ hn
+  change ((v + c).1 - ((j + 1 : ℕ) : ℤ) * v.1, (v + c).2 - ((j + 1 : ℕ) : ℤ) * v.2) ∈ B
+  convert hc using 1
+  ext <;> simp <;> ring
+
+/-- **A chain at rest**, footprints of any shape: copies of `B` far from all later copies. -/
+theorem chain_idle_set {G : Finset Cell} {Δ : ℕ} {v : Cell} {B : Set Cell}
+    (hG : Reaction G G 30 (fun _ => B))
+    (hsep : ∀ j : ℕ, 1 ≤ j → FarApart 2 B {c | (c.1 - (j : ℤ) * v.1, c.2 - (j : ℤ) * v.2) ∈ B})
+    (L n m : ℕ) :
+    Reaction (relayChain G Δ v L n) (relayChain G Δ v L (n + m)) m (fun _ => chainFoot B v L) := by
+  induction L generalizing n with
+  | zero =>
+    refine ⟨by simp [relayChain], fun i _ c hc => ?_⟩
+    simp [relayChain] at hc
+  | succ L ih =>
+    rw [relayChain_succ, relayChain_succ,
+      show n + m + 29 * Δ = (n + 29 * Δ) + m by omega]
+    refine ((phase_reaction hG n m).par ((ih (n + 29 * Δ)).translate v)
+      fun _ _ => farApart_chain_of hsep).mono fun _ _ => ?_
+    exact Set.union_subset (box_subset_chainFoot (by omega)) image_chainFoot_subset
+
+/-- **A chain of relays, any length**, footprints of any shape: the copy at rest in `B`, the relay
+in `R ⊇ B`; each copy far from all later copies (rest against rest, relay against rest, rest
+against relay). -/
+theorem chain_reaction_set {G In : Finset Cell} {Δ : ℕ} {v : Cell} {B R : Set Cell}
+    (hG : Reaction G G 30 (fun _ => B))
+    (hrel : Reaction (G ∪ In) (phase G Δ ∪ translate v In) Δ (fun _ => R)) (hBR : B ⊆ R)
+    (hs0 : ∀ j : ℕ, 1 ≤ j → FarApart 2 B {c | (c.1 - (j : ℤ) * v.1, c.2 - (j : ℤ) * v.2) ∈ B})
+    (hs1 : ∀ j : ℕ, 1 ≤ j → FarApart 2 R {c | (c.1 - (j : ℤ) * v.1, c.2 - (j : ℤ) * v.2) ∈ B})
+    (hs2 : ∀ j : ℕ, 1 ≤ j → FarApart 2 B {c | (c.1 - (j : ℤ) * v.1, c.2 - (j : ℤ) * v.2) ∈ R})
+    (L : ℕ) :
+    Reaction (relayChain G Δ v (L + 1) 0 ∪ In)
+      (relayChain G Δ v (L + 1) ((L + 1) * Δ) ∪
+        translate (((L + 1 : ℕ) : ℤ) * v.1, ((L + 1 : ℕ) : ℤ) * v.2) In)
+      ((L + 1) * Δ) (fun _ => chainFoot R v (L + 1)) := by
+  induction L with
+  | zero =>
+    rw [relayChain_one, relayChain_one, phase, phase, Nat.zero_mod, Rule.evolve_zero,
+      show (0 + 1) * Δ = Δ by ring]
+    rw [phase] at hrel
+    convert hrel.mono (fun _ _ => box_subset_chainFoot (B := R) (v := v)
+      (L := 0 + 1) (by omega)) using 3
+    ext <;> simp
+  | succ L ih =>
+    have h1 := hrel.par ((chain_idle_set (Δ := Δ) hG hs0 (L + 1) (29 * Δ) Δ).translate v)
+      fun _ _ => farApart_chain_of hs1
+    have h2 := (phase_reaction hG Δ ((L + 1) * Δ)).par (ih.translate v)
+      fun _ _ => farApart_chain_of hs2
+    have e1 : relayChain G Δ v (L + 1) (29 * Δ + Δ) = relayChain G Δ v (L + 1) 0 := by
+      rw [show 29 * Δ + Δ = 0 + 30 * Δ by ring, relayChain_add_thirty]
+    rw [e1] at h1
+    have h := h1.seq_eq (by rw [translate_union]; ac_rfl) h2
+    have e2 : relayChain G Δ v (L + 1 + 1) 0 ∪ In =
+        G ∪ In ∪ translate v (relayChain G Δ v (L + 1) (29 * Δ)) := by
+      rw [relayChain_succ, phase, Nat.zero_mod, Rule.evolve_zero, zero_add]
+      ac_rfl
+    have e3 : relayChain G Δ v (L + 1 + 1) ((L + 1 + 1) * Δ) ∪
+        translate (((L + 1 + 1 : ℕ) : ℤ) * v.1, ((L + 1 + 1 : ℕ) : ℤ) * v.2) In =
+        phase G (Δ + (L + 1) * Δ) ∪ (translate v (relayChain G Δ v (L + 1) ((L + 1) * Δ)) ∪
+          translate v (translate (((L + 1 : ℕ) : ℤ) * v.1, ((L + 1 : ℕ) : ℤ) * v.2) In)) := by
+      rw [relayChain_succ, translate_translate,
+        show (L + 1 + 1) * Δ + 29 * Δ = (L + 1) * Δ + 30 * Δ by ring, relayChain_add_thirty,
+        show Δ + (L + 1) * Δ = (L + 1 + 1) * Δ by ring]
+      have : (((L + 1 + 1 : ℕ) : ℤ) * v.1, ((L + 1 + 1 : ℕ) : ℤ) * v.2) =
+          v + (((L + 1 : ℕ) : ℤ) * v.1, ((L + 1 : ℕ) : ℤ) * v.2) := by
+        ext <;> simp <;> ring
+      rw [this]
+      ac_rfl
+    rw [e2, e3, show (L + 1 + 1) * Δ = Δ + (L + 1) * Δ by ring, ← translate_union]
+    refine h.mono fun i _ => ?_
+    split_ifs
+    · exact Set.union_subset (box_subset_chainFoot (by omega))
+        ((Set.image_mono (chainFoot_mono hBR v _)).trans image_chainFoot_subset)
+    · exact Set.union_subset ((hBR.trans (box_subset_chainFoot (by omega))))
+        image_chainFoot_subset
+
 end LeanTheory.Life

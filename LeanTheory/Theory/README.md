@@ -66,6 +66,7 @@ These modules build on `Kernel/Life` (definitions only; there is no law).
 | `LayoutLP` | The layout `LP` of `R-31` as computable functions of a program (units, modules, tracks, hairpins, channels, stations, tokens) and its arithmetic: the 17 separation inequalities for all programs and indices (`sep01_unitSlabs` … `sep17_diagonal_band`), the nesting lemma `decJz_nested`, residues mod 30 of the routes, token formulas |
 | `Placed` | Layer 1 of the assembly (`N-22`): pieces placed by translation and phase (`Piece.place`), and parts of the machine as single pieces (`Piece.ofList`) |
 | `RegisterCircuit` | The four generated register-circuit certificates act on one circuit: `dz2mk0Rest_eq`, `dz2mk1Rest_eq`, `dz2jRest_eq` (all equal `dz2gRest`) |
+| `StationChain` | Chains of dispatch stations of any length on both answer lines (`stNZChain`, `stZChain`): an answer passes stations placed every `(72, ±72)`; built from the idle station pieces and the flight of the answer, via `chain_reaction_set` (copies with footprints of any shape, `Chain.lean`) |
 | `RouteExamples` | Instances of stages: the reflector `rf0Stage`, `flightStage`, and a two-stage route `rf0_route` |
 | `Rf0Images` | The eight images of the reflector as route stages (`rf0SWNW`, …, `rf0SWSE`): the corner pieces of every route of the layout `R-31` |
 | `MergeSide` | The merge chain entered from the side input (residues 5, 6, 9 of `R-29`), for every length: `orChainSide5`, `orChainSide6`, `orChainSide9` (by `chain_side_reaction`) |
