@@ -6,6 +6,7 @@ Authors: LeanTheory contributors
 module
 
 public import LeanTheory.Theory.Life.DiagProc
+public import LeanTheory.Theory.Life.SalvoPhases
 
 /-!
 # Generated certificate `dz2d`: the pieces and configurations
@@ -2132,42 +2133,66 @@ def dz2dA86 : Finset Cell :=
 
 /-- A configuration of the run (generated). -/
 def dz2dA87 : Finset Cell :=
-  ofRows 455 (-75) [1, 6, 3]
+  ofRows 305 (-225) [2, 4, 7]
 
 /-- A configuration of the run (generated). -/
 def dz2dA88 : Finset Cell :=
-  ofRows (-432) 222 [1, 6, 3]
+  ofRows (-582) 72 [2, 4, 7]
 
 /-- A configuration of the run (generated). -/
 def dz2dA89 : Finset Cell :=
+  ofRows (-582) 73 [5, 6, 2]
+
+/-- A configuration of the run (generated). -/
+def dz2dA90 : Finset Cell :=
+  ofRows 305 (-224) [5, 6, 2]
+
+/-- A configuration of the run (generated). -/
+def dz2dA91 : Finset Cell :=
+  ofRows (-582) 73 [4, 5, 6]
+
+/-- A configuration of the run (generated). -/
+def dz2dA92 : Finset Cell :=
+  ofRows 305 (-224) [4, 5, 6]
+
+/-- A configuration of the run (generated). -/
+def dz2dA93 : Finset Cell :=
+  ofRows 455 (-75) [1, 6, 3]
+
+/-- A configuration of the run (generated). -/
+def dz2dA94 : Finset Cell :=
+  ofRows (-432) 222 [1, 6, 3]
+
+/-- A configuration of the run (generated). -/
+def dz2dA95 : Finset Cell :=
   ofRows 455 (-75)
     [1, 6, 3, 0, 0, 0, 65536, 114688, 8192, 24576, 0, 0, 3072, 0, 0, 0, 25344, 25344, 0, 7168,
      7168, 2048, 0, 0, 0, 0, 0, 3072, 3072]
 
 /-- A configuration of the run (generated). -/
-def dz2dA90 : Finset Cell :=
+def dz2dA96 : Finset Cell :=
   ofRows 454 (-69)
     [131072, 229376, 16384, 49152, 0, 0, 0, 0, 0, 0, 0, 0, 4, 31747, 47622, 17408, 14336, 4096,
      0, 0, 0, 6144, 6144]
 
 /-- A configuration of the run (generated). -/
-def dz2dA91 : Finset Cell :=
+def dz2dA97 : Finset Cell :=
   ofRows (-416) 239 [4, 5, 6]
 
 /-- A configuration of the run (generated). -/
-def dz2dA92 : Finset Cell :=
+def dz2dA98 : Finset Cell :=
   ofRows (-36) 619 [5, 6, 2]
 
 /-- A configuration of the run (generated). -/
-def dz2dA93 : Finset Cell :=
+def dz2dA99 : Finset Cell :=
   ofRows 454 (-57) [4, 3, 6]
 
 /-- A configuration of the run (generated). -/
-def dz2dA94 : Finset Cell :=
+def dz2dA100 : Finset Cell :=
   ofRows 75 323 [1, 5, 3]
 
 /-- A configuration of the run (generated). -/
-def dz2dA95 : Finset Cell :=
+def dz2dA101 : Finset Cell :=
   ofRows (-79) 619
     [43980465111040, 52776558133248, 17592186044416, 0, 0, 0, 0, 0, 0, 13194139533312,
      433207581343744, 712483534798848, 140737488355328, 0, 0, 0, 0, 120259084288,
@@ -2178,7 +2203,7 @@ def dz2dA95 : Finset Cell :=
      7253561943303193913982976, 46116860184307433472, 36893488147419103232]
 
 /-- A configuration of the run (generated). -/
-def dz2dA96 : Finset Cell :=
+def dz2dA102 : Finset Cell :=
   ofRows (-79) 628
     [4398046511104, 294669116243968, 433207581343744, 703687441776640, 0, 0, 0, 0, 51539607552,
      103079215104, 17179869184, 0, 0, 0, 0, 134217728, 9223372037257428992, 13835058055617708032,
@@ -2188,20 +2213,20 @@ def dz2dA96 : Finset Cell :=
      92233720368547758080]
 
 /-- A configuration of the run (generated). -/
-def dz2dA97 : Finset Cell :=
+def dz2dA103 : Finset Cell :=
   ofRows 30 368 [5, 3, 2]
 
 /-- A configuration of the run (generated). -/
-def dz2dA98 : Finset Cell :=
+def dz2dA104 : Finset Cell :=
   ofRows 28 368
     [20, 12, 8, 0, 0, 0, 0, 0, 16384, 40960, 6381568, 6512640, 90112, 40972, 16394, 2, 3]
 
 /-- A configuration of the run (generated). -/
-def dz2dA99 : Finset Cell :=
+def dz2dA105 : Finset Cell :=
   ofRows 19 376 [2621440, 2228224, 3221356548, 3223388163, 131078, 2234368, 2626560, 1024, 1536]
 
 /-- A configuration of the run (generated). -/
-def dz2dA100 : Finset Cell :=
+def dz2dA106 : Finset Cell :=
   ofRows (-79) 625
     [35184372088832, 105553116266496, 87960930222080, 0, 0, 0, 0, 0, 412316860416,
      13511623515832320, 6755536880009216, 9007199254740992, 0, 0, 0, 1073741824,
@@ -2212,7 +2237,7 @@ def dz2dA100 : Finset Cell :=
      129127208516067524608, 55340232221128654848]
 
 /-- A configuration of the run (generated). -/
-def dz2dA101 : Finset Cell :=
+def dz2dA107 : Finset Cell :=
   ofRows (-79) 618
     [4503599627370496, 13510798882111488, 11258999068426240, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      137438953472, 9007611571601408, 13511142479495168, 22517998136852480, 0, 0, 0, 0,
@@ -2223,27 +2248,27 @@ def dz2dA101 : Finset Cell :=
      166092754257524555776, 55340232221128654848]
 
 /-- A configuration of the run (generated). -/
-def dz2dA102 : Finset Cell :=
+def dz2dA108 : Finset Cell :=
   ofRows 19 378 [4, 3, 6]
 
 /-- A configuration of the run (generated). -/
-def dz2dA103 : Finset Cell :=
+def dz2dA109 : Finset Cell :=
   ofRows 12 385 [4, 3, 6]
 
 /-- A configuration of the run (generated). -/
-def dz2dA104 : Finset Cell :=
+def dz2dA110 : Finset Cell :=
   ofRows 9 388 [4, 3, 6]
 
 /-- A configuration of the run (generated). -/
-def dz2dA105 : Finset Cell :=
+def dz2dA111 : Finset Cell :=
   ofRows (-28) 618 [2, 6, 5]
 
 /-- A configuration of the run (generated). -/
-def dz2dA106 : Finset Cell :=
+def dz2dA112 : Finset Cell :=
   ofRows (-25) 615 [2, 6, 5]
 
 /-- A configuration of the run (generated). -/
-def dz2dA107 : Finset Cell :=
+def dz2dA113 : Finset Cell :=
   ofRows (-29) 350
     [96, 96, 0, 0, 0, 0, 0, 0, 0, 0, 0, 224, 272, 520, 272, 224, 224, 0, 0, 0, 0, 56, 1132, 6252,
      3196, 198, 0, 0, 0, 0, 655456, 786432, 262144, 0, 24, 24, 0, 33554432, 1099712954368,
@@ -2252,7 +2277,7 @@ def dz2dA107 : Finset Cell :=
      112, 136, 260, 136, 112, 0, 0, 0, 0, 0, 0, 0, 0, 0, 48, 48]
 
 /-- A configuration of the run (generated). -/
-def dz2dA108 : Finset Cell :=
+def dz2dA114 : Finset Cell :=
   ofRows (-29) 350
     [96, 96, 0, 0, 0, 0, 0, 0, 0, 0, 856, 0, 520, 0, 432, 64, 0, 0, 0, 0, 0, 512, 3128, 1604, 0,
      130, 198, 0, 0, 327696, 393256, 131112, 32, 32, 36, 24, 16777216, 100663296, 50331648, 0, 0,
@@ -2261,43 +2286,43 @@ def dz2dA108 : Finset Cell :=
      0, 0, 0, 0, 0, 32, 216, 0, 260, 0, 428, 0, 0, 0, 0, 0, 0, 0, 0, 48, 48]
 
 /-- A configuration of the run (generated). -/
-def dz2dA109 : Finset Cell :=
+def dz2dA115 : Finset Cell :=
   ofRows 12 579 [3, 6, 1]
 
 /-- A configuration of the run (generated). -/
-def dz2dA110 : Finset Cell :=
+def dz2dA116 : Finset Cell :=
   ofRows 10 401 [1, 6, 3]
 
 /-- A configuration of the run (generated). -/
-def dz2dA111 : Finset Cell :=
+def dz2dA117 : Finset Cell :=
   ofRows 95 486 [2, 4, 7]
 
 /-- A configuration of the run (generated). -/
-def dz2dA112 : Finset Cell :=
+def dz2dA118 : Finset Cell :=
   ofRows 17 409 [5, 6, 2]
 
 /-- A configuration of the run (generated). -/
-def dz2dA113 : Finset Cell :=
+def dz2dA119 : Finset Cell :=
   ofRows 102 494 [4, 5, 6]
 
 /-- A configuration of the run (generated). -/
-def dz2dA114 : Finset Cell :=
+def dz2dA120 : Finset Cell :=
   ofRows 97 494 [7, 4, 2]
 
 /-- A configuration of the run (generated). -/
-def dz2dA115 : Finset Cell :=
+def dz2dA121 : Finset Cell :=
   ofRows 95 486 [2, 4, 7, 0, 0, 0, 0, 0, 540, 656, 776]
 
 /-- A configuration of the run (generated). -/
-def dz2dA116 : Finset Cell :=
+def dz2dA122 : Finset Cell :=
   ofRows 106 497 [2, 4, 7]
 
 /-- A configuration of the run (generated). -/
-def dz2dA117 : Finset Cell :=
+def dz2dA123 : Finset Cell :=
   ofRows 603 994 [1, 6, 3]
 
 /-- A configuration of the run (generated). -/
-def dz2dA118 : Finset Cell :=
+def dz2dA124 : Finset Cell :=
   ofRows 131 229 [5, 518, 642, 768]
 
 /-- A flying object of the run moves by `(1, 1)` every four generations. -/
@@ -3072,13 +3097,73 @@ theorem dz2dA88_four : conway.evolve 4 dz2dA88 = translate (1, 1) dz2dA88 := by
 
 /-- During its first four generations the object stays in a box. -/
 theorem dz2dA88_box (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA88 : Set Cell) ⊆ Box (-432) (-430) 222 225 := by
+    (conway.evolve r dz2dA88 : Set Cell) ⊆ Box (-582) (-579) 72 75 := by
   interval_cases r <;> (rw [dz2dA88]; life_eval; exact coe_ofRows_subset_box rfl)
 
 /-- During its first four generations the object stays in a diagonal box. -/
 theorem dz2dA88_uv (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA88 : Set Cell) ⊆ UVBox (-656) (-653) (-210) (-205) := by
+    (conway.evolve r dz2dA88 : Set Cell) ⊆ UVBox (-656) (-653) (-509) (-505) := by
   interval_cases r <;> (rw [dz2dA88]; life_eval; exact coe_ofRows_subset_uv rfl)
+
+/-- A flying object of the run moves by `(1, 1)` every four generations. -/
+theorem dz2dA87_four : conway.evolve 4 dz2dA87 = translate (1, 1) dz2dA87 := by
+  rw [dz2dA87, translate_ofRows]
+  life_cert
+
+/-- During its first four generations the object stays in a box. -/
+theorem dz2dA87_box (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA87 : Set Cell) ⊆ Box 305 308 (-225) (-222) := by
+  interval_cases r <;> (rw [dz2dA87]; life_eval; exact coe_ofRows_subset_box rfl)
+
+/-- During its first four generations the object stays in a diagonal box. -/
+theorem dz2dA87_uv (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA87 : Set Cell) ⊆ UVBox 528 531 81 85 := by
+  interval_cases r <;> (rw [dz2dA87]; life_eval; exact coe_ofRows_subset_uv rfl)
+
+/-- A flying object of the run moves by `(1, 1)` every four generations. -/
+theorem dz2dA89_four : conway.evolve 4 dz2dA89 = translate (1, 1) dz2dA89 := by
+  rw [dz2dA89, translate_ofRows]
+  life_cert
+
+/-- During its first four generations the object stays in a box. -/
+theorem dz2dA89_box (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA89 : Set Cell) ⊆ Box (-582) (-579) 73 75 := by
+  interval_cases r <;> (rw [dz2dA89]; life_eval; exact coe_ofRows_subset_box rfl)
+
+/-- During its first four generations the object stays in a diagonal box. -/
+theorem dz2dA89_uv (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA89 : Set Cell) ⊆ UVBox (-656) (-653) (-509) (-504) := by
+  interval_cases r <;> (rw [dz2dA89]; life_eval; exact coe_ofRows_subset_uv rfl)
+
+/-- A flying object of the run moves by `(1, 1)` every four generations. -/
+theorem dz2dA90_four : conway.evolve 4 dz2dA90 = translate (1, 1) dz2dA90 := by
+  rw [dz2dA90, translate_ofRows]
+  life_cert
+
+/-- During its first four generations the object stays in a box. -/
+theorem dz2dA90_box (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA90 : Set Cell) ⊆ Box 305 308 (-224) (-222) := by
+  interval_cases r <;> (rw [dz2dA90]; life_eval; exact coe_ofRows_subset_box rfl)
+
+/-- During its first four generations the object stays in a diagonal box. -/
+theorem dz2dA90_uv (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA90 : Set Cell) ⊆ UVBox 528 531 81 86 := by
+  interval_cases r <;> (rw [dz2dA90]; life_eval; exact coe_ofRows_subset_uv rfl)
+
+/-- A flying object of the run moves by `(1, 1)` every four generations. -/
+theorem dz2dA92_four : conway.evolve 4 dz2dA92 = translate (1, 1) dz2dA92 := by
+  rw [dz2dA92, translate_ofRows]
+  life_cert
+
+/-- During its first four generations the object stays in a box. -/
+theorem dz2dA92_box (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA92 : Set Cell) ⊆ Box 305 308 (-224) (-221) := by
+  interval_cases r <;> (rw [dz2dA92]; life_eval; exact coe_ofRows_subset_box rfl)
+
+/-- During its first four generations the object stays in a diagonal box. -/
+theorem dz2dA92_uv (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA92 : Set Cell) ⊆ UVBox 528 531 82 86 := by
+  interval_cases r <;> (rw [dz2dA92]; life_eval; exact coe_ofRows_subset_uv rfl)
 
 /-- A flying object of the run moves by `(1, 1)` every four generations. -/
 theorem dz2dA91_four : conway.evolve 4 dz2dA91 = translate (1, 1) dz2dA91 := by
@@ -3087,148 +3172,133 @@ theorem dz2dA91_four : conway.evolve 4 dz2dA91 = translate (1, 1) dz2dA91 := by
 
 /-- During its first four generations the object stays in a box. -/
 theorem dz2dA91_box (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA91 : Set Cell) ⊆ Box (-416) (-413) 239 242 := by
+    (conway.evolve r dz2dA91 : Set Cell) ⊆ Box (-582) (-579) 73 76 := by
   interval_cases r <;> (rw [dz2dA91]; life_eval; exact coe_ofRows_subset_box rfl)
 
 /-- During its first four generations the object stays in a diagonal box. -/
 theorem dz2dA91_uv (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA91 : Set Cell) ⊆ UVBox (-656) (-653) (-176) (-172) := by
+    (conway.evolve r dz2dA91 : Set Cell) ⊆ UVBox (-656) (-653) (-508) (-504) := by
   interval_cases r <;> (rw [dz2dA91]; life_eval; exact coe_ofRows_subset_uv rfl)
 
-/-- A flying object of the run moves by `(-1, 1)` every four generations. -/
-theorem dz2dA93_four : conway.evolve 4 dz2dA93 = translate ((-1), 1) dz2dA93 := by
-  rw [dz2dA93, translate_ofRows]
-  life_cert
-
-/-- During its first four generations the object stays in a box. -/
-theorem dz2dA93_box (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA93 : Set Cell) ⊆ Box 454 456 (-57) (-54) := by
-  interval_cases r <;> (rw [dz2dA93]; life_eval; exact coe_ofRows_subset_box rfl)
-
-/-- During its first four generations the object stays in a diagonal box. -/
-theorem dz2dA93_uv (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA93 : Set Cell) ⊆ UVBox 508 513 398 401 := by
-  interval_cases r <;> (rw [dz2dA93]; life_eval; exact coe_ofRows_subset_uv rfl)
-
-/-- A flying object of the run moves by `(-1, 1)` every four generations. -/
-theorem dz2dA94_four : conway.evolve 4 dz2dA94 = translate ((-1), 1) dz2dA94 := by
+/-- A flying object of the run moves by `(1, 1)` every four generations. -/
+theorem dz2dA94_four : conway.evolve 4 dz2dA94 = translate (1, 1) dz2dA94 := by
   rw [dz2dA94, translate_ofRows]
   life_cert
 
 /-- During its first four generations the object stays in a box. -/
 theorem dz2dA94_box (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA94 : Set Cell) ⊆ Box 74 77 323 326 := by
+    (conway.evolve r dz2dA94 : Set Cell) ⊆ Box (-432) (-430) 222 225 := by
   interval_cases r <;> (rw [dz2dA94]; life_eval; exact coe_ofRows_subset_box rfl)
 
 /-- During its first four generations the object stays in a diagonal box. -/
 theorem dz2dA94_uv (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA94 : Set Cell) ⊆ UVBox (-251) (-247) 398 401 := by
+    (conway.evolve r dz2dA94 : Set Cell) ⊆ UVBox (-656) (-653) (-210) (-205) := by
   interval_cases r <;> (rw [dz2dA94]; life_eval; exact coe_ofRows_subset_uv rfl)
 
-/-- A flying object of the run moves by `(-1, 1)` every four generations. -/
-theorem dz2dA102_four : conway.evolve 4 dz2dA102 = translate ((-1), 1) dz2dA102 := by
-  rw [dz2dA102, translate_ofRows]
-  life_cert
-
-/-- During its first four generations the object stays in a box. -/
-theorem dz2dA102_box (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA102 : Set Cell) ⊆ Box 19 21 378 381 := by
-  interval_cases r <;> (rw [dz2dA102]; life_eval; exact coe_ofRows_subset_box rfl)
-
-/-- During its first four generations the object stays in a diagonal box. -/
-theorem dz2dA102_uv (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA102 : Set Cell) ⊆ UVBox (-362) (-357) 398 401 := by
-  interval_cases r <;> (rw [dz2dA102]; life_eval; exact coe_ofRows_subset_uv rfl)
-
-/-- A flying object of the run moves by `(-1, 1)` every four generations. -/
-theorem dz2dA103_four : conway.evolve 4 dz2dA103 = translate ((-1), 1) dz2dA103 := by
-  rw [dz2dA103, translate_ofRows]
-  life_cert
-
-/-- During its first four generations the object stays in a box. -/
-theorem dz2dA103_box (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA103 : Set Cell) ⊆ Box 12 14 385 388 := by
-  interval_cases r <;> (rw [dz2dA103]; life_eval; exact coe_ofRows_subset_box rfl)
-
-/-- During its first four generations the object stays in a diagonal box. -/
-theorem dz2dA103_uv (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA103 : Set Cell) ⊆ UVBox (-376) (-371) 398 401 := by
-  interval_cases r <;> (rw [dz2dA103]; life_eval; exact coe_ofRows_subset_uv rfl)
-
-/-- A flying object of the run moves by `(1, -1)` every four generations. -/
-theorem dz2dA105_four : conway.evolve 4 dz2dA105 = translate (1, (-1)) dz2dA105 := by
-  rw [dz2dA105, translate_ofRows]
-  life_cert
-
-/-- During its first four generations the object stays in a box. -/
-theorem dz2dA105_box (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA105 : Set Cell) ⊆ Box (-28) (-25) 618 620 := by
-  interval_cases r <;> (rw [dz2dA105]; life_eval; exact coe_ofRows_subset_box rfl)
-
-/-- During its first four generations the object stays in a diagonal box. -/
-theorem dz2dA105_uv (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA105 : Set Cell) ⊆ UVBox (-648) (-643) 591 594 := by
-  interval_cases r <;> (rw [dz2dA105]; life_eval; exact coe_ofRows_subset_uv rfl)
-
-/-- A flying object of the run moves by `(1, -1)` every four generations. -/
-theorem dz2dA106_four : conway.evolve 4 dz2dA106 = translate (1, (-1)) dz2dA106 := by
-  rw [dz2dA106, translate_ofRows]
-  life_cert
-
-/-- During its first four generations the object stays in a box. -/
-theorem dz2dA106_box (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA106 : Set Cell) ⊆ Box (-25) (-22) 615 617 := by
-  interval_cases r <;> (rw [dz2dA106]; life_eval; exact coe_ofRows_subset_box rfl)
-
-/-- During its first four generations the object stays in a diagonal box. -/
-theorem dz2dA106_uv (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA106 : Set Cell) ⊆ UVBox (-642) (-637) 591 594 := by
-  interval_cases r <;> (rw [dz2dA106]; life_eval; exact coe_ofRows_subset_uv rfl)
-
 /-- A flying object of the run moves by `(1, 1)` every four generations. -/
-theorem dz2dA110_four : conway.evolve 4 dz2dA110 = translate (1, 1) dz2dA110 := by
-  rw [dz2dA110, translate_ofRows]
+theorem dz2dA97_four : conway.evolve 4 dz2dA97 = translate (1, 1) dz2dA97 := by
+  rw [dz2dA97, translate_ofRows]
   life_cert
 
 /-- During its first four generations the object stays in a box. -/
-theorem dz2dA110_box (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA110 : Set Cell) ⊆ Box 10 12 401 404 := by
-  interval_cases r <;> (rw [dz2dA110]; life_eval; exact coe_ofRows_subset_box rfl)
+theorem dz2dA97_box (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA97 : Set Cell) ⊆ Box (-416) (-413) 239 242 := by
+  interval_cases r <;> (rw [dz2dA97]; life_eval; exact coe_ofRows_subset_box rfl)
 
 /-- During its first four generations the object stays in a diagonal box. -/
-theorem dz2dA110_uv (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA110 : Set Cell) ⊆ UVBox (-393) (-390) 411 416 := by
-  interval_cases r <;> (rw [dz2dA110]; life_eval; exact coe_ofRows_subset_uv rfl)
+theorem dz2dA97_uv (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA97 : Set Cell) ⊆ UVBox (-656) (-653) (-176) (-172) := by
+  interval_cases r <;> (rw [dz2dA97]; life_eval; exact coe_ofRows_subset_uv rfl)
 
-/-- A flying object of the run moves by `(1, 1)` every four generations. -/
-theorem dz2dA112_four : conway.evolve 4 dz2dA112 = translate (1, 1) dz2dA112 := by
-  rw [dz2dA112, translate_ofRows]
+/-- A flying object of the run moves by `(-1, 1)` every four generations. -/
+theorem dz2dA99_four : conway.evolve 4 dz2dA99 = translate ((-1), 1) dz2dA99 := by
+  rw [dz2dA99, translate_ofRows]
   life_cert
 
 /-- During its first four generations the object stays in a box. -/
-theorem dz2dA112_box (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA112 : Set Cell) ⊆ Box 17 20 409 411 := by
-  interval_cases r <;> (rw [dz2dA112]; life_eval; exact coe_ofRows_subset_box rfl)
+theorem dz2dA99_box (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA99 : Set Cell) ⊆ Box 454 456 (-57) (-54) := by
+  interval_cases r <;> (rw [dz2dA99]; life_eval; exact coe_ofRows_subset_box rfl)
 
 /-- During its first four generations the object stays in a diagonal box. -/
-theorem dz2dA112_uv (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA112 : Set Cell) ⊆ UVBox (-393) (-390) 426 431 := by
-  interval_cases r <;> (rw [dz2dA112]; life_eval; exact coe_ofRows_subset_uv rfl)
+theorem dz2dA99_uv (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA99 : Set Cell) ⊆ UVBox 508 513 398 401 := by
+  interval_cases r <;> (rw [dz2dA99]; life_eval; exact coe_ofRows_subset_uv rfl)
 
-/-- A flying object of the run moves by `(1, -1)` every four generations. -/
-theorem dz2dA109_four : conway.evolve 4 dz2dA109 = translate (1, (-1)) dz2dA109 := by
+/-- A flying object of the run moves by `(-1, 1)` every four generations. -/
+theorem dz2dA100_four : conway.evolve 4 dz2dA100 = translate ((-1), 1) dz2dA100 := by
+  rw [dz2dA100, translate_ofRows]
+  life_cert
+
+/-- During its first four generations the object stays in a box. -/
+theorem dz2dA100_box (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA100 : Set Cell) ⊆ Box 74 77 323 326 := by
+  interval_cases r <;> (rw [dz2dA100]; life_eval; exact coe_ofRows_subset_box rfl)
+
+/-- During its first four generations the object stays in a diagonal box. -/
+theorem dz2dA100_uv (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA100 : Set Cell) ⊆ UVBox (-251) (-247) 398 401 := by
+  interval_cases r <;> (rw [dz2dA100]; life_eval; exact coe_ofRows_subset_uv rfl)
+
+/-- A flying object of the run moves by `(-1, 1)` every four generations. -/
+theorem dz2dA108_four : conway.evolve 4 dz2dA108 = translate ((-1), 1) dz2dA108 := by
+  rw [dz2dA108, translate_ofRows]
+  life_cert
+
+/-- During its first four generations the object stays in a box. -/
+theorem dz2dA108_box (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA108 : Set Cell) ⊆ Box 19 21 378 381 := by
+  interval_cases r <;> (rw [dz2dA108]; life_eval; exact coe_ofRows_subset_box rfl)
+
+/-- During its first four generations the object stays in a diagonal box. -/
+theorem dz2dA108_uv (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA108 : Set Cell) ⊆ UVBox (-362) (-357) 398 401 := by
+  interval_cases r <;> (rw [dz2dA108]; life_eval; exact coe_ofRows_subset_uv rfl)
+
+/-- A flying object of the run moves by `(-1, 1)` every four generations. -/
+theorem dz2dA109_four : conway.evolve 4 dz2dA109 = translate ((-1), 1) dz2dA109 := by
   rw [dz2dA109, translate_ofRows]
   life_cert
 
 /-- During its first four generations the object stays in a box. -/
 theorem dz2dA109_box (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA109 : Set Cell) ⊆ Box 12 14 578 581 := by
+    (conway.evolve r dz2dA109 : Set Cell) ⊆ Box 12 14 385 388 := by
   interval_cases r <;> (rw [dz2dA109]; life_eval; exact coe_ofRows_subset_box rfl)
 
 /-- During its first four generations the object stays in a diagonal box. -/
 theorem dz2dA109_uv (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA109 : Set Cell) ⊆ UVBox (-569) (-564) 591 594 := by
+    (conway.evolve r dz2dA109 : Set Cell) ⊆ UVBox (-376) (-371) 398 401 := by
   interval_cases r <;> (rw [dz2dA109]; life_eval; exact coe_ofRows_subset_uv rfl)
+
+/-- A flying object of the run moves by `(1, -1)` every four generations. -/
+theorem dz2dA111_four : conway.evolve 4 dz2dA111 = translate (1, (-1)) dz2dA111 := by
+  rw [dz2dA111, translate_ofRows]
+  life_cert
+
+/-- During its first four generations the object stays in a box. -/
+theorem dz2dA111_box (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA111 : Set Cell) ⊆ Box (-28) (-25) 618 620 := by
+  interval_cases r <;> (rw [dz2dA111]; life_eval; exact coe_ofRows_subset_box rfl)
+
+/-- During its first four generations the object stays in a diagonal box. -/
+theorem dz2dA111_uv (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA111 : Set Cell) ⊆ UVBox (-648) (-643) 591 594 := by
+  interval_cases r <;> (rw [dz2dA111]; life_eval; exact coe_ofRows_subset_uv rfl)
+
+/-- A flying object of the run moves by `(1, -1)` every four generations. -/
+theorem dz2dA112_four : conway.evolve 4 dz2dA112 = translate (1, (-1)) dz2dA112 := by
+  rw [dz2dA112, translate_ofRows]
+  life_cert
+
+/-- During its first four generations the object stays in a box. -/
+theorem dz2dA112_box (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA112 : Set Cell) ⊆ Box (-25) (-22) 615 617 := by
+  interval_cases r <;> (rw [dz2dA112]; life_eval; exact coe_ofRows_subset_box rfl)
+
+/-- During its first four generations the object stays in a diagonal box. -/
+theorem dz2dA112_uv (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA112 : Set Cell) ⊆ UVBox (-642) (-637) 591 594 := by
+  interval_cases r <;> (rw [dz2dA112]; life_eval; exact coe_ofRows_subset_uv rfl)
 
 /-- A flying object of the run moves by `(1, 1)` every four generations. -/
 theorem dz2dA116_four : conway.evolve 4 dz2dA116 = translate (1, 1) dz2dA116 := by
@@ -3237,13 +3307,58 @@ theorem dz2dA116_four : conway.evolve 4 dz2dA116 = translate (1, 1) dz2dA116 := 
 
 /-- During its first four generations the object stays in a box. -/
 theorem dz2dA116_box (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA116 : Set Cell) ⊆ Box 106 109 497 500 := by
+    (conway.evolve r dz2dA116 : Set Cell) ⊆ Box 10 12 401 404 := by
   interval_cases r <;> (rw [dz2dA116]; life_eval; exact coe_ofRows_subset_box rfl)
 
 /-- During its first four generations the object stays in a diagonal box. -/
 theorem dz2dA116_uv (r : ℕ) (hr : r < 4) :
-    (conway.evolve r dz2dA116 : Set Cell) ⊆ UVBox (-393) (-390) 604 608 := by
+    (conway.evolve r dz2dA116 : Set Cell) ⊆ UVBox (-393) (-390) 411 416 := by
   interval_cases r <;> (rw [dz2dA116]; life_eval; exact coe_ofRows_subset_uv rfl)
+
+/-- A flying object of the run moves by `(1, 1)` every four generations. -/
+theorem dz2dA118_four : conway.evolve 4 dz2dA118 = translate (1, 1) dz2dA118 := by
+  rw [dz2dA118, translate_ofRows]
+  life_cert
+
+/-- During its first four generations the object stays in a box. -/
+theorem dz2dA118_box (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA118 : Set Cell) ⊆ Box 17 20 409 411 := by
+  interval_cases r <;> (rw [dz2dA118]; life_eval; exact coe_ofRows_subset_box rfl)
+
+/-- During its first four generations the object stays in a diagonal box. -/
+theorem dz2dA118_uv (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA118 : Set Cell) ⊆ UVBox (-393) (-390) 426 431 := by
+  interval_cases r <;> (rw [dz2dA118]; life_eval; exact coe_ofRows_subset_uv rfl)
+
+/-- A flying object of the run moves by `(1, -1)` every four generations. -/
+theorem dz2dA115_four : conway.evolve 4 dz2dA115 = translate (1, (-1)) dz2dA115 := by
+  rw [dz2dA115, translate_ofRows]
+  life_cert
+
+/-- During its first four generations the object stays in a box. -/
+theorem dz2dA115_box (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA115 : Set Cell) ⊆ Box 12 14 578 581 := by
+  interval_cases r <;> (rw [dz2dA115]; life_eval; exact coe_ofRows_subset_box rfl)
+
+/-- During its first four generations the object stays in a diagonal box. -/
+theorem dz2dA115_uv (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA115 : Set Cell) ⊆ UVBox (-569) (-564) 591 594 := by
+  interval_cases r <;> (rw [dz2dA115]; life_eval; exact coe_ofRows_subset_uv rfl)
+
+/-- A flying object of the run moves by `(1, 1)` every four generations. -/
+theorem dz2dA122_four : conway.evolve 4 dz2dA122 = translate (1, 1) dz2dA122 := by
+  rw [dz2dA122, translate_ofRows]
+  life_cert
+
+/-- During its first four generations the object stays in a box. -/
+theorem dz2dA122_box (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA122 : Set Cell) ⊆ Box 106 109 497 500 := by
+  interval_cases r <;> (rw [dz2dA122]; life_eval; exact coe_ofRows_subset_box rfl)
+
+/-- During its first four generations the object stays in a diagonal box. -/
+theorem dz2dA122_uv (r : ℕ) (hr : r < 4) :
+    (conway.evolve r dz2dA122 : Set Cell) ⊆ UVBox (-393) (-390) 604 608 := by
+  interval_cases r <;> (rw [dz2dA122]; life_eval; exact coe_ofRows_subset_uv rfl)
 
 /-- Group 14 at phase 23. -/
 theorem dz2dR14_ph23 :

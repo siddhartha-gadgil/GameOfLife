@@ -15,7 +15,8 @@ public import LeanTheory.Theory.Life.Gen.Dz2jData
 The pulling salvo of the zero test `DZ2` (`regPull`: `dz2gPullS`, from `dz2gAll`) and the
 pushing salvo of the increment (`regPush`: `dz2jPullS`, from `dz2jAll`), as `Salvo`s of
 `Theory/Life/Diagonal` (research note `N-20`), and parameters of a register diagonal for which
-both fit, with the gap `28` between salvos (`regParams_good`).
+both fit (at every phase, `Theory/Life/SalvoPhases`), with the gap `30` between salvos
+(`regParams_good`).
 -/
 
 @[expose] public section
@@ -75,12 +76,12 @@ def regParams : DiagParams where
   A := -6
   B := 10
   ZA := -6
-  N := 36
-  g := 28
+  N := 40
+  g := 30
   U₁ := -21
-  U₂ := 22
+  U₂ := 23
 
-/-- The parameters are good: the gap `28` is enough for both salvos. -/
+/-- The parameters are good: the gap `30` is enough for both salvos. -/
 theorem regParams_good : regParams.Good := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> simp [regParams]
 

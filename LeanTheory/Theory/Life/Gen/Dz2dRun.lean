@@ -1334,13 +1334,13 @@ set_option maxRecDepth 100000 in
 /-- The pull salvo joins the register diagonal. -/
 theorem dz2dMrg (q : List (Salvo × ℤ)) (K Vs Vb : ℤ) (m0 : ℕ) (hv : DiagValid regParams Vs Vb K q)
     (hm : (m0 + 6555) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ)) :
-    conway.evolve (m0 + 6555) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K) = conway.evolve (m0 + 6555) (diagW q K) ∪ dz2dA118 := by
+    conway.evolve (m0 + 6555) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K) = conway.evolve (m0 + 6555) (diagW q K) ∪ dz2dA124 := by
   rw [diagW_add hv regPull _ (m0 + 6555) (by omega) (by simp only [regPull]; omega)
     (by simp only [regPull]; omega)]
   congr 1
   rw [show ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)) - (((m0 + 6555) / 4 : ℕ) : ℤ) = 16 by ring]
   simp only [Salvo.at, regPull]
-  rw [dz2gPullS, translate_translate, translate_ofRows, dz2dA118]
+  rw [dz2gPullS, translate_translate, translate_ofRows, dz2dA124]
   norm_num
 
 set_option maxRecDepth 100000 in
@@ -1357,9 +1357,9 @@ theorem dz2dZ25_0a :
 set_option maxRecDepth 100000 in
 /-- Glue 25, cluster 0, after. -/
 theorem dz2dZ25_0b :
-    dz2dA118 =
+    dz2dA124 =
       ofRows 131 229 [5, 518, 642, 768] := by
-  rw [dz2dA118]
+  rw [dz2dA124]
 
 set_option maxRecDepth 100000 in
 /-- The end of segment 25 is the start of segment 26. -/
@@ -1371,30 +1371,8 @@ theorem dz2dGl25 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
   simp only [dz2dL25, dz2dL26, dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
     Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
   calc _ = (dz2dA83 ∪ dz2dA86) ∪ (conway.evolve (m0 + 6555) (diagW q K)) ∪ dz2dA81 ∪ dz2dA84 ∪ (conway.evolve 15 dz2dR0) ∪ (conway.evolve 15 dz2dR1) ∪ (conway.evolve 15 dz2dR2) ∪ (conway.evolve 15 dz2dR3) ∪ (conway.evolve 15 dz2dR4) ∪ (conway.evolve 15 dz2dR5) ∪ (conway.evolve 15 dz2dR6) ∪ (conway.evolve 15 dz2dR7) ∪ (conway.evolve 15 dz2dR8) ∪ (conway.evolve 15 dz2dR9) ∪ (conway.evolve 15 dz2dR10) ∪ (conway.evolve 15 dz2dR11) ∪ (conway.evolve 15 dz2dR12) ∪ (conway.evolve 15 dz2dR13) ∪ (conway.evolve 15 dz2dR14) ∪ (conway.evolve 15 dz2dR15) ∪ (conway.evolve 15 dz2dR16) ∪ (conway.evolve 15 dz2dR17) ∪ (conway.evolve 15 dz2dR18) ∪ (conway.evolve 15 dz2dR19) ∪ (conway.evolve 15 dz2dR20) ∪ (conway.evolve 15 dz2dR21) ∪ (conway.evolve 15 dz2dR22) ∪ (conway.evolve 15 dz2dR23) ∪ (conway.evolve 15 dz2dR24) ∪ (conway.evolve 15 dz2dR25) ∪ (conway.evolve 15 dz2dR26) ∪ (conway.evolve 15 dz2dR27) := by ac_rfl
-    _ = (dz2dA118) ∪ (conway.evolve (m0 + 6555) (diagW q K)) ∪ dz2dA81 ∪ dz2dA84 ∪ (conway.evolve 15 dz2dR0) ∪ (conway.evolve 15 dz2dR1) ∪ (conway.evolve 15 dz2dR2) ∪ (conway.evolve 15 dz2dR3) ∪ (conway.evolve 15 dz2dR4) ∪ (conway.evolve 15 dz2dR5) ∪ (conway.evolve 15 dz2dR6) ∪ (conway.evolve 15 dz2dR7) ∪ (conway.evolve 15 dz2dR8) ∪ (conway.evolve 15 dz2dR9) ∪ (conway.evolve 15 dz2dR10) ∪ (conway.evolve 15 dz2dR11) ∪ (conway.evolve 15 dz2dR12) ∪ (conway.evolve 15 dz2dR13) ∪ (conway.evolve 15 dz2dR14) ∪ (conway.evolve 15 dz2dR15) ∪ (conway.evolve 15 dz2dR16) ∪ (conway.evolve 15 dz2dR17) ∪ (conway.evolve 15 dz2dR18) ∪ (conway.evolve 15 dz2dR19) ∪ (conway.evolve 15 dz2dR20) ∪ (conway.evolve 15 dz2dR21) ∪ (conway.evolve 15 dz2dR22) ∪ (conway.evolve 15 dz2dR23) ∪ (conway.evolve 15 dz2dR24) ∪ (conway.evolve 15 dz2dR25) ∪ (conway.evolve 15 dz2dR26) ∪ (conway.evolve 15 dz2dR27) := by rw [dz2dZ25_0a, ← dz2dZ25_0b]
+    _ = (dz2dA124) ∪ (conway.evolve (m0 + 6555) (diagW q K)) ∪ dz2dA81 ∪ dz2dA84 ∪ (conway.evolve 15 dz2dR0) ∪ (conway.evolve 15 dz2dR1) ∪ (conway.evolve 15 dz2dR2) ∪ (conway.evolve 15 dz2dR3) ∪ (conway.evolve 15 dz2dR4) ∪ (conway.evolve 15 dz2dR5) ∪ (conway.evolve 15 dz2dR6) ∪ (conway.evolve 15 dz2dR7) ∪ (conway.evolve 15 dz2dR8) ∪ (conway.evolve 15 dz2dR9) ∪ (conway.evolve 15 dz2dR10) ∪ (conway.evolve 15 dz2dR11) ∪ (conway.evolve 15 dz2dR12) ∪ (conway.evolve 15 dz2dR13) ∪ (conway.evolve 15 dz2dR14) ∪ (conway.evolve 15 dz2dR15) ∪ (conway.evolve 15 dz2dR16) ∪ (conway.evolve 15 dz2dR17) ∪ (conway.evolve 15 dz2dR18) ∪ (conway.evolve 15 dz2dR19) ∪ (conway.evolve 15 dz2dR20) ∪ (conway.evolve 15 dz2dR21) ∪ (conway.evolve 15 dz2dR22) ∪ (conway.evolve 15 dz2dR23) ∪ (conway.evolve 15 dz2dR24) ∪ (conway.evolve 15 dz2dR25) ∪ (conway.evolve 15 dz2dR26) ∪ (conway.evolve 15 dz2dR27) := by rw [dz2dZ25_0a, ← dz2dZ25_0b]
     _ = _ := by rw [dz2dMrg q K Vs Vb m0 hv hm hVb hVs]; ac_rfl
-
-set_option maxRecDepth 100000 in
-/-- Glue 26, cluster 0, before. -/
-theorem dz2dZ26_0a :
-    dz2dA87 ∪ (conway.evolve 15 dz2dR11) =
-      ofRows 455 (-75)
-        [1, 6, 3, 0, 0, 0, 65536, 114688, 8192, 24576, 0, 0, 3072, 0, 0, 0, 25344, 25344, 0,
-         7168, 7168, 2048, 0, 0, 0, 0, 0, 3072, 3072] := by
-  rw [dz2dA87, dz2dR11_ph15]
-  rw [ofRows_eq_padRows' 455 (-75) 455 (-75) 0 0 _ (by norm_num) (by norm_num),
-    ofRows_eq_padRows' 455 (-75) 463 (-69) 6 8 _ (by norm_num) (by norm_num)]
-  rw [← ofRows_orRows]
-  rfl
-
-set_option maxRecDepth 100000 in
-/-- Glue 26, cluster 0, after. -/
-theorem dz2dZ26_0b :
-    dz2dA89 =
-      ofRows 455 (-75)
-        [1, 6, 3, 0, 0, 0, 65536, 114688, 8192, 24576, 0, 0, 3072, 0, 0, 0, 25344, 25344, 0,
-         7168, 7168, 2048, 0, 0, 0, 0, 0, 3072, 3072] := by
-  rw [dz2dA89]
 
 set_option maxRecDepth 100000 in
 /-- The end of segment 26 is the start of segment 27. -/
@@ -1405,31 +1383,7 @@ theorem dz2dGl26 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     Proc.stop (dz2dL26 q K Vs Vb Vs' m0 hv hv') = Proc.start (dz2dL27 q K Vs Vb Vs' m0 hv hv') := by
   simp only [dz2dL26, dz2dL27, dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
     Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
-  calc _ = (dz2dA87 ∪ (conway.evolve 15 dz2dR11)) ∪ (conway.evolve (m0 + 7155) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA88 ∪ (conway.evolve 15 dz2dR0) ∪ (conway.evolve 15 dz2dR1) ∪ (conway.evolve 15 dz2dR2) ∪ (conway.evolve 15 dz2dR3) ∪ (conway.evolve 15 dz2dR4) ∪ (conway.evolve 15 dz2dR5) ∪ (conway.evolve 15 dz2dR6) ∪ (conway.evolve 15 dz2dR7) ∪ (conway.evolve 15 dz2dR8) ∪ (conway.evolve 15 dz2dR9) ∪ (conway.evolve 15 dz2dR10) ∪ (conway.evolve 15 dz2dR12) ∪ (conway.evolve 15 dz2dR13) ∪ (conway.evolve 15 dz2dR14) ∪ (conway.evolve 15 dz2dR15) ∪ (conway.evolve 15 dz2dR16) ∪ (conway.evolve 15 dz2dR17) ∪ (conway.evolve 15 dz2dR18) ∪ (conway.evolve 15 dz2dR19) ∪ (conway.evolve 15 dz2dR20) ∪ (conway.evolve 15 dz2dR21) ∪ (conway.evolve 15 dz2dR22) ∪ (conway.evolve 15 dz2dR23) ∪ (conway.evolve 15 dz2dR24) ∪ (conway.evolve 15 dz2dR25) ∪ (conway.evolve 15 dz2dR26) ∪ (conway.evolve 15 dz2dR27) := by ac_rfl
-    _ = (dz2dA89) ∪ (conway.evolve (m0 + 7155) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA88 ∪ (conway.evolve 15 dz2dR0) ∪ (conway.evolve 15 dz2dR1) ∪ (conway.evolve 15 dz2dR2) ∪ (conway.evolve 15 dz2dR3) ∪ (conway.evolve 15 dz2dR4) ∪ (conway.evolve 15 dz2dR5) ∪ (conway.evolve 15 dz2dR6) ∪ (conway.evolve 15 dz2dR7) ∪ (conway.evolve 15 dz2dR8) ∪ (conway.evolve 15 dz2dR9) ∪ (conway.evolve 15 dz2dR10) ∪ (conway.evolve 15 dz2dR12) ∪ (conway.evolve 15 dz2dR13) ∪ (conway.evolve 15 dz2dR14) ∪ (conway.evolve 15 dz2dR15) ∪ (conway.evolve 15 dz2dR16) ∪ (conway.evolve 15 dz2dR17) ∪ (conway.evolve 15 dz2dR18) ∪ (conway.evolve 15 dz2dR19) ∪ (conway.evolve 15 dz2dR20) ∪ (conway.evolve 15 dz2dR21) ∪ (conway.evolve 15 dz2dR22) ∪ (conway.evolve 15 dz2dR23) ∪ (conway.evolve 15 dz2dR24) ∪ (conway.evolve 15 dz2dR25) ∪ (conway.evolve 15 dz2dR26) ∪ (conway.evolve 15 dz2dR27) := by rw [dz2dZ26_0a, ← dz2dZ26_0b]
-    _ = _ := by ac_rfl
-
-set_option maxRecDepth 100000 in
-/-- Glue 27, cluster 0, before. -/
-theorem dz2dZ27_0a :
-    dz2dA90 =
-      ofRows 454 (-69)
-        [131072, 229376, 16384, 49152, 0, 0, 0, 0, 0, 0, 0, 0, 4, 31747, 47622, 17408, 14336,
-         4096, 0, 0, 0, 6144, 6144] := by
-  rw [dz2dA90]
-
-set_option maxRecDepth 100000 in
-/-- Glue 27, cluster 0, after. -/
-theorem dz2dZ27_0b :
-    dz2dA93 ∪ (conway.evolve 22 dz2dR11) =
-      ofRows 454 (-69)
-        [131072, 229376, 16384, 49152, 0, 0, 0, 0, 0, 0, 0, 0, 4, 31747, 47622, 17408, 14336,
-         4096, 0, 0, 0, 6144, 6144] := by
-  rw [dz2dA93, dz2dR11_ph22]
-  rw [ofRows_eq_padRows' 454 (-69) 454 (-57) 12 0 _ (by norm_num) (by norm_num),
-    ofRows_eq_padRows' 454 (-69) 463 (-69) 0 9 _ (by norm_num) (by norm_num)]
-  rw [← ofRows_orRows]
-  rfl
+  all_goals ac_rfl
 
 set_option maxRecDepth 100000 in
 /-- The end of segment 27 is the start of segment 28. -/
@@ -1440,41 +1394,7 @@ theorem dz2dGl27 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     Proc.stop (dz2dL27 q K Vs Vb Vs' m0 hv hv') = Proc.start (dz2dL28 q K Vs Vb Vs' m0 hv hv') := by
   simp only [dz2dL27, dz2dL28, dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
     Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
-  calc _ = (dz2dA90) ∪ (conway.evolve (m0 + 7222) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA91 ∪ (conway.evolve 22 dz2dR0) ∪ (conway.evolve 22 dz2dR1) ∪ (conway.evolve 22 dz2dR2) ∪ (conway.evolve 22 dz2dR3) ∪ (conway.evolve 22 dz2dR4) ∪ (conway.evolve 22 dz2dR5) ∪ (conway.evolve 22 dz2dR6) ∪ (conway.evolve 22 dz2dR7) ∪ (conway.evolve 22 dz2dR8) ∪ (conway.evolve 22 dz2dR9) ∪ (conway.evolve 22 dz2dR10) ∪ (conway.evolve 22 dz2dR12) ∪ (conway.evolve 22 dz2dR13) ∪ (conway.evolve 22 dz2dR14) ∪ (conway.evolve 22 dz2dR15) ∪ (conway.evolve 22 dz2dR16) ∪ (conway.evolve 22 dz2dR17) ∪ (conway.evolve 22 dz2dR18) ∪ (conway.evolve 22 dz2dR19) ∪ (conway.evolve 22 dz2dR20) ∪ (conway.evolve 22 dz2dR21) ∪ (conway.evolve 22 dz2dR22) ∪ (conway.evolve 22 dz2dR23) ∪ (conway.evolve 22 dz2dR24) ∪ (conway.evolve 22 dz2dR25) ∪ (conway.evolve 22 dz2dR26) ∪ (conway.evolve 22 dz2dR27) := by ac_rfl
-    _ = (dz2dA93 ∪ (conway.evolve 22 dz2dR11)) ∪ (conway.evolve (m0 + 7222) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA91 ∪ (conway.evolve 22 dz2dR0) ∪ (conway.evolve 22 dz2dR1) ∪ (conway.evolve 22 dz2dR2) ∪ (conway.evolve 22 dz2dR3) ∪ (conway.evolve 22 dz2dR4) ∪ (conway.evolve 22 dz2dR5) ∪ (conway.evolve 22 dz2dR6) ∪ (conway.evolve 22 dz2dR7) ∪ (conway.evolve 22 dz2dR8) ∪ (conway.evolve 22 dz2dR9) ∪ (conway.evolve 22 dz2dR10) ∪ (conway.evolve 22 dz2dR12) ∪ (conway.evolve 22 dz2dR13) ∪ (conway.evolve 22 dz2dR14) ∪ (conway.evolve 22 dz2dR15) ∪ (conway.evolve 22 dz2dR16) ∪ (conway.evolve 22 dz2dR17) ∪ (conway.evolve 22 dz2dR18) ∪ (conway.evolve 22 dz2dR19) ∪ (conway.evolve 22 dz2dR20) ∪ (conway.evolve 22 dz2dR21) ∪ (conway.evolve 22 dz2dR22) ∪ (conway.evolve 22 dz2dR23) ∪ (conway.evolve 22 dz2dR24) ∪ (conway.evolve 22 dz2dR25) ∪ (conway.evolve 22 dz2dR26) ∪ (conway.evolve 22 dz2dR27) := by rw [dz2dZ27_0a, ← dz2dZ27_0b]
-    _ = _ := by ac_rfl
-
-set_option maxRecDepth 100000 in
-/-- Glue 28, cluster 0, before. -/
-theorem dz2dZ28_0a :
-    dz2dA92 ∪ (conway.evolve 11 dz2dR17) =
-      ofRows (-79) 619
-        [43980465111040, 52776558133248, 17592186044416, 0, 0, 0, 0, 0, 0, 13194139533312,
-         433207581343744, 712483534798848, 140737488355328, 0, 0, 0, 0, 120259084288,
-         126100858285850624, 18014432869220352, 36028797018963968, 0, 0, 0, 402653184,
-         13835058055617708032, 23058430092405374976, 4611686018427387904, 0, 0, 0, 768,
-         7253554917687775051973696, 20574760470052685526075424, 39290716326773954471528627,
-         1983244033786280063595972643, 1896200154983074940512633920, 20551745959064167012893440,
-         7253561943303193913982976, 46116860184307433472, 36893488147419103232] := by
-  rw [dz2dA92, dz2dR17_ph11]
-  rw [ofRows_eq_padRows' (-79) 619 (-36) 619 0 43 _ (by norm_num) (by norm_num),
-    ofRows_eq_padRows' (-79) 619 (-79) 628 9 0 _ (by norm_num) (by norm_num)]
-  rw [← ofRows_orRows]
-  rfl
-
-set_option maxRecDepth 100000 in
-/-- Glue 28, cluster 0, after. -/
-theorem dz2dZ28_0b :
-    dz2dA95 =
-      ofRows (-79) 619
-        [43980465111040, 52776558133248, 17592186044416, 0, 0, 0, 0, 0, 0, 13194139533312,
-         433207581343744, 712483534798848, 140737488355328, 0, 0, 0, 0, 120259084288,
-         126100858285850624, 18014432869220352, 36028797018963968, 0, 0, 0, 402653184,
-         13835058055617708032, 23058430092405374976, 4611686018427387904, 0, 0, 0, 768,
-         7253554917687775051973696, 20574760470052685526075424, 39290716326773954471528627,
-         1983244033786280063595972643, 1896200154983074940512633920, 20551745959064167012893440,
-         7253561943303193913982976, 46116860184307433472, 36893488147419103232] := by
-  rw [dz2dA95]
+  all_goals ac_rfl
 
 set_option maxRecDepth 100000 in
 /-- The end of segment 28 is the start of segment 29. -/
@@ -1485,29 +1405,29 @@ theorem dz2dGl28 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     Proc.stop (dz2dL28 q K Vs Vb Vs' m0 hv hv') = Proc.start (dz2dL29 q K Vs Vb Vs' m0 hv hv') := by
   simp only [dz2dL28, dz2dL29, dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
     Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
-  calc _ = (dz2dA92 ∪ (conway.evolve 11 dz2dR17)) ∪ (conway.evolve (m0 + 8741) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA94 ∪ (conway.evolve 11 dz2dR0) ∪ (conway.evolve 11 dz2dR1) ∪ (conway.evolve 11 dz2dR2) ∪ (conway.evolve 11 dz2dR3) ∪ (conway.evolve 11 dz2dR4) ∪ (conway.evolve 11 dz2dR5) ∪ (conway.evolve 11 dz2dR6) ∪ (conway.evolve 11 dz2dR7) ∪ (conway.evolve 11 dz2dR8) ∪ (conway.evolve 11 dz2dR9) ∪ (conway.evolve 11 dz2dR10) ∪ (conway.evolve 11 dz2dR11) ∪ (conway.evolve 11 dz2dR12) ∪ (conway.evolve 11 dz2dR13) ∪ (conway.evolve 11 dz2dR14) ∪ (conway.evolve 11 dz2dR15) ∪ (conway.evolve 11 dz2dR16) ∪ (conway.evolve 11 dz2dR18) ∪ (conway.evolve 11 dz2dR19) ∪ (conway.evolve 11 dz2dR20) ∪ (conway.evolve 11 dz2dR21) ∪ (conway.evolve 11 dz2dR22) ∪ (conway.evolve 11 dz2dR23) ∪ (conway.evolve 11 dz2dR24) ∪ (conway.evolve 11 dz2dR25) ∪ (conway.evolve 11 dz2dR26) ∪ (conway.evolve 11 dz2dR27) := by ac_rfl
-    _ = (dz2dA95) ∪ (conway.evolve (m0 + 8741) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA94 ∪ (conway.evolve 11 dz2dR0) ∪ (conway.evolve 11 dz2dR1) ∪ (conway.evolve 11 dz2dR2) ∪ (conway.evolve 11 dz2dR3) ∪ (conway.evolve 11 dz2dR4) ∪ (conway.evolve 11 dz2dR5) ∪ (conway.evolve 11 dz2dR6) ∪ (conway.evolve 11 dz2dR7) ∪ (conway.evolve 11 dz2dR8) ∪ (conway.evolve 11 dz2dR9) ∪ (conway.evolve 11 dz2dR10) ∪ (conway.evolve 11 dz2dR11) ∪ (conway.evolve 11 dz2dR12) ∪ (conway.evolve 11 dz2dR13) ∪ (conway.evolve 11 dz2dR14) ∪ (conway.evolve 11 dz2dR15) ∪ (conway.evolve 11 dz2dR16) ∪ (conway.evolve 11 dz2dR18) ∪ (conway.evolve 11 dz2dR19) ∪ (conway.evolve 11 dz2dR20) ∪ (conway.evolve 11 dz2dR21) ∪ (conway.evolve 11 dz2dR22) ∪ (conway.evolve 11 dz2dR23) ∪ (conway.evolve 11 dz2dR24) ∪ (conway.evolve 11 dz2dR25) ∪ (conway.evolve 11 dz2dR26) ∪ (conway.evolve 11 dz2dR27) := by rw [dz2dZ28_0a, ← dz2dZ28_0b]
-    _ = _ := by ac_rfl
+  all_goals ac_rfl
 
 set_option maxRecDepth 100000 in
 /-- Glue 29, cluster 0, before. -/
 theorem dz2dZ29_0a :
-    dz2dA97 ∪ (conway.evolve 10 dz2dR13) =
-      ofRows 28 368
-        [20, 12, 8, 0, 0, 0, 0, 0, 16384, 40960, 6381568, 6512640, 90112, 40972, 16394, 2, 3] := by
-  rw [dz2dA97, dz2dR13_ph10]
-  rw [ofRows_eq_padRows' 28 368 30 368 0 2 _ (by norm_num) (by norm_num),
-    ofRows_eq_padRows' 28 368 28 376 8 0 _ (by norm_num) (by norm_num)]
+    dz2dA93 ∪ (conway.evolve 15 dz2dR11) =
+      ofRows 455 (-75)
+        [1, 6, 3, 0, 0, 0, 65536, 114688, 8192, 24576, 0, 0, 3072, 0, 0, 0, 25344, 25344, 0,
+         7168, 7168, 2048, 0, 0, 0, 0, 0, 3072, 3072] := by
+  rw [dz2dA93, dz2dR11_ph15]
+  rw [ofRows_eq_padRows' 455 (-75) 455 (-75) 0 0 _ (by norm_num) (by norm_num),
+    ofRows_eq_padRows' 455 (-75) 463 (-69) 6 8 _ (by norm_num) (by norm_num)]
   rw [← ofRows_orRows]
   rfl
 
 set_option maxRecDepth 100000 in
 /-- Glue 29, cluster 0, after. -/
 theorem dz2dZ29_0b :
-    dz2dA98 =
-      ofRows 28 368
-        [20, 12, 8, 0, 0, 0, 0, 0, 16384, 40960, 6381568, 6512640, 90112, 40972, 16394, 2, 3] := by
-  rw [dz2dA98]
+    dz2dA95 =
+      ofRows 455 (-75)
+        [1, 6, 3, 0, 0, 0, 65536, 114688, 8192, 24576, 0, 0, 3072, 0, 0, 0, 25344, 25344, 0,
+         7168, 7168, 2048, 0, 0, 0, 0, 0, 3072, 3072] := by
+  rw [dz2dA95]
 
 set_option maxRecDepth 100000 in
 /-- The end of segment 29 is the start of segment 30. -/
@@ -1518,27 +1438,29 @@ theorem dz2dGl29 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     Proc.stop (dz2dL29 q K Vs Vb Vs' m0 hv hv') = Proc.start (dz2dL30 q K Vs Vb Vs' m0 hv hv') := by
   simp only [dz2dL29, dz2dL30, dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
     Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
-  calc _ = (dz2dA97 ∪ (conway.evolve 10 dz2dR13)) ∪ (conway.evolve (m0 + 8920) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA96 ∪ (conway.evolve 10 dz2dR0) ∪ (conway.evolve 10 dz2dR1) ∪ (conway.evolve 10 dz2dR2) ∪ (conway.evolve 10 dz2dR3) ∪ (conway.evolve 10 dz2dR4) ∪ (conway.evolve 10 dz2dR5) ∪ (conway.evolve 10 dz2dR6) ∪ (conway.evolve 10 dz2dR7) ∪ (conway.evolve 10 dz2dR8) ∪ (conway.evolve 10 dz2dR9) ∪ (conway.evolve 10 dz2dR10) ∪ (conway.evolve 10 dz2dR11) ∪ (conway.evolve 10 dz2dR12) ∪ (conway.evolve 10 dz2dR14) ∪ (conway.evolve 10 dz2dR15) ∪ (conway.evolve 10 dz2dR16) ∪ (conway.evolve 10 dz2dR18) ∪ (conway.evolve 10 dz2dR19) ∪ (conway.evolve 10 dz2dR20) ∪ (conway.evolve 10 dz2dR21) ∪ (conway.evolve 10 dz2dR22) ∪ (conway.evolve 10 dz2dR23) ∪ (conway.evolve 10 dz2dR24) ∪ (conway.evolve 10 dz2dR25) ∪ (conway.evolve 10 dz2dR26) ∪ (conway.evolve 10 dz2dR27) := by ac_rfl
-    _ = (dz2dA98) ∪ (conway.evolve (m0 + 8920) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA96 ∪ (conway.evolve 10 dz2dR0) ∪ (conway.evolve 10 dz2dR1) ∪ (conway.evolve 10 dz2dR2) ∪ (conway.evolve 10 dz2dR3) ∪ (conway.evolve 10 dz2dR4) ∪ (conway.evolve 10 dz2dR5) ∪ (conway.evolve 10 dz2dR6) ∪ (conway.evolve 10 dz2dR7) ∪ (conway.evolve 10 dz2dR8) ∪ (conway.evolve 10 dz2dR9) ∪ (conway.evolve 10 dz2dR10) ∪ (conway.evolve 10 dz2dR11) ∪ (conway.evolve 10 dz2dR12) ∪ (conway.evolve 10 dz2dR14) ∪ (conway.evolve 10 dz2dR15) ∪ (conway.evolve 10 dz2dR16) ∪ (conway.evolve 10 dz2dR18) ∪ (conway.evolve 10 dz2dR19) ∪ (conway.evolve 10 dz2dR20) ∪ (conway.evolve 10 dz2dR21) ∪ (conway.evolve 10 dz2dR22) ∪ (conway.evolve 10 dz2dR23) ∪ (conway.evolve 10 dz2dR24) ∪ (conway.evolve 10 dz2dR25) ∪ (conway.evolve 10 dz2dR26) ∪ (conway.evolve 10 dz2dR27) := by rw [dz2dZ29_0a, ← dz2dZ29_0b]
+  calc _ = (dz2dA93 ∪ (conway.evolve 15 dz2dR11)) ∪ (conway.evolve (m0 + 7155) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA94 ∪ (conway.evolve 15 dz2dR0) ∪ (conway.evolve 15 dz2dR1) ∪ (conway.evolve 15 dz2dR2) ∪ (conway.evolve 15 dz2dR3) ∪ (conway.evolve 15 dz2dR4) ∪ (conway.evolve 15 dz2dR5) ∪ (conway.evolve 15 dz2dR6) ∪ (conway.evolve 15 dz2dR7) ∪ (conway.evolve 15 dz2dR8) ∪ (conway.evolve 15 dz2dR9) ∪ (conway.evolve 15 dz2dR10) ∪ (conway.evolve 15 dz2dR12) ∪ (conway.evolve 15 dz2dR13) ∪ (conway.evolve 15 dz2dR14) ∪ (conway.evolve 15 dz2dR15) ∪ (conway.evolve 15 dz2dR16) ∪ (conway.evolve 15 dz2dR17) ∪ (conway.evolve 15 dz2dR18) ∪ (conway.evolve 15 dz2dR19) ∪ (conway.evolve 15 dz2dR20) ∪ (conway.evolve 15 dz2dR21) ∪ (conway.evolve 15 dz2dR22) ∪ (conway.evolve 15 dz2dR23) ∪ (conway.evolve 15 dz2dR24) ∪ (conway.evolve 15 dz2dR25) ∪ (conway.evolve 15 dz2dR26) ∪ (conway.evolve 15 dz2dR27) := by ac_rfl
+    _ = (dz2dA95) ∪ (conway.evolve (m0 + 7155) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA94 ∪ (conway.evolve 15 dz2dR0) ∪ (conway.evolve 15 dz2dR1) ∪ (conway.evolve 15 dz2dR2) ∪ (conway.evolve 15 dz2dR3) ∪ (conway.evolve 15 dz2dR4) ∪ (conway.evolve 15 dz2dR5) ∪ (conway.evolve 15 dz2dR6) ∪ (conway.evolve 15 dz2dR7) ∪ (conway.evolve 15 dz2dR8) ∪ (conway.evolve 15 dz2dR9) ∪ (conway.evolve 15 dz2dR10) ∪ (conway.evolve 15 dz2dR12) ∪ (conway.evolve 15 dz2dR13) ∪ (conway.evolve 15 dz2dR14) ∪ (conway.evolve 15 dz2dR15) ∪ (conway.evolve 15 dz2dR16) ∪ (conway.evolve 15 dz2dR17) ∪ (conway.evolve 15 dz2dR18) ∪ (conway.evolve 15 dz2dR19) ∪ (conway.evolve 15 dz2dR20) ∪ (conway.evolve 15 dz2dR21) ∪ (conway.evolve 15 dz2dR22) ∪ (conway.evolve 15 dz2dR23) ∪ (conway.evolve 15 dz2dR24) ∪ (conway.evolve 15 dz2dR25) ∪ (conway.evolve 15 dz2dR26) ∪ (conway.evolve 15 dz2dR27) := by rw [dz2dZ29_0a, ← dz2dZ29_0b]
     _ = _ := by ac_rfl
 
 set_option maxRecDepth 100000 in
 /-- Glue 30, cluster 0, before. -/
 theorem dz2dZ30_0a :
-    dz2dA99 =
-      ofRows 19 376
-        [2621440, 2228224, 3221356548, 3223388163, 131078, 2234368, 2626560, 1024, 1536] := by
-  rw [dz2dA99]
+    dz2dA96 =
+      ofRows 454 (-69)
+        [131072, 229376, 16384, 49152, 0, 0, 0, 0, 0, 0, 0, 0, 4, 31747, 47622, 17408, 14336,
+         4096, 0, 0, 0, 6144, 6144] := by
+  rw [dz2dA96]
 
 set_option maxRecDepth 100000 in
 /-- Glue 30, cluster 0, after. -/
 theorem dz2dZ30_0b :
-    dz2dA102 ∪ (conway.evolve 22 dz2dR13) =
-      ofRows 19 376
-        [2621440, 2228224, 3221356548, 3223388163, 131078, 2234368, 2626560, 1024, 1536] := by
-  rw [dz2dA102, dz2dR13_ph22]
-  rw [ofRows_eq_padRows' 19 376 19 378 2 0 _ (by norm_num) (by norm_num),
-    ofRows_eq_padRows' 19 376 28 376 0 9 _ (by norm_num) (by norm_num)]
+    dz2dA99 ∪ (conway.evolve 22 dz2dR11) =
+      ofRows 454 (-69)
+        [131072, 229376, 16384, 49152, 0, 0, 0, 0, 0, 0, 0, 0, 4, 31747, 47622, 17408, 14336,
+         4096, 0, 0, 0, 6144, 6144] := by
+  rw [dz2dA99, dz2dR11_ph22]
+  rw [ofRows_eq_padRows' 454 (-69) 454 (-57) 12 0 _ (by norm_num) (by norm_num),
+    ofRows_eq_padRows' 454 (-69) 463 (-69) 0 9 _ (by norm_num) (by norm_num)]
   rw [← ofRows_orRows]
   rfl
 
@@ -1551,41 +1473,41 @@ theorem dz2dGl30 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     Proc.stop (dz2dL30 q K Vs Vb Vs' m0 hv hv') = Proc.start (dz2dL31 q K Vs Vb Vs' m0 hv hv') := by
   simp only [dz2dL30, dz2dL31, dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
     Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
-  calc _ = (dz2dA99) ∪ (conway.evolve (m0 + 8962) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA100 ∪ (conway.evolve 22 dz2dR0) ∪ (conway.evolve 22 dz2dR1) ∪ (conway.evolve 22 dz2dR2) ∪ (conway.evolve 22 dz2dR3) ∪ (conway.evolve 22 dz2dR4) ∪ (conway.evolve 22 dz2dR5) ∪ (conway.evolve 22 dz2dR6) ∪ (conway.evolve 22 dz2dR7) ∪ (conway.evolve 22 dz2dR8) ∪ (conway.evolve 22 dz2dR9) ∪ (conway.evolve 22 dz2dR10) ∪ (conway.evolve 22 dz2dR11) ∪ (conway.evolve 22 dz2dR12) ∪ (conway.evolve 22 dz2dR14) ∪ (conway.evolve 22 dz2dR15) ∪ (conway.evolve 22 dz2dR16) ∪ (conway.evolve 22 dz2dR18) ∪ (conway.evolve 22 dz2dR19) ∪ (conway.evolve 22 dz2dR20) ∪ (conway.evolve 22 dz2dR21) ∪ (conway.evolve 22 dz2dR22) ∪ (conway.evolve 22 dz2dR23) ∪ (conway.evolve 22 dz2dR24) ∪ (conway.evolve 22 dz2dR25) ∪ (conway.evolve 22 dz2dR26) ∪ (conway.evolve 22 dz2dR27) := by ac_rfl
-    _ = (dz2dA102 ∪ (conway.evolve 22 dz2dR13)) ∪ (conway.evolve (m0 + 8962) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA100 ∪ (conway.evolve 22 dz2dR0) ∪ (conway.evolve 22 dz2dR1) ∪ (conway.evolve 22 dz2dR2) ∪ (conway.evolve 22 dz2dR3) ∪ (conway.evolve 22 dz2dR4) ∪ (conway.evolve 22 dz2dR5) ∪ (conway.evolve 22 dz2dR6) ∪ (conway.evolve 22 dz2dR7) ∪ (conway.evolve 22 dz2dR8) ∪ (conway.evolve 22 dz2dR9) ∪ (conway.evolve 22 dz2dR10) ∪ (conway.evolve 22 dz2dR11) ∪ (conway.evolve 22 dz2dR12) ∪ (conway.evolve 22 dz2dR14) ∪ (conway.evolve 22 dz2dR15) ∪ (conway.evolve 22 dz2dR16) ∪ (conway.evolve 22 dz2dR18) ∪ (conway.evolve 22 dz2dR19) ∪ (conway.evolve 22 dz2dR20) ∪ (conway.evolve 22 dz2dR21) ∪ (conway.evolve 22 dz2dR22) ∪ (conway.evolve 22 dz2dR23) ∪ (conway.evolve 22 dz2dR24) ∪ (conway.evolve 22 dz2dR25) ∪ (conway.evolve 22 dz2dR26) ∪ (conway.evolve 22 dz2dR27) := by rw [dz2dZ30_0a, ← dz2dZ30_0b]
+  calc _ = (dz2dA96) ∪ (conway.evolve (m0 + 7222) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA97 ∪ (conway.evolve 22 dz2dR0) ∪ (conway.evolve 22 dz2dR1) ∪ (conway.evolve 22 dz2dR2) ∪ (conway.evolve 22 dz2dR3) ∪ (conway.evolve 22 dz2dR4) ∪ (conway.evolve 22 dz2dR5) ∪ (conway.evolve 22 dz2dR6) ∪ (conway.evolve 22 dz2dR7) ∪ (conway.evolve 22 dz2dR8) ∪ (conway.evolve 22 dz2dR9) ∪ (conway.evolve 22 dz2dR10) ∪ (conway.evolve 22 dz2dR12) ∪ (conway.evolve 22 dz2dR13) ∪ (conway.evolve 22 dz2dR14) ∪ (conway.evolve 22 dz2dR15) ∪ (conway.evolve 22 dz2dR16) ∪ (conway.evolve 22 dz2dR17) ∪ (conway.evolve 22 dz2dR18) ∪ (conway.evolve 22 dz2dR19) ∪ (conway.evolve 22 dz2dR20) ∪ (conway.evolve 22 dz2dR21) ∪ (conway.evolve 22 dz2dR22) ∪ (conway.evolve 22 dz2dR23) ∪ (conway.evolve 22 dz2dR24) ∪ (conway.evolve 22 dz2dR25) ∪ (conway.evolve 22 dz2dR26) ∪ (conway.evolve 22 dz2dR27) := by ac_rfl
+    _ = (dz2dA99 ∪ (conway.evolve 22 dz2dR11)) ∪ (conway.evolve (m0 + 7222) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA97 ∪ (conway.evolve 22 dz2dR0) ∪ (conway.evolve 22 dz2dR1) ∪ (conway.evolve 22 dz2dR2) ∪ (conway.evolve 22 dz2dR3) ∪ (conway.evolve 22 dz2dR4) ∪ (conway.evolve 22 dz2dR5) ∪ (conway.evolve 22 dz2dR6) ∪ (conway.evolve 22 dz2dR7) ∪ (conway.evolve 22 dz2dR8) ∪ (conway.evolve 22 dz2dR9) ∪ (conway.evolve 22 dz2dR10) ∪ (conway.evolve 22 dz2dR12) ∪ (conway.evolve 22 dz2dR13) ∪ (conway.evolve 22 dz2dR14) ∪ (conway.evolve 22 dz2dR15) ∪ (conway.evolve 22 dz2dR16) ∪ (conway.evolve 22 dz2dR17) ∪ (conway.evolve 22 dz2dR18) ∪ (conway.evolve 22 dz2dR19) ∪ (conway.evolve 22 dz2dR20) ∪ (conway.evolve 22 dz2dR21) ∪ (conway.evolve 22 dz2dR22) ∪ (conway.evolve 22 dz2dR23) ∪ (conway.evolve 22 dz2dR24) ∪ (conway.evolve 22 dz2dR25) ∪ (conway.evolve 22 dz2dR26) ∪ (conway.evolve 22 dz2dR27) := by rw [dz2dZ30_0a, ← dz2dZ30_0b]
     _ = _ := by ac_rfl
 
 set_option maxRecDepth 100000 in
 /-- Glue 31, cluster 0, before. -/
 theorem dz2dZ31_0a :
-    dz2dA101 =
-      ofRows (-79) 618
-        [4503599627370496, 13510798882111488, 11258999068426240, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-         0, 137438953472, 9007611571601408, 13511142479495168, 22517998136852480, 0, 0, 0, 0,
-         1610612736, 3458764517041766400, 1729382257447141376, 2305843009213693952, 0, 0, 0,
-         4194304, 295147905179365408768, 442721857769039729664, 1511895144281234850464768,
-         1284483683340543598804992, 75613203958135527605251, 1858156929700244695361273859,
-         1856985914173486956101518336, 1284781173117566668772352, 1511454187834537005809664,
-         166092754257524555776, 55340232221128654848] := by
-  rw [dz2dA101]
+    dz2dA98 ∪ (conway.evolve 11 dz2dR17) =
+      ofRows (-79) 619
+        [43980465111040, 52776558133248, 17592186044416, 0, 0, 0, 0, 0, 0, 13194139533312,
+         433207581343744, 712483534798848, 140737488355328, 0, 0, 0, 0, 120259084288,
+         126100858285850624, 18014432869220352, 36028797018963968, 0, 0, 0, 402653184,
+         13835058055617708032, 23058430092405374976, 4611686018427387904, 0, 0, 0, 768,
+         7253554917687775051973696, 20574760470052685526075424, 39290716326773954471528627,
+         1983244033786280063595972643, 1896200154983074940512633920, 20551745959064167012893440,
+         7253561943303193913982976, 46116860184307433472, 36893488147419103232] := by
+  rw [dz2dA98, dz2dR17_ph11]
+  rw [ofRows_eq_padRows' (-79) 619 (-36) 619 0 43 _ (by norm_num) (by norm_num),
+    ofRows_eq_padRows' (-79) 619 (-79) 628 9 0 _ (by norm_num) (by norm_num)]
+  rw [← ofRows_orRows]
+  rfl
 
 set_option maxRecDepth 100000 in
 /-- Glue 31, cluster 0, after. -/
 theorem dz2dZ31_0b :
-    dz2dA105 ∪ (conway.evolve 20 dz2dR17) =
-      ofRows (-79) 618
-        [4503599627370496, 13510798882111488, 11258999068426240, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-         0, 137438953472, 9007611571601408, 13511142479495168, 22517998136852480, 0, 0, 0, 0,
-         1610612736, 3458764517041766400, 1729382257447141376, 2305843009213693952, 0, 0, 0,
-         4194304, 295147905179365408768, 442721857769039729664, 1511895144281234850464768,
-         1284483683340543598804992, 75613203958135527605251, 1858156929700244695361273859,
-         1856985914173486956101518336, 1284781173117566668772352, 1511454187834537005809664,
-         166092754257524555776, 55340232221128654848] := by
-  rw [dz2dA105, dz2dR17_ph20]
-  rw [ofRows_eq_padRows' (-79) 618 (-28) 618 0 51 _ (by norm_num) (by norm_num),
-    ofRows_eq_padRows' (-79) 618 (-79) 633 15 0 _ (by norm_num) (by norm_num)]
-  rw [← ofRows_orRows]
-  rfl
+    dz2dA101 =
+      ofRows (-79) 619
+        [43980465111040, 52776558133248, 17592186044416, 0, 0, 0, 0, 0, 0, 13194139533312,
+         433207581343744, 712483534798848, 140737488355328, 0, 0, 0, 0, 120259084288,
+         126100858285850624, 18014432869220352, 36028797018963968, 0, 0, 0, 402653184,
+         13835058055617708032, 23058430092405374976, 4611686018427387904, 0, 0, 0, 768,
+         7253554917687775051973696, 20574760470052685526075424, 39290716326773954471528627,
+         1983244033786280063595972643, 1896200154983074940512633920, 20551745959064167012893440,
+         7253561943303193913982976, 46116860184307433472, 36893488147419103232] := by
+  rw [dz2dA101]
 
 set_option maxRecDepth 100000 in
 /-- The end of segment 31 is the start of segment 32. -/
@@ -1596,37 +1518,29 @@ theorem dz2dGl31 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     Proc.stop (dz2dL31 q K Vs Vb Vs' m0 hv hv') = Proc.start (dz2dL32 q K Vs Vb Vs' m0 hv hv') := by
   simp only [dz2dL31, dz2dL32, dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
     Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
-  calc _ = (dz2dA101) ∪ (conway.evolve (m0 + 8990) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA103 ∪ (conway.evolve 20 dz2dR0) ∪ (conway.evolve 20 dz2dR1) ∪ (conway.evolve 20 dz2dR2) ∪ (conway.evolve 20 dz2dR3) ∪ (conway.evolve 20 dz2dR4) ∪ (conway.evolve 20 dz2dR5) ∪ (conway.evolve 20 dz2dR6) ∪ (conway.evolve 20 dz2dR7) ∪ (conway.evolve 20 dz2dR8) ∪ (conway.evolve 20 dz2dR9) ∪ (conway.evolve 20 dz2dR10) ∪ (conway.evolve 20 dz2dR11) ∪ (conway.evolve 20 dz2dR12) ∪ (conway.evolve 20 dz2dR13) ∪ (conway.evolve 20 dz2dR14) ∪ (conway.evolve 20 dz2dR15) ∪ (conway.evolve 20 dz2dR16) ∪ (conway.evolve 20 dz2dR18) ∪ (conway.evolve 20 dz2dR19) ∪ (conway.evolve 20 dz2dR20) ∪ (conway.evolve 20 dz2dR21) ∪ (conway.evolve 20 dz2dR22) ∪ (conway.evolve 20 dz2dR23) ∪ (conway.evolve 20 dz2dR24) ∪ (conway.evolve 20 dz2dR25) ∪ (conway.evolve 20 dz2dR26) ∪ (conway.evolve 20 dz2dR27) := by ac_rfl
-    _ = (dz2dA105 ∪ (conway.evolve 20 dz2dR17)) ∪ (conway.evolve (m0 + 8990) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA103 ∪ (conway.evolve 20 dz2dR0) ∪ (conway.evolve 20 dz2dR1) ∪ (conway.evolve 20 dz2dR2) ∪ (conway.evolve 20 dz2dR3) ∪ (conway.evolve 20 dz2dR4) ∪ (conway.evolve 20 dz2dR5) ∪ (conway.evolve 20 dz2dR6) ∪ (conway.evolve 20 dz2dR7) ∪ (conway.evolve 20 dz2dR8) ∪ (conway.evolve 20 dz2dR9) ∪ (conway.evolve 20 dz2dR10) ∪ (conway.evolve 20 dz2dR11) ∪ (conway.evolve 20 dz2dR12) ∪ (conway.evolve 20 dz2dR13) ∪ (conway.evolve 20 dz2dR14) ∪ (conway.evolve 20 dz2dR15) ∪ (conway.evolve 20 dz2dR16) ∪ (conway.evolve 20 dz2dR18) ∪ (conway.evolve 20 dz2dR19) ∪ (conway.evolve 20 dz2dR20) ∪ (conway.evolve 20 dz2dR21) ∪ (conway.evolve 20 dz2dR22) ∪ (conway.evolve 20 dz2dR23) ∪ (conway.evolve 20 dz2dR24) ∪ (conway.evolve 20 dz2dR25) ∪ (conway.evolve 20 dz2dR26) ∪ (conway.evolve 20 dz2dR27) := by rw [dz2dZ31_0a, ← dz2dZ31_0b]
+  calc _ = (dz2dA98 ∪ (conway.evolve 11 dz2dR17)) ∪ (conway.evolve (m0 + 8741) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA100 ∪ (conway.evolve 11 dz2dR0) ∪ (conway.evolve 11 dz2dR1) ∪ (conway.evolve 11 dz2dR2) ∪ (conway.evolve 11 dz2dR3) ∪ (conway.evolve 11 dz2dR4) ∪ (conway.evolve 11 dz2dR5) ∪ (conway.evolve 11 dz2dR6) ∪ (conway.evolve 11 dz2dR7) ∪ (conway.evolve 11 dz2dR8) ∪ (conway.evolve 11 dz2dR9) ∪ (conway.evolve 11 dz2dR10) ∪ (conway.evolve 11 dz2dR11) ∪ (conway.evolve 11 dz2dR12) ∪ (conway.evolve 11 dz2dR13) ∪ (conway.evolve 11 dz2dR14) ∪ (conway.evolve 11 dz2dR15) ∪ (conway.evolve 11 dz2dR16) ∪ (conway.evolve 11 dz2dR18) ∪ (conway.evolve 11 dz2dR19) ∪ (conway.evolve 11 dz2dR20) ∪ (conway.evolve 11 dz2dR21) ∪ (conway.evolve 11 dz2dR22) ∪ (conway.evolve 11 dz2dR23) ∪ (conway.evolve 11 dz2dR24) ∪ (conway.evolve 11 dz2dR25) ∪ (conway.evolve 11 dz2dR26) ∪ (conway.evolve 11 dz2dR27) := by ac_rfl
+    _ = (dz2dA101) ∪ (conway.evolve (m0 + 8741) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA100 ∪ (conway.evolve 11 dz2dR0) ∪ (conway.evolve 11 dz2dR1) ∪ (conway.evolve 11 dz2dR2) ∪ (conway.evolve 11 dz2dR3) ∪ (conway.evolve 11 dz2dR4) ∪ (conway.evolve 11 dz2dR5) ∪ (conway.evolve 11 dz2dR6) ∪ (conway.evolve 11 dz2dR7) ∪ (conway.evolve 11 dz2dR8) ∪ (conway.evolve 11 dz2dR9) ∪ (conway.evolve 11 dz2dR10) ∪ (conway.evolve 11 dz2dR11) ∪ (conway.evolve 11 dz2dR12) ∪ (conway.evolve 11 dz2dR13) ∪ (conway.evolve 11 dz2dR14) ∪ (conway.evolve 11 dz2dR15) ∪ (conway.evolve 11 dz2dR16) ∪ (conway.evolve 11 dz2dR18) ∪ (conway.evolve 11 dz2dR19) ∪ (conway.evolve 11 dz2dR20) ∪ (conway.evolve 11 dz2dR21) ∪ (conway.evolve 11 dz2dR22) ∪ (conway.evolve 11 dz2dR23) ∪ (conway.evolve 11 dz2dR24) ∪ (conway.evolve 11 dz2dR25) ∪ (conway.evolve 11 dz2dR26) ∪ (conway.evolve 11 dz2dR27) := by rw [dz2dZ31_0a, ← dz2dZ31_0b]
     _ = _ := by ac_rfl
 
 set_option maxRecDepth 100000 in
 /-- Glue 32, cluster 0, before. -/
 theorem dz2dZ32_0a :
-    dz2dA104 ∪ (conway.evolve 2 dz2dR12) =
-      ofRows (-29) 350
-        [96, 96, 0, 0, 0, 0, 0, 0, 0, 0, 0, 224, 272, 520, 272, 224, 224, 0, 0, 0, 0, 56, 1132,
-         6252, 3196, 198, 0, 0, 0, 0, 655456, 786432, 262144, 0, 24, 24, 0, 33554432,
-         1099712954368, 824734384128, 1649267441664, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50331648,
-         100663296, 16777216, 0, 12, 12, 0, 131072, 393216, 327728, 0, 0, 0, 0, 99, 1598, 3126,
-         566, 28, 0, 0, 0, 0, 112, 112, 136, 260, 136, 112, 0, 0, 0, 0, 0, 0, 0, 0, 0, 48, 48] := by
-  rw [dz2dA104, dz2dR12_ph2]
-  rw [ofRows_eq_padRows' (-29) 350 9 388 38 38 _ (by norm_num) (by norm_num),
-    ofRows_eq_padRows' (-29) 350 (-29) 350 0 0 _ (by norm_num) (by norm_num)]
+    dz2dA103 ∪ (conway.evolve 10 dz2dR13) =
+      ofRows 28 368
+        [20, 12, 8, 0, 0, 0, 0, 0, 16384, 40960, 6381568, 6512640, 90112, 40972, 16394, 2, 3] := by
+  rw [dz2dA103, dz2dR13_ph10]
+  rw [ofRows_eq_padRows' 28 368 30 368 0 2 _ (by norm_num) (by norm_num),
+    ofRows_eq_padRows' 28 368 28 376 8 0 _ (by norm_num) (by norm_num)]
   rw [← ofRows_orRows]
   rfl
 
 set_option maxRecDepth 100000 in
 /-- Glue 32, cluster 0, after. -/
 theorem dz2dZ32_0b :
-    dz2dA107 =
-      ofRows (-29) 350
-        [96, 96, 0, 0, 0, 0, 0, 0, 0, 0, 0, 224, 272, 520, 272, 224, 224, 0, 0, 0, 0, 56, 1132,
-         6252, 3196, 198, 0, 0, 0, 0, 655456, 786432, 262144, 0, 24, 24, 0, 33554432,
-         1099712954368, 824734384128, 1649267441664, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50331648,
-         100663296, 16777216, 0, 12, 12, 0, 131072, 393216, 327728, 0, 0, 0, 0, 99, 1598, 3126,
-         566, 28, 0, 0, 0, 0, 112, 112, 136, 260, 136, 112, 0, 0, 0, 0, 0, 0, 0, 0, 0, 48, 48] := by
-  rw [dz2dA107]
+    dz2dA104 =
+      ofRows 28 368
+        [20, 12, 8, 0, 0, 0, 0, 0, 16384, 40960, 6381568, 6512640, 90112, 40972, 16394, 2, 3] := by
+  rw [dz2dA104]
 
 set_option maxRecDepth 100000 in
 /-- The end of segment 32 is the start of segment 33. -/
@@ -1637,39 +1551,28 @@ theorem dz2dGl32 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     Proc.stop (dz2dL32 q K Vs Vb Vs' m0 hv hv') = Proc.start (dz2dL33 q K Vs Vb Vs' m0 hv hv') := by
   simp only [dz2dL32, dz2dL33, dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
     Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
-  calc _ = (dz2dA104 ∪ (conway.evolve 2 dz2dR12)) ∪ (conway.evolve (m0 + 9002) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA106 ∪ (conway.evolve 2 dz2dR0) ∪ (conway.evolve 2 dz2dR1) ∪ (conway.evolve 2 dz2dR2) ∪ (conway.evolve 2 dz2dR3) ∪ (conway.evolve 2 dz2dR4) ∪ (conway.evolve 2 dz2dR5) ∪ (conway.evolve 2 dz2dR6) ∪ (conway.evolve 2 dz2dR7) ∪ (conway.evolve 2 dz2dR8) ∪ (conway.evolve 2 dz2dR9) ∪ (conway.evolve 2 dz2dR10) ∪ (conway.evolve 2 dz2dR11) ∪ (conway.evolve 2 dz2dR13) ∪ (conway.evolve 2 dz2dR14) ∪ (conway.evolve 2 dz2dR15) ∪ (conway.evolve 2 dz2dR16) ∪ (conway.evolve 2 dz2dR17) ∪ (conway.evolve 2 dz2dR18) ∪ (conway.evolve 2 dz2dR19) ∪ (conway.evolve 2 dz2dR20) ∪ (conway.evolve 2 dz2dR21) ∪ (conway.evolve 2 dz2dR22) ∪ (conway.evolve 2 dz2dR23) ∪ (conway.evolve 2 dz2dR24) ∪ (conway.evolve 2 dz2dR25) ∪ (conway.evolve 2 dz2dR26) ∪ (conway.evolve 2 dz2dR27) := by ac_rfl
-    _ = (dz2dA107) ∪ (conway.evolve (m0 + 9002) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA106 ∪ (conway.evolve 2 dz2dR0) ∪ (conway.evolve 2 dz2dR1) ∪ (conway.evolve 2 dz2dR2) ∪ (conway.evolve 2 dz2dR3) ∪ (conway.evolve 2 dz2dR4) ∪ (conway.evolve 2 dz2dR5) ∪ (conway.evolve 2 dz2dR6) ∪ (conway.evolve 2 dz2dR7) ∪ (conway.evolve 2 dz2dR8) ∪ (conway.evolve 2 dz2dR9) ∪ (conway.evolve 2 dz2dR10) ∪ (conway.evolve 2 dz2dR11) ∪ (conway.evolve 2 dz2dR13) ∪ (conway.evolve 2 dz2dR14) ∪ (conway.evolve 2 dz2dR15) ∪ (conway.evolve 2 dz2dR16) ∪ (conway.evolve 2 dz2dR17) ∪ (conway.evolve 2 dz2dR18) ∪ (conway.evolve 2 dz2dR19) ∪ (conway.evolve 2 dz2dR20) ∪ (conway.evolve 2 dz2dR21) ∪ (conway.evolve 2 dz2dR22) ∪ (conway.evolve 2 dz2dR23) ∪ (conway.evolve 2 dz2dR24) ∪ (conway.evolve 2 dz2dR25) ∪ (conway.evolve 2 dz2dR26) ∪ (conway.evolve 2 dz2dR27) := by rw [dz2dZ32_0a, ← dz2dZ32_0b]
+  calc _ = (dz2dA103 ∪ (conway.evolve 10 dz2dR13)) ∪ (conway.evolve (m0 + 8920) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA102 ∪ (conway.evolve 10 dz2dR0) ∪ (conway.evolve 10 dz2dR1) ∪ (conway.evolve 10 dz2dR2) ∪ (conway.evolve 10 dz2dR3) ∪ (conway.evolve 10 dz2dR4) ∪ (conway.evolve 10 dz2dR5) ∪ (conway.evolve 10 dz2dR6) ∪ (conway.evolve 10 dz2dR7) ∪ (conway.evolve 10 dz2dR8) ∪ (conway.evolve 10 dz2dR9) ∪ (conway.evolve 10 dz2dR10) ∪ (conway.evolve 10 dz2dR11) ∪ (conway.evolve 10 dz2dR12) ∪ (conway.evolve 10 dz2dR14) ∪ (conway.evolve 10 dz2dR15) ∪ (conway.evolve 10 dz2dR16) ∪ (conway.evolve 10 dz2dR18) ∪ (conway.evolve 10 dz2dR19) ∪ (conway.evolve 10 dz2dR20) ∪ (conway.evolve 10 dz2dR21) ∪ (conway.evolve 10 dz2dR22) ∪ (conway.evolve 10 dz2dR23) ∪ (conway.evolve 10 dz2dR24) ∪ (conway.evolve 10 dz2dR25) ∪ (conway.evolve 10 dz2dR26) ∪ (conway.evolve 10 dz2dR27) := by ac_rfl
+    _ = (dz2dA104) ∪ (conway.evolve (m0 + 8920) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA102 ∪ (conway.evolve 10 dz2dR0) ∪ (conway.evolve 10 dz2dR1) ∪ (conway.evolve 10 dz2dR2) ∪ (conway.evolve 10 dz2dR3) ∪ (conway.evolve 10 dz2dR4) ∪ (conway.evolve 10 dz2dR5) ∪ (conway.evolve 10 dz2dR6) ∪ (conway.evolve 10 dz2dR7) ∪ (conway.evolve 10 dz2dR8) ∪ (conway.evolve 10 dz2dR9) ∪ (conway.evolve 10 dz2dR10) ∪ (conway.evolve 10 dz2dR11) ∪ (conway.evolve 10 dz2dR12) ∪ (conway.evolve 10 dz2dR14) ∪ (conway.evolve 10 dz2dR15) ∪ (conway.evolve 10 dz2dR16) ∪ (conway.evolve 10 dz2dR18) ∪ (conway.evolve 10 dz2dR19) ∪ (conway.evolve 10 dz2dR20) ∪ (conway.evolve 10 dz2dR21) ∪ (conway.evolve 10 dz2dR22) ∪ (conway.evolve 10 dz2dR23) ∪ (conway.evolve 10 dz2dR24) ∪ (conway.evolve 10 dz2dR25) ∪ (conway.evolve 10 dz2dR26) ∪ (conway.evolve 10 dz2dR27) := by rw [dz2dZ32_0a, ← dz2dZ32_0b]
     _ = _ := by ac_rfl
 
 set_option maxRecDepth 100000 in
 /-- Glue 33, cluster 0, before. -/
 theorem dz2dZ33_0a :
-    dz2dA108 =
-      ofRows (-29) 350
-        [96, 96, 0, 0, 0, 0, 0, 0, 0, 0, 856, 0, 520, 0, 432, 64, 0, 0, 0, 0, 0, 512, 3128, 1604,
-         0, 130, 198, 0, 0, 327696, 393256, 131112, 32, 32, 36, 24, 16777216, 100663296,
-         50331648, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 549755813888, 3298560049152,
-         1649317773312, 8388608, 12, 18, 16, 16, 351843720953876, 422212465262612,
-         140737488519176, 0, 0, 99, 65, 0, 802, 1564, 256, 0, 0, 0, 0, 0, 32, 216, 0, 260, 0,
-         428, 0, 0, 0, 0, 0, 0, 0, 0, 48, 48] := by
-  rw [dz2dA108]
+    dz2dA105 =
+      ofRows 19 376
+        [2621440, 2228224, 3221356548, 3223388163, 131078, 2234368, 2626560, 1024, 1536] := by
+  rw [dz2dA105]
 
 set_option maxRecDepth 100000 in
 /-- Glue 33, cluster 0, after. -/
 theorem dz2dZ33_0b :
-    dz2dA110 ∪ dz2dA112 ∪ (conway.evolve 28 dz2dR12) =
-      ofRows (-29) 350
-        [96, 96, 0, 0, 0, 0, 0, 0, 0, 0, 856, 0, 520, 0, 432, 64, 0, 0, 0, 0, 0, 512, 3128, 1604,
-         0, 130, 198, 0, 0, 327696, 393256, 131112, 32, 32, 36, 24, 16777216, 100663296,
-         50331648, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 549755813888, 3298560049152,
-         1649317773312, 8388608, 12, 18, 16, 16, 351843720953876, 422212465262612,
-         140737488519176, 0, 0, 99, 65, 0, 802, 1564, 256, 0, 0, 0, 0, 0, 32, 216, 0, 260, 0,
-         428, 0, 0, 0, 0, 0, 0, 0, 0, 48, 48] := by
-  rw [dz2dA110, dz2dA112, dz2dR12_ph28]
-  rw [ofRows_eq_padRows' (-29) 350 10 401 51 39 _ (by norm_num) (by norm_num),
-    ofRows_eq_padRows' (-29) 350 17 409 59 46 _ (by norm_num) (by norm_num),
-    ofRows_eq_padRows' (-29) 350 (-29) 350 0 0 _ (by norm_num) (by norm_num)]
-  rw [← ofRows_orRows, ← ofRows_orRows]
+    dz2dA108 ∪ (conway.evolve 22 dz2dR13) =
+      ofRows 19 376
+        [2621440, 2228224, 3221356548, 3223388163, 131078, 2234368, 2626560, 1024, 1536] := by
+  rw [dz2dA108, dz2dR13_ph22]
+  rw [ofRows_eq_padRows' 19 376 19 378 2 0 _ (by norm_num) (by norm_num),
+    ofRows_eq_padRows' 19 376 28 376 0 9 _ (by norm_num) (by norm_num)]
+  rw [← ofRows_orRows]
   rfl
 
 set_option maxRecDepth 100000 in
@@ -1681,28 +1584,41 @@ theorem dz2dGl33 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     Proc.stop (dz2dL33 q K Vs Vb Vs' m0 hv hv') = Proc.start (dz2dL34 q K Vs Vb Vs' m0 hv hv') := by
   simp only [dz2dL33, dz2dL34, dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
     Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
-  calc _ = (dz2dA108) ∪ (conway.evolve (m0 + 9148) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA109 ∪ (conway.evolve 28 dz2dR0) ∪ (conway.evolve 28 dz2dR1) ∪ (conway.evolve 28 dz2dR2) ∪ (conway.evolve 28 dz2dR3) ∪ (conway.evolve 28 dz2dR4) ∪ (conway.evolve 28 dz2dR5) ∪ (conway.evolve 28 dz2dR6) ∪ (conway.evolve 28 dz2dR7) ∪ (conway.evolve 28 dz2dR8) ∪ (conway.evolve 28 dz2dR9) ∪ (conway.evolve 28 dz2dR10) ∪ (conway.evolve 28 dz2dR11) ∪ (conway.evolve 28 dz2dR13) ∪ (conway.evolve 28 dz2dR14) ∪ (conway.evolve 28 dz2dR15) ∪ (conway.evolve 28 dz2dR16) ∪ (conway.evolve 28 dz2dR17) ∪ (conway.evolve 28 dz2dR18) ∪ (conway.evolve 28 dz2dR19) ∪ (conway.evolve 28 dz2dR20) ∪ (conway.evolve 28 dz2dR21) ∪ (conway.evolve 28 dz2dR22) ∪ (conway.evolve 28 dz2dR23) ∪ (conway.evolve 28 dz2dR24) ∪ (conway.evolve 28 dz2dR25) ∪ (conway.evolve 28 dz2dR26) ∪ (conway.evolve 28 dz2dR27) := by ac_rfl
-    _ = (dz2dA110 ∪ dz2dA112 ∪ (conway.evolve 28 dz2dR12)) ∪ (conway.evolve (m0 + 9148) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA109 ∪ (conway.evolve 28 dz2dR0) ∪ (conway.evolve 28 dz2dR1) ∪ (conway.evolve 28 dz2dR2) ∪ (conway.evolve 28 dz2dR3) ∪ (conway.evolve 28 dz2dR4) ∪ (conway.evolve 28 dz2dR5) ∪ (conway.evolve 28 dz2dR6) ∪ (conway.evolve 28 dz2dR7) ∪ (conway.evolve 28 dz2dR8) ∪ (conway.evolve 28 dz2dR9) ∪ (conway.evolve 28 dz2dR10) ∪ (conway.evolve 28 dz2dR11) ∪ (conway.evolve 28 dz2dR13) ∪ (conway.evolve 28 dz2dR14) ∪ (conway.evolve 28 dz2dR15) ∪ (conway.evolve 28 dz2dR16) ∪ (conway.evolve 28 dz2dR17) ∪ (conway.evolve 28 dz2dR18) ∪ (conway.evolve 28 dz2dR19) ∪ (conway.evolve 28 dz2dR20) ∪ (conway.evolve 28 dz2dR21) ∪ (conway.evolve 28 dz2dR22) ∪ (conway.evolve 28 dz2dR23) ∪ (conway.evolve 28 dz2dR24) ∪ (conway.evolve 28 dz2dR25) ∪ (conway.evolve 28 dz2dR26) ∪ (conway.evolve 28 dz2dR27) := by rw [dz2dZ33_0a, ← dz2dZ33_0b]
+  calc _ = (dz2dA105) ∪ (conway.evolve (m0 + 8962) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA106 ∪ (conway.evolve 22 dz2dR0) ∪ (conway.evolve 22 dz2dR1) ∪ (conway.evolve 22 dz2dR2) ∪ (conway.evolve 22 dz2dR3) ∪ (conway.evolve 22 dz2dR4) ∪ (conway.evolve 22 dz2dR5) ∪ (conway.evolve 22 dz2dR6) ∪ (conway.evolve 22 dz2dR7) ∪ (conway.evolve 22 dz2dR8) ∪ (conway.evolve 22 dz2dR9) ∪ (conway.evolve 22 dz2dR10) ∪ (conway.evolve 22 dz2dR11) ∪ (conway.evolve 22 dz2dR12) ∪ (conway.evolve 22 dz2dR14) ∪ (conway.evolve 22 dz2dR15) ∪ (conway.evolve 22 dz2dR16) ∪ (conway.evolve 22 dz2dR18) ∪ (conway.evolve 22 dz2dR19) ∪ (conway.evolve 22 dz2dR20) ∪ (conway.evolve 22 dz2dR21) ∪ (conway.evolve 22 dz2dR22) ∪ (conway.evolve 22 dz2dR23) ∪ (conway.evolve 22 dz2dR24) ∪ (conway.evolve 22 dz2dR25) ∪ (conway.evolve 22 dz2dR26) ∪ (conway.evolve 22 dz2dR27) := by ac_rfl
+    _ = (dz2dA108 ∪ (conway.evolve 22 dz2dR13)) ∪ (conway.evolve (m0 + 8962) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA106 ∪ (conway.evolve 22 dz2dR0) ∪ (conway.evolve 22 dz2dR1) ∪ (conway.evolve 22 dz2dR2) ∪ (conway.evolve 22 dz2dR3) ∪ (conway.evolve 22 dz2dR4) ∪ (conway.evolve 22 dz2dR5) ∪ (conway.evolve 22 dz2dR6) ∪ (conway.evolve 22 dz2dR7) ∪ (conway.evolve 22 dz2dR8) ∪ (conway.evolve 22 dz2dR9) ∪ (conway.evolve 22 dz2dR10) ∪ (conway.evolve 22 dz2dR11) ∪ (conway.evolve 22 dz2dR12) ∪ (conway.evolve 22 dz2dR14) ∪ (conway.evolve 22 dz2dR15) ∪ (conway.evolve 22 dz2dR16) ∪ (conway.evolve 22 dz2dR18) ∪ (conway.evolve 22 dz2dR19) ∪ (conway.evolve 22 dz2dR20) ∪ (conway.evolve 22 dz2dR21) ∪ (conway.evolve 22 dz2dR22) ∪ (conway.evolve 22 dz2dR23) ∪ (conway.evolve 22 dz2dR24) ∪ (conway.evolve 22 dz2dR25) ∪ (conway.evolve 22 dz2dR26) ∪ (conway.evolve 22 dz2dR27) := by rw [dz2dZ33_0a, ← dz2dZ33_0b]
     _ = _ := by ac_rfl
 
 set_option maxRecDepth 100000 in
 /-- Glue 34, cluster 0, before. -/
 theorem dz2dZ34_0a :
-    dz2dA111 ∪ dz2dA113 ∪ dz2dA114 =
-      ofRows 95 486 [2, 4, 7, 0, 0, 0, 0, 0, 540, 656, 776] := by
-  rw [dz2dA111, dz2dA113, dz2dA114]
-  rw [ofRows_eq_padRows' 95 486 95 486 0 0 _ (by norm_num) (by norm_num),
-    ofRows_eq_padRows' 95 486 102 494 8 7 _ (by norm_num) (by norm_num),
-    ofRows_eq_padRows' 95 486 97 494 8 2 _ (by norm_num) (by norm_num)]
-  rw [← ofRows_orRows, ← ofRows_orRows]
-  rfl
+    dz2dA107 =
+      ofRows (-79) 618
+        [4503599627370496, 13510798882111488, 11258999068426240, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+         0, 137438953472, 9007611571601408, 13511142479495168, 22517998136852480, 0, 0, 0, 0,
+         1610612736, 3458764517041766400, 1729382257447141376, 2305843009213693952, 0, 0, 0,
+         4194304, 295147905179365408768, 442721857769039729664, 1511895144281234850464768,
+         1284483683340543598804992, 75613203958135527605251, 1858156929700244695361273859,
+         1856985914173486956101518336, 1284781173117566668772352, 1511454187834537005809664,
+         166092754257524555776, 55340232221128654848] := by
+  rw [dz2dA107]
 
 set_option maxRecDepth 100000 in
 /-- Glue 34, cluster 0, after. -/
 theorem dz2dZ34_0b :
-    dz2dA115 =
-      ofRows 95 486 [2, 4, 7, 0, 0, 0, 0, 0, 540, 656, 776] := by
-  rw [dz2dA115]
+    dz2dA111 ∪ (conway.evolve 20 dz2dR17) =
+      ofRows (-79) 618
+        [4503599627370496, 13510798882111488, 11258999068426240, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+         0, 137438953472, 9007611571601408, 13511142479495168, 22517998136852480, 0, 0, 0, 0,
+         1610612736, 3458764517041766400, 1729382257447141376, 2305843009213693952, 0, 0, 0,
+         4194304, 295147905179365408768, 442721857769039729664, 1511895144281234850464768,
+         1284483683340543598804992, 75613203958135527605251, 1858156929700244695361273859,
+         1856985914173486956101518336, 1284781173117566668772352, 1511454187834537005809664,
+         166092754257524555776, 55340232221128654848] := by
+  rw [dz2dA111, dz2dR17_ph20]
+  rw [ofRows_eq_padRows' (-79) 618 (-28) 618 0 51 _ (by norm_num) (by norm_num),
+    ofRows_eq_padRows' (-79) 618 (-79) 633 15 0 _ (by norm_num) (by norm_num)]
+  rw [← ofRows_orRows]
+  rfl
 
 set_option maxRecDepth 100000 in
 /-- The end of segment 34 is the start of segment 35. -/
@@ -1713,9 +1629,37 @@ theorem dz2dGl34 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     Proc.stop (dz2dL34 q K Vs Vb Vs' m0 hv hv') = Proc.start (dz2dL35 q K Vs Vb Vs' m0 hv hv') := by
   simp only [dz2dL34, dz2dL35, dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
     Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
-  calc _ = (dz2dA111 ∪ dz2dA113 ∪ dz2dA114) ∪ (conway.evolve (m0 + 9489) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ (conway.evolve 9 dz2dR0) ∪ (conway.evolve 9 dz2dR1) ∪ (conway.evolve 9 dz2dR2) ∪ (conway.evolve 9 dz2dR3) ∪ (conway.evolve 9 dz2dR4) ∪ (conway.evolve 9 dz2dR5) ∪ (conway.evolve 9 dz2dR6) ∪ (conway.evolve 9 dz2dR7) ∪ (conway.evolve 9 dz2dR8) ∪ (conway.evolve 9 dz2dR9) ∪ (conway.evolve 9 dz2dR10) ∪ (conway.evolve 9 dz2dR11) ∪ (conway.evolve 9 dz2dR12) ∪ (conway.evolve 9 dz2dR13) ∪ (conway.evolve 9 dz2dR14) ∪ (conway.evolve 9 dz2dR15) ∪ (conway.evolve 9 dz2dR16) ∪ (conway.evolve 9 dz2dR17) ∪ (conway.evolve 9 dz2dR18) ∪ (conway.evolve 9 dz2dR19) ∪ (conway.evolve 9 dz2dR20) ∪ (conway.evolve 9 dz2dR21) ∪ (conway.evolve 9 dz2dR22) ∪ (conway.evolve 9 dz2dR23) ∪ (conway.evolve 9 dz2dR24) ∪ (conway.evolve 9 dz2dR25) ∪ (conway.evolve 9 dz2dR26) ∪ (conway.evolve 9 dz2dR27) := by ac_rfl
-    _ = (dz2dA115) ∪ (conway.evolve (m0 + 9489) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ (conway.evolve 9 dz2dR0) ∪ (conway.evolve 9 dz2dR1) ∪ (conway.evolve 9 dz2dR2) ∪ (conway.evolve 9 dz2dR3) ∪ (conway.evolve 9 dz2dR4) ∪ (conway.evolve 9 dz2dR5) ∪ (conway.evolve 9 dz2dR6) ∪ (conway.evolve 9 dz2dR7) ∪ (conway.evolve 9 dz2dR8) ∪ (conway.evolve 9 dz2dR9) ∪ (conway.evolve 9 dz2dR10) ∪ (conway.evolve 9 dz2dR11) ∪ (conway.evolve 9 dz2dR12) ∪ (conway.evolve 9 dz2dR13) ∪ (conway.evolve 9 dz2dR14) ∪ (conway.evolve 9 dz2dR15) ∪ (conway.evolve 9 dz2dR16) ∪ (conway.evolve 9 dz2dR17) ∪ (conway.evolve 9 dz2dR18) ∪ (conway.evolve 9 dz2dR19) ∪ (conway.evolve 9 dz2dR20) ∪ (conway.evolve 9 dz2dR21) ∪ (conway.evolve 9 dz2dR22) ∪ (conway.evolve 9 dz2dR23) ∪ (conway.evolve 9 dz2dR24) ∪ (conway.evolve 9 dz2dR25) ∪ (conway.evolve 9 dz2dR26) ∪ (conway.evolve 9 dz2dR27) := by rw [dz2dZ34_0a, ← dz2dZ34_0b]
+  calc _ = (dz2dA107) ∪ (conway.evolve (m0 + 8990) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA109 ∪ (conway.evolve 20 dz2dR0) ∪ (conway.evolve 20 dz2dR1) ∪ (conway.evolve 20 dz2dR2) ∪ (conway.evolve 20 dz2dR3) ∪ (conway.evolve 20 dz2dR4) ∪ (conway.evolve 20 dz2dR5) ∪ (conway.evolve 20 dz2dR6) ∪ (conway.evolve 20 dz2dR7) ∪ (conway.evolve 20 dz2dR8) ∪ (conway.evolve 20 dz2dR9) ∪ (conway.evolve 20 dz2dR10) ∪ (conway.evolve 20 dz2dR11) ∪ (conway.evolve 20 dz2dR12) ∪ (conway.evolve 20 dz2dR13) ∪ (conway.evolve 20 dz2dR14) ∪ (conway.evolve 20 dz2dR15) ∪ (conway.evolve 20 dz2dR16) ∪ (conway.evolve 20 dz2dR18) ∪ (conway.evolve 20 dz2dR19) ∪ (conway.evolve 20 dz2dR20) ∪ (conway.evolve 20 dz2dR21) ∪ (conway.evolve 20 dz2dR22) ∪ (conway.evolve 20 dz2dR23) ∪ (conway.evolve 20 dz2dR24) ∪ (conway.evolve 20 dz2dR25) ∪ (conway.evolve 20 dz2dR26) ∪ (conway.evolve 20 dz2dR27) := by ac_rfl
+    _ = (dz2dA111 ∪ (conway.evolve 20 dz2dR17)) ∪ (conway.evolve (m0 + 8990) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA109 ∪ (conway.evolve 20 dz2dR0) ∪ (conway.evolve 20 dz2dR1) ∪ (conway.evolve 20 dz2dR2) ∪ (conway.evolve 20 dz2dR3) ∪ (conway.evolve 20 dz2dR4) ∪ (conway.evolve 20 dz2dR5) ∪ (conway.evolve 20 dz2dR6) ∪ (conway.evolve 20 dz2dR7) ∪ (conway.evolve 20 dz2dR8) ∪ (conway.evolve 20 dz2dR9) ∪ (conway.evolve 20 dz2dR10) ∪ (conway.evolve 20 dz2dR11) ∪ (conway.evolve 20 dz2dR12) ∪ (conway.evolve 20 dz2dR13) ∪ (conway.evolve 20 dz2dR14) ∪ (conway.evolve 20 dz2dR15) ∪ (conway.evolve 20 dz2dR16) ∪ (conway.evolve 20 dz2dR18) ∪ (conway.evolve 20 dz2dR19) ∪ (conway.evolve 20 dz2dR20) ∪ (conway.evolve 20 dz2dR21) ∪ (conway.evolve 20 dz2dR22) ∪ (conway.evolve 20 dz2dR23) ∪ (conway.evolve 20 dz2dR24) ∪ (conway.evolve 20 dz2dR25) ∪ (conway.evolve 20 dz2dR26) ∪ (conway.evolve 20 dz2dR27) := by rw [dz2dZ34_0a, ← dz2dZ34_0b]
     _ = _ := by ac_rfl
+
+set_option maxRecDepth 100000 in
+/-- Glue 35, cluster 0, before. -/
+theorem dz2dZ35_0a :
+    dz2dA110 ∪ (conway.evolve 2 dz2dR12) =
+      ofRows (-29) 350
+        [96, 96, 0, 0, 0, 0, 0, 0, 0, 0, 0, 224, 272, 520, 272, 224, 224, 0, 0, 0, 0, 56, 1132,
+         6252, 3196, 198, 0, 0, 0, 0, 655456, 786432, 262144, 0, 24, 24, 0, 33554432,
+         1099712954368, 824734384128, 1649267441664, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50331648,
+         100663296, 16777216, 0, 12, 12, 0, 131072, 393216, 327728, 0, 0, 0, 0, 99, 1598, 3126,
+         566, 28, 0, 0, 0, 0, 112, 112, 136, 260, 136, 112, 0, 0, 0, 0, 0, 0, 0, 0, 0, 48, 48] := by
+  rw [dz2dA110, dz2dR12_ph2]
+  rw [ofRows_eq_padRows' (-29) 350 9 388 38 38 _ (by norm_num) (by norm_num),
+    ofRows_eq_padRows' (-29) 350 (-29) 350 0 0 _ (by norm_num) (by norm_num)]
+  rw [← ofRows_orRows]
+  rfl
+
+set_option maxRecDepth 100000 in
+/-- Glue 35, cluster 0, after. -/
+theorem dz2dZ35_0b :
+    dz2dA113 =
+      ofRows (-29) 350
+        [96, 96, 0, 0, 0, 0, 0, 0, 0, 0, 0, 224, 272, 520, 272, 224, 224, 0, 0, 0, 0, 56, 1132,
+         6252, 3196, 198, 0, 0, 0, 0, 655456, 786432, 262144, 0, 24, 24, 0, 33554432,
+         1099712954368, 824734384128, 1649267441664, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50331648,
+         100663296, 16777216, 0, 12, 12, 0, 131072, 393216, 327728, 0, 0, 0, 0, 99, 1598, 3126,
+         566, 28, 0, 0, 0, 0, 112, 112, 136, 260, 136, 112, 0, 0, 0, 0, 0, 0, 0, 0, 0, 48, 48] := by
+  rw [dz2dA113]
 
 set_option maxRecDepth 100000 in
 /-- The end of segment 35 is the start of segment 36. -/
@@ -1726,19 +1670,108 @@ theorem dz2dGl35 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     Proc.stop (dz2dL35 q K Vs Vb Vs' m0 hv hv') = Proc.start (dz2dL36 q K Vs Vb Vs' m0 hv hv') := by
   simp only [dz2dL35, dz2dL36, dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
     Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
+  calc _ = (dz2dA110 ∪ (conway.evolve 2 dz2dR12)) ∪ (conway.evolve (m0 + 9002) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA112 ∪ (conway.evolve 2 dz2dR0) ∪ (conway.evolve 2 dz2dR1) ∪ (conway.evolve 2 dz2dR2) ∪ (conway.evolve 2 dz2dR3) ∪ (conway.evolve 2 dz2dR4) ∪ (conway.evolve 2 dz2dR5) ∪ (conway.evolve 2 dz2dR6) ∪ (conway.evolve 2 dz2dR7) ∪ (conway.evolve 2 dz2dR8) ∪ (conway.evolve 2 dz2dR9) ∪ (conway.evolve 2 dz2dR10) ∪ (conway.evolve 2 dz2dR11) ∪ (conway.evolve 2 dz2dR13) ∪ (conway.evolve 2 dz2dR14) ∪ (conway.evolve 2 dz2dR15) ∪ (conway.evolve 2 dz2dR16) ∪ (conway.evolve 2 dz2dR17) ∪ (conway.evolve 2 dz2dR18) ∪ (conway.evolve 2 dz2dR19) ∪ (conway.evolve 2 dz2dR20) ∪ (conway.evolve 2 dz2dR21) ∪ (conway.evolve 2 dz2dR22) ∪ (conway.evolve 2 dz2dR23) ∪ (conway.evolve 2 dz2dR24) ∪ (conway.evolve 2 dz2dR25) ∪ (conway.evolve 2 dz2dR26) ∪ (conway.evolve 2 dz2dR27) := by ac_rfl
+    _ = (dz2dA113) ∪ (conway.evolve (m0 + 9002) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA112 ∪ (conway.evolve 2 dz2dR0) ∪ (conway.evolve 2 dz2dR1) ∪ (conway.evolve 2 dz2dR2) ∪ (conway.evolve 2 dz2dR3) ∪ (conway.evolve 2 dz2dR4) ∪ (conway.evolve 2 dz2dR5) ∪ (conway.evolve 2 dz2dR6) ∪ (conway.evolve 2 dz2dR7) ∪ (conway.evolve 2 dz2dR8) ∪ (conway.evolve 2 dz2dR9) ∪ (conway.evolve 2 dz2dR10) ∪ (conway.evolve 2 dz2dR11) ∪ (conway.evolve 2 dz2dR13) ∪ (conway.evolve 2 dz2dR14) ∪ (conway.evolve 2 dz2dR15) ∪ (conway.evolve 2 dz2dR16) ∪ (conway.evolve 2 dz2dR17) ∪ (conway.evolve 2 dz2dR18) ∪ (conway.evolve 2 dz2dR19) ∪ (conway.evolve 2 dz2dR20) ∪ (conway.evolve 2 dz2dR21) ∪ (conway.evolve 2 dz2dR22) ∪ (conway.evolve 2 dz2dR23) ∪ (conway.evolve 2 dz2dR24) ∪ (conway.evolve 2 dz2dR25) ∪ (conway.evolve 2 dz2dR26) ∪ (conway.evolve 2 dz2dR27) := by rw [dz2dZ35_0a, ← dz2dZ35_0b]
+    _ = _ := by ac_rfl
+
+set_option maxRecDepth 100000 in
+/-- Glue 36, cluster 0, before. -/
+theorem dz2dZ36_0a :
+    dz2dA114 =
+      ofRows (-29) 350
+        [96, 96, 0, 0, 0, 0, 0, 0, 0, 0, 856, 0, 520, 0, 432, 64, 0, 0, 0, 0, 0, 512, 3128, 1604,
+         0, 130, 198, 0, 0, 327696, 393256, 131112, 32, 32, 36, 24, 16777216, 100663296,
+         50331648, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 549755813888, 3298560049152,
+         1649317773312, 8388608, 12, 18, 16, 16, 351843720953876, 422212465262612,
+         140737488519176, 0, 0, 99, 65, 0, 802, 1564, 256, 0, 0, 0, 0, 0, 32, 216, 0, 260, 0,
+         428, 0, 0, 0, 0, 0, 0, 0, 0, 48, 48] := by
+  rw [dz2dA114]
+
+set_option maxRecDepth 100000 in
+/-- Glue 36, cluster 0, after. -/
+theorem dz2dZ36_0b :
+    dz2dA116 ∪ dz2dA118 ∪ (conway.evolve 28 dz2dR12) =
+      ofRows (-29) 350
+        [96, 96, 0, 0, 0, 0, 0, 0, 0, 0, 856, 0, 520, 0, 432, 64, 0, 0, 0, 0, 0, 512, 3128, 1604,
+         0, 130, 198, 0, 0, 327696, 393256, 131112, 32, 32, 36, 24, 16777216, 100663296,
+         50331648, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 549755813888, 3298560049152,
+         1649317773312, 8388608, 12, 18, 16, 16, 351843720953876, 422212465262612,
+         140737488519176, 0, 0, 99, 65, 0, 802, 1564, 256, 0, 0, 0, 0, 0, 32, 216, 0, 260, 0,
+         428, 0, 0, 0, 0, 0, 0, 0, 0, 48, 48] := by
+  rw [dz2dA116, dz2dA118, dz2dR12_ph28]
+  rw [ofRows_eq_padRows' (-29) 350 10 401 51 39 _ (by norm_num) (by norm_num),
+    ofRows_eq_padRows' (-29) 350 17 409 59 46 _ (by norm_num) (by norm_num),
+    ofRows_eq_padRows' (-29) 350 (-29) 350 0 0 _ (by norm_num) (by norm_num)]
+  rw [← ofRows_orRows, ← ofRows_orRows]
+  rfl
+
+set_option maxRecDepth 100000 in
+/-- The end of segment 36 is the start of segment 37. -/
+theorem dz2dGl36 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
+    (hv : DiagValid regParams Vs Vb K q)
+    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]))
+    (hm : (m0 + 6555) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ)) :
+    Proc.stop (dz2dL36 q K Vs Vb Vs' m0 hv hv') = Proc.start (dz2dL37 q K Vs Vb Vs' m0 hv hv') := by
+  simp only [dz2dL36, dz2dL37, dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
+    Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
+  calc _ = (dz2dA114) ∪ (conway.evolve (m0 + 9148) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA115 ∪ (conway.evolve 28 dz2dR0) ∪ (conway.evolve 28 dz2dR1) ∪ (conway.evolve 28 dz2dR2) ∪ (conway.evolve 28 dz2dR3) ∪ (conway.evolve 28 dz2dR4) ∪ (conway.evolve 28 dz2dR5) ∪ (conway.evolve 28 dz2dR6) ∪ (conway.evolve 28 dz2dR7) ∪ (conway.evolve 28 dz2dR8) ∪ (conway.evolve 28 dz2dR9) ∪ (conway.evolve 28 dz2dR10) ∪ (conway.evolve 28 dz2dR11) ∪ (conway.evolve 28 dz2dR13) ∪ (conway.evolve 28 dz2dR14) ∪ (conway.evolve 28 dz2dR15) ∪ (conway.evolve 28 dz2dR16) ∪ (conway.evolve 28 dz2dR17) ∪ (conway.evolve 28 dz2dR18) ∪ (conway.evolve 28 dz2dR19) ∪ (conway.evolve 28 dz2dR20) ∪ (conway.evolve 28 dz2dR21) ∪ (conway.evolve 28 dz2dR22) ∪ (conway.evolve 28 dz2dR23) ∪ (conway.evolve 28 dz2dR24) ∪ (conway.evolve 28 dz2dR25) ∪ (conway.evolve 28 dz2dR26) ∪ (conway.evolve 28 dz2dR27) := by ac_rfl
+    _ = (dz2dA116 ∪ dz2dA118 ∪ (conway.evolve 28 dz2dR12)) ∪ (conway.evolve (m0 + 9148) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ dz2dA115 ∪ (conway.evolve 28 dz2dR0) ∪ (conway.evolve 28 dz2dR1) ∪ (conway.evolve 28 dz2dR2) ∪ (conway.evolve 28 dz2dR3) ∪ (conway.evolve 28 dz2dR4) ∪ (conway.evolve 28 dz2dR5) ∪ (conway.evolve 28 dz2dR6) ∪ (conway.evolve 28 dz2dR7) ∪ (conway.evolve 28 dz2dR8) ∪ (conway.evolve 28 dz2dR9) ∪ (conway.evolve 28 dz2dR10) ∪ (conway.evolve 28 dz2dR11) ∪ (conway.evolve 28 dz2dR13) ∪ (conway.evolve 28 dz2dR14) ∪ (conway.evolve 28 dz2dR15) ∪ (conway.evolve 28 dz2dR16) ∪ (conway.evolve 28 dz2dR17) ∪ (conway.evolve 28 dz2dR18) ∪ (conway.evolve 28 dz2dR19) ∪ (conway.evolve 28 dz2dR20) ∪ (conway.evolve 28 dz2dR21) ∪ (conway.evolve 28 dz2dR22) ∪ (conway.evolve 28 dz2dR23) ∪ (conway.evolve 28 dz2dR24) ∪ (conway.evolve 28 dz2dR25) ∪ (conway.evolve 28 dz2dR26) ∪ (conway.evolve 28 dz2dR27) := by rw [dz2dZ36_0a, ← dz2dZ36_0b]
+    _ = _ := by ac_rfl
+
+set_option maxRecDepth 100000 in
+/-- Glue 37, cluster 0, before. -/
+theorem dz2dZ37_0a :
+    dz2dA117 ∪ dz2dA119 ∪ dz2dA120 =
+      ofRows 95 486 [2, 4, 7, 0, 0, 0, 0, 0, 540, 656, 776] := by
+  rw [dz2dA117, dz2dA119, dz2dA120]
+  rw [ofRows_eq_padRows' 95 486 95 486 0 0 _ (by norm_num) (by norm_num),
+    ofRows_eq_padRows' 95 486 102 494 8 7 _ (by norm_num) (by norm_num),
+    ofRows_eq_padRows' 95 486 97 494 8 2 _ (by norm_num) (by norm_num)]
+  rw [← ofRows_orRows, ← ofRows_orRows]
+  rfl
+
+set_option maxRecDepth 100000 in
+/-- Glue 37, cluster 0, after. -/
+theorem dz2dZ37_0b :
+    dz2dA121 =
+      ofRows 95 486 [2, 4, 7, 0, 0, 0, 0, 0, 540, 656, 776] := by
+  rw [dz2dA121]
+
+set_option maxRecDepth 100000 in
+/-- The end of segment 37 is the start of segment 38. -/
+theorem dz2dGl37 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
+    (hv : DiagValid regParams Vs Vb K q)
+    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]))
+    (hm : (m0 + 6555) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ)) :
+    Proc.stop (dz2dL37 q K Vs Vb Vs' m0 hv hv') = Proc.start (dz2dL38 q K Vs Vb Vs' m0 hv hv') := by
+  simp only [dz2dL37, dz2dL38, dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
+    Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
+  calc _ = (dz2dA117 ∪ dz2dA119 ∪ dz2dA120) ∪ (conway.evolve (m0 + 9489) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ (conway.evolve 9 dz2dR0) ∪ (conway.evolve 9 dz2dR1) ∪ (conway.evolve 9 dz2dR2) ∪ (conway.evolve 9 dz2dR3) ∪ (conway.evolve 9 dz2dR4) ∪ (conway.evolve 9 dz2dR5) ∪ (conway.evolve 9 dz2dR6) ∪ (conway.evolve 9 dz2dR7) ∪ (conway.evolve 9 dz2dR8) ∪ (conway.evolve 9 dz2dR9) ∪ (conway.evolve 9 dz2dR10) ∪ (conway.evolve 9 dz2dR11) ∪ (conway.evolve 9 dz2dR12) ∪ (conway.evolve 9 dz2dR13) ∪ (conway.evolve 9 dz2dR14) ∪ (conway.evolve 9 dz2dR15) ∪ (conway.evolve 9 dz2dR16) ∪ (conway.evolve 9 dz2dR17) ∪ (conway.evolve 9 dz2dR18) ∪ (conway.evolve 9 dz2dR19) ∪ (conway.evolve 9 dz2dR20) ∪ (conway.evolve 9 dz2dR21) ∪ (conway.evolve 9 dz2dR22) ∪ (conway.evolve 9 dz2dR23) ∪ (conway.evolve 9 dz2dR24) ∪ (conway.evolve 9 dz2dR25) ∪ (conway.evolve 9 dz2dR26) ∪ (conway.evolve 9 dz2dR27) := by ac_rfl
+    _ = (dz2dA121) ∪ (conway.evolve (m0 + 9489) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K)) ∪ (conway.evolve 9 dz2dR0) ∪ (conway.evolve 9 dz2dR1) ∪ (conway.evolve 9 dz2dR2) ∪ (conway.evolve 9 dz2dR3) ∪ (conway.evolve 9 dz2dR4) ∪ (conway.evolve 9 dz2dR5) ∪ (conway.evolve 9 dz2dR6) ∪ (conway.evolve 9 dz2dR7) ∪ (conway.evolve 9 dz2dR8) ∪ (conway.evolve 9 dz2dR9) ∪ (conway.evolve 9 dz2dR10) ∪ (conway.evolve 9 dz2dR11) ∪ (conway.evolve 9 dz2dR12) ∪ (conway.evolve 9 dz2dR13) ∪ (conway.evolve 9 dz2dR14) ∪ (conway.evolve 9 dz2dR15) ∪ (conway.evolve 9 dz2dR16) ∪ (conway.evolve 9 dz2dR17) ∪ (conway.evolve 9 dz2dR18) ∪ (conway.evolve 9 dz2dR19) ∪ (conway.evolve 9 dz2dR20) ∪ (conway.evolve 9 dz2dR21) ∪ (conway.evolve 9 dz2dR22) ∪ (conway.evolve 9 dz2dR23) ∪ (conway.evolve 9 dz2dR24) ∪ (conway.evolve 9 dz2dR25) ∪ (conway.evolve 9 dz2dR26) ∪ (conway.evolve 9 dz2dR27) := by rw [dz2dZ37_0a, ← dz2dZ37_0b]
+    _ = _ := by ac_rfl
+
+set_option maxRecDepth 100000 in
+/-- The end of segment 38 is the start of segment 39. -/
+theorem dz2dGl38 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
+    (hv : DiagValid regParams Vs Vb K q)
+    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]))
+    (hm : (m0 + 6555) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ)) :
+    Proc.stop (dz2dL38 q K Vs Vb Vs' m0 hv hv') = Proc.start (dz2dL39 q K Vs Vb Vs' m0 hv hv') := by
+  simp only [dz2dL38, dz2dL39, dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
+    Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
   all_goals ac_rfl
 
 set_option maxRecDepth 100000 in
-/-- **The run with the register diagonal**: 11490 generations, 37 segments. -/
+/-- **The run with the register diagonal**: 11490 generations, 40 segments. -/
 theorem dz2dRun (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     (hv : DiagValid regParams Vs Vb K q)
     (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]))
     (hm : (m0 + 6555) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ))
     (hVs' : -34 ≤ Vs' + 2 * (((m0 + 6555) / 4 : ℕ) : ℤ)) :
     conway.evolve 11490 (Proc.start (dz2dL0 q K Vs Vb Vs' m0 hv hv')) =
-      Proc.stop (dz2dL36 q K Vs Vb Vs' m0 hv hv') := by
-  rw [show 11490 = 1987 + (14 + (341 + (146 + (12 + (28 + (42 + (179 + (1519 + (67 + (600 + (360 + (70 + (200 + (200 + (200 + (200 + (200 + (200 + (200 + (436 + (67 + (859 + (67 + (40 + (96 + (60 + (200 + (60 + (177 + (637 + (96 + (540 + (200 + (540 + (177 + (473)))))))))))))))))))))))))))))))))))) by norm_num]
-  rw [Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add]
+      Proc.stop (dz2dL39 q K Vs Vb Vs' m0 hv hv') := by
+  rw [show 11490 = 1987 + (14 + (341 + (146 + (12 + (28 + (42 + (179 + (1519 + (67 + (597 + (1 + (1 + (1 + (360 + (70 + (200 + (200 + (200 + (200 + (200 + (200 + (200 + (436 + (67 + (859 + (67 + (40 + (96 + (60 + (200 + (60 + (177 + (637 + (96 + (540 + (200 + (540 + (177 + (473))))))))))))))))))))))))))))))))))))))) by norm_num]
+  rw [Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add]
   rw [(dz2dSeg0 q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs').evolve_eq,
     dz2dGl0 q K Vs Vb Vs' m0 hv hv' hm hVb hVs,
     (dz2dSeg1 q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs').evolve_eq,
@@ -1811,7 +1844,13 @@ theorem dz2dRun (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     dz2dGl34 q K Vs Vb Vs' m0 hv hv' hm hVb hVs,
     (dz2dSeg35 q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs').evolve_eq,
     dz2dGl35 q K Vs Vb Vs' m0 hv hv' hm hVb hVs,
-    (dz2dSeg36 q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs').evolve_eq]
+    (dz2dSeg36 q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs').evolve_eq,
+    dz2dGl36 q K Vs Vb Vs' m0 hv hv' hm hVb hVs,
+    (dz2dSeg37 q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs').evolve_eq,
+    dz2dGl37 q K Vs Vb Vs' m0 hv hv' hm hVb hVs,
+    (dz2dSeg38 q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs').evolve_eq,
+    dz2dGl38 q K Vs Vb Vs' m0 hv hv' hm hVb hVs,
+    (dz2dSeg39 q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs').evolve_eq]
 
 /-- The register circuit at rest at the reference time. -/
 def dz2dRest : Finset Cell :=
@@ -1830,7 +1869,7 @@ theorem dz2dOp (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     conway.evolve 11490 (dz2dRest ∪ ofRows (-1186) (-1227) [2, 4, 7] ∪ conway.evolve m0 (diagW q K)) =
       dz2dRest ∪ ofRows 603 994 [1, 6, 3] ∪ conway.evolve (m0 + 11490) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K) := by
   have h := dz2dRun q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs'
-  simp only [dz2dL0, dz2dL36, dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27, dz2dA0, dz2dA117, Proc.stop_cons, Proc.start_cons, Proc.stop_nil,
+  simp only [dz2dL0, dz2dL39, dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27, dz2dA0, dz2dA123, Proc.stop_cons, Proc.start_cons, Proc.stop_nil,
     Proc.start_nil, Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty,
     Rule.evolve_zero, add_zero] at h
   rw [dz2dRest]

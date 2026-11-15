@@ -10,6 +10,7 @@ public import LeanTheory.Theory.Life.Gen.Dz2eSeg1
 public import LeanTheory.Theory.Life.Gen.Dz2eSeg2
 public import LeanTheory.Theory.Life.Gen.Dz2eSeg3
 public import LeanTheory.Theory.Life.Gen.Dz2eSeg4
+public import LeanTheory.Theory.Life.Gen.Dz2eSeg5
 
 /-!
 # Generated certificate `dz2e`: the glue and the whole run
@@ -3974,16 +3975,49 @@ theorem dz2eGl36 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     _ = _ := by rw [dz2eMrg q K Vs Vb m0 hv hm hVb hVs]; ac_rfl
 
 set_option maxRecDepth 100000 in
-/-- **The run with the register diagonal**: 6990 generations, 38 segments. -/
+/-- The end of segment 37 is the start of segment 38. -/
+theorem dz2eGl37 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
+    (hv : DiagValid regParams Vs Vb K q)
+    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPush, ((7 : ℤ) + (((m0 + 6653) / 4 : ℕ) : ℤ)))]))
+    (hm : (m0 + 6653) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ)) :
+    Proc.stop (dz2eL37 q K Vs Vb Vs' m0 hv hv') = Proc.start (dz2eL38 q K Vs Vb Vs' m0 hv hv') := by
+  simp only [dz2eL37, dz2eL38, dz2eG0, dz2eG1, dz2eG2, dz2eG3, dz2eG4, dz2eG5, dz2eG6, dz2eG7, dz2eG8, dz2eG9, dz2eG10, dz2eG11, dz2eG12, dz2eG13, dz2eG14, dz2eG15, dz2eG16, dz2eG17, dz2eG18, dz2eG19, dz2eG20, dz2eG21, dz2eG22, dz2eG23, dz2eG24, dz2eG25, dz2eG26, dz2eG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
+    Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
+  all_goals ac_rfl
+
+set_option maxRecDepth 100000 in
+/-- The end of segment 38 is the start of segment 39. -/
+theorem dz2eGl38 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
+    (hv : DiagValid regParams Vs Vb K q)
+    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPush, ((7 : ℤ) + (((m0 + 6653) / 4 : ℕ) : ℤ)))]))
+    (hm : (m0 + 6653) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ)) :
+    Proc.stop (dz2eL38 q K Vs Vb Vs' m0 hv hv') = Proc.start (dz2eL39 q K Vs Vb Vs' m0 hv hv') := by
+  simp only [dz2eL38, dz2eL39, dz2eG0, dz2eG1, dz2eG2, dz2eG3, dz2eG4, dz2eG5, dz2eG6, dz2eG7, dz2eG8, dz2eG9, dz2eG10, dz2eG11, dz2eG12, dz2eG13, dz2eG14, dz2eG15, dz2eG16, dz2eG17, dz2eG18, dz2eG19, dz2eG20, dz2eG21, dz2eG22, dz2eG23, dz2eG24, dz2eG25, dz2eG26, dz2eG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
+    Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
+  all_goals ac_rfl
+
+set_option maxRecDepth 100000 in
+/-- The end of segment 39 is the start of segment 40. -/
+theorem dz2eGl39 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
+    (hv : DiagValid regParams Vs Vb K q)
+    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPush, ((7 : ℤ) + (((m0 + 6653) / 4 : ℕ) : ℤ)))]))
+    (hm : (m0 + 6653) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ)) :
+    Proc.stop (dz2eL39 q K Vs Vb Vs' m0 hv hv') = Proc.start (dz2eL40 q K Vs Vb Vs' m0 hv hv') := by
+  simp only [dz2eL39, dz2eL40, dz2eG0, dz2eG1, dz2eG2, dz2eG3, dz2eG4, dz2eG5, dz2eG6, dz2eG7, dz2eG8, dz2eG9, dz2eG10, dz2eG11, dz2eG12, dz2eG13, dz2eG14, dz2eG15, dz2eG16, dz2eG17, dz2eG18, dz2eG19, dz2eG20, dz2eG21, dz2eG22, dz2eG23, dz2eG24, dz2eG25, dz2eG26, dz2eG27, Proc.stop_cons, Proc.start_cons, Proc.stop_nil, Proc.start_nil,
+    Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
+  all_goals ac_rfl
+
+set_option maxRecDepth 100000 in
+/-- **The run with the register diagonal**: 6990 generations, 41 segments. -/
 theorem dz2eRun (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     (hv : DiagValid regParams Vs Vb K q)
     (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPush, ((7 : ℤ) + (((m0 + 6653) / 4 : ℕ) : ℤ)))]))
     (hm : (m0 + 6653) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ))
     (hVs' : -34 ≤ Vs' + 2 * (((m0 + 6653) / 4 : ℕ) : ℤ)) :
     conway.evolve 6990 (Proc.start (dz2eL0 q K Vs Vb Vs' m0 hv hv')) =
-      Proc.stop (dz2eL37 q K Vs Vb Vs' m0 hv hv') := by
-  rw [show 6990 = 337 + (348 + (11 + (200 + (19 + (181 + (69 + (97 + (200 + (147 + (53 + (163 + (27 + (13 + (10 + (17 + (96 + (55 + (200 + (25 + (40 + (2 + (175 + (350 + (67 + (158 + (174 + (70 + (14 + (67 + (15 + (60 + (200 + (60 + (177 + (2808 + (82 + (203))))))))))))))))))))))))))))))))))))) by norm_num]
-  rw [Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add]
+      Proc.stop (dz2eL40 q K Vs Vb Vs' m0 hv hv') := by
+  rw [show 6990 = 334 + (1 + (1 + (1 + (348 + (11 + (200 + (19 + (181 + (69 + (97 + (200 + (147 + (53 + (163 + (27 + (13 + (10 + (17 + (96 + (55 + (200 + (25 + (40 + (2 + (175 + (350 + (67 + (158 + (174 + (70 + (14 + (67 + (15 + (60 + (200 + (60 + (177 + (2808 + (82 + (203)))))))))))))))))))))))))))))))))))))))) by norm_num]
+  rw [Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add, Rule.evolve_add]
   rw [(dz2eSeg0 q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs').evolve_eq,
     dz2eGl0 q K Vs Vb Vs' m0 hv hv' hm hVb hVs,
     (dz2eSeg1 q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs').evolve_eq,
@@ -4058,7 +4092,13 @@ theorem dz2eRun (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     dz2eGl35 q K Vs Vb Vs' m0 hv hv' hm hVb hVs,
     (dz2eSeg36 q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs').evolve_eq,
     dz2eGl36 q K Vs Vb Vs' m0 hv hv' hm hVb hVs,
-    (dz2eSeg37 q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs').evolve_eq]
+    (dz2eSeg37 q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs').evolve_eq,
+    dz2eGl37 q K Vs Vb Vs' m0 hv hv' hm hVb hVs,
+    (dz2eSeg38 q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs').evolve_eq,
+    dz2eGl38 q K Vs Vb Vs' m0 hv hv' hm hVb hVs,
+    (dz2eSeg39 q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs').evolve_eq,
+    dz2eGl39 q K Vs Vb Vs' m0 hv hv' hm hVb hVs,
+    (dz2eSeg40 q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs').evolve_eq]
 
 /-- The register circuit at rest at the reference time. -/
 def dz2eRest : Finset Cell :=
@@ -4077,7 +4117,7 @@ theorem dz2eOp (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     conway.evolve 6990 (dz2eRest ∪ ofRows (-857) (-1054) [6, 5, 4] ∪ conway.evolve m0 (diagW q K)) =
       dz2eRest ∪ conway.evolve (m0 + 6990) (diagW (q ++ [(regPush, ((7 : ℤ) + (((m0 + 6653) / 4 : ℕ) : ℤ)))]) K) := by
   have h := dz2eRun q K Vs Vb Vs' m0 hv hv' hm hVb hVs hVs'
-  simp only [dz2eL0, dz2eL37, dz2eG0, dz2eG1, dz2eG2, dz2eG3, dz2eG4, dz2eG5, dz2eG6, dz2eG7, dz2eG8, dz2eG9, dz2eG10, dz2eG11, dz2eG12, dz2eG13, dz2eG14, dz2eG15, dz2eG16, dz2eG17, dz2eG18, dz2eG19, dz2eG20, dz2eG21, dz2eG22, dz2eG23, dz2eG24, dz2eG25, dz2eG26, dz2eG27, dz2eA0, Proc.stop_cons, Proc.start_cons, Proc.stop_nil,
+  simp only [dz2eL0, dz2eL40, dz2eG0, dz2eG1, dz2eG2, dz2eG3, dz2eG4, dz2eG5, dz2eG6, dz2eG7, dz2eG8, dz2eG9, dz2eG10, dz2eG11, dz2eG12, dz2eG13, dz2eG14, dz2eG15, dz2eG16, dz2eG17, dz2eG18, dz2eG19, dz2eG20, dz2eG21, dz2eG22, dz2eG23, dz2eG24, dz2eG25, dz2eG26, dz2eG27, dz2eA0, Proc.stop_cons, Proc.start_cons, Proc.stop_nil,
     Proc.start_nil, Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty,
     Rule.evolve_zero, add_zero] at h
   rw [dz2eRest]

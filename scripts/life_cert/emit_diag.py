@@ -35,12 +35,20 @@ def uvrange(cells):
 
 
 class DiagEmitter(Emitter):
-    def __init__(self, plan, prefix, merge, kind='pull'):
+    def __init__(self, plan, prefix, merge, kind='pull', phase=0):
         super().__init__(plan, prefix)
         self.kind = kind
         self.SN = 'regPull' if kind == 'pull' else 'regPush'
         self.SD = 'dz2gPullS' if kind == 'pull' else 'dz2jPullS'
         self.SW = (-1, 5, [5, 518, 642, 768]) if kind == 'pull' else (-6, -7, [320, 384, 128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 16390, 32770, 57344])
+        if phase:
+            import re
+            src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'LeanTheory',
+                                    'Theory', 'Life', 'SalvoPhases.lean')).read()
+            self.SN = 'reg%sP%d' % ('Pull' if kind == 'pull' else 'Push', phase)
+            self.SD = self.SN + 'S'
+            m = re.search(r'def %s : Finset Cell := ofRows (\(?-?\d+\)?) (\(?-?\d+\)?) \[([^\]]*)\]' % self.SD, src)
+            self.SW = (int(m.group(1).strip('()')), int(m.group(2).strip('()')), [int(x) for x in m.group(3).split(',')])
         segs = plan['segs']
         self.jM = [j for j, sg in enumerate(segs) if sg['a'] == merge][0]
         self.oM = merge - plan['Ts']
@@ -85,13 +93,13 @@ class DiagEmitter(Emitter):
                 b, uv = xybox, None
             else:
                 b, uv = self.proc_geom(p, i)
-            if not (b[2] - b[1] + 4 < -113 or -66 < b[0] - b[3]):
+            if not (b[2] - b[1] + 4 < -113 or -65 < b[0] - b[3]):
                 u_ok = False
             if not (b[2] + b[3] + 4 < lo):
                 v_ok = False
             if uv is None or not (uv[3] + 4 < lo):
                 uv_ok = False
-            if uv is None or not (uv[1] + 4 < -113 or -66 < uv[0]):
+            if uv is None or not (uv[1] + 4 < -113 or -65 < uv[0]):
                 uvu_ok = False
         flight = xybox is None and p['kind'] == 'flight'
         VS = 'Vs' if j < self.jM else "Vs'"
@@ -455,10 +463,11 @@ def main():
     plan_path, prefix, moddir, merge = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4])
     per = int(sys.argv[5]) if len(sys.argv) > 5 else 8
     kind = sys.argv[6] if len(sys.argv) > 6 else 'pull'
+    phase = int(sys.argv[7]) if len(sys.argv) > 7 else 0
     plan = pickle.load(open(plan_path, 'rb'))
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'life_machine'))
     from net import piece_cells
-    em = DiagEmitter(plan, prefix, merge, kind)
+    em = DiagEmitter(plan, prefix, merge, kind, phase)
     em.rest = {}
     Ts = plan['Ts']
     for name, kind, env, members in plan['groups']:
@@ -478,7 +487,7 @@ def main():
            'plan (`scripts/life_cert/plan.py`); the generator is untrusted, Lean checks every step.')
     opts = 'set_option linter.style.longLine false\nset_option linter.unusedVariables false\n\n'
     with open(os.path.join(moddir, Cap + 'Data.lean'), 'w') as f:
-        f.write(HEADER % ('public import LeanTheory.Theory.Life.DiagProc',
+        f.write(HEADER % ('public import LeanTheory.Theory.Life.DiagProc\npublic import LeanTheory.Theory.Life.SalvoPhases',
                           doc % (prefix, 'the pieces and configurations')))
         f.write(opts)
         f.write('\n'.join(pieces_txt + em.atom_defs + em.lemmas).replace('@OM@', str(em.oM)).replace('@SN@', em.SN).replace('@SD@', em.SD))

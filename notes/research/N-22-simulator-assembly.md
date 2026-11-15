@@ -72,3 +72,6 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   other pieces (R-31 #13, segment vs piece); (3) `T ≤ meetT` and arrival residues; (4) entry and merge
   chains on the way; (5) footprints of the body and register runs; (6) concurrent active processes;
   (7) other registers' strips vs pieces; then the step and `Simulator`.
+* 2026-11-15: phase mod 4 resolved: the salvos at all four phases (`SalvoPhases`), queue parameters
+  widened (`N = 40`, `U₂ = 23`, gap `30`), the register operations with the diagonal regenerated for
+  each phase (`dz2dOp`, `dz2d1Op` … `dz2d3Op`, `dz2eOp`, `dz2e1Op` … `dz2e3Op`).

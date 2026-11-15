@@ -456,27 +456,29 @@ theorem dz2dSeg25 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
      trivial⟩⟩⟩⟩⟩⟩)
 
 /-- End of a flight (segment 26, process 0). -/
-theorem dz2dF26_0e : translate (((150 : ℕ) : ℤ) * 1, ((150 : ℕ) : ℤ) * 1) (conway.evolve 0 dz2dA84) = dz2dA87 := by
-  rw [Rule.evolve_zero, dz2dA84, translate_ofRows, dz2dA87]
+theorem dz2dF26_0e : translate (((0 : ℕ) : ℤ) * 1, ((0 : ℕ) : ℤ) * 1) (conway.evolve 1 dz2dA84) = dz2dA87 := by
+  rw [show conway.evolve 1 dz2dA84 = ofRows 305 (-225) [2, 4, 7] by rw [dz2dA84]; life_cert,
+    translate_ofRows, dz2dA87]
   norm_num
 
 /-- A flight (segment 26, process 0). -/
 theorem dz2dF26_0 :
-    Reaction dz2dA84 dz2dA87 600 (fun i => Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (307 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox (528 + ((i / 4 : ℕ) : ℤ) * 0) (531 + ((i / 4 : ℕ) : ℤ) * 0) (80 + ((i / 4 : ℕ) : ℤ) * 2) (85 + ((i / 4 : ℕ) : ℤ) * 2)) :=
-  flight_reaction_xyuv dz2dA84_four dz2dA84_box dz2dA84_uv 150 0 dz2dF26_0e
+    Reaction dz2dA84 dz2dA87 1 (fun i => Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (307 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox (528 + ((i / 4 : ℕ) : ℤ) * 0) (531 + ((i / 4 : ℕ) : ℤ) * 0) (80 + ((i / 4 : ℕ) : ℤ) * 2) (85 + ((i / 4 : ℕ) : ℤ) * 2)) :=
+  flight_reaction_xyuv dz2dA84_four dz2dA84_box dz2dA84_uv 0 1 dz2dF26_0e
 
 /-- End of a flight (segment 26, process 1). -/
-theorem dz2dF26_1e : translate (((150 : ℕ) : ℤ) * 1, ((150 : ℕ) : ℤ) * 1) (conway.evolve 0 dz2dA81) = dz2dA88 := by
-  rw [Rule.evolve_zero, dz2dA81, translate_ofRows, dz2dA88]
+theorem dz2dF26_1e : translate (((0 : ℕ) : ℤ) * 1, ((0 : ℕ) : ℤ) * 1) (conway.evolve 1 dz2dA81) = dz2dA88 := by
+  rw [show conway.evolve 1 dz2dA81 = ofRows (-582) 72 [2, 4, 7] by rw [dz2dA81]; life_cert,
+    translate_ofRows, dz2dA88]
   norm_num
 
 /-- A flight (segment 26, process 1). -/
 theorem dz2dF26_1 :
-    Reaction dz2dA81 dz2dA88 600 (fun i => Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-580) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-510) + ((i / 4 : ℕ) : ℤ) * 2) ((-505) + ((i / 4 : ℕ) : ℤ) * 2)) :=
-  flight_reaction_xyuv dz2dA81_four dz2dA81_box dz2dA81_uv 150 0 dz2dF26_1e
+    Reaction dz2dA81 dz2dA88 1 (fun i => Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-580) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-510) + ((i / 4 : ℕ) : ℤ) * 2) ((-505) + ((i / 4 : ℕ) : ℤ) * 2)) :=
+  flight_reaction_xyuv dz2dA81_four dz2dA81_box dz2dA81_uv 0 1 dz2dF26_1e
 
 /-- Phase bookkeeping (segment 26). -/
-theorem dz2dH26 : (600 + 15) % 30 = 15 := by norm_num
+theorem dz2dH26 : (1 + 15) % 30 = 16 := by norm_num
 
 /-- The idle groups of segment 26 are pairwise far apart. -/
 theorem dz2dSub26 : ([dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] : List Piece).Pairwise Piece.Sep :=
@@ -484,17 +486,17 @@ theorem dz2dSub26 : ([dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz
     (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ List.Sublist.slnil))))))))))))))))))))))))))))
     dz2dPieces_sep
 
-/-- The processes of segment 26 (generations 6255 to 6855 of the run). -/
+/-- The processes of segment 26 (generations 6255 to 6256 of the run). -/
 def dz2dL26 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     (hv : DiagValid regParams Vs Vb K q)
     (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))])) :
-    List (Proc 600) :=
-  [{ P := conway.evolve (m0 + 6555) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K), Q := conway.evolve (m0 + 7155) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K),
+    List (Proc 1) :=
+  [{ P := conway.evolve (m0 + 6555) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K), Q := conway.evolve (m0 + 6556) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K),
      F := fun i => wStrip Vs' Vb (i + (m0 + 6555)),
-     reaction := diagW_reaction hv' (m0 + 6555) 600 (m0 + 7155) (by ring) },
+     reaction := diagW_reaction hv' (m0 + 6555) 1 (m0 + 6556) (by ring) },
    { P := dz2dA84, Q := dz2dA87, F := fun i => Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (307 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox (528 + ((i / 4 : ℕ) : ℤ) * 0) (531 + ((i / 4 : ℕ) : ℤ) * 0) (80 + ((i / 4 : ℕ) : ℤ) * 2) (85 + ((i / 4 : ℕ) : ℤ) * 2), reaction := dz2dF26_0 },
    { P := dz2dA81, Q := dz2dA88, F := fun i => Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-580) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-510) + ((i / 4 : ℕ) : ℤ) * 2) ((-505) + ((i / 4 : ℕ) : ℤ) * 2), reaction := dz2dF26_1 },
-   Piece.bundle [dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] dz2dSub26 15 600 15 dz2dH26]
+   Piece.bundle [dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] dz2dSub26 15 1 16 dz2dH26]
 
 set_option maxRecDepth 100000 in
 /-- **Segment 26** of the run with the register diagonal. -/
@@ -504,7 +506,7 @@ theorem dz2dSeg26 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     (hm : (m0 + 6555) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ))
     (hVs' : -34 ≤ Vs' + 2 * (((m0 + 6555) / 4 : ℕ) : ℤ)) :
     Reaction (Proc.start (dz2dL26 q K Vs Vb Vs' m0 hv hv'))
-      (Proc.stop (dz2dL26 q K Vs Vb Vs' m0 hv hv')) 600
+      (Proc.stop (dz2dL26 q K Vs Vb Vs' m0 hv hv')) 1
       (Proc.foot (dz2dL26 q K Vs Vb Vs' m0 hv hv')) :=
   Reaction.parList _ (PairR.pairwise
     ⟨⟨(fun i _hi => (FarApart.inter_left (farApart_box_wStrip_u (by omega))).symm'),
@@ -606,43 +608,48 @@ theorem dz2dSeg26 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
      ⟨trivial,
      trivial⟩⟩⟩⟩)
 
-set_option maxRecDepth 100000 in
-/-- **Certificate** (segment 27, process 0). -/
-theorem dz2dC27_0 : Reaction dz2dA89 dz2dA90 67 (fun _ => Box 454 471 (-75) (-47)) := by
-  rw [dz2dA89, dz2dA90]
-  life_reaction
+/-- End of a flight (segment 27, process 0). -/
+theorem dz2dF27_0e : translate (((0 : ℕ) : ℤ) * 1, ((0 : ℕ) : ℤ) * 1) (conway.evolve 1 dz2dA88) = dz2dA89 := by
+  rw [show conway.evolve 1 dz2dA88 = ofRows (-582) 73 [5, 6, 2] by rw [dz2dA88]; life_cert,
+    translate_ofRows, dz2dA89]
+  norm_num
+
+/-- A flight (segment 27, process 0). -/
+theorem dz2dF27_0 :
+    Reaction dz2dA88 dz2dA89 1 (fun i => Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-509) + ((i / 4 : ℕ) : ℤ) * 2) ((-505) + ((i / 4 : ℕ) : ℤ) * 2)) :=
+  flight_reaction_xyuv dz2dA88_four dz2dA88_box dz2dA88_uv 0 1 dz2dF27_0e
 
 /-- End of a flight (segment 27, process 1). -/
-theorem dz2dF27_1e : translate (((16 : ℕ) : ℤ) * 1, ((16 : ℕ) : ℤ) * 1) (conway.evolve 3 dz2dA88) = dz2dA91 := by
-  rw [show conway.evolve 3 dz2dA88 = ofRows (-432) 223 [4, 5, 6] by rw [dz2dA88]; life_cert,
-    translate_ofRows, dz2dA91]
+theorem dz2dF27_1e : translate (((0 : ℕ) : ℤ) * 1, ((0 : ℕ) : ℤ) * 1) (conway.evolve 1 dz2dA87) = dz2dA90 := by
+  rw [show conway.evolve 1 dz2dA87 = ofRows 305 (-224) [5, 6, 2] by rw [dz2dA87]; life_cert,
+    translate_ofRows, dz2dA90]
   norm_num
 
 /-- A flight (segment 27, process 1). -/
 theorem dz2dF27_1 :
-    Reaction dz2dA88 dz2dA91 67 (fun i => Box ((-432) + ((i / 4 : ℕ) : ℤ) * 1) ((-430) + ((i / 4 : ℕ) : ℤ) * 1) (222 + ((i / 4 : ℕ) : ℤ) * 1) (225 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-210) + ((i / 4 : ℕ) : ℤ) * 2) ((-205) + ((i / 4 : ℕ) : ℤ) * 2)) :=
-  flight_reaction_xyuv dz2dA88_four dz2dA88_box dz2dA88_uv 16 3 dz2dF27_1e
+    Reaction dz2dA87 dz2dA90 1 (fun i => Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox (528 + ((i / 4 : ℕ) : ℤ) * 0) (531 + ((i / 4 : ℕ) : ℤ) * 0) (81 + ((i / 4 : ℕ) : ℤ) * 2) (85 + ((i / 4 : ℕ) : ℤ) * 2)) :=
+  flight_reaction_xyuv dz2dA87_four dz2dA87_box dz2dA87_uv 0 1 dz2dF27_1e
 
 /-- Phase bookkeeping (segment 27). -/
-theorem dz2dH27 : (67 + 15) % 30 = 22 := by norm_num
+theorem dz2dH27 : (1 + 16) % 30 = 17 := by norm_num
 
 /-- The idle groups of segment 27 are pairwise far apart. -/
-theorem dz2dSub27 : ([dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] : List Piece).Pairwise Piece.Sep :=
+theorem dz2dSub27 : ([dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] : List Piece).Pairwise Piece.Sep :=
   List.Pairwise.sublist
-    (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ List.Sublist.slnil))))))))))))))))))))))))))))
+    (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ List.Sublist.slnil))))))))))))))))))))))))))))
     dz2dPieces_sep
 
-/-- The processes of segment 27 (generations 6855 to 6922 of the run). -/
+/-- The processes of segment 27 (generations 6256 to 6257 of the run). -/
 def dz2dL27 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     (hv : DiagValid regParams Vs Vb K q)
     (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))])) :
-    List (Proc 67) :=
-  [{ P := conway.evolve (m0 + 7155) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K), Q := conway.evolve (m0 + 7222) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K),
-     F := fun i => wStrip Vs' Vb (i + (m0 + 7155)),
-     reaction := diagW_reaction hv' (m0 + 7155) 67 (m0 + 7222) (by ring) },
-   { P := dz2dA89, Q := dz2dA90, F := fun _ => Box 454 471 (-75) (-47), reaction := dz2dC27_0 },
-   { P := dz2dA88, Q := dz2dA91, F := fun i => Box ((-432) + ((i / 4 : ℕ) : ℤ) * 1) ((-430) + ((i / 4 : ℕ) : ℤ) * 1) (222 + ((i / 4 : ℕ) : ℤ) * 1) (225 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-210) + ((i / 4 : ℕ) : ℤ) * 2) ((-205) + ((i / 4 : ℕ) : ℤ) * 2), reaction := dz2dF27_1 },
-   Piece.bundle [dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] dz2dSub27 15 67 22 dz2dH27]
+    List (Proc 1) :=
+  [{ P := conway.evolve (m0 + 6556) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K), Q := conway.evolve (m0 + 6557) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K),
+     F := fun i => wStrip Vs' Vb (i + (m0 + 6556)),
+     reaction := diagW_reaction hv' (m0 + 6556) 1 (m0 + 6557) (by ring) },
+   { P := dz2dA88, Q := dz2dA89, F := fun i => Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-509) + ((i / 4 : ℕ) : ℤ) * 2) ((-505) + ((i / 4 : ℕ) : ℤ) * 2), reaction := dz2dF27_0 },
+   { P := dz2dA87, Q := dz2dA90, F := fun i => Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox (528 + ((i / 4 : ℕ) : ℤ) * 0) (531 + ((i / 4 : ℕ) : ℤ) * 0) (81 + ((i / 4 : ℕ) : ℤ) * 2) (85 + ((i / 4 : ℕ) : ℤ) * 2), reaction := dz2dF27_1 },
+   Piece.bundle [dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] dz2dSub27 16 1 17 dz2dH27]
 
 set_option maxRecDepth 100000 in
 /-- **Segment 27** of the run with the register diagonal. -/
@@ -652,8 +659,462 @@ theorem dz2dSeg27 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     (hm : (m0 + 6555) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ))
     (hVs' : -34 ≤ Vs' + 2 * (((m0 + 6555) / 4 : ℕ) : ℤ)) :
     Reaction (Proc.start (dz2dL27 q K Vs Vb Vs' m0 hv hv'))
-      (Proc.stop (dz2dL27 q K Vs Vb Vs' m0 hv hv')) 67
+      (Proc.stop (dz2dL27 q K Vs Vb Vs' m0 hv hv')) 1
       (Proc.foot (dz2dL27 q K Vs Vb Vs' m0 hv hv')) :=
+  Reaction.parList _ (PairR.pairwise
+    ⟨⟨(fun i _hi => (FarApart.inter_left (farApart_box_wStrip_u (by omega))).symm'),
+      (fun i _hi => (FarApart.inter_left (farApart_box_wStrip_u (by omega))).symm'),
+      Piece.indep_bundle _ _ _ _ _ _
+        ⟨(fun i _hi => ((farApart_box_wStrip_v (by omega) (by omega)) : FarApart 2 (Box (-94) 128 (-79) 132) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-5) 113 (-136) (-104)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-121) (-31) (-394) (-362)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-86) 49 (-332) (-296)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-3) 19 (-260) (-252)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-47) (-39) (-244) (-222)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-347) (-339) (-101) (-79)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-101) (-11) 189 221) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-560) (-528) (-587) (-497)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-498) (-466) (-552) (-462)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-274) (-252) (-806) (-798)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 463 471 (-69) (-47)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-29) 3 350 440) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 28 50 376 384) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1100) (-1010) (-1100) (-1068)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-945) (-855) (-918) (-886)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1395) (-1387) (-738) (-716)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-79) 11 627 659) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 543 633 (-23) 9) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 578 668 (-85) (-53)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-808) (-718) (-1402) (-1370)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-843) (-753) (-1464) (-1432)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-835) (-813) (-1489) (-1481)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1329) (-1321) (-981) (-959)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-700) (-678) (-1476) (-1468)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-651) (-643) (-1427) (-1405)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-873) (-865) (-1210) (-1188)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-843) (-753) (-1143) (-1111)) (wStrip Vs' Vb (i + (m0 + 6556)))).symm'),
+         trivial⟩,
+      trivial⟩,
+     ⟨⟨(fun i _hi => (FarApart.inter_right (FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)))))),
+      Piece.indep_bundle _ _ _ _ _ _
+        ⟨(fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-94) 128 (-79) 132))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-5) 113 (-136) (-104)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-121) (-31) (-394) (-362)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-86) 49 (-332) (-296)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-3) 19 (-260) (-252)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-47) (-39) (-244) (-222)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-347) (-339) (-101) (-79)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-101) (-11) 189 221))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-560) (-528) (-587) (-497)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-498) (-466) (-552) (-462)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-274) (-252) (-806) (-798)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 463 471 (-69) (-47)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-29) 3 350 440))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 28 50 376 384))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1100) (-1010) (-1100) (-1068)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-945) (-855) (-918) (-886)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1395) (-1387) (-738) (-716)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-79) 11 627 659))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 543 633 (-23) 9))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 578 668 (-85) (-53)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-808) (-718) (-1402) (-1370)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1464) (-1432)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-835) (-813) (-1489) (-1481)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1329) (-1321) (-981) (-959)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-700) (-678) (-1476) (-1468)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-651) (-643) (-1427) (-1405)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-873) (-865) (-1210) (-1188)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (72 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1143) (-1111)))),
+         trivial⟩,
+      trivial⟩,
+     ⟨⟨Piece.indep_bundle _ _ _ _ _ _
+        ⟨(fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-94) 128 (-79) 132))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-5) 113 (-136) (-104)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-121) (-31) (-394) (-362)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-86) 49 (-332) (-296)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-3) 19 (-260) (-252)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-47) (-39) (-244) (-222)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-347) (-339) (-101) (-79)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-101) (-11) 189 221))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-560) (-528) (-587) (-497)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-498) (-466) (-552) (-462)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-274) (-252) (-806) (-798)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box 463 471 (-69) (-47)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-29) 3 350 440))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box 28 50 376 384))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1100) (-1010) (-1100) (-1068)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-945) (-855) (-918) (-886)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1395) (-1387) (-738) (-716)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-79) 11 627 659))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box 543 633 (-23) 9))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box 578 668 (-85) (-53)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-808) (-718) (-1402) (-1370)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1464) (-1432)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-835) (-813) (-1489) (-1481)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1329) (-1321) (-981) (-959)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-700) (-678) (-1476) (-1468)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-651) (-643) (-1427) (-1405)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-873) (-865) (-1210) (-1188)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-225) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1143) (-1111)))),
+         trivial⟩,
+      trivial⟩,
+     ⟨trivial,
+     trivial⟩⟩⟩⟩)
+
+/-- End of a flight (segment 28, process 0). -/
+theorem dz2dF28_0e : translate (((0 : ℕ) : ℤ) * 1, ((0 : ℕ) : ℤ) * 1) (conway.evolve 1 dz2dA89) = dz2dA91 := by
+  rw [show conway.evolve 1 dz2dA89 = ofRows (-582) 73 [4, 5, 6] by rw [dz2dA89]; life_cert,
+    translate_ofRows, dz2dA91]
+  norm_num
+
+/-- A flight (segment 28, process 0). -/
+theorem dz2dF28_0 :
+    Reaction dz2dA89 dz2dA91 1 (fun i => Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-509) + ((i / 4 : ℕ) : ℤ) * 2) ((-504) + ((i / 4 : ℕ) : ℤ) * 2)) :=
+  flight_reaction_xyuv dz2dA89_four dz2dA89_box dz2dA89_uv 0 1 dz2dF28_0e
+
+/-- End of a flight (segment 28, process 1). -/
+theorem dz2dF28_1e : translate (((0 : ℕ) : ℤ) * 1, ((0 : ℕ) : ℤ) * 1) (conway.evolve 1 dz2dA90) = dz2dA92 := by
+  rw [show conway.evolve 1 dz2dA90 = ofRows 305 (-224) [4, 5, 6] by rw [dz2dA90]; life_cert,
+    translate_ofRows, dz2dA92]
+  norm_num
+
+/-- A flight (segment 28, process 1). -/
+theorem dz2dF28_1 :
+    Reaction dz2dA90 dz2dA92 1 (fun i => Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox (528 + ((i / 4 : ℕ) : ℤ) * 0) (531 + ((i / 4 : ℕ) : ℤ) * 0) (81 + ((i / 4 : ℕ) : ℤ) * 2) (86 + ((i / 4 : ℕ) : ℤ) * 2)) :=
+  flight_reaction_xyuv dz2dA90_four dz2dA90_box dz2dA90_uv 0 1 dz2dF28_1e
+
+/-- Phase bookkeeping (segment 28). -/
+theorem dz2dH28 : (1 + 17) % 30 = 18 := by norm_num
+
+/-- The idle groups of segment 28 are pairwise far apart. -/
+theorem dz2dSub28 : ([dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] : List Piece).Pairwise Piece.Sep :=
+  List.Pairwise.sublist
+    (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ List.Sublist.slnil))))))))))))))))))))))))))))
+    dz2dPieces_sep
+
+/-- The processes of segment 28 (generations 6257 to 6258 of the run). -/
+def dz2dL28 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
+    (hv : DiagValid regParams Vs Vb K q)
+    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))])) :
+    List (Proc 1) :=
+  [{ P := conway.evolve (m0 + 6557) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K), Q := conway.evolve (m0 + 6558) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K),
+     F := fun i => wStrip Vs' Vb (i + (m0 + 6557)),
+     reaction := diagW_reaction hv' (m0 + 6557) 1 (m0 + 6558) (by ring) },
+   { P := dz2dA89, Q := dz2dA91, F := fun i => Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-509) + ((i / 4 : ℕ) : ℤ) * 2) ((-504) + ((i / 4 : ℕ) : ℤ) * 2), reaction := dz2dF28_0 },
+   { P := dz2dA90, Q := dz2dA92, F := fun i => Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox (528 + ((i / 4 : ℕ) : ℤ) * 0) (531 + ((i / 4 : ℕ) : ℤ) * 0) (81 + ((i / 4 : ℕ) : ℤ) * 2) (86 + ((i / 4 : ℕ) : ℤ) * 2), reaction := dz2dF28_1 },
+   Piece.bundle [dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] dz2dSub28 17 1 18 dz2dH28]
+
+set_option maxRecDepth 100000 in
+/-- **Segment 28** of the run with the register diagonal. -/
+theorem dz2dSeg28 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
+    (hv : DiagValid regParams Vs Vb K q)
+    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]))
+    (hm : (m0 + 6555) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ))
+    (hVs' : -34 ≤ Vs' + 2 * (((m0 + 6555) / 4 : ℕ) : ℤ)) :
+    Reaction (Proc.start (dz2dL28 q K Vs Vb Vs' m0 hv hv'))
+      (Proc.stop (dz2dL28 q K Vs Vb Vs' m0 hv hv')) 1
+      (Proc.foot (dz2dL28 q K Vs Vb Vs' m0 hv hv')) :=
+  Reaction.parList _ (PairR.pairwise
+    ⟨⟨(fun i _hi => (FarApart.inter_left (farApart_box_wStrip_u (by omega))).symm'),
+      (fun i _hi => (FarApart.inter_left (farApart_box_wStrip_u (by omega))).symm'),
+      Piece.indep_bundle _ _ _ _ _ _
+        ⟨(fun i _hi => ((farApart_box_wStrip_v (by omega) (by omega)) : FarApart 2 (Box (-94) 128 (-79) 132) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-5) 113 (-136) (-104)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-121) (-31) (-394) (-362)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-86) 49 (-332) (-296)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-3) 19 (-260) (-252)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-47) (-39) (-244) (-222)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-347) (-339) (-101) (-79)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-101) (-11) 189 221) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-560) (-528) (-587) (-497)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-498) (-466) (-552) (-462)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-274) (-252) (-806) (-798)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 463 471 (-69) (-47)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-29) 3 350 440) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 28 50 376 384) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1100) (-1010) (-1100) (-1068)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-945) (-855) (-918) (-886)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1395) (-1387) (-738) (-716)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-79) 11 627 659) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 543 633 (-23) 9) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 578 668 (-85) (-53)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-808) (-718) (-1402) (-1370)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-843) (-753) (-1464) (-1432)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-835) (-813) (-1489) (-1481)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1329) (-1321) (-981) (-959)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-700) (-678) (-1476) (-1468)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-651) (-643) (-1427) (-1405)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-873) (-865) (-1210) (-1188)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-843) (-753) (-1143) (-1111)) (wStrip Vs' Vb (i + (m0 + 6557)))).symm'),
+         trivial⟩,
+      trivial⟩,
+     ⟨⟨(fun i _hi => (FarApart.inter_right (FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)))))),
+      Piece.indep_bundle _ _ _ _ _ _
+        ⟨(fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-94) 128 (-79) 132))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-5) 113 (-136) (-104)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-121) (-31) (-394) (-362)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-86) 49 (-332) (-296)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-3) 19 (-260) (-252)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-47) (-39) (-244) (-222)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-347) (-339) (-101) (-79)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-101) (-11) 189 221))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-560) (-528) (-587) (-497)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-498) (-466) (-552) (-462)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-274) (-252) (-806) (-798)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 463 471 (-69) (-47)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-29) 3 350 440))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 28 50 376 384))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1100) (-1010) (-1100) (-1068)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-945) (-855) (-918) (-886)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1395) (-1387) (-738) (-716)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-79) 11 627 659))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 543 633 (-23) 9))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 578 668 (-85) (-53)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-808) (-718) (-1402) (-1370)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1464) (-1432)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-835) (-813) (-1489) (-1481)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1329) (-1321) (-981) (-959)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-700) (-678) (-1476) (-1468)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-651) (-643) (-1427) (-1405)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-873) (-865) (-1210) (-1188)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (75 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1143) (-1111)))),
+         trivial⟩,
+      trivial⟩,
+     ⟨⟨Piece.indep_bundle _ _ _ _ _ _
+        ⟨(fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-94) 128 (-79) 132))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-5) 113 (-136) (-104)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-121) (-31) (-394) (-362)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-86) 49 (-332) (-296)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-3) 19 (-260) (-252)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-47) (-39) (-244) (-222)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-347) (-339) (-101) (-79)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-101) (-11) 189 221))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-560) (-528) (-587) (-497)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-498) (-466) (-552) (-462)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-274) (-252) (-806) (-798)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box 463 471 (-69) (-47)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-29) 3 350 440))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box 28 50 376 384))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1100) (-1010) (-1100) (-1068)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-945) (-855) (-918) (-886)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1395) (-1387) (-738) (-716)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-79) 11 627 659))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box 543 633 (-23) 9))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box 578 668 (-85) (-53)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-808) (-718) (-1402) (-1370)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1464) (-1432)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-835) (-813) (-1489) (-1481)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1329) (-1321) (-981) (-959)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-700) (-678) (-1476) (-1468)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-651) (-643) (-1427) (-1405)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-873) (-865) (-1210) (-1188)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-222) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1143) (-1111)))),
+         trivial⟩,
+      trivial⟩,
+     ⟨trivial,
+     trivial⟩⟩⟩⟩)
+
+/-- End of a flight (segment 29, process 0). -/
+theorem dz2dF29_0e : translate (((149 : ℕ) : ℤ) * 1, ((149 : ℕ) : ℤ) * 1) (conway.evolve 1 dz2dA92) = dz2dA93 := by
+  rw [show conway.evolve 1 dz2dA92 = ofRows 306 (-224) [1, 6, 3] by rw [dz2dA92]; life_cert,
+    translate_ofRows, dz2dA93]
+  norm_num
+
+/-- A flight (segment 29, process 0). -/
+theorem dz2dF29_0 :
+    Reaction dz2dA92 dz2dA93 597 (fun i => Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox (528 + ((i / 4 : ℕ) : ℤ) * 0) (531 + ((i / 4 : ℕ) : ℤ) * 0) (82 + ((i / 4 : ℕ) : ℤ) * 2) (86 + ((i / 4 : ℕ) : ℤ) * 2)) :=
+  flight_reaction_xyuv dz2dA92_four dz2dA92_box dz2dA92_uv 149 1 dz2dF29_0e
+
+/-- End of a flight (segment 29, process 1). -/
+theorem dz2dF29_1e : translate (((149 : ℕ) : ℤ) * 1, ((149 : ℕ) : ℤ) * 1) (conway.evolve 1 dz2dA91) = dz2dA94 := by
+  rw [show conway.evolve 1 dz2dA91 = ofRows (-581) 73 [1, 6, 3] by rw [dz2dA91]; life_cert,
+    translate_ofRows, dz2dA94]
+  norm_num
+
+/-- A flight (segment 29, process 1). -/
+theorem dz2dF29_1 :
+    Reaction dz2dA91 dz2dA94 597 (fun i => Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-508) + ((i / 4 : ℕ) : ℤ) * 2) ((-504) + ((i / 4 : ℕ) : ℤ) * 2)) :=
+  flight_reaction_xyuv dz2dA91_four dz2dA91_box dz2dA91_uv 149 1 dz2dF29_1e
+
+/-- Phase bookkeeping (segment 29). -/
+theorem dz2dH29 : (597 + 18) % 30 = 15 := by norm_num
+
+/-- The idle groups of segment 29 are pairwise far apart. -/
+theorem dz2dSub29 : ([dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] : List Piece).Pairwise Piece.Sep :=
+  List.Pairwise.sublist
+    (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ List.Sublist.slnil))))))))))))))))))))))))))))
+    dz2dPieces_sep
+
+/-- The processes of segment 29 (generations 6258 to 6855 of the run). -/
+def dz2dL29 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
+    (hv : DiagValid regParams Vs Vb K q)
+    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))])) :
+    List (Proc 597) :=
+  [{ P := conway.evolve (m0 + 6558) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K), Q := conway.evolve (m0 + 7155) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K),
+     F := fun i => wStrip Vs' Vb (i + (m0 + 6558)),
+     reaction := diagW_reaction hv' (m0 + 6558) 597 (m0 + 7155) (by ring) },
+   { P := dz2dA92, Q := dz2dA93, F := fun i => Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox (528 + ((i / 4 : ℕ) : ℤ) * 0) (531 + ((i / 4 : ℕ) : ℤ) * 0) (82 + ((i / 4 : ℕ) : ℤ) * 2) (86 + ((i / 4 : ℕ) : ℤ) * 2), reaction := dz2dF29_0 },
+   { P := dz2dA91, Q := dz2dA94, F := fun i => Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-508) + ((i / 4 : ℕ) : ℤ) * 2) ((-504) + ((i / 4 : ℕ) : ℤ) * 2), reaction := dz2dF29_1 },
+   Piece.bundle [dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] dz2dSub29 18 597 15 dz2dH29]
+
+set_option maxRecDepth 100000 in
+/-- **Segment 29** of the run with the register diagonal. -/
+theorem dz2dSeg29 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
+    (hv : DiagValid regParams Vs Vb K q)
+    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]))
+    (hm : (m0 + 6555) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ))
+    (hVs' : -34 ≤ Vs' + 2 * (((m0 + 6555) / 4 : ℕ) : ℤ)) :
+    Reaction (Proc.start (dz2dL29 q K Vs Vb Vs' m0 hv hv'))
+      (Proc.stop (dz2dL29 q K Vs Vb Vs' m0 hv hv')) 597
+      (Proc.foot (dz2dL29 q K Vs Vb Vs' m0 hv hv')) :=
+  Reaction.parList _ (PairR.pairwise
+    ⟨⟨(fun i _hi => (FarApart.inter_left (farApart_box_wStrip_u (by omega))).symm'),
+      (fun i _hi => (FarApart.inter_left (farApart_box_wStrip_u (by omega))).symm'),
+      Piece.indep_bundle _ _ _ _ _ _
+        ⟨(fun i _hi => ((farApart_box_wStrip_v (by omega) (by omega)) : FarApart 2 (Box (-94) 128 (-79) 132) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-5) 113 (-136) (-104)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-121) (-31) (-394) (-362)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-86) 49 (-332) (-296)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-3) 19 (-260) (-252)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-47) (-39) (-244) (-222)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-347) (-339) (-101) (-79)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-101) (-11) 189 221) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-560) (-528) (-587) (-497)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-498) (-466) (-552) (-462)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-274) (-252) (-806) (-798)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 463 471 (-69) (-47)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-29) 3 350 440) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 28 50 376 384) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1100) (-1010) (-1100) (-1068)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-945) (-855) (-918) (-886)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1395) (-1387) (-738) (-716)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-79) 11 627 659) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 543 633 (-23) 9) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 578 668 (-85) (-53)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-808) (-718) (-1402) (-1370)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-843) (-753) (-1464) (-1432)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-835) (-813) (-1489) (-1481)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1329) (-1321) (-981) (-959)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-700) (-678) (-1476) (-1468)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-651) (-643) (-1427) (-1405)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-873) (-865) (-1210) (-1188)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-843) (-753) (-1143) (-1111)) (wStrip Vs' Vb (i + (m0 + 6558)))).symm'),
+         trivial⟩,
+      trivial⟩,
+     ⟨⟨(fun i _hi => (FarApart.inter_right (FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)))))),
+      Piece.indep_bundle _ _ _ _ _ _
+        ⟨(fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-94) 128 (-79) 132))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-5) 113 (-136) (-104)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-121) (-31) (-394) (-362)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-86) 49 (-332) (-296)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-3) 19 (-260) (-252)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-47) (-39) (-244) (-222)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-347) (-339) (-101) (-79)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-101) (-11) 189 221))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-560) (-528) (-587) (-497)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-498) (-466) (-552) (-462)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-274) (-252) (-806) (-798)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box 463 471 (-69) (-47)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-29) 3 350 440))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box 28 50 376 384))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1100) (-1010) (-1100) (-1068)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-945) (-855) (-918) (-886)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1395) (-1387) (-738) (-716)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-79) 11 627 659))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box 543 633 (-23) 9))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box 578 668 (-85) (-53)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-808) (-718) (-1402) (-1370)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1464) (-1432)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-835) (-813) (-1489) (-1481)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1329) (-1321) (-981) (-959)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-700) (-678) (-1476) (-1468)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-651) (-643) (-1427) (-1405)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-873) (-865) (-1210) (-1188)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (305 + ((i / 4 : ℕ) : ℤ) * 1) (308 + ((i / 4 : ℕ) : ℤ) * 1) ((-224) + ((i / 4 : ℕ) : ℤ) * 1) ((-221) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1143) (-1111)))),
+         trivial⟩,
+      trivial⟩,
+     ⟨⟨Piece.indep_bundle _ _ _ _ _ _
+        ⟨(fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-94) 128 (-79) 132))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-5) 113 (-136) (-104)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-121) (-31) (-394) (-362)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-86) 49 (-332) (-296)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-3) 19 (-260) (-252)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-47) (-39) (-244) (-222)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-347) (-339) (-101) (-79)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-101) (-11) 189 221))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-560) (-528) (-587) (-497)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-498) (-466) (-552) (-462)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-274) (-252) (-806) (-798)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 463 471 (-69) (-47)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-29) 3 350 440))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 28 50 376 384))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1100) (-1010) (-1100) (-1068)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-945) (-855) (-918) (-886)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1395) (-1387) (-738) (-716)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-79) 11 627 659))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 543 633 (-23) 9))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 578 668 (-85) (-53)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-808) (-718) (-1402) (-1370)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1464) (-1432)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-835) (-813) (-1489) (-1481)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1329) (-1321) (-981) (-959)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-700) (-678) (-1476) (-1468)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-651) (-643) (-1427) (-1405)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-873) (-865) (-1210) (-1188)))),
+         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box ((-582) + ((i / 4 : ℕ) : ℤ) * 1) ((-579) + ((i / 4 : ℕ) : ℤ) * 1) (73 + ((i / 4 : ℕ) : ℤ) * 1) (76 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1143) (-1111)))),
+         trivial⟩,
+      trivial⟩,
+     ⟨trivial,
+     trivial⟩⟩⟩⟩)
+
+set_option maxRecDepth 100000 in
+/-- **Certificate** (segment 30, process 0). -/
+theorem dz2dC30_0 : Reaction dz2dA95 dz2dA96 67 (fun _ => Box 454 471 (-75) (-47)) := by
+  rw [dz2dA95, dz2dA96]
+  life_reaction
+
+/-- End of a flight (segment 30, process 1). -/
+theorem dz2dF30_1e : translate (((16 : ℕ) : ℤ) * 1, ((16 : ℕ) : ℤ) * 1) (conway.evolve 3 dz2dA94) = dz2dA97 := by
+  rw [show conway.evolve 3 dz2dA94 = ofRows (-432) 223 [4, 5, 6] by rw [dz2dA94]; life_cert,
+    translate_ofRows, dz2dA97]
+  norm_num
+
+/-- A flight (segment 30, process 1). -/
+theorem dz2dF30_1 :
+    Reaction dz2dA94 dz2dA97 67 (fun i => Box ((-432) + ((i / 4 : ℕ) : ℤ) * 1) ((-430) + ((i / 4 : ℕ) : ℤ) * 1) (222 + ((i / 4 : ℕ) : ℤ) * 1) (225 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-210) + ((i / 4 : ℕ) : ℤ) * 2) ((-205) + ((i / 4 : ℕ) : ℤ) * 2)) :=
+  flight_reaction_xyuv dz2dA94_four dz2dA94_box dz2dA94_uv 16 3 dz2dF30_1e
+
+/-- Phase bookkeeping (segment 30). -/
+theorem dz2dH30 : (67 + 15) % 30 = 22 := by norm_num
+
+/-- The idle groups of segment 30 are pairwise far apart. -/
+theorem dz2dSub30 : ([dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] : List Piece).Pairwise Piece.Sep :=
+  List.Pairwise.sublist
+    (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ List.Sublist.slnil))))))))))))))))))))))))))))
+    dz2dPieces_sep
+
+/-- The processes of segment 30 (generations 6855 to 6922 of the run). -/
+def dz2dL30 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
+    (hv : DiagValid regParams Vs Vb K q)
+    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))])) :
+    List (Proc 67) :=
+  [{ P := conway.evolve (m0 + 7155) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K), Q := conway.evolve (m0 + 7222) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K),
+     F := fun i => wStrip Vs' Vb (i + (m0 + 7155)),
+     reaction := diagW_reaction hv' (m0 + 7155) 67 (m0 + 7222) (by ring) },
+   { P := dz2dA95, Q := dz2dA96, F := fun _ => Box 454 471 (-75) (-47), reaction := dz2dC30_0 },
+   { P := dz2dA94, Q := dz2dA97, F := fun i => Box ((-432) + ((i / 4 : ℕ) : ℤ) * 1) ((-430) + ((i / 4 : ℕ) : ℤ) * 1) (222 + ((i / 4 : ℕ) : ℤ) * 1) (225 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-210) + ((i / 4 : ℕ) : ℤ) * 2) ((-205) + ((i / 4 : ℕ) : ℤ) * 2), reaction := dz2dF30_1 },
+   Piece.bundle [dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] dz2dSub30 15 67 22 dz2dH30]
+
+set_option maxRecDepth 100000 in
+/-- **Segment 30** of the run with the register diagonal. -/
+theorem dz2dSeg30 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
+    (hv : DiagValid regParams Vs Vb K q)
+    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]))
+    (hm : (m0 + 6555) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ))
+    (hVs' : -34 ≤ Vs' + 2 * (((m0 + 6555) / 4 : ℕ) : ℤ)) :
+    Reaction (Proc.start (dz2dL30 q K Vs Vb Vs' m0 hv hv'))
+      (Proc.stop (dz2dL30 q K Vs Vb Vs' m0 hv hv')) 67
+      (Proc.foot (dz2dL30 q K Vs Vb Vs' m0 hv hv')) :=
   Reaction.parList _ (PairR.pairwise
     ⟨⟨(fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 454 471 (-75) (-47)) (wStrip Vs' Vb (i + (m0 + 7155)))).symm'),
       (fun i _hi => (FarApart.inter_left (farApart_box_wStrip_u (by omega))).symm'),
@@ -751,59 +1212,59 @@ theorem dz2dSeg27 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
      ⟨trivial,
      trivial⟩⟩⟩⟩)
 
-/-- End of a flight (segment 28, process 0). -/
-theorem dz2dF28_0e : translate (((379 : ℕ) : ℤ) * 1, ((379 : ℕ) : ℤ) * 1) (conway.evolve 3 dz2dA91) = dz2dA92 := by
-  rw [show conway.evolve 3 dz2dA91 = ofRows (-415) 240 [5, 6, 2] by rw [dz2dA91]; life_cert,
-    translate_ofRows, dz2dA92]
+/-- End of a flight (segment 31, process 0). -/
+theorem dz2dF31_0e : translate (((379 : ℕ) : ℤ) * 1, ((379 : ℕ) : ℤ) * 1) (conway.evolve 3 dz2dA97) = dz2dA98 := by
+  rw [show conway.evolve 3 dz2dA97 = ofRows (-415) 240 [5, 6, 2] by rw [dz2dA97]; life_cert,
+    translate_ofRows, dz2dA98]
   norm_num
 
-/-- A flight (segment 28, process 0). -/
-theorem dz2dF28_0 :
-    Reaction dz2dA91 dz2dA92 1519 (fun i => Box ((-416) + ((i / 4 : ℕ) : ℤ) * 1) ((-413) + ((i / 4 : ℕ) : ℤ) * 1) (239 + ((i / 4 : ℕ) : ℤ) * 1) (242 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-176) + ((i / 4 : ℕ) : ℤ) * 2) ((-172) + ((i / 4 : ℕ) : ℤ) * 2)) :=
-  flight_reaction_xyuv dz2dA91_four dz2dA91_box dz2dA91_uv 379 3 dz2dF28_0e
+/-- A flight (segment 31, process 0). -/
+theorem dz2dF31_0 :
+    Reaction dz2dA97 dz2dA98 1519 (fun i => Box ((-416) + ((i / 4 : ℕ) : ℤ) * 1) ((-413) + ((i / 4 : ℕ) : ℤ) * 1) (239 + ((i / 4 : ℕ) : ℤ) * 1) (242 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-176) + ((i / 4 : ℕ) : ℤ) * 2) ((-172) + ((i / 4 : ℕ) : ℤ) * 2)) :=
+  flight_reaction_xyuv dz2dA97_four dz2dA97_box dz2dA97_uv 379 3 dz2dF31_0e
 
-/-- End of a flight (segment 28, process 1). -/
-theorem dz2dF28_1e : translate (((379 : ℕ) : ℤ) * (-1), ((379 : ℕ) : ℤ) * 1) (conway.evolve 3 dz2dA93) = dz2dA94 := by
-  rw [show conway.evolve 3 dz2dA93 = ofRows 454 (-56) [1, 5, 3] by rw [dz2dA93]; life_cert,
-    translate_ofRows, dz2dA94]
+/-- End of a flight (segment 31, process 1). -/
+theorem dz2dF31_1e : translate (((379 : ℕ) : ℤ) * (-1), ((379 : ℕ) : ℤ) * 1) (conway.evolve 3 dz2dA99) = dz2dA100 := by
+  rw [show conway.evolve 3 dz2dA99 = ofRows 454 (-56) [1, 5, 3] by rw [dz2dA99]; life_cert,
+    translate_ofRows, dz2dA100]
   norm_num
 
-/-- A flight (segment 28, process 1). -/
-theorem dz2dF28_1 :
-    Reaction dz2dA93 dz2dA94 1519 (fun i => Box (454 + ((i / 4 : ℕ) : ℤ) * (-1)) (456 + ((i / 4 : ℕ) : ℤ) * (-1)) ((-57) + ((i / 4 : ℕ) : ℤ) * 1) ((-54) + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox (508 + ((i / 4 : ℕ) : ℤ) * (-2)) (513 + ((i / 4 : ℕ) : ℤ) * (-2)) (398 + ((i / 4 : ℕ) : ℤ) * 0) (401 + ((i / 4 : ℕ) : ℤ) * 0)) :=
-  flight_reaction_xyuv dz2dA93_four dz2dA93_box dz2dA93_uv 379 3 dz2dF28_1e
+/-- A flight (segment 31, process 1). -/
+theorem dz2dF31_1 :
+    Reaction dz2dA99 dz2dA100 1519 (fun i => Box (454 + ((i / 4 : ℕ) : ℤ) * (-1)) (456 + ((i / 4 : ℕ) : ℤ) * (-1)) ((-57) + ((i / 4 : ℕ) : ℤ) * 1) ((-54) + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox (508 + ((i / 4 : ℕ) : ℤ) * (-2)) (513 + ((i / 4 : ℕ) : ℤ) * (-2)) (398 + ((i / 4 : ℕ) : ℤ) * 0) (401 + ((i / 4 : ℕ) : ℤ) * 0)) :=
+  flight_reaction_xyuv dz2dA99_four dz2dA99_box dz2dA99_uv 379 3 dz2dF31_1e
 
-/-- Phase bookkeeping (segment 28). -/
-theorem dz2dH28 : (1519 + 22) % 30 = 11 := by norm_num
+/-- Phase bookkeeping (segment 31). -/
+theorem dz2dH31 : (1519 + 22) % 30 = 11 := by norm_num
 
-/-- The idle groups of segment 28 are pairwise far apart. -/
-theorem dz2dSub28 : ([dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] : List Piece).Pairwise Piece.Sep :=
+/-- The idle groups of segment 31 are pairwise far apart. -/
+theorem dz2dSub31 : ([dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] : List Piece).Pairwise Piece.Sep :=
   List.Pairwise.sublist
     (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ List.Sublist.slnil))))))))))))))))))))))))))))
     dz2dPieces_sep
 
-/-- The processes of segment 28 (generations 6922 to 8441 of the run). -/
-def dz2dL28 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
+/-- The processes of segment 31 (generations 6922 to 8441 of the run). -/
+def dz2dL31 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     (hv : DiagValid regParams Vs Vb K q)
     (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))])) :
     List (Proc 1519) :=
   [{ P := conway.evolve (m0 + 7222) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K), Q := conway.evolve (m0 + 8741) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K),
      F := fun i => wStrip Vs' Vb (i + (m0 + 7222)),
      reaction := diagW_reaction hv' (m0 + 7222) 1519 (m0 + 8741) (by ring) },
-   { P := dz2dA91, Q := dz2dA92, F := fun i => Box ((-416) + ((i / 4 : ℕ) : ℤ) * 1) ((-413) + ((i / 4 : ℕ) : ℤ) * 1) (239 + ((i / 4 : ℕ) : ℤ) * 1) (242 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-176) + ((i / 4 : ℕ) : ℤ) * 2) ((-172) + ((i / 4 : ℕ) : ℤ) * 2), reaction := dz2dF28_0 },
-   { P := dz2dA93, Q := dz2dA94, F := fun i => Box (454 + ((i / 4 : ℕ) : ℤ) * (-1)) (456 + ((i / 4 : ℕ) : ℤ) * (-1)) ((-57) + ((i / 4 : ℕ) : ℤ) * 1) ((-54) + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox (508 + ((i / 4 : ℕ) : ℤ) * (-2)) (513 + ((i / 4 : ℕ) : ℤ) * (-2)) (398 + ((i / 4 : ℕ) : ℤ) * 0) (401 + ((i / 4 : ℕ) : ℤ) * 0), reaction := dz2dF28_1 },
-   Piece.bundle [dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] dz2dSub28 22 1519 11 dz2dH28]
+   { P := dz2dA97, Q := dz2dA98, F := fun i => Box ((-416) + ((i / 4 : ℕ) : ℤ) * 1) ((-413) + ((i / 4 : ℕ) : ℤ) * 1) (239 + ((i / 4 : ℕ) : ℤ) * 1) (242 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-656) + ((i / 4 : ℕ) : ℤ) * 0) ((-653) + ((i / 4 : ℕ) : ℤ) * 0) ((-176) + ((i / 4 : ℕ) : ℤ) * 2) ((-172) + ((i / 4 : ℕ) : ℤ) * 2), reaction := dz2dF31_0 },
+   { P := dz2dA99, Q := dz2dA100, F := fun i => Box (454 + ((i / 4 : ℕ) : ℤ) * (-1)) (456 + ((i / 4 : ℕ) : ℤ) * (-1)) ((-57) + ((i / 4 : ℕ) : ℤ) * 1) ((-54) + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox (508 + ((i / 4 : ℕ) : ℤ) * (-2)) (513 + ((i / 4 : ℕ) : ℤ) * (-2)) (398 + ((i / 4 : ℕ) : ℤ) * 0) (401 + ((i / 4 : ℕ) : ℤ) * 0), reaction := dz2dF31_1 },
+   Piece.bundle [dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG17, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] dz2dSub31 22 1519 11 dz2dH31]
 
 set_option maxRecDepth 100000 in
-/-- **Segment 28** of the run with the register diagonal. -/
-theorem dz2dSeg28 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
+/-- **Segment 31** of the run with the register diagonal. -/
+theorem dz2dSeg31 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     (hv : DiagValid regParams Vs Vb K q)
     (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]))
     (hm : (m0 + 6555) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ))
     (hVs' : -34 ≤ Vs' + 2 * (((m0 + 6555) / 4 : ℕ) : ℤ)) :
-    Reaction (Proc.start (dz2dL28 q K Vs Vb Vs' m0 hv hv'))
-      (Proc.stop (dz2dL28 q K Vs Vb Vs' m0 hv hv')) 1519
-      (Proc.foot (dz2dL28 q K Vs Vb Vs' m0 hv hv')) :=
+    Reaction (Proc.start (dz2dL31 q K Vs Vb Vs' m0 hv hv'))
+      (Proc.stop (dz2dL31 q K Vs Vb Vs' m0 hv hv')) 1519
+      (Proc.foot (dz2dL31 q K Vs Vb Vs' m0 hv hv')) :=
   Reaction.parList _ (PairR.pairwise
     ⟨⟨(fun i _hi => (FarApart.inter_left (farApart_box_wStrip_u (by omega))).symm'),
       (fun i _hi => (FarApart.inter_left' (farApart_uv_wStrip_v (by omega) (by omega))).symm'),
@@ -899,432 +1360,6 @@ theorem dz2dSeg28 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
          (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (454 + ((i / 4 : ℕ) : ℤ) * (-1)) (456 + ((i / 4 : ℕ) : ℤ) * (-1)) ((-57) + ((i / 4 : ℕ) : ℤ) * 1) ((-54) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-651) (-643) (-1427) (-1405)))),
          (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (454 + ((i / 4 : ℕ) : ℤ) * (-1)) (456 + ((i / 4 : ℕ) : ℤ) * (-1)) ((-57) + ((i / 4 : ℕ) : ℤ) * 1) ((-54) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-873) (-865) (-1210) (-1188)))),
          (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (454 + ((i / 4 : ℕ) : ℤ) * (-1)) (456 + ((i / 4 : ℕ) : ℤ) * (-1)) ((-57) + ((i / 4 : ℕ) : ℤ) * 1) ((-54) + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1143) (-1111)))),
-         trivial⟩,
-      trivial⟩,
-     ⟨trivial,
-     trivial⟩⟩⟩⟩)
-
-set_option maxRecDepth 100000 in
-/-- **Certificate** (segment 29, process 0). -/
-theorem dz2dC29_0 : Reaction dz2dA95 dz2dA96 179 (fun _ => Box (-79) 11 619 659) := by
-  rw [dz2dA95, dz2dA96]
-  life_reaction
-
-/-- End of a flight (segment 29, process 1). -/
-theorem dz2dF29_1e : translate (((44 : ℕ) : ℤ) * (-1), ((44 : ℕ) : ℤ) * 1) (conway.evolve 3 dz2dA94) = dz2dA97 := by
-  rw [show conway.evolve 3 dz2dA94 = ofRows 74 324 [5, 3, 2] by rw [dz2dA94]; life_cert,
-    translate_ofRows, dz2dA97]
-  norm_num
-
-/-- A flight (segment 29, process 1). -/
-theorem dz2dF29_1 :
-    Reaction dz2dA94 dz2dA97 179 (fun i => Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-251) + ((i / 4 : ℕ) : ℤ) * (-2)) ((-247) + ((i / 4 : ℕ) : ℤ) * (-2)) (398 + ((i / 4 : ℕ) : ℤ) * 0) (401 + ((i / 4 : ℕ) : ℤ) * 0)) :=
-  flight_reaction_xyuv dz2dA94_four dz2dA94_box dz2dA94_uv 44 3 dz2dF29_1e
-
-/-- Phase bookkeeping (segment 29). -/
-theorem dz2dH29 : (179 + 11) % 30 = 10 := by norm_num
-
-/-- The idle groups of segment 29 are pairwise far apart. -/
-theorem dz2dSub29 : ([dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] : List Piece).Pairwise Piece.Sep :=
-  List.Pairwise.sublist
-    (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ List.Sublist.slnil))))))))))))))))))))))))))))
-    dz2dPieces_sep
-
-/-- The processes of segment 29 (generations 8441 to 8620 of the run). -/
-def dz2dL29 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
-    (hv : DiagValid regParams Vs Vb K q)
-    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))])) :
-    List (Proc 179) :=
-  [{ P := conway.evolve (m0 + 8741) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K), Q := conway.evolve (m0 + 8920) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K),
-     F := fun i => wStrip Vs' Vb (i + (m0 + 8741)),
-     reaction := diagW_reaction hv' (m0 + 8741) 179 (m0 + 8920) (by ring) },
-   { P := dz2dA95, Q := dz2dA96, F := fun _ => Box (-79) 11 619 659, reaction := dz2dC29_0 },
-   { P := dz2dA94, Q := dz2dA97, F := fun i => Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-251) + ((i / 4 : ℕ) : ℤ) * (-2)) ((-247) + ((i / 4 : ℕ) : ℤ) * (-2)) (398 + ((i / 4 : ℕ) : ℤ) * 0) (401 + ((i / 4 : ℕ) : ℤ) * 0), reaction := dz2dF29_1 },
-   Piece.bundle [dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] dz2dSub29 11 179 10 dz2dH29]
-
-set_option maxRecDepth 100000 in
-/-- **Segment 29** of the run with the register diagonal. -/
-theorem dz2dSeg29 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
-    (hv : DiagValid regParams Vs Vb K q)
-    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]))
-    (hm : (m0 + 6555) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ))
-    (hVs' : -34 ≤ Vs' + 2 * (((m0 + 6555) / 4 : ℕ) : ℤ)) :
-    Reaction (Proc.start (dz2dL29 q K Vs Vb Vs' m0 hv hv'))
-      (Proc.stop (dz2dL29 q K Vs Vb Vs' m0 hv hv')) 179
-      (Proc.foot (dz2dL29 q K Vs Vb Vs' m0 hv hv')) :=
-  Reaction.parList _ (PairR.pairwise
-    ⟨⟨(fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-79) 11 619 659) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-      (fun i _hi => (FarApart.inter_left (farApart_box_wStrip_u (by omega))).symm'),
-      Piece.indep_bundle _ _ _ _ _ _
-        ⟨(fun i _hi => ((farApart_box_wStrip_v (by omega) (by omega)) : FarApart 2 (Box (-94) 128 (-79) 132) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-5) 113 (-136) (-104)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-121) (-31) (-394) (-362)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-86) 49 (-332) (-296)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-3) 19 (-260) (-252)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-47) (-39) (-244) (-222)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-347) (-339) (-101) (-79)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-101) (-11) 189 221) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-560) (-528) (-587) (-497)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-498) (-466) (-552) (-462)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-274) (-252) (-806) (-798)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 463 471 (-69) (-47)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-29) 3 350 440) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 28 50 376 384) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1100) (-1010) (-1100) (-1068)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-945) (-855) (-918) (-886)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1395) (-1387) (-738) (-716)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 543 633 (-23) 9) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 578 668 (-85) (-53)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-808) (-718) (-1402) (-1370)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-843) (-753) (-1464) (-1432)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-835) (-813) (-1489) (-1481)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1329) (-1321) (-981) (-959)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-700) (-678) (-1476) (-1468)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-651) (-643) (-1427) (-1405)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-873) (-865) (-1210) (-1188)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-843) (-753) (-1143) (-1111)) (wStrip Vs' Vb (i + (m0 + 8741)))).symm'),
-         trivial⟩,
-      trivial⟩,
-     ⟨⟨(fun i _hi => (FarApart.inter_right (Box.farApart (by omega) : FarApart 2 (Box (-79) 11 619 659) (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1))))),
-      Piece.indep_bundle _ _ _ _ _ _
-        ⟨(fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 619 659) (Box (-94) 128 (-79) 132))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 619 659) (Box (-5) 113 (-136) (-104)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 619 659) (Box (-121) (-31) (-394) (-362)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 619 659) (Box (-86) 49 (-332) (-296)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 619 659) (Box (-3) 19 (-260) (-252)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 619 659) (Box (-47) (-39) (-244) (-222)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 619 659) (Box (-347) (-339) (-101) (-79)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 619 659) (Box (-101) (-11) 189 221))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 619 659) (Box (-560) (-528) (-587) (-497)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 619 659) (Box (-498) (-466) (-552) (-462)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 619 659) (Box (-274) (-252) (-806) (-798)))),
-         (fun _ _ => (Box.farApart (Or.inl (by norm_num)) : FarApart 2 (Box (-79) 11 619 659) (Box 463 471 (-69) (-47)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 619 659) (Box (-29) 3 350 440))),
-         (fun _ _ => (Box.farApart (Or.inl (by norm_num)) : FarApart 2 (Box (-79) 11 619 659) (Box 28 50 376 384))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 619 659) (Box (-1100) (-1010) (-1100) (-1068)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 619 659) (Box (-945) (-855) (-918) (-886)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 619 659) (Box (-1395) (-1387) (-738) (-716)))),
-         (fun _ _ => (Box.farApart (Or.inl (by norm_num)) : FarApart 2 (Box (-79) 11 619 659) (Box 543 633 (-23) 9))),
-         (fun _ _ => (Box.farApart (Or.inl (by norm_num)) : FarApart 2 (Box (-79) 11 619 659) (Box 578 668 (-85) (-53)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 619 659) (Box (-808) (-718) (-1402) (-1370)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 619 659) (Box (-843) (-753) (-1464) (-1432)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 619 659) (Box (-835) (-813) (-1489) (-1481)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 619 659) (Box (-1329) (-1321) (-981) (-959)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 619 659) (Box (-700) (-678) (-1476) (-1468)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 619 659) (Box (-651) (-643) (-1427) (-1405)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 619 659) (Box (-873) (-865) (-1210) (-1188)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 619 659) (Box (-843) (-753) (-1143) (-1111)))),
-         trivial⟩,
-      trivial⟩,
-     ⟨⟨Piece.indep_bundle _ _ _ _ _ _
-        ⟨(fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-94) 128 (-79) 132))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-5) 113 (-136) (-104)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-121) (-31) (-394) (-362)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-86) 49 (-332) (-296)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-3) 19 (-260) (-252)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-47) (-39) (-244) (-222)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-347) (-339) (-101) (-79)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-101) (-11) 189 221))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-560) (-528) (-587) (-497)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-498) (-466) (-552) (-462)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-274) (-252) (-806) (-798)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 463 471 (-69) (-47)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-29) 3 350 440))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 28 50 376 384))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1100) (-1010) (-1100) (-1068)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-945) (-855) (-918) (-886)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1395) (-1387) (-738) (-716)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 543 633 (-23) 9))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 578 668 (-85) (-53)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-808) (-718) (-1402) (-1370)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1464) (-1432)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-835) (-813) (-1489) (-1481)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1329) (-1321) (-981) (-959)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-700) (-678) (-1476) (-1468)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-651) (-643) (-1427) (-1405)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-873) (-865) (-1210) (-1188)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (74 + ((i / 4 : ℕ) : ℤ) * (-1)) (77 + ((i / 4 : ℕ) : ℤ) * (-1)) (323 + ((i / 4 : ℕ) : ℤ) * 1) (326 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1143) (-1111)))),
-         trivial⟩,
-      trivial⟩,
-     ⟨trivial,
-     trivial⟩⟩⟩⟩)
-
-set_option maxRecDepth 100000 in
-/-- **Certificate** (segment 30, process 0). -/
-theorem dz2dC30_0 : Reaction dz2dA98 dz2dA99 42 (fun _ => Box 19 50 368 384) := by
-  rw [dz2dA98, dz2dA99]
-  life_reaction
-
-set_option maxRecDepth 100000 in
-/-- **Certificate** (segment 30, process 1). -/
-theorem dz2dC30_1 : Reaction dz2dA96 dz2dA100 42 (fun _ => Box (-79) 11 625 659) := by
-  rw [dz2dA96, dz2dA100]
-  life_reaction
-
-/-- Phase bookkeeping (segment 30). -/
-theorem dz2dH30 : (42 + 10) % 30 = 22 := by norm_num
-
-/-- The idle groups of segment 30 are pairwise far apart. -/
-theorem dz2dSub30 : ([dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG14, dz2dG15, dz2dG16, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] : List Piece).Pairwise Piece.Sep :=
-  List.Pairwise.sublist
-    (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ List.Sublist.slnil))))))))))))))))))))))))))))
-    dz2dPieces_sep
-
-/-- The processes of segment 30 (generations 8620 to 8662 of the run). -/
-def dz2dL30 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
-    (hv : DiagValid regParams Vs Vb K q)
-    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))])) :
-    List (Proc 42) :=
-  [{ P := conway.evolve (m0 + 8920) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K), Q := conway.evolve (m0 + 8962) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K),
-     F := fun i => wStrip Vs' Vb (i + (m0 + 8920)),
-     reaction := diagW_reaction hv' (m0 + 8920) 42 (m0 + 8962) (by ring) },
-   { P := dz2dA98, Q := dz2dA99, F := fun _ => Box 19 50 368 384, reaction := dz2dC30_0 },
-   { P := dz2dA96, Q := dz2dA100, F := fun _ => Box (-79) 11 625 659, reaction := dz2dC30_1 },
-   Piece.bundle [dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG14, dz2dG15, dz2dG16, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] dz2dSub30 10 42 22 dz2dH30]
-
-set_option maxRecDepth 100000 in
-/-- **Segment 30** of the run with the register diagonal. -/
-theorem dz2dSeg30 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
-    (hv : DiagValid regParams Vs Vb K q)
-    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]))
-    (hm : (m0 + 6555) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ))
-    (hVs' : -34 ≤ Vs' + 2 * (((m0 + 6555) / 4 : ℕ) : ℤ)) :
-    Reaction (Proc.start (dz2dL30 q K Vs Vb Vs' m0 hv hv'))
-      (Proc.stop (dz2dL30 q K Vs Vb Vs' m0 hv hv')) 42
-      (Proc.foot (dz2dL30 q K Vs Vb Vs' m0 hv hv')) :=
-  Reaction.parList _ (PairR.pairwise
-    ⟨⟨(fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 19 50 368 384) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-      (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-79) 11 625 659) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-      Piece.indep_bundle _ _ _ _ _ _
-        ⟨(fun i _hi => ((farApart_box_wStrip_v (by omega) (by omega)) : FarApart 2 (Box (-94) 128 (-79) 132) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-5) 113 (-136) (-104)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-121) (-31) (-394) (-362)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-86) 49 (-332) (-296)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-3) 19 (-260) (-252)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-47) (-39) (-244) (-222)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-347) (-339) (-101) (-79)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-101) (-11) 189 221) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-560) (-528) (-587) (-497)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-498) (-466) (-552) (-462)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-274) (-252) (-806) (-798)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 463 471 (-69) (-47)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-29) 3 350 440) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1100) (-1010) (-1100) (-1068)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-945) (-855) (-918) (-886)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1395) (-1387) (-738) (-716)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 543 633 (-23) 9) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 578 668 (-85) (-53)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-808) (-718) (-1402) (-1370)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-843) (-753) (-1464) (-1432)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-835) (-813) (-1489) (-1481)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1329) (-1321) (-981) (-959)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-700) (-678) (-1476) (-1468)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-651) (-643) (-1427) (-1405)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-873) (-865) (-1210) (-1188)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-843) (-753) (-1143) (-1111)) (wStrip Vs' Vb (i + (m0 + 8920)))).symm'),
-         trivial⟩,
-      trivial⟩,
-     ⟨⟨(fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-79) 11 625 659))),
-      Piece.indep_bundle _ _ _ _ _ _
-        ⟨(fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box 19 50 368 384) (Box (-94) 128 (-79) 132))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box 19 50 368 384) (Box (-5) 113 (-136) (-104)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-121) (-31) (-394) (-362)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box 19 50 368 384) (Box (-86) 49 (-332) (-296)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box 19 50 368 384) (Box (-3) 19 (-260) (-252)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-47) (-39) (-244) (-222)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-347) (-339) (-101) (-79)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-101) (-11) 189 221))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-560) (-528) (-587) (-497)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-498) (-466) (-552) (-462)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-274) (-252) (-806) (-798)))),
-         (fun _ _ => (Box.farApart (Or.inl (by norm_num)) : FarApart 2 (Box 19 50 368 384) (Box 463 471 (-69) (-47)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-29) 3 350 440))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-1100) (-1010) (-1100) (-1068)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-945) (-855) (-918) (-886)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-1395) (-1387) (-738) (-716)))),
-         (fun _ _ => (Box.farApart (Or.inl (by norm_num)) : FarApart 2 (Box 19 50 368 384) (Box 543 633 (-23) 9))),
-         (fun _ _ => (Box.farApart (Or.inl (by norm_num)) : FarApart 2 (Box 19 50 368 384) (Box 578 668 (-85) (-53)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-808) (-718) (-1402) (-1370)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-843) (-753) (-1464) (-1432)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-835) (-813) (-1489) (-1481)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-1329) (-1321) (-981) (-959)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-700) (-678) (-1476) (-1468)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-651) (-643) (-1427) (-1405)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-873) (-865) (-1210) (-1188)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box 19 50 368 384) (Box (-843) (-753) (-1143) (-1111)))),
-         trivial⟩,
-      trivial⟩,
-     ⟨⟨Piece.indep_bundle _ _ _ _ _ _
-        ⟨(fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 625 659) (Box (-94) 128 (-79) 132))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 625 659) (Box (-5) 113 (-136) (-104)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 625 659) (Box (-121) (-31) (-394) (-362)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 625 659) (Box (-86) 49 (-332) (-296)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 625 659) (Box (-3) 19 (-260) (-252)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 625 659) (Box (-47) (-39) (-244) (-222)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 625 659) (Box (-347) (-339) (-101) (-79)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 625 659) (Box (-101) (-11) 189 221))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 625 659) (Box (-560) (-528) (-587) (-497)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 625 659) (Box (-498) (-466) (-552) (-462)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 625 659) (Box (-274) (-252) (-806) (-798)))),
-         (fun _ _ => (Box.farApart (Or.inl (by norm_num)) : FarApart 2 (Box (-79) 11 625 659) (Box 463 471 (-69) (-47)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 625 659) (Box (-29) 3 350 440))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 625 659) (Box (-1100) (-1010) (-1100) (-1068)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 625 659) (Box (-945) (-855) (-918) (-886)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 625 659) (Box (-1395) (-1387) (-738) (-716)))),
-         (fun _ _ => (Box.farApart (Or.inl (by norm_num)) : FarApart 2 (Box (-79) 11 625 659) (Box 543 633 (-23) 9))),
-         (fun _ _ => (Box.farApart (Or.inl (by norm_num)) : FarApart 2 (Box (-79) 11 625 659) (Box 578 668 (-85) (-53)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 625 659) (Box (-808) (-718) (-1402) (-1370)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 625 659) (Box (-843) (-753) (-1464) (-1432)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 625 659) (Box (-835) (-813) (-1489) (-1481)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 625 659) (Box (-1329) (-1321) (-981) (-959)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 625 659) (Box (-700) (-678) (-1476) (-1468)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 625 659) (Box (-651) (-643) (-1427) (-1405)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 625 659) (Box (-873) (-865) (-1210) (-1188)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 625 659) (Box (-843) (-753) (-1143) (-1111)))),
-         trivial⟩,
-      trivial⟩,
-     ⟨trivial,
-     trivial⟩⟩⟩⟩)
-
-set_option maxRecDepth 100000 in
-/-- **Certificate** (segment 31, process 0). -/
-theorem dz2dC31_0 : Reaction dz2dA100 dz2dA101 28 (fun _ => Box (-79) 11 618 659) := by
-  rw [dz2dA100, dz2dA101]
-  life_reaction
-
-/-- End of a flight (segment 31, process 1). -/
-theorem dz2dF31_1e : translate (((7 : ℕ) : ℤ) * (-1), ((7 : ℕ) : ℤ) * 1) (conway.evolve 0 dz2dA102) = dz2dA103 := by
-  rw [Rule.evolve_zero, dz2dA102, translate_ofRows, dz2dA103]
-  norm_num
-
-/-- A flight (segment 31, process 1). -/
-theorem dz2dF31_1 :
-    Reaction dz2dA102 dz2dA103 28 (fun i => Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-362) + ((i / 4 : ℕ) : ℤ) * (-2)) ((-357) + ((i / 4 : ℕ) : ℤ) * (-2)) (398 + ((i / 4 : ℕ) : ℤ) * 0) (401 + ((i / 4 : ℕ) : ℤ) * 0)) :=
-  flight_reaction_xyuv dz2dA102_four dz2dA102_box dz2dA102_uv 7 0 dz2dF31_1e
-
-/-- Phase bookkeeping (segment 31). -/
-theorem dz2dH31 : (28 + 22) % 30 = 20 := by norm_num
-
-/-- The idle groups of segment 31 are pairwise far apart. -/
-theorem dz2dSub31 : ([dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] : List Piece).Pairwise Piece.Sep :=
-  List.Pairwise.sublist
-    (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ (List.Sublist.cons_cons _ List.Sublist.slnil))))))))))))))))))))))))))))
-    dz2dPieces_sep
-
-/-- The processes of segment 31 (generations 8662 to 8690 of the run). -/
-def dz2dL31 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
-    (hv : DiagValid regParams Vs Vb K q)
-    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))])) :
-    List (Proc 28) :=
-  [{ P := conway.evolve (m0 + 8962) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K), Q := conway.evolve (m0 + 8990) (diagW (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]) K),
-     F := fun i => wStrip Vs' Vb (i + (m0 + 8962)),
-     reaction := diagW_reaction hv' (m0 + 8962) 28 (m0 + 8990) (by ring) },
-   { P := dz2dA100, Q := dz2dA101, F := fun _ => Box (-79) 11 618 659, reaction := dz2dC31_0 },
-   { P := dz2dA102, Q := dz2dA103, F := fun i => Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1) ∩ UVBox ((-362) + ((i / 4 : ℕ) : ℤ) * (-2)) ((-357) + ((i / 4 : ℕ) : ℤ) * (-2)) (398 + ((i / 4 : ℕ) : ℤ) * 0) (401 + ((i / 4 : ℕ) : ℤ) * 0), reaction := dz2dF31_1 },
-   Piece.bundle [dz2dG0, dz2dG1, dz2dG2, dz2dG3, dz2dG4, dz2dG5, dz2dG6, dz2dG7, dz2dG8, dz2dG9, dz2dG10, dz2dG11, dz2dG12, dz2dG13, dz2dG14, dz2dG15, dz2dG16, dz2dG18, dz2dG19, dz2dG20, dz2dG21, dz2dG22, dz2dG23, dz2dG24, dz2dG25, dz2dG26, dz2dG27] dz2dSub31 22 28 20 dz2dH31]
-
-set_option maxRecDepth 100000 in
-/-- **Segment 31** of the run with the register diagonal. -/
-theorem dz2dSeg31 (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
-    (hv : DiagValid regParams Vs Vb K q)
-    (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]))
-    (hm : (m0 + 6555) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ))
-    (hVs' : -34 ≤ Vs' + 2 * (((m0 + 6555) / 4 : ℕ) : ℤ)) :
-    Reaction (Proc.start (dz2dL31 q K Vs Vb Vs' m0 hv hv'))
-      (Proc.stop (dz2dL31 q K Vs Vb Vs' m0 hv hv')) 28
-      (Proc.foot (dz2dL31 q K Vs Vb Vs' m0 hv hv')) :=
-  Reaction.parList _ (PairR.pairwise
-    ⟨⟨(fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-79) 11 618 659) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-      (fun i _hi => (FarApart.inter_left (farApart_box_wStrip_u (by omega))).symm'),
-      Piece.indep_bundle _ _ _ _ _ _
-        ⟨(fun i _hi => ((farApart_box_wStrip_v (by omega) (by omega)) : FarApart 2 (Box (-94) 128 (-79) 132) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-5) 113 (-136) (-104)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-121) (-31) (-394) (-362)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-86) 49 (-332) (-296)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-3) 19 (-260) (-252)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-47) (-39) (-244) (-222)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-347) (-339) (-101) (-79)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-101) (-11) 189 221) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-560) (-528) (-587) (-497)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-498) (-466) (-552) (-462)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-274) (-252) (-806) (-798)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 463 471 (-69) (-47)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-29) 3 350 440) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 28 50 376 384) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1100) (-1010) (-1100) (-1068)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-945) (-855) (-918) (-886)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1395) (-1387) (-738) (-716)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 543 633 (-23) 9) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box 578 668 (-85) (-53)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-808) (-718) (-1402) (-1370)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-843) (-753) (-1464) (-1432)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-835) (-813) (-1489) (-1481)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-1329) (-1321) (-981) (-959)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-700) (-678) (-1476) (-1468)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-651) (-643) (-1427) (-1405)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-873) (-865) (-1210) (-1188)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         (fun i _hi => ((farApart_box_wStrip_u (by omega)) : FarApart 2 (Box (-843) (-753) (-1143) (-1111)) (wStrip Vs' Vb (i + (m0 + 8962)))).symm'),
-         trivial⟩,
-      trivial⟩,
-     ⟨⟨(fun i _hi => (FarApart.inter_right (Box.farApart (by omega) : FarApart 2 (Box (-79) 11 618 659) (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1))))),
-      Piece.indep_bundle _ _ _ _ _ _
-        ⟨(fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 618 659) (Box (-94) 128 (-79) 132))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 618 659) (Box (-5) 113 (-136) (-104)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 618 659) (Box (-121) (-31) (-394) (-362)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 618 659) (Box (-86) 49 (-332) (-296)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 618 659) (Box (-3) 19 (-260) (-252)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 618 659) (Box (-47) (-39) (-244) (-222)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 618 659) (Box (-347) (-339) (-101) (-79)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 618 659) (Box (-101) (-11) 189 221))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 618 659) (Box (-560) (-528) (-587) (-497)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 618 659) (Box (-498) (-466) (-552) (-462)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 618 659) (Box (-274) (-252) (-806) (-798)))),
-         (fun _ _ => (Box.farApart (Or.inl (by norm_num)) : FarApart 2 (Box (-79) 11 618 659) (Box 463 471 (-69) (-47)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inr (Or.inr (by norm_num)))) : FarApart 2 (Box (-79) 11 618 659) (Box (-29) 3 350 440))),
-         (fun _ _ => (Box.farApart (Or.inl (by norm_num)) : FarApart 2 (Box (-79) 11 618 659) (Box 28 50 376 384))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 618 659) (Box (-1100) (-1010) (-1100) (-1068)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 618 659) (Box (-945) (-855) (-918) (-886)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 618 659) (Box (-1395) (-1387) (-738) (-716)))),
-         (fun _ _ => (Box.farApart (Or.inl (by norm_num)) : FarApart 2 (Box (-79) 11 618 659) (Box 543 633 (-23) 9))),
-         (fun _ _ => (Box.farApart (Or.inl (by norm_num)) : FarApart 2 (Box (-79) 11 618 659) (Box 578 668 (-85) (-53)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 618 659) (Box (-808) (-718) (-1402) (-1370)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 618 659) (Box (-843) (-753) (-1464) (-1432)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 618 659) (Box (-835) (-813) (-1489) (-1481)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 618 659) (Box (-1329) (-1321) (-981) (-959)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 618 659) (Box (-700) (-678) (-1476) (-1468)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 618 659) (Box (-651) (-643) (-1427) (-1405)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 618 659) (Box (-873) (-865) (-1210) (-1188)))),
-         (fun _ _ => (Box.farApart (Or.inr (Or.inl (by norm_num))) : FarApart 2 (Box (-79) 11 618 659) (Box (-843) (-753) (-1143) (-1111)))),
-         trivial⟩,
-      trivial⟩,
-     ⟨⟨Piece.indep_bundle _ _ _ _ _ _
-        ⟨(fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-94) 128 (-79) 132))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-5) 113 (-136) (-104)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-121) (-31) (-394) (-362)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-86) 49 (-332) (-296)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-3) 19 (-260) (-252)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-47) (-39) (-244) (-222)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-347) (-339) (-101) (-79)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-101) (-11) 189 221))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-560) (-528) (-587) (-497)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-498) (-466) (-552) (-462)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-274) (-252) (-806) (-798)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 463 471 (-69) (-47)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-29) 3 350 440))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 28 50 376 384))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1100) (-1010) (-1100) (-1068)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-945) (-855) (-918) (-886)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1395) (-1387) (-738) (-716)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 543 633 (-23) 9))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box 578 668 (-85) (-53)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-808) (-718) (-1402) (-1370)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1464) (-1432)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-835) (-813) (-1489) (-1481)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-1329) (-1321) (-981) (-959)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-700) (-678) (-1476) (-1468)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-651) (-643) (-1427) (-1405)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-873) (-865) (-1210) (-1188)))),
-         (fun i _hi => FarApart.inter_left (Box.farApart (by omega) : FarApart 2 (Box (19 + ((i / 4 : ℕ) : ℤ) * (-1)) (21 + ((i / 4 : ℕ) : ℤ) * (-1)) (378 + ((i / 4 : ℕ) : ℤ) * 1) (381 + ((i / 4 : ℕ) : ℤ) * 1)) (Box (-843) (-753) (-1143) (-1111)))),
          trivial⟩,
       trivial⟩,
      ⟨trivial,

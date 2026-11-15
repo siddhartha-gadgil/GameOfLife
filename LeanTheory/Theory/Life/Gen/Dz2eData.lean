@@ -6,6 +6,7 @@ Authors: LeanTheory contributors
 module
 
 public import LeanTheory.Theory.Life.DiagProc
+public import LeanTheory.Theory.Life.SalvoPhases
 
 /-!
 # Generated certificate `dz2e`: the pieces and configurations

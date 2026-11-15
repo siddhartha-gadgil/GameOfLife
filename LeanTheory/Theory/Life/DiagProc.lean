@@ -34,7 +34,7 @@ def diagW (q : List (Salvo × ℤ)) (K : ℤ) : Finset Cell :=
 
 /-- The strip of the register diagonal at the register, at generation `i`. -/
 def wStrip (Vs Vb : ℤ) (i : ℕ) : Set Cell :=
-  {c | -113 ≤ c.1 - c.2 ∧ c.1 - c.2 ≤ -70 ∧
+  {c | -113 ≤ c.1 - c.2 ∧ c.1 - c.2 ≤ -69 ∧
     min (Vs + 2 * ((i / 4 : ℕ) : ℤ)) Vb + 388 ≤ c.1 + c.2}
 
 /-- **Every generation of the register diagonal lies in its strip.** -/
@@ -62,7 +62,7 @@ theorem farApart_box_wStrip_v {a b lo hi Vs Vb : ℤ} {i : ℕ}
   rcases min_choice (Vs + 2 * ((i / 4 : ℕ) : ℤ)) Vb with hm | hm <;> rw [hm] at y3 <;> omega
 
 /-- A box in `x, y` outside the lanes of the strip is far from it. -/
-theorem farApart_box_wStrip_u {a b lo hi Vs Vb : ℤ} {i : ℕ} (h : b - lo + 4 < -113 ∨ -66 < a - hi) :
+theorem farApart_box_wStrip_u {a b lo hi Vs Vb : ℤ} {i : ℕ} (h : b - lo + 4 < -113 ∨ -65 < a - hi) :
     FarApart 2 (Box a b lo hi) (wStrip Vs Vb i) := by
   rintro x ⟨x1, x2, x3, x4⟩ y ⟨y1, y2, -⟩ ⟨n1, n2, n3, n4⟩
   push_cast at n1 n2 n3 n4
@@ -77,7 +77,7 @@ theorem farApart_uv_wStrip_v {U₁ U₂ V₁ V₂ Vs Vb : ℤ} {i : ℕ}
   rcases min_choice (Vs + 2 * ((i / 4 : ℕ) : ℤ)) Vb with hm | hm <;> rw [hm] at y3 <;> omega
 
 /-- A diagonal box outside the lanes of the strip is far from it. -/
-theorem farApart_uv_wStrip_u {U₁ U₂ V₁ V₂ Vs Vb : ℤ} {i : ℕ} (h : U₂ + 4 < -113 ∨ -66 < U₁) :
+theorem farApart_uv_wStrip_u {U₁ U₂ V₁ V₂ Vs Vb : ℤ} {i : ℕ} (h : U₂ + 4 < -113 ∨ -65 < U₁) :
     FarApart 2 (UVBox U₁ U₂ V₁ V₂) (wStrip Vs Vb i) := by
   rintro x ⟨x1, x2, -, -⟩ y ⟨y1, y2, -⟩ ⟨n1, n2, n3, n4⟩
   push_cast at n1 n2 n3 n4

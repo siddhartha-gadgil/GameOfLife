@@ -115,6 +115,7 @@ public import LeanTheory.Theory.Life.MergeSide
 public import LeanTheory.Theory.Life.Route
 public import LeanTheory.Theory.Life.Diagonal
 public import LeanTheory.Theory.Life.Salvos
+public import LeanTheory.Theory.Life.SalvoPhases
 public import LeanTheory.Theory.Life.Simulation
 public import LeanTheory.Theory.Life.LayoutLP
 public import LeanTheory.Theory.Life.Placed
@@ -124,6 +125,12 @@ public import LeanTheory.Theory.Life.UVBox
 public import LeanTheory.Theory.Life.DiagProc
 public import LeanTheory.Theory.Life.Gen.Dz2dRun
 public import LeanTheory.Theory.Life.Gen.Dz2eRun
+public import LeanTheory.Theory.Life.Gen.Dz2d1Run
+public import LeanTheory.Theory.Life.Gen.Dz2d2Run
+public import LeanTheory.Theory.Life.Gen.Dz2d3Run
+public import LeanTheory.Theory.Life.Gen.Dz2e1Run
+public import LeanTheory.Theory.Life.Gen.Dz2e2Run
+public import LeanTheory.Theory.Life.Gen.Dz2e3Run
 public import LeanTheory.Theory.Life.LayoutPieces
 public import LeanTheory.Theory.Life.MachineState
 public import LeanTheory.Theory.Life.ActivationInc
