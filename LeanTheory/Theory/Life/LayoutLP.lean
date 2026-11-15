@@ -102,6 +102,7 @@ def P (p : Program) : ℤ := numPreds p
 /-- The number `NB = 2 + N + R` of sub-bands reserved in the band. -/
 def NB (p : Program) : ℤ := 2 + N p + R p
 
+/-- `N ≥ 0`. -/
 theorem zero_le_N (p : Program) : 0 ≤ N p := by simp [N]
 
 /-- At least one register. -/
@@ -363,14 +364,19 @@ theorem A_add_le (p : Program) {a a' : ℤ} (h : a < a') : A p a + PU p ≤ A p 
 theorem U_succ (p : Program) (r : ℤ) : U p (r + 1) = U p r + PM p := by
   unfold U; ring
 
+/-- The unit pitch is `≡ 0 (mod 30)`. -/
 theorem PU_mod (p : Program) : PU p % 30 = 0 := by unfold PU; omega
 
+/-- The module pitch is `≡ 0 (mod 30)`. -/
 theorem PM_mod (p : Program) : PM p % 30 = 0 := by unfold PM; omega
 
+/-- The band top is `≡ 0 (mod 30)`. -/
 theorem VT_mod (p : Program) : VT p % 30 = 0 := by unfold VT; omega
 
+/-- The shift of module `0` is `≡ 0 (mod 30)`. -/
 theorem U0_mod (p : Program) : U0 p % 30 = 0 := by unfold U0; omega
 
+/-- The hairpin base is `≡ 0 (mod 30)`. -/
 theorem HI_mod (p : Program) : HI p % 30 = 0 := by unfold HI; omega
 
 /-- Every unit position is `≡ 0 (mod 30)`. -/
@@ -476,8 +482,10 @@ theorem sep09_inc (p : Program) {G e e' c c' : ℤ} (hG : 0 ≤ G) (he : 0 ≤ e
 
 /-! ### Arithmetic of the decJz token formulas (`R-31` §4.2) -/
 
+/-- `e_C ∈ [0, 14]`. -/
 theorem eC_bounds (q : ℤ) : 0 ≤ eC q ∧ eC q ≤ 14 := by unfold eC; omega
 
+/-- `σ ∈ {0, 2}`, in particular `σ ∈ [0, 2]`. -/
 theorem sigma_bounds (q : ℤ) : 0 ≤ sigma q ∧ sigma q ≤ 2 := by unfold sigma; omega
 
 /-- For `q ≥ 0` the quantity under the ceiling of `x` is positive, so `x` is the ceiling itself
@@ -810,7 +818,8 @@ every source `v`: none of the three concurrent links crosses another. Also the d
 verticals go down from the band (`BACK < v_port`) for `0 ≤ i < N`. -/
 theorem decJz_nested (p : Program) {i r j vN vC vZ : ℤ} (hi : 0 ≤ i ∧ i < N p)
     (hj : 0 ≤ j ∧ j < D p) :
-    NoCross (linkKNZ p i r j vN) (linkC p i r j vC) ∧ NoCross (linkC p i r j vC) (linkKNZ p i r j vN)
+    NoCross (linkKNZ p i r j vN) (linkC p i r j vC)
+      ∧ NoCross (linkC p i r j vC) (linkKNZ p i r j vN)
       ∧ NoCross (linkC p i r j vC) (linkKZ p i r j vZ)
       ∧ NoCross (linkKZ p i r j vZ) (linkC p i r j vC)
       ∧ (linkKNZ p i r j vN).back < (linkKNZ p i r j vN).vp
@@ -837,19 +846,31 @@ theorem decJz_nested (p : Program) {i r j vN vC vZ : ℤ} (hi : 0 ≤ i ∧ i < 
   have hb : ∀ s c, trackBack p (instrBand i) s c ≤ VT p + 660 * N p + 62 * 9 - 62 * s + 661 := by
     intro s c; unfold trackBack track instrBand; omega
   have hd := zAnsDepth_eq p j
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · exact (nested_no_crossing _ _ (by simp only [linkKNZ, linkC]; omega) (by simp only [linkKNZ, linkC]; omega)
-      (by simp only [linkKNZ, linkC]; omega) (by simp only [linkKNZ, linkC]; omega)
-      (by simp only [linkKNZ, linkC]; omega) (by simp only [linkKNZ, linkC]; omega)).1
-  · exact (nested_no_crossing _ _ (by simp only [linkKNZ, linkC]; omega) (by simp only [linkKNZ, linkC]; omega)
-      (by simp only [linkKNZ, linkC]; omega) (by simp only [linkKNZ, linkC]; omega)
-      (by simp only [linkKNZ, linkC]; omega) (by simp only [linkKNZ, linkC]; omega)).2
-  · exact (nested_no_crossing _ _ (by simp only [linkKZ, linkC]; omega) (by simp only [linkKZ, linkC]; omega)
-      (by simp only [linkKZ, linkC]; omega) (by simp only [linkKZ, linkC]; omega)
-      (by simp only [linkKZ, linkC]; omega) (by simp only [linkKZ, linkC]; omega)).1
-  · exact (nested_no_crossing _ _ (by simp only [linkKZ, linkC]; omega) (by simp only [linkKZ, linkC]; omega)
-      (by simp only [linkKZ, linkC]; omega) (by simp only [linkKZ, linkC]; omega)
-      (by simp only [linkKZ, linkC]; omega) (by simp only [linkKZ, linkC]; omega)).2
+  have a1 : (linkKNZ p i r j vN).out < (linkC p i r j vC).out := by
+    simp only [linkKNZ, linkC]; omega
+  have a2 : (linkC p i r j vC).out < (linkC p i r j vC).back := by simp only [linkC]; omega
+  have a3 : (linkC p i r j vC).back < (linkKNZ p i r j vN).back := by
+    simp only [linkKNZ, linkC]; omega
+  have a4 : (linkKNZ p i r j vN).hair < (linkC p i r j vC).hair := by
+    simp only [linkKNZ, linkC]; omega
+  have a5 : (linkKNZ p i r j vN).src < (linkC p i r j vC).src := by
+    simp only [linkKNZ, linkC]; omega
+  have a6 : (linkKNZ p i r j vN).dst < (linkC p i r j vC).dst := by
+    simp only [linkKNZ, linkC]; omega
+  have b1 : (linkC p i r j vC).out < (linkKZ p i r j vZ).out := by
+    simp only [linkKZ, linkC]; omega
+  have b2 : (linkKZ p i r j vZ).out < (linkKZ p i r j vZ).back := by simp only [linkKZ]; omega
+  have b3 : (linkKZ p i r j vZ).back < (linkC p i r j vC).back := by
+    simp only [linkKZ, linkC]; omega
+  have b4 : (linkC p i r j vC).hair < (linkKZ p i r j vZ).hair := by
+    simp only [linkKZ, linkC]; omega
+  have b5 : (linkC p i r j vC).src < (linkKZ p i r j vZ).src := by
+    simp only [linkKZ, linkC]; omega
+  have b6 : (linkC p i r j vC).dst < (linkKZ p i r j vZ).dst := by
+    simp only [linkKZ, linkC]; omega
+  have hA := nested_no_crossing _ _ a1 a2 a3 a4 a5 a6
+  have hB := nested_no_crossing _ _ b1 b2 b3 b4 b5 b6
+  refine ⟨hA.1, hA.2, hB.1, hB.2, ?_, ?_, ?_⟩
   · have := hb 0 (A p i + decL)
     simp only [linkKNZ]; unfold nzTokPortV NB modTop at *; omega
   · have := hb 1 (A p i + decR)

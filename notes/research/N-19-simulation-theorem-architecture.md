@@ -89,6 +89,15 @@ Verified so far with this method: the zero test `DZ2` for every register value (
   certificates of `R-31` are compiled**. Next: the layout formulas in Lean, the 17 separation
   inequalities and the nesting lemma, then the step theorem.
 
+* 2026-11-15: `LayoutLP.lean` (sub-agent, checked here): the layout formulas of `R-31` as functions of
+  a program and the 17 separation inequalities for every program and index, the nesting lemma, the
+  residues of the routes and the token formulas. Discrepancies with `R-31`: inequality #9 holds with
+  margin 61 (not 62); #13 is formalized as column separations between regions plus #4, #5, #9–#11;
+  the fitted residues of `R-31` are constants (only their consequences are proved); the program
+  analysis reproduces quirks of `p1_layout.py` (a non-halt last instruction; `NB` one larger than
+  needed). These are arithmetic facts about the formulas; linking them to the footprints of the
+  placed parts is part of the assembly.
+
 ## Barriers
 
 * Separation for every program (step 3) is the main proof burden; the layout may need to be
