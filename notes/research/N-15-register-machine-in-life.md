@@ -418,3 +418,7 @@ REG1's INC lane was occupied by DZ2's own restore glider; `R-29` moves one refle
 `G_I`, so the certified `DZ2` (`dz2k0Run_rest`, `dz2k1Run_rest`) is the standalone version and the
 shared register must be re-certified (the generator does this mechanically). Open: routing each
 instruction's fan-out to its tokens and chain inputs.
+
+**Modified `DZ2` certified (2026-11-15).** The version of `R-29` (gate `G_I`) replaces the
+standalone one in the library: `dz2mk1Run_rest` (k = 1, 46 segments) and `dz2mk0Run_rest` (k = 0,
+112 segments), `Theory/Life/Gen/Dz2mk*`. Regenerated mechanically by `scripts/life_cert`.

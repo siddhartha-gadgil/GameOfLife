@@ -53,6 +53,11 @@ def main():
     k = int(os.environ.get('DZ2_K', '1'))
     d = design()
     pieces = reg1_pieces() + frozen_pieces()[len(reg1_pieces()):] + [d['rfr']] + d['supply'] + d['zb']
+    if os.environ.get('DZ2_MOD'):
+        # the modified DZ2 of R-29 (reflector RF_C3' and gate G_I on REG1's INC lane)
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'life_route'))
+        import g11_inc_check as G11
+        pieces = list(G11.design(0)[0])
     Ts = 30 * ((int(time_at(d['ctrl'], (-1100, -1100))) - 400) // 30)
     t_end = (d['ci'][2] + 3570 + 1200) if k == 0 else (d['n1'][2] + 2400)
     N = 30 * ((t_end - Ts) // 30 + 1)
@@ -71,7 +76,7 @@ def main():
     act, segs, final = P.plan(groups, start, Ts, N, lambda t: cyc[(t - Ts) % 30], log)
     pickle.dump({'groups': [(g.name, g.kind, g.env, getattr(g, 'members', None)) for g in groups],
                  'k': k, 'Ts': Ts, 'N': N, 'pieces': pieces, 'act': act, 'segs': segs,
-                 'final': final}, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'results', 'dz2_plan_k%d.pkl' % k), 'wb'))
+                 'final': final}, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'results', 'dz2%s_plan_k%d.pkl' % ('m' if os.environ.get('DZ2_MOD') else '', k)), 'wb'))
     log('done: %d segments' % len(segs))
 
 
