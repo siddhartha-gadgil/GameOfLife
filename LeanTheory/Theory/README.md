@@ -57,6 +57,7 @@ These modules build on `Kernel/Life` (definitions only; there is no law).
 | `Register` | Pipelined operations on the block: `Op`, `launch`, `SpacedLaunch`, `pipeline` (salvos launched at least 13 cells apart act in order), `two_ops` |
 | `Register1`, `Register1Inc`, `Register1Ops` | The register `REG1`: one assembly (16 guns, 14 reflectors) serving one block with a decrement and an increment input; certified input reactions (3120 and 3570 generations); `reg1_decrement`, `reg1_increment` for every position; `salvo_quad_reaction` |
 | `DecJzLocal` | The zero test `DZ2` at the block (decrement from zero): the detector turns block `-1` into `dz2DetectorBlock` and passes every block `j ≥ 0` (`dz2Detector_pass`); the restore glider returns it to `-1`; `reg1_increment_neg_one` moves `-1` to `0` |
+| `Network` | Composition of many independent processes: `Proc`, `Reaction.parList` (pairwise far apart footprints), idle periodic pieces at any phase (`reaction_periodic_box`), a salvo on the block with a sharp moving footprint (`salvo_track_reaction`) |
 | `Reactions` | Reactions with footprints: `Reaction P Q n F`, parallel and sequential composition, placement; the block decrement rebuilt from these rules (`pull_reaction`) |
 
 ## Stability/ — comparison and energy methods
