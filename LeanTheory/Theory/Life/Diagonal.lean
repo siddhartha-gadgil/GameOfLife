@@ -22,7 +22,9 @@ other on the diagonal of a register fly independently while they are far apart.
   the previous one, flies for any number of generations;
 * `diag_strip`: **a block with a valid queue of salvos behind it stays, at every generation, in
   the strip of its diagonal** (induction over the queue: the front salvo and the block as one
-  process, the others in flight; when the front salvo is done the next one leads).
+  process, the others in flight; when the front salvo is done the next one leads);
+* `diag_step`, `diag_end`: one salvo after the other moves the block; after `diagTime` generations
+  the block is at its start moved by all the salvos (`qMove`), and stays there.
 -/
 
 @[expose] public section
@@ -350,5 +352,92 @@ theorem diag_strip (P : DiagParams) (hP : P.Good) : ∀ (n : ℕ) (q : List (Sal
       rw [show i = (i - (Kn * 4 + σ.n)) + (Kn * 4 + σ.n) by omega, Rule.evolve_add, hend]
       exact diag_strip P ⟨hg1, hg2, hg3, hg4, hU₁, hU₂⟩ (n - 1) _ _
         (by simp [shiftQ] at hlen ⊢; omega) hrest _
+
+/-- The sum of the moves of a queue. -/
+def qMove : List (Salvo × ℤ) → ℤ
+  | [] => 0
+  | (σ, _) :: q => σ.d + qMove q
+
+/-- The time until every salvo of a valid queue has arrived. -/
+def diagTime : ℤ → List (Salvo × ℤ) → ℕ
+  | _, [] => 0
+  | K, (σ, e) :: q => (K + e).toNat * 4 + σ.n + diagTime (K + σ.d) (shiftQ q (K + e + σ.n / 4))
+  termination_by _ q => q.length
+  decreasing_by simp [shiftQ]
+
+/-- The moves of a shifted queue are those of the queue. -/
+theorem qMove_shiftQ : ∀ (q : List (Salvo × ℤ)) (m : ℤ), qMove (shiftQ q m) = qMove q
+  | [], _ => rfl
+  | (σ, e) :: q, m => by
+    simp only [shiftQ, List.map_cons, qMove] at *
+    rw [← qMove_shiftQ q m]
+    rfl
+
+/-- **One step of the diagonal**: when the front salvo has done its work, the block has moved and
+the other salvos have come closer. -/
+theorem diag_step (P : DiagParams) (hP : P.Good) (σ : Salvo) (e K : ℤ) (q : List (Salvo × ℤ))
+    (hv : DiagValid P K ((σ, e) :: q)) :
+    conway.evolve ((K + e).toNat * 4 + σ.n) (flights ((σ, e) :: q) ∪ counter K) =
+      flights (shiftQ q (K + e + σ.n / 4)) ∪ counter (K + σ.d) := by
+  rw [DiagValid] at hv
+  obtain ⟨hKe, hn4, hA, hB, hZA, hN, hd, -, -, -, -, -, -, -, -, hbeh, -, -⟩ := hv
+  obtain ⟨hg1, hg2, hg3, hg4, -, -⟩ := hP
+  set Kn := (K + e).toNat with hKn
+  have hK : (Kn : ℤ) = K + e := Int.toNat_of_nonneg hKe
+  have hg0 : 0 ≤ P.g := by
+    have : (0 : ℤ) ≤ (P.N : ℤ) / 4 := by positivity
+    linarith
+  have hcfg : flights ((σ, e) :: q) ∪ counter K = (σ.at e ∪ counter K) ∪ flights q := by
+    rw [flights]; ac_rfl
+  have hsep : ∀ k < Kn * 4 + σ.n, FarApart 2 (frontFoot σ e K Kn k) (flightsFoot q k) := by
+    intro k hk
+    have hfl := flightsFoot_le hg0 q (e + P.g) hbeh k
+    have hk4 : ((k / 4 : ℕ) : ℤ) ≤ Kn + σ.n / 4 := by
+      have : k / 4 ≤ Kn + σ.n / 4 := by omega
+      exact_mod_cast this
+    refine (farApart_of_fst (X := P.B - (e + P.g) + ((k / 4 : ℕ) : ℤ)) hfl ?_).symm'
+    intro c hc
+    simp only [frontFoot] at hc
+    split_ifs at hc with h1 h2
+    · rcases hc with ⟨a1, -, -, -⟩ | ⟨a1, -, -, -⟩
+      · linarith
+      · have : ((k / 4 : ℕ) : ℤ) ≤ Kn := by
+          have : k / 4 ≤ Kn := by omega
+          exact_mod_cast this
+        linarith
+    · obtain ⟨a1, -, -, -⟩ := hc
+      have : ((σ.n : ℤ)) / 4 ≤ (P.N : ℤ) / 4 :=
+        Int.ediv_le_ediv (by norm_num) (by exact_mod_cast hN)
+      have : ((σ.n / 4 : ℕ) : ℤ) = (σ.n : ℤ) / 4 := by push_cast; ring_nf
+      linarith
+    · omega
+  have hpar := (show Reaction (σ.at e ∪ counter K) (conway.evolve (Kn * 4 + σ.n)
+      (σ.at e ∪ counter K)) (Kn * 4 + σ.n) (frontFoot σ e K Kn) from
+    ⟨rfl, fun j _ => σ.front_subset hK j⟩).par
+    (flights_reaction hg1 hg0 q (e + P.g) hbeh (Kn * 4 + σ.n)) hsep
+  rw [hcfg, hpar.evolve_eq, σ.front_end hK,
+    show Kn * 4 + σ.n = (Kn + σ.n / 4) * 4 by omega,
+    flights_evolve_mul hg1 hg0 q (e + P.g) hbeh (Kn + σ.n / 4), union_comm]
+  congr 2
+  push_cast
+  rw [hK]
+
+/-- **The value of a register**: once every salvo of a valid queue has arrived, the block is at its
+start moved by all the salvos, and stays there. -/
+theorem diag_end (P : DiagParams) (hP : P.Good) : ∀ (n : ℕ) (q : List (Salvo × ℤ)) (K : ℤ),
+    q.length = n → DiagValid P K q → ∀ j : ℕ,
+      conway.evolve (j + diagTime K q) (flights q ∪ counter K) = counter (K + qMove q)
+  | _, [], K, _, _, j => by
+    rw [diagTime, flights, empty_union, (counter_isStillLife K).evolve, qMove, add_zero]
+  | n, (σ, e) :: q, K, hlen, hv, j => by
+    have hstep := diag_step P hP σ e K q hv
+    rw [DiagValid] at hv
+    have hrest := hv.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2
+    rw [diagTime, show j + ((K + e).toNat * 4 + σ.n + diagTime (K + σ.d)
+        (shiftQ q (K + e + σ.n / 4))) = (j + diagTime (K + σ.d) (shiftQ q (K + e + σ.n / 4))) +
+        ((K + e).toNat * 4 + σ.n) by ring, Rule.evolve_add, hstep,
+      diag_end P hP (n - 1) _ _ (by simp [shiftQ] at hlen ⊢; omega) hrest j, qMove_shiftQ, qMove]
+    congr 1
+    ring
 
 end LeanTheory.Life

@@ -73,8 +73,10 @@ virtual salvo stays behind the others). The encoding of a register is this one t
 ## Progress
 
 * 2026-11-15: claim 1 (queue footprint) compiled: `diag_strip` (`Theory/Life/Diagonal.lean`), by
-  induction over the queue with symbolic arrival times. Next: claim 2 (value after all salvos) is
-  the same induction with `Salvo.front_end`; then the instances for the pull and push salvos.
+  induction over the queue with symbolic arrival times. Claim 2 compiled: `diag_step`, `diag_end`
+  (after `diagTime K q` generations the block is at `K + qMove q`). Next: the instances for the pull
+  and push salvos (`DiagParams`, the reaction of the pull extended to a multiple of 4), then the
+  probe lemma and the addition of a salvo (virtual start).
 
 ## Barriers
 
