@@ -60,6 +60,13 @@ Verified so far with this method: the zero test `DZ2` for every register value (
    cell is alive iff the machine halts (it lies outside every footprint of every step); the map
    from programs to window data is `Computable`; then `not_computablePred_everAlive_of_family`.
 
+## Progress
+
+* 2026-11-15: plan item 1 for the bare register circuit: `dz2gAll`, `dz2iAll` (every `k`).
+* 2026-11-15: plan item 2, first part: `chain_reaction` (`Theory/Life/Chain.lean`), a generic
+  induction for chains of relays, and `orChain` (`Theory/Life/MergeChain.lean`), the OR-gate merge
+  chain for every length. Side inputs, stations and routes next.
+
 ## Barriers
 
 * Separation for every program (step 3) is the main proof burden; the layout may need to be
