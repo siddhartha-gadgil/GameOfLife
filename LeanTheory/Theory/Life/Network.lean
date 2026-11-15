@@ -135,4 +135,116 @@ theorem salvo_track_reaction {S : Finset Cell} {a b lo hi za zb zlo zhi d : ℤ}
     refine ⟨?_, ?_, ?_, ?_⟩ <;> push_cast at * <;> omega
   · rw [image_add_box]
 
+/-! ### Checkable lists of conditions -/
+
+/-- `R a b` for every `b` in the list. A recursive conjunction, proved by an anonymous
+constructor on a concrete list. -/
+def AllR {α : Type*} (R : α → α → Prop) (a : α) : List α → Prop
+  | [] => True
+  | b :: l => R a b ∧ AllR R a l
+
+/-- `R a b` for every pair of the list, `a` before `b`. A recursive conjunction. -/
+def PairR {α : Type*} (R : α → α → Prop) : List α → Prop
+  | [] => True
+  | a :: l => AllR R a l ∧ PairR R l
+
+/-- The recursive conjunction gives membership. -/
+theorem AllR.forall {α : Type*} {R : α → α → Prop} {a : α} :
+    ∀ {l : List α}, AllR R a l → ∀ b ∈ l, R a b
+  | [], _, _, hb => by simp at hb
+  | _ :: _, ⟨h, hl⟩, _, hb => by
+    rcases List.mem_cons.1 hb with rfl | hb
+    · exact h
+    · exact AllR.forall hl _ hb
+
+/-- The recursive conjunction gives `List.Pairwise`. -/
+theorem PairR.pairwise {α : Type*} {R : α → α → Prop} :
+    ∀ {l : List α}, PairR R l → l.Pairwise R
+  | [], _ => List.Pairwise.nil
+  | _ :: _, ⟨h, hl⟩ => List.Pairwise.cons (AllR.forall h) (PairR.pairwise hl)
+
+/-! ### Periodic pieces and bundles of idle pieces -/
+
+/-- A piece of a circuit: a configuration of period `30` that stays in a box. -/
+structure Piece where
+  /-- The piece at rest, at the reference time. -/
+  rest : Finset Cell
+  /-- Left edge of the box. -/
+  a : ℤ
+  /-- Right edge of the box. -/
+  b : ℤ
+  /-- Top edge of the box. -/
+  lo : ℤ
+  /-- Bottom edge of the box. -/
+  hi : ℤ
+  /-- Period `30`, inside the box. -/
+  rest_reaction : Reaction rest rest 30 (fun _ => Box a b lo hi)
+
+/-- The box of a piece. -/
+def Piece.box (g : Piece) : Set Cell := Box g.a g.b g.lo g.hi
+
+/-- The piece idle for `n` generations from phase `s`, ending at phase `s' = (n + s) % 30`. -/
+def Piece.idle (g : Piece) (s n s' : ℕ) (h : (n + s) % 30 = s') : Proc n where
+  P := conway.evolve s g.rest
+  Q := conway.evolve s' g.rest
+  F := fun _ => g.box
+  reaction := by
+    have := reaction_periodic_box (by norm_num) g.rest_reaction.evolve_eq
+      (fun r hr => g.rest_reaction.subset r hr.le) s n
+    rwa [conway.evolve_mod_of_evolve_eq g.rest_reaction.evolve_eq (n + s), h] at this
+
+/-- Two pieces are separated: their boxes are far apart. -/
+def Piece.Sep (g h : Piece) : Prop := FarApart 2 g.box h.box
+
+/-- **A bundle of idle pieces** with pairwise separated boxes, as one process. -/
+def Piece.bundle (L : List Piece) (hL : L.Pairwise Piece.Sep) (s n s' : ℕ)
+    (h : (n + s) % 30 = s') : Proc n where
+  P := Proc.start (L.map fun g => g.idle s n s' h)
+  Q := Proc.stop (L.map fun g => g.idle s n s' h)
+  F := Proc.foot (L.map fun g => g.idle s n s' h)
+  reaction := Reaction.parList _ (List.pairwise_map.2 (hL.imp fun hgh _ _ => hgh))
+
+/-- A footprint far from the box of every piece of a list, at every generation before `n`. -/
+def FarFromAll (A : ℕ → Set Cell) (n : ℕ) : List Piece → Prop
+  | [] => True
+  | g :: L => (∀ i < n, FarApart 2 (A i) g.box) ∧ FarFromAll A n L
+
+/-- A process far from every box of a list of pieces is independent of their bundle. -/
+theorem Piece.indep_bundle {n : ℕ} (p : Proc n) (L : List Piece) (hL : L.Pairwise Piece.Sep)
+    (s s' : ℕ) (h : (n + s) % 30 = s') (hp : FarFromAll p.F n L) :
+    Proc.Indep p (Piece.bundle L hL s n s' h) := by
+  intro i hi
+  change FarApart 2 (p.F i) (Proc.foot (L.map fun g => g.idle s n s' h) i)
+  induction L with
+  | nil => exact FarApart.empty_right 2 _
+  | cons g L ih =>
+    exact FarApart.union_right (hp.1 i hi) (ih (List.pairwise_cons.1 hL).2 hp.2)
+
+/-! ### Flight with a box footprint -/
+
+/-- **Flight with a box footprint**: a pattern that moves by `(dx, dy)` every four generations
+and stays in a box during its first four generations flies for `n = 4 * q + r` generations, at
+every generation `i` inside the box moved by `(i / 4) • (dx, dy)`, and ends at `G'`. -/
+theorem flight_reaction {G G' : Finset Cell} {dx dy a b lo hi : ℤ}
+    (h4 : conway.evolve 4 G = translate (dx, dy) G)
+    (hB : ∀ r < 4, (conway.evolve r G : Set Cell) ⊆ Box a b lo hi) (q r : ℕ)
+    (hend : translate ((q : ℤ) * dx, (q : ℤ) * dy) (conway.evolve r G) = G') :
+    Reaction G G' (4 * q + r) (fun i => Box (a + ((i / 4 : ℕ) : ℤ) * dx)
+      (b + ((i / 4 : ℕ) : ℤ) * dx) (lo + ((i / 4 : ℕ) : ℤ) * dy)
+      (hi + ((i / 4 : ℕ) : ℤ) * dy)) := by
+  have h := reaction_flight_box' (by norm_num) h4 hB (4 * q + r)
+  refine ⟨?_, fun i hi c hc => ?_⟩
+  · rw [← hend, add_comm, Rule.evolve_add, mul_comm, conway.evolve_mul_of_evolve_eq_translate h4,
+      Rule.evolve_translate]
+    congr 1
+  · obtain ⟨d, ⟨h1, h2, h3, h4⟩, rfl⟩ := h.subset i hi hc
+    refine ⟨?_, ?_, ?_, ?_⟩ <;>
+      simp only [Prod.smul_fst, Prod.smul_snd, Prod.fst_add, Prod.snd_add, nsmul_eq_mul] <;> omega
+
+/-- Two consecutive segments: a reaction, an equality of configurations, a reaction. -/
+theorem Reaction.seq_eq {P Q Q' R : Finset Cell} {n m : ℕ} {F G : ℕ → Set Cell}
+    (h : Reaction P Q n F) (e : Q = Q') (h' : Reaction Q' R m G) :
+    Reaction P R (n + m) (fun i => if i ≤ n then F i else G (i - n)) :=
+  h.seq (e ▸ h')
+
 end LeanTheory.Life

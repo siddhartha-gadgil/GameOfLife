@@ -384,6 +384,16 @@ output in 11 490. Correction to `R-27`: its `O` crossed the register diagonal ne
 new `O` clears blocks `-1 … 600`. Frozen pieces unchanged (the certified block reactions of
 `DecJzLocal` stand). Not yet: reuse spacing; Lean certification of the assembly.
 
+**`DZ2` certified for k = 1 (2026-11-15).** A general method for large circuits: the run is cut
+into segments (`scripts/life_cert/plan.py`), each a list of processes (local certificates of the
+active groups, flights, still lifes, and one bundle of idle pieces) with pairwise far apart
+footprints (`Theory/Life/Network.lean`: `Reaction.parList`, `Piece.bundle`, `flight_reaction`),
+glued at the boundaries; the Lean is generated (`scripts/life_cert/emit.py`). Result:
+`dz2k1Run_rest` (`Theory/Life/Gen/Dz2k1Run.lean`): 11 490 generations of the whole circuit with
+the block at `1` end with the circuit at rest, the block at `0` and the NZ glider. Next: k = 0
+(the Z path, 27 540 generations) and the NZ case for every k (the block and the salvo as generic
+processes, the detector by `dz2Detector_pass`).
+
 ## Claims and evidence
 
 No claims beyond the sourced existence of Chapman's pattern.

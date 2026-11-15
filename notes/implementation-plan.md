@@ -443,6 +443,10 @@ There are no empirical inputs; every gate is a compiled proof.
   passed for 8656 declarations.
 - **2026-11-15 — `DZ2` complete** (search `R-28`, sub-agent): the whole decJz instruction from
   one control glider, no free inputs; exact simulation for k = 0, 1, 2, 3, 40, 100 (not Lean).
+- **2026-11-15 — `DZ2` certified for k = 1** (user request "keep working"). Network method
+  (`Network.lean`, generator `scripts/life_cert`), `dz2k1Run_rest`: the whole decJz circuit, 11 490
+  generations, 46 segments. `lake build` 3296 jobs, 0 warnings; axiom audit passed for 12 435
+  declarations. Parallel: search `R-29` (merge, dispatch, reuse) running.
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom
