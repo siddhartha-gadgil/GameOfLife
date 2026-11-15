@@ -1,0 +1,261 @@
+#!/usr/bin/env python3
+"""Emit `<Prefix>RunR.lean`: the footprint version of a generated run (research note N-22).
+
+Reads the generated files `Gen/<Prefix>Data.lean`, `Gen/<Prefix>Seg*.lean`, `Gen/<Prefix>Run.lean`
+and writes `Gen/<Prefix>RunR.lean` with
+
+* `<p>FootK`: every process of segment `K` stays in the region `U` (a box, together with the lanes
+  of the register diagonal `regLanes` for the runs with the diagonal);
+* `<p>RunR`: the run as a reaction with the constant footprint `U`;
+* `<final>R`: the final statement of the run (`<p>Run_rest` or `<p>Op`) as a reaction.
+
+Untrusted: Lean checks every statement.
+
+Usage: emit_runr.py PREFIX   (e.g. dz2d, bodyInc)
+"""
+import glob
+import os
+import re
+import sys
+
+GEN = os.path.join(os.path.dirname(__file__), '..', '..', 'LeanTheory', 'Theory', 'Life', 'Gen')
+
+
+def read(path):
+    with open(path) as f:
+        return f.read()
+
+
+def split_top(s):
+    """Split a list body at top-level commas."""
+    out, depth, cur = [], 0, []
+    for ch in s:
+        if ch in '([{⟨':
+            depth += 1
+        elif ch in ')]}⟩':
+            depth -= 1
+        if ch == ',' and depth == 0:
+            out.append(''.join(cur))
+            cur = []
+        else:
+            cur.append(ch)
+    if ''.join(cur).strip():
+        out.append(''.join(cur))
+    return [x.strip() for x in out]
+
+
+def match_close(s, i):
+    """Index of the bracket closing the one at `s[i]`."""
+    depth = 0
+    for j in range(i, len(s)):
+        if s[j] in '([{⟨':
+            depth += 1
+        elif s[j] in ')]}⟩':
+            depth -= 1
+            if depth == 0:
+                return j
+    raise ValueError('unbalanced')
+
+
+NUM = r'\(?(-?\d+)\)?'
+MOV = r'\(?\(?(-?\d+)\)? \+ \(\(i / 4 : ℕ\) : ℤ\) \* \(?(-?\d+)\)?\)'
+
+
+def parse_box(expr, n):
+    """Range of the `Box` part of a footprint over `i ≤ n`: (a, b, lo, hi, moving)."""
+    m = re.match(r'fun _ => Box ' + ' '.join([NUM] * 4) + r'\s*$', expr)
+    if m:
+        a, b, lo, hi = map(int, m.groups())
+        return (a, b, lo, hi, False)
+    m = re.match(r'fun i => Box ' + ' '.join([MOV] * 4), expr)
+    if m:
+        g = list(map(int, m.groups()))
+        q = n // 4
+        rng = []
+        for k in range(4):
+            c, d = g[2 * k], g[2 * k + 1]
+            rng.append((min(c, c + q * d), max(c, c + q * d)))
+        return (rng[0][0], rng[1][1], rng[2][0], rng[3][1], True)
+    return None
+
+
+def main():
+    p = sys.argv[1]
+    P = p[0].upper() + p[1:]
+    data = read(os.path.join(GEN, P + 'Data.lean'))
+    pieces = {}
+    for m in re.finditer(r'def (' + p + r'G\d+) : Piece :=\s*⟨\w+, ' + ', '.join([NUM] * 4), data):
+        pieces[m.group(1)] = tuple(map(int, m.groups()[1:]))
+    segs = {}
+    for f in glob.glob(os.path.join(GEN, P + 'Seg*.lean')):
+        txt = read(f)
+        for m in re.finditer(r'def (' + p + r'L(\d+))(.*?):\s*List \(Proc (\d+)\) :=\s*\n', txt,
+                             re.S):
+            k = int(m.group(2))
+            binders = m.group(3)
+            n = int(m.group(4))
+            st = txt.index('[', m.end())
+            body = txt[st + 1:match_close(txt, st)]
+            hm = re.search(r'theorem ' + p + 'Seg' + str(k) + r'\b(.*?):\s*\n?\s*Reaction', txt,
+                           re.S)
+            segs[k] = dict(binders=binders, n=n, procs=split_top(body),
+                           sbinders=hm.group(1) if hm else '')
+    run = read(os.path.join(GEN, P + 'Run.lean'))
+    diag = 'wStrip' in ''.join(''.join(s['procs']) for s in segs.values())
+    # region
+    A = B = LO = HI = None
+    for s in segs.values():
+        for pr in s['procs']:
+            if pr.startswith('Piece.bundle'):
+                names = re.findall(p + r'G\d+', pr[:pr.index(']')])
+                boxes = [pieces[x] for x in names]
+            else:
+                fm = re.search(r'F := (.*?),\s*reaction :=', pr, re.S)
+                fx = fm.group(1)
+                if 'wStrip' in fx:
+                    continue
+                bx = parse_box(fx, s['n'])
+                if bx is None:
+                    raise SystemExit('unknown footprint: ' + fx[:200])
+                boxes = [bx[:4]]
+            for (a, b, lo, hi) in boxes:
+                A = a if A is None else min(A, a)
+                B = b if B is None else max(B, b)
+                LO = lo if LO is None else min(LO, lo)
+                HI = hi if HI is None else max(HI, hi)
+    box = f'Box ({A}) ({B}) ({LO}) ({HI})'
+    region = f'({box} ∪ regLanes)' if diag else f'({box})'
+    sub = 'box_subset_union_left' if diag else 'box_subset_of'
+    out = []
+    out.append(f'''/-
+Copyright (c) 2026 LeanTheory contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: LeanTheory contributors
+-/
+module
+
+public import LeanTheory.Theory.Life.Gen.{P}Run
+public import LeanTheory.Theory.Life.RunFoot
+
+/-!
+# Generated: the footprint of the run `{p}`
+
+Generated by `scripts/life_cert/emit_runr.py` from the generated segments; the generator is
+untrusted, Lean checks every step. The whole run stays in\n`{region}`.
+-/
+
+@[expose] public section
+
+namespace LeanTheory.Life
+
+open Finset
+
+set_option linter.style.longLine false
+set_option linter.unusedVariables false
+''')
+    for k in sorted(segs):
+        s = segs[k]
+        n = s['n']
+        Largs = ' '.join(re.findall(r'\((\w+)(?: \w+)* :', s['binders']))
+        Lnames = []
+        bt = s['binders']
+        j = 0
+        while j < len(bt):
+            if bt[j] == '(':
+                e = match_close(bt, j)
+                Lnames += bt[j + 1:e].split(':')[0].split()
+                j = e + 1
+            else:
+                j += 1
+        Lcall = f'{p}L{k}' + (' ' + ' '.join(Lnames) if Lnames else '')
+        proofs = []
+        for pr in s['procs']:
+            if pr.startswith('Piece.bundle'):
+                names = re.findall(p + r'G\d+', pr[:pr.index(']')])
+                bs = []
+                for x in names:
+                    a, b, lo, hi = pieces[x]
+                    bs.append(f'{sub} (a := {a}) (b := {b}) (lo := {lo}) (hi := {hi}) '
+                              f'(by norm_num)')
+                proofs.append('fun i _ => Piece.bundle_F_subset (L := [' + ', '.join(names) + ']) ⟨' + ', '.join(bs) +
+                              ', trivial⟩ i')
+            else:
+                fx = re.search(r'F := (.*?),\s*reaction :=', pr, re.S).group(1)
+                if 'wStrip' in fx:
+                    proofs.append('fun i hi => (wStrip_subset_regLanes (by omega) (by omega)).trans '
+                                  'Set.subset_union_right')
+                else:
+                    bx = parse_box(fx, n)
+                    inter = '∩ UVBox' in fx
+                    core = f'{sub} (by omega)' if bx[4] else f'{sub} (by norm_num)'
+                    if inter:
+                        core = f'Set.inter_subset_left.trans ({core})'
+                    proofs.append(f'fun i hi => {core}')
+        out.append(f'''set_option maxRecDepth 100000 in
+/-- Every process of segment {k} stays in the region of the run. -/
+theorem {p}Foot{k}{s['sbinders'].rstrip()} :
+    FootIn (n := {n}) {region} ({Lcall}) :=
+  ⟨{(',' + chr(10) + '   ').join(proofs)},
+   trivial⟩
+''')
+    # the chain, from the Run proof
+    rm = re.search(r'theorem ' + p + r'Run\b(.*?):\s*\n?\s*conway\.evolve (\d+) \((Proc\.start [^)]*?|Proc\.start \([^)]*\))\) =\s*'
+                   r'(Proc\.stop .*?) := by', run, re.S)
+    runbinders, N = rm.group(1), int(rm.group(2))
+    start, stop = rm.group(3), rm.group(4).strip()
+    seqs = re.findall(r'(\(?' + p + r'Seg(\d+)( [^)]*)?\)?)\.evolve_eq', run)
+    gls = re.findall(r'(' + p + r'Gl(\d+)(?: [^,\]\n]*)?)[,\]]', run[rm.end():])
+    gls = [g for g in gls if 'Gl' in g[0]]
+    lens = re.search(r'show ' + str(N) + r' = ([0-9 +()]*) by norm_num', run).group(1)
+    lens = [int(x) for x in re.findall(r'\d+', lens)]
+    assert len(lens) == len(seqs) == len(gls) + 1, (len(lens), len(seqs), len(gls))
+    terms = []
+    for (call, k, args) in seqs:
+        c = f'{p}Seg{k}' + (args or '')
+        f = f'{p}Foot{k}' + (args or '')
+        terms.append(f'(Reaction.ofFootIn ({c}) ({f}))')
+    expr = terms[-1]
+    for i in range(len(terms) - 2, -1, -1):
+        expr = f'Reaction.seqC {terms[i]}\n    ({gls[i][0].strip()})\n    ({expr})'
+    out.append(f'''set_option maxRecDepth 100000 in
+/-- **The run with its footprint**: {N} generations inside the region of the run. -/
+theorem {p}RunR{runbinders.rstrip()} :
+    Reaction ({start}) ({stop}) {N} (fun _ => {region}) :=
+  Reaction.castN
+    ({expr})
+    (by norm_num)
+''')
+    # final statement
+    fm = re.search(r'(/--(?:(?!-/).)*?-/)\s*\ntheorem (' + p + r'(?:Run_rest|Op))\b(.*?):\s*\n\s*conway\.evolve '
+                   + str(N) + r'\s*', run, re.S)
+    name, fbinders = fm.group(2), fm.group(3)
+    i0 = fm.end()
+    assert run[i0] == '('
+    j0 = match_close(run, i0)
+    X = run[i0 + 1:j0]
+    rest = run[j0 + 1:]
+    em = re.match(r'\s*=\s*(.*?) := by\n(.*?)\n\nend', rest, re.S)
+    Y = em.group(1).strip()
+    prf = em.group(2)
+    hl = re.search(r'have h := ' + p + r'Run(.*?)\n', prf)
+    sm = re.search(r'(simp only \[.*?\] at h)', prf, re.S)
+    rw = re.search(r'rw \[(' + p + r'Rest)\]', prf)
+    out.append(f'''set_option maxRecDepth 100000 in
+/-- **`{name}` with its footprint**: the run stays in the region of the run. -/
+theorem {name}R{fbinders.rstrip()} :
+    Reaction ({X})
+      ({Y}) {N} (fun _ => {region}) := by
+  have h := {p}RunR{hl.group(1)}
+  {sm.group(1)}
+  rw [{rw.group(1)}]
+  refine h.congrPQ ?_ ?_ <;> ac_rfl
+
+end LeanTheory.Life
+''')
+    with open(os.path.join(GEN, P + 'RunR.lean'), 'w') as f:
+        f.write('\n'.join(out))
+    print(P + 'RunR.lean', region, 'segments', len(segs))
+
+
+if __name__ == '__main__':
+    main()
