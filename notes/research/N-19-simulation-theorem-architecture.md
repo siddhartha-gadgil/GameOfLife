@@ -84,6 +84,11 @@ Verified so far with this method: the zero test `DZ2` for every register value (
   `bodyDecRun_rest`): 22 of 25. Remaining: the register operations on the module of `R-31`, including
   a bridge for INC (the module drives `G_I` at side residue 8, `dz2iAll` at residue 1).
 
+* 2026-11-15: the INC operation with the layout's control (`dz2jAll`, replaces `dz2iAll`); with
+  `dz2gAll`, `dz2mk1Run_rest`, `dz2mk0Run_rest` (control `C'` as in the layout) **all 25 local
+  certificates of `R-31` are compiled**. Next: the layout formulas in Lean, the 17 separation
+  inequalities and the nesting lemma, then the step theorem.
+
 ## Barriers
 
 * Separation for every program (step 3) is the main proof burden; the layout may need to be

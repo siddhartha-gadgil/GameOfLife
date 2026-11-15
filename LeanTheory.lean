@@ -121,7 +121,7 @@ public import LeanTheory.Theory.Life.Gen.BodyDecRun
 public import LeanTheory.Theory.Life.Gen.Dz2mk1Run
 public import LeanTheory.Theory.Life.Gen.Dz2mk0Run
 public import LeanTheory.Theory.Life.Gen.Dz2gRun
-public import LeanTheory.Theory.Life.Gen.Dz2iRun
+public import LeanTheory.Theory.Life.Gen.Dz2jRun
 public import LeanTheory.Theory.Life.SalvoGenerator
 public import LeanTheory.Theory.Life.SlidingBlock
 public import LeanTheory.Theory.Life.ZeroTestLogic

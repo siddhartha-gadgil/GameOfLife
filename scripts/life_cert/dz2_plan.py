@@ -66,7 +66,7 @@ def main():
     ctrl = d['ctrl']
     if INC:
         # REG1's increment through the side input of G_I (R-29)
-        ctrl = ((1, -1), 1910, 6390)
+        ctrl = ((1, -1), 1910, int(os.environ.get('DZ2_INC_TAU', '6390')))
         Ts = 30 * ((int(time_at(ctrl, (-843, -1143))) - 200) // 30)
         N = 30 * (7000 // 30)
     groups = build_groups(pieces)
@@ -88,7 +88,7 @@ def main():
     act, segs, final = P.plan(groups, start, Ts, N, lambda t: cyc[(t - Ts) % 30], log)
     pickle.dump({'groups': [(g.name, g.kind, g.env, getattr(g, 'members', None)) for g in groups],
                  'k': k, 'Ts': Ts, 'N': N, 'pieces': pieces, 'act': act, 'segs': segs,
-                 'final': final}, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'results', 'dz2%s%s_plan_k%s.pkl' % ('m' if os.environ.get('DZ2_MOD') else '', 'inc' if os.environ.get('DZ2_OP') == 'inc' else '', 'nb' if NB else k)), 'wb'))
+                 'final': final}, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'results', 'dz2%s%s%s_plan_k%s.pkl' % ('m' if os.environ.get('DZ2_MOD') else '', 'inc' if os.environ.get('DZ2_OP') == 'inc' else '', os.environ.get('DZ2_INC_TAU', ''), 'nb' if NB else k)), 'wb'))
     log('done: %d segments' % len(segs))
 
 

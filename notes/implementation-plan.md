@@ -464,6 +464,9 @@ There are no empirical inputs; every gate is a compiled proof.
   axiom audit passed for 31 547 declarations. Note `N-19` records the plan of the simulation theorem.
 - **2026-11-15 — merge chains of every length** (`chain_reaction`, `orChain`). `lake build` 3326
   jobs, 0 warnings; axiom audit passed for 31 591 declarations.
+- **2026-11-15 — all 25 local certificates of the layout `R-31`** (reflector images, OR-gate relay
+  and side inputs, station facts, unit bodies, register operations `dz2gAll`, `dz2mk1Run_rest`,
+  `dz2mk0Run_rest`, `dz2jAll`), plus `Route`, `chain_side_reaction`.
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom
