@@ -173,6 +173,12 @@ public import LeanTheory.Theory.Life.ActivationIncPlan
 public import LeanTheory.Theory.Life.ActivationIncRegion
 public import LeanTheory.Theory.Life.Gen.RfEarly
 public import LeanTheory.Theory.Life.RouteSep
+public import LeanTheory.Theory.Life.RouteSep2
+public import LeanTheory.Theory.Life.RouteSep3
+public import LeanTheory.Theory.Life.RouteSep4
+public import LeanTheory.Theory.Life.RouteSep5
+public import LeanTheory.Theory.Life.RouteSep6
+public import LeanTheory.Theory.Life.RouteSep7
 public import LeanTheory.Theory.Life.StartFamily
 public import LeanTheory.Theory.Life.MainTheorem
 public import LeanTheory.Theory.Life.ActivationHalt

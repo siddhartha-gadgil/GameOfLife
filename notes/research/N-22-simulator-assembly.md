@@ -219,3 +219,12 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   first touches its reflector at `meetT − 12` / `− 10`, the outgoing last at `meetT + 30 / 32`.
   Open: `mergeLink_sep` starts at `T1 + 3` (gap of 3 generations to `sepM`); `entR` may fail for
   the merge unit at entry copy 0 (crude entry footprint vs the slab corner's reflector).
+* 2026-11-16: **route separation for every link** (`RouteSep.lean` … `RouteSep7.lean`, sub-agent,
+  checked here), in the satisfiable `RouteSepX` form, for every well-formed program and every delay
+  `d ≡ 0 (mod 30)`: `incLinks_sep` (continue and INC link), `mergeLink_sep'` (from `T1`),
+  `decLinks_sep` (KNZ, C, KZ; NZ and Z answers past their stations), `haltLink_sep`, `relay_ok`
+  (every corner's extended relay box far from all other pieces), `corner_gap61`, column ownership
+  (R-31 #13, the segment-vs-piece check). **Real defect found**: `IncSep.entR` is false for the
+  first `inc` on a register (merge unit, entry copy 0): the crude entry footprint `Box 0 90 (-6) 60`
+  overlaps the slab corner's reflector (x 0..7, y 54..60); a tighter certified footprint of the
+  side reaction of copy 0 is needed. Open: register strips (#14–#17), the other `IncSep` fields.
