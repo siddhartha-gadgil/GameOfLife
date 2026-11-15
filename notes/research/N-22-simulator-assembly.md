@@ -58,4 +58,9 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   with any queue of salvos in flight (the diagonal a generic process; the detector separated from
   every block at position `≥ 0` in `x + y`, `UVBox`); the pull salvo joins the queue
   (`diagW_add`) once past `REG1`. Station chains (`StationChain`), placed pieces (`Placed`), one
-  circuit for all operations (`RegisterCircuit`). Placements of the whole machine: sub-agent running.
+  circuit for all operations (`RegisterCircuit`). Placements of the whole machine: `LayoutPieces.lean` (sub-agent, checked here): `LP.machPieces`,
+  `LP.machPieces_sep` for every well-formed program (layers 1 and 2 done). Notes: Lean boxes slightly
+  larger than R-31's measured boxes (absorbed by the margins); module/template timing constants are
+  fitted formulas, cross-checked for `D, P ≤ 4`; several `halt` instructions are placed but their
+  dynamics is not yet addressed.
+* 2026-11-15: `diag_arrived` (zero case), `dz2eOp` (increment with the diagonal).

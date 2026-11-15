@@ -129,7 +129,7 @@ inductive Base where
   | eatNZ
   /-- The line-end eater Z. -/
   | eatZ
-  deriving Repr, DecidableEq
+  deriving Repr
 
 /-- The base piece. -/
 def Base.piece : Base → Piece
@@ -226,7 +226,6 @@ inductive CTag where
   | left (r idx : ℤ)
   /-- Right-zone corner `w` of caller `j` of module `r`. -/
   | right (r j : ℤ) (w : ℕ)
-  deriving DecidableEq
 
 /-- A corner of a route: the reflector image `k` with its corner point at `(u, v)`, and a tag
 naming the place of the corner in the layout (used by the separation proof only). -/
@@ -691,7 +690,8 @@ theorem unitD_uv (p : Program) (a : ℕ) :
   unfold unitDX unitDY; omega
 
 /-- The module translation in `uv`: `dx - dy = U_r`, `dx + dy = 0`. -/
-theorem modD_uv (p : Program) (r : ℕ) : modDX p r - modDY p r = U p r ∧ modDX p r + modDY p r = 0 := by
+theorem modD_uv (p : Program) (r : ℕ) :
+    modDX p r - modDY p r = U p r ∧ modDX p r + modDY p r = 0 := by
   have := U_even p r
   unfold modDX modDY; omega
 
@@ -833,7 +833,10 @@ theorem dz2g_facts (i : ℕ) (hi : i < 28) :
       BoxT.Far ⟨(Base.dz2g i).piece.a, (Base.dz2g i).piece.b, (Base.dz2g i).piece.lo,
         (Base.dz2g i).piece.hi⟩ ⟨-1132, -1042, -1291, -1259⟩ := by
   interval_cases i <;>
-    simp only [Base.piece, dz2gPieces, dz2gG0, dz2gG1, dz2gG2, dz2gG3, dz2gG4, dz2gG5, dz2gG6, dz2gG7, dz2gG8, dz2gG9, dz2gG10, dz2gG11, dz2gG12, dz2gG13, dz2gG14, dz2gG15, dz2gG16, dz2gG17, dz2gG18, dz2gG19, dz2gG20, dz2gG21, dz2gG22, dz2gG23, dz2gG24, dz2gG25, dz2gG26, dz2gG27, List.getD_cons_zero, List.getD_cons_succ,
+    simp only [Base.piece, dz2gPieces, dz2gG0, dz2gG1, dz2gG2, dz2gG3, dz2gG4, dz2gG5, dz2gG6,
+      dz2gG7, dz2gG8, dz2gG9, dz2gG10, dz2gG11, dz2gG12, dz2gG13, dz2gG14, dz2gG15, dz2gG16,
+      dz2gG17, dz2gG18, dz2gG19, dz2gG20, dz2gG21, dz2gG22, dz2gG23, dz2gG24, dz2gG25, dz2gG26,
+      dz2gG27, List.getD_cons_zero, List.getD_cons_succ,
       BoxT.Far] <;> norm_num
 
 /-- The groups of the register circuit are the generated `dz2gPieces`. -/
@@ -918,7 +921,8 @@ theorem moduleSpecs_cls (p : Program) (r : ℕ) {s : PSpec} (hs : s ∈ moduleSp
 
 /-- Membership in the DEC chain. -/
 theorem mem_decChainSpecs {n : ℕ} {dx dy : ℤ} {s : PSpec} (h : s ∈ decChainSpecs n dx dy) :
-    ∃ m < n, s = ⟨.orGate, dx - 1700 - 35 * (m : ℤ), dy - 1727 - 64 * (m : ℤ), (15 + 14 * m) % 30⟩ := by
+    ∃ m < n,
+      s = ⟨.orGate, dx - 1700 - 35 * (m : ℤ), dy - 1727 - 64 * (m : ℤ), (15 + 14 * m) % 30⟩ := by
   unfold decChainSpecs at h
   obtain ⟨m, hm, rfl⟩ := List.mem_map.1 h
   exact ⟨m, List.mem_range.1 hm, rfl⟩
@@ -966,6 +970,11 @@ theorem base_boxes :
       Base.eatZ.piece.hi = -475 := by
   simp [Base.piece, orGateP, rfP, eatNZEndP, eatZEndP]
 
+/-- A list of three elements is pairwise related iff its three pairs are. -/
+theorem pairwise_three {α : Type*} {R : α → α → Prop} {a b c : α} :
+    [a, b, c].Pairwise R ↔ R a b ∧ R a c ∧ R b c := by
+  simp [List.pairwise_cons, and_assoc]
+
 /-- **The pieces of a module are pairwise separated.** -/
 theorem moduleSpecs_sep (p : Program) (r : ℕ) :
     (moduleSpecs p r).Pairwise fun s t => Piece.Sep s.piece t.piece := by
@@ -1005,9 +1014,9 @@ theorem moduleSpecs_sep (p : Program) (r : ℕ) :
   next =>
     refine pairwise_flatMap_lt List.pairwise_lt_range (fun j _ => ?_) ?_
     · unfold groupSpecs
-      simp only [List.map_cons, List.map_nil, List.pairwise_cons, List.mem_cons,
-        List.not_mem_nil, or_false, forall_eq_or_imp, forall_eq, List.Pairwise.nil, and_true]
-      refine ⟨⟨?_, ?_⟩, ?_⟩ <;> refine PSpec.sep_of_far ?_ <;>
+      simp only [List.map_cons, List.map_nil]
+      rw [pairwise_three]
+      refine ⟨?_, ?_, ?_⟩ <;> refine PSpec.sep_of_far ?_ <;>
         simp only [PSpec.bx_mk, BoxT.Far, Base.piece, stNZ0P, stNZ1P, stNZ2P,
           List.getD_cons_zero, List.getD_cons_succ] <;> omega
     · intro j _ j' _ hjj x hx y hy
@@ -1039,9 +1048,9 @@ theorem moduleSpecs_sep (p : Program) (r : ℕ) :
   next =>
     refine pairwise_flatMap_lt List.pairwise_lt_range (fun j _ => ?_) ?_
     · unfold groupSpecs
-      simp only [List.map_cons, List.map_nil, List.pairwise_cons, List.mem_cons,
-        List.not_mem_nil, or_false, forall_eq_or_imp, forall_eq, List.Pairwise.nil, and_true]
-      refine ⟨⟨?_, ?_⟩, ?_⟩ <;> refine PSpec.sep_of_far ?_ <;>
+      simp only [List.map_cons, List.map_nil]
+      rw [pairwise_three]
+      refine ⟨?_, ?_, ?_⟩ <;> refine PSpec.sep_of_far ?_ <;>
         simp only [PSpec.bx_mk, BoxT.Far, Base.piece, stZ0P, stZ1P, stZ2P,
           List.getD_cons_zero, List.getD_cons_succ] <;> omega
     · intro j _ j' _ hjj x hx y hy
@@ -1094,6 +1103,1072 @@ theorem moduleSpecs_sep (p : Program) (r : ℕ) :
       | (obtain ⟨j', hj', i', hi', rfl⟩ := mem_stationZSpecs hx
          have := stZ_cases i' hi'
          simp only [PSpec.bx_mk, BoxT.Far]; omega)
+
+/-- **Region of a module**: every piece of module `r` lies in `u ∈ [U_r - 738, U_r + 1350 + 144 D]`,
+`v ∈ [-3328 - 198 D, 1379 + 144 D]`, and left of `u = U_r + 800` or above `v = 700`. -/
+theorem moduleSpecs_uv (p : Program) (r : ℕ) {s : PSpec} (hs : s ∈ moduleSpecs p r) :
+    s.bx.InUV (U p r - 738) (U p r + 1350 + 144 * D p) (-3328 - 198 * D p) (1379 + 144 * D p) ∧
+      (s.bx.b - s.bx.lo ≤ U p r + 800 ∨ s.bx.b + s.bx.hi ≤ 700) := by
+  have hb := base_boxes
+  have hD : (D p) = (numCallers p : ℤ) := rfl
+  have hD1 := one_le_D p
+  have hm := modD_uv p r
+  rcases moduleSpecs_cls p r hs with ⟨i, ph, hi⟩ | ph | ph | ⟨m, ph, hm'⟩ | ⟨i, j, ph, hi, hj⟩ |
+    ⟨i, j, ph, hi, hj⟩ | ph | ph
+  · have := dz2g_facts i hi
+    simp only [PSpec.bx_mk, BoxT.InUV]; omega
+  · simp only [PSpec.bx_mk, BoxT.InUV]; omega
+  · simp only [PSpec.bx_mk, BoxT.InUV]; omega
+  · simp only [PSpec.bx_mk, BoxT.InUV]; omega
+  · have := stNZ_cases i hi
+    simp only [PSpec.bx_mk, BoxT.InUV]; omega
+  · have := stZ_cases i hi
+    simp only [PSpec.bx_mk, BoxT.InUV]; omega
+  · simp only [PSpec.bx_mk, BoxT.InUV]; omega
+  · simp only [PSpec.bx_mk, BoxT.InUV]; omega
+
+/-- `U` is increasing: `r < r' → U_r + P_M ≤ U_{r'}`. -/
+theorem U_add_le (p : Program) {r r' : ℤ} (h : r < r') : U p r + PM p ≤ U p r' := by
+  have hD := one_le_D p
+  have : U p r' - U p r = PM p * (r' - r) := by unfold U; ring
+  have h1 : (0 : ℤ) ≤ PM p := by unfold PM; omega
+  nlinarith
+
+/-- **Modules `r < r'` are separated.** -/
+theorem moduleSpecs_cross (p : Program) {r r' : ℕ} (h : r < r') {s t : PSpec}
+    (hs : s ∈ moduleSpecs p r) (ht : t ∈ moduleSpecs p r') : Piece.Sep s.piece t.piece := by
+  have h1 := (moduleSpecs_uv p r hs).1
+  have h2 := (moduleSpecs_uv p r' ht).1
+  have hU := U_add_le p (r := r) (r' := r') (by exact_mod_cast h)
+  have hD := one_le_D p
+  refine PSpec.sep_of_far (BoxT.far_of_uv h1 h2 (Or.inl ?_))
+  unfold PM at hU; omega
+
+/-- **The pieces of all modules are pairwise separated.** -/
+theorem modulesPart_sep (p : Program) :
+    (modulesPart p).Pairwise fun s t => Piece.Sep s.piece t.piece :=
+  pairwise_flatMap_lt List.pairwise_lt_range (fun r _ => moduleSpecs_sep p r)
+    fun _ _ _ _ h _ hs _ ht => moduleSpecs_cross p h hs ht
+
+/-- Units are numbered below `N + R`. -/
+theorem mem_unitsPart {p : Program} {s : PSpec} (hs : s ∈ unitsPart p) :
+    ∃ a < p.length + numRegs p, s ∈ unitSpecs p a := by
+  obtain ⟨a, ha, hs⟩ := List.mem_flatMap.1 hs
+  exact ⟨a, List.mem_range.1 (List.mem_filter.1 ha).1, hs⟩
+
+/-- Modules are numbered below `R`. -/
+theorem mem_modulesPart {p : Program} {s : PSpec} (hs : s ∈ modulesPart p) :
+    ∃ r < numRegs p, s ∈ moduleSpecs p r := by
+  obtain ⟨r, hr, hs⟩ := List.mem_flatMap.1 hs
+  exact ⟨r, List.mem_range.1 hr, hs⟩
+
+/-- **Units and modules are separated** (`R-31` #6). -/
+theorem units_modules_sep (p : Program) {s t : PSpec} (hs : s ∈ unitsPart p)
+    (ht : t ∈ modulesPart p) : Piece.Sep s.piece t.piece := by
+  obtain ⟨a, ha, hs⟩ := mem_unitsPart hs
+  obtain ⟨r, hr, ht⟩ := mem_modulesPart ht
+  have h1 := unitSpecs_uv p a hs
+  have h2 := (moduleSpecs_uv p r ht).1
+  have h6 := (sep06_units_module0 p (a := a) (by unfold N R; omega)).1
+  have hU : U0 p ≤ U p r := by
+    have := one_le_D p
+    unfold U PM; nlinarith
+  have hD := one_le_D p
+  refine PSpec.sep_of_far (BoxT.far_of_uv h1 h2 (Or.inl ?_))
+  unfold U slabR modLeft at *; omega
+
+/-! ### Combinatorics of the links: predecessor and caller numbers -/
+
+/-- Every element of a list is at most its `foldr max 0`. -/
+theorem le_foldr_max {l : List ℕ} {x : ℕ} (h : x ∈ l) : x ≤ l.foldr max 0 := by
+  induction l with
+  | nil => simp at h
+  | cons y l ih =>
+    rcases List.mem_cons.1 h with rfl | h
+    · exact le_max_left _ _
+    · exact le_trans (ih h) (le_max_right _ _)
+
+/-- One more instruction adds its contribution to the predecessor count. -/
+theorem predBefore_succ (p : Program) (a i : ℕ) :
+    predBefore p a (i + 1) = predBefore p a i + (p[i]?.map (predContrib p.length a i)).getD 0 := by
+  unfold predBefore
+  rw [List.range_succ, List.map_append, List.sum_append]
+  simp
+
+/-- The predecessor count before `i` is monotone in `i`. -/
+theorem predBefore_mono (p : Program) (a : ℕ) {i i' : ℕ} (h : i ≤ i') :
+    predBefore p a i ≤ predBefore p a i' := by
+  induction h with
+  | refl => exact le_rfl
+  | step _ ih => rw [predBefore_succ]; omega
+
+/-- **Predecessor numbers increase with the instruction** (`C1`): a link of instruction `i` into
+`a` (its number `off` below the contribution of `i` to `a`) comes before every link of a later
+instruction. -/
+theorem predIdx_lt (p : Program) {a i i' off off' : ℕ} {ins : Instr} (hi : p[i]? = some ins)
+    (hoff : off < predContrib p.length a i ins) (hii : i < i') :
+    predIdx p a i off < predIdx p a i' off' := by
+  have h1 := predBefore_succ p a i
+  have h2 := predBefore_mono p a (show i + 1 ≤ i' by omega)
+  rw [hi] at h1
+  simp only [Option.map_some, Option.getD_some] at h1
+  unfold predIdx; push_cast; omega
+
+/-- `predCount` is the start plus the contributions of all instructions. -/
+theorem predCount_eq (p : Program) (a : ℕ) :
+    predCount p a = (if a = 0 then 1 else 0) + predBefore p a p.length := rfl
+
+/-- **Predecessor numbers are below `P`** (`C2`). -/
+theorem predIdx_lt_P (p : Program) {a i off : ℕ} {ins : Instr} (hi : p[i]? = some ins)
+    (hoff : off < predContrib p.length a i ins) (ha : a < p.length + numRegs p) :
+    predIdx p a i off < P p := by
+  have h1 := predBefore_succ p a i
+  have hlt : i < p.length := (List.getElem?_eq_some_iff.1 hi).1
+  have h2 := predBefore_mono p a (show i + 1 ≤ p.length by omega)
+  rw [hi] at h1
+  simp only [Option.map_some, Option.getD_some] at h1
+  have h3 : predCount p a ≤ numPreds p := by
+    unfold numPreds
+    exact le_trans (le_foldr_max (List.mem_map.2 ⟨a, List.mem_range.2 ha, rfl⟩))
+      (le_max_right _ _)
+  rw [predCount_eq] at h3
+  unfold predIdx P; push_cast; split_ifs at * <;> omega
+
+/-- The caller count before `i + 1`. -/
+theorem callerIdx_succ (p : Program) (r i : ℕ) :
+    callerIdx p r (i + 1) = callerIdx p r i + ((p[i]?.toList).filter (isDecOn r)).length := by
+  unfold callerIdx
+  rw [List.take_add_one, List.filter_append, List.length_append]
+
+/-- The caller count is monotone. -/
+theorem callerIdx_mono (p : Program) (r : ℕ) {i i' : ℕ} (h : i ≤ i') :
+    callerIdx p r i ≤ callerIdx p r i' := by
+  induction h with
+  | refl => exact le_rfl
+  | step _ ih => rw [callerIdx_succ]; omega
+
+/-- A `decJz` on `r` counts as a caller. -/
+theorem callerIdx_succ_dec (p : Program) {r i z : ℕ} (hi : p[i]? = some (.decJz r z)) :
+    callerIdx p r (i + 1) = callerIdx p r i + 1 := by
+  rw [callerIdx_succ, hi]
+  simp [isDecOn]
+
+/-- **Caller numbers increase** (`C3`). -/
+theorem callerIdx_lt (p : Program) {r i i' z : ℕ} (hi : p[i]? = some (.decJz r z)) (h : i < i') :
+    callerIdx p r i < callerIdx p r i' := by
+  have := callerIdx_succ_dec p hi
+  have := callerIdx_mono p r (show i + 1 ≤ i' by omega)
+  omega
+
+/-- The register of an instruction is below `R` (`C5`). -/
+theorem reg_lt_R (p : Program) {i : ℕ} {ins : Instr} (hi : p[i]? = some ins) :
+    regBound ins ≤ numRegs p := by
+  unfold numRegs
+  refine le_trans (le_foldr_max (List.mem_map.2 ⟨ins, ?_, rfl⟩)) (le_max_right _ _)
+  exact List.mem_of_getElem? hi
+
+/-- **Caller numbers are below `D`** (`C4`). -/
+theorem callerIdx_lt_D (p : Program) {r i z : ℕ} (hi : p[i]? = some (.decJz r z)) :
+    callerIdx p r i < numCallers p := by
+  have hR := reg_lt_R p hi
+  simp only [regBound] at hR
+  have hlt : i < p.length := (List.getElem?_eq_some_iff.1 hi).1
+  have h1 := callerIdx_succ_dec p hi
+  have h2 := callerIdx_mono p r (show i + 1 ≤ p.length by omega)
+  have h3 : callerIdx p r p.length = decCount p r := by
+    unfold callerIdx decCount; rw [List.take_length]
+  have h4 : decCount p r ≤ numCallers p := by
+    unfold numCallers
+    exact le_trans (le_foldr_max (List.mem_map.2 ⟨r, List.mem_range.2 (by omega), rfl⟩))
+      (le_max_right _ _)
+  omega
+
+/-- In a well-formed program an instruction other than `halt` is not the last (`C6`). -/
+theorem succ_lt_of_wf {p : Program} (hp : p.WellFormed) {i : ℕ} {ins : Instr}
+    (hi : p[i]? = some ins) (hne : ins ≠ .halt) : i + 1 < p.length := by
+  have hlast : p[p.length - 1]? = some .halt := by
+    rw [← List.getLast?_eq_getElem?]; exact hp.2
+  have hlt : i < p.length := (List.getElem?_eq_some_iff.1 hi).1
+  by_contra hcon
+  have : i = p.length - 1 := by omega
+  rw [this, hlast] at hi
+  exact hne (Option.some.inj hi).symm
+
+/-- In a well-formed program every jump target is an instruction (`C6`). -/
+theorem jump_lt_of_wf {p : Program} (hp : p.WellFormed) {i r z : ℕ}
+    (hi : p[i]? = some (.decJz r z)) : z < p.length :=
+  hp.1 r z (List.mem_of_getElem? hi)
+
+/-! ### Route corners: boxes, places, separation -/
+
+/-- The reflector of a corner as a spec (phase `0`; the box does not depend on the phase). -/
+def cornerSpec (c : Corner) : PSpec := ⟨.rf c.k, rfX c.k c.u c.v, rfY c.k c.u c.v, 0⟩
+
+/-- The reflectors of a route have the boxes of its corners. -/
+theorem route_bx (g : WL) (cs : List Corner) :
+    (route g cs).1.map PSpec.bx = cs.map fun c => (cornerSpec c).bx := by
+  induction cs generalizing g with
+  | nil => rfl
+  | cons c cs ih =>
+    simp only [route, List.map_cons, ih]
+    rfl
+
+/-- **The box of a corner**: within `25` of the corner point in `u`, within `[-24, 27]` in `v`. -/
+theorem corner_uv (c : Corner) :
+    (cornerSpec c).bx.InUV (c.u - 25) (c.u + 25) (c.v - 24) (c.v + 27) := by
+  obtain ⟨k, u, v, tag⟩ := c
+  simp only [cornerSpec, PSpec.bx_mk, BoxT.InUV, rfX, rfY]
+  match k with
+  | 0 => simp only [Base.piece, rfP, rfCU, rfCV]; omega
+  | 1 => simp only [Base.piece, rfP, rfCU, rfCV]; omega
+  | 2 => simp only [Base.piece, rfP, rfCU, rfCV]; omega
+  | 3 => simp only [Base.piece, rfP, rfCU, rfCV]; omega
+  | 4 => simp only [Base.piece, rfP, rfCU, rfCV]; omega
+  | 5 => simp only [Base.piece, rfP, rfCU, rfCV]; omega
+  | 6 => simp only [Base.piece, rfP, rfCU, rfCV]; omega
+  | n + 7 =>
+    have h2 : rfCU (n + 7) = 15 := by cases n <;> rfl
+    have h3 : rfCV (n + 7) = -24 := by cases n <;> rfl
+    simp only [Base.piece, h2, h3, rfP]; omega
+
+/-- Corners `56` apart in `u` or `57` apart in `v` have far reflectors. -/
+theorem corner_far {c c' : Corner}
+    (h : c.u + 56 ≤ c'.u ∨ c'.u + 56 ≤ c.u ∨ c.v + 57 ≤ c'.v ∨ c'.v + 57 ≤ c.v) :
+    (cornerSpec c).bx.Far (cornerSpec c').bx :=
+  BoxT.far_of_uv (corner_uv c) (corner_uv c') (by omega)
+
+/-- `C0` of a unit is one of `-237`, `-91`, `-67`. -/
+theorem unitC0_cases (p : Program) (a : ℕ) :
+    unitC0 p a = -237 ∨ unitC0 p a = -91 ∨ unitC0 p a = -67 := by
+  unfold unitC0; cases unitKind p a <;> simp [UKind.C0, C0dec, C0inc, C0halt]
+
+/-- The input columns of a unit are `≥ 31` left of its pieces. -/
+theorem unitC0_uLo (p : Program) (a : ℕ) : unitC0 p a + 31 ≤ (unitKind p a).uLo := by
+  unfold unitC0; cases unitKind p a <;> simp [UKind.C0, C0dec, C0inc, C0halt, UKind.uLo]
+
+/-- **The place of a corner is valid**: its point lies where its tag says (linear constraints in
+the parameters of `LP`). -/
+def Valid (p : Program) (c : Corner) : Prop :=
+  match c.tag with
+  | .band b k h => 1 ≤ b ∧ b ≤ N p + R p ∧ 0 ≤ k ∧ k ≤ 9 ∧ VT p + 660 * b + 62 * k ≤ c.v ∧
+      c.v ≤ VT p + 660 * b + 62 * k + 1 ∧ (h = true → c.u ≤ HI p + 360) ∧
+      (h = false → slabL p + 30 ≤ c.u)
+  | .halt a => 0 ≤ a ∧ a < N p ∧ c.u = A p a + 14 ∧ VT p ≤ c.v ∧ c.v ≤ VT p + 1
+  | .slab a t => 0 ≤ a ∧ a < N p + R p ∧ 0 ≤ t ∧ t < 2 * P p ∧
+      c.u = A p a + unitC0 p a.toNat - 61 * t ∧ c.v = VU p + 76 - 99 * t
+  | .left r idx => 0 ≤ r ∧ r < R p ∧ 0 ≤ idx ∧ idx ≤ 4 * D p ∧ U p r - 794 - 62 * idx ≤ c.u ∧
+      c.u ≤ U p r - 793 - 62 * idx ∧ modTop p + 72 ≤ c.v ∧ c.v ≤ 1181 + 144 * D p
+  | .right r j w => 0 ≤ r ∧ r < R p ∧ 0 ≤ j ∧ j < D p ∧
+      (w = 0 ∧ c.u = U p r + 1301 + 144 * j ∧ c.v = 1500 + 180 * (D p - 1 - j) ∨
+        w = 1 ∧ U p r + 1409 + 144 * D p + 124 * (D p - 1 - j) ≤ c.u ∧
+          c.u ≤ U p r + 1410 + 144 * D p + 124 * (D p - 1 - j) ∧ c.v = 1500 + 180 * (D p - 1 - j) ∨
+        w = 2 ∧ U p r + 1471 + 144 * D p + 124 * (D p - 1 - j) ≤ c.u ∧
+          c.u ≤ U p r + 1472 + 144 * D p + 124 * (D p - 1 - j) ∧ c.v = 1561 + 180 * (D p - 1 - j) ∨
+        w = 3 ∧ c.u = U p r + 1230 + 144 * j ∧ c.v = 1561 + 180 * (D p - 1 - j))
+
+/-- The global linear facts of the layout used by the separation of corners. -/
+theorem layout_facts (p : Program) :
+    1 ≤ P p ∧ 1 ≤ D p ∧ 1 ≤ R p ∧ 0 ≤ N p ∧ VU p = VT p - 1644 ∧ slabL p = -206 - 122 * P p ∧
+      HI p + 390 ≤ slabL p - 120 ∧ VT p + 660 * (2 + N p + R p) ≤ -3324 - 198 * D p - 120 ∧
+      modTop p = -3324 - 198 * D p ∧ PU p = 540 + 180 * P p ∧ PM p = 2400 + 540 * D p := by
+  have h8 := sep08_hairpins_unit0 p
+  have h3 := sep03_band_modules p
+  have hA : A p 0 = 0 := by unfold A; ring
+  refine ⟨one_le_P p, one_le_D p, one_le_R p, zero_le_N p, rfl, rfl, ?_, ?_, rfl, rfl, rfl⟩
+  · omega
+  · unfold NB modTop at h3; omega
+
+/-- **Two corners with valid, distinct places are `≥ 56` apart in `u` or `≥ 57` in `v`.** -/
+theorem corner_gap (p : Program) {c c' : Corner} (hc : Valid p c) (hc' : Valid p c')
+    (hne : c.tag ≠ c'.tag) :
+    c.u + 56 ≤ c'.u ∨ c'.u + 56 ≤ c.u ∨ c.v + 57 ≤ c'.v ∨ c'.v + 57 ≤ c.v := by
+  obtain ⟨k, u, v, tag⟩ := c
+  obtain ⟨k', u', v', tag'⟩ := c'
+  have hf := layout_facts p
+  simp only at hne ⊢
+  cases tag with
+  | band b n h =>
+    cases tag' with
+    | band b' n' h' =>
+      simp only [Valid] at hc hc'
+      simp only [ne_eq, CTag.band.injEq, not_and] at hne
+      cases h <;> cases h' <;> simp at hne hc hc' <;>
+        rcases lt_trichotomy b b' with hb | rfl | hb <;> omega
+    | halt a' => simp only [Valid] at hc hc'; omega
+    | slab a' t' => simp only [Valid] at hc hc'; omega
+    | left r' i' => simp only [Valid] at hc hc'; omega
+    | right r' j' w' => simp only [Valid] at hc hc'; omega
+  | halt a =>
+    cases tag' with
+    | band b' n' h' => simp only [Valid] at hc hc'; omega
+    | halt a' =>
+      simp only [Valid] at hc hc'
+      simp only [ne_eq, CTag.halt.injEq] at hne
+      rcases lt_or_gt_of_ne hne with h | h
+      · have := A_add_le p h; omega
+      · have := A_add_le p h; omega
+    | slab a' t' => simp only [Valid] at hc hc'; omega
+    | left r' i' => simp only [Valid] at hc hc'; omega
+    | right r' j' w' => simp only [Valid] at hc hc'; omega
+  | slab a t =>
+    cases tag' with
+    | band b' n' h' => simp only [Valid] at hc hc'; omega
+    | halt a' => simp only [Valid] at hc hc'; omega
+    | slab a' t' =>
+      simp only [Valid] at hc hc'
+      simp only [ne_eq, CTag.slab.injEq, not_and] at hne
+      have h1 := unitC0_cases p a.toNat
+      have h2 := unitC0_cases p a'.toNat
+      rcases lt_trichotomy a a' with h | rfl | h
+      · have := A_add_le p h; omega
+      · omega
+      · have := A_add_le p h; omega
+    | left r' i' => simp only [Valid] at hc hc'; omega
+    | right r' j' w' => simp only [Valid] at hc hc'; omega
+  | left r i =>
+    cases tag' with
+    | band b' n' h' => simp only [Valid] at hc hc'; omega
+    | halt a' => simp only [Valid] at hc hc'; omega
+    | slab a' t' => simp only [Valid] at hc hc'; omega
+    | left r' i' =>
+      simp only [Valid] at hc hc'
+      simp only [ne_eq, CTag.left.injEq, not_and] at hne
+      rcases lt_trichotomy r r' with h | rfl | h
+      · have := U_add_le p h; omega
+      · omega
+      · have := U_add_le p h; omega
+    | right r' j' w' =>
+      simp only [Valid] at hc hc'
+      rcases lt_trichotomy r r' with h | rfl | h
+      · have := U_add_le p h; omega
+      · omega
+      · have := U_add_le p h; omega
+  | right r j w =>
+    cases tag' with
+    | band b' n' h' => simp only [Valid] at hc hc'; omega
+    | halt a' => simp only [Valid] at hc hc'; omega
+    | slab a' t' => simp only [Valid] at hc hc'; omega
+    | left r' i' =>
+      simp only [Valid] at hc hc'
+      rcases lt_trichotomy r r' with h | rfl | h
+      · have := U_add_le p h; omega
+      · omega
+      · have := U_add_le p h; omega
+    | right r' j' w' =>
+      simp only [Valid] at hc hc'
+      simp only [ne_eq, CTag.right.injEq, not_and] at hne
+      rcases lt_trichotomy r r' with h | rfl | h
+      · have := U_add_le p h; omega
+      · omega
+      · have := U_add_le p h; omega
+
+/-- **A corner with a valid place is separated from every piece of every unit.** -/
+theorem corner_unit_sep (p : Program) {c : Corner} (hc : Valid p c) {a : ℕ}
+    {s : PSpec} (hs : s ∈ unitSpecs p a) :
+    Piece.Sep (cornerSpec c).piece s.piece := by
+  have h1 := corner_uv c
+  have h2 := unitSpecs_uv p a hs
+  have hf := layout_facts p
+  have hk : -180 ≤ (unitKind p a).uLo := by cases unitKind p a <;> simp [UKind.uLo]
+  refine PSpec.sep_of_far (BoxT.far_of_uv h1 h2 ?_)
+  obtain ⟨k, u, v, tag⟩ := c
+  simp only at h1 ⊢
+  cases tag with
+  | band b n h => simp only [Valid] at hc; omega
+  | halt a' => simp only [Valid] at hc; omega
+  | slab a' t =>
+    simp only [Valid] at hc
+    have hc0 := unitC0_cases p a'.toNat
+    rcases lt_trichotomy a' a with h | h | h
+    · have := A_add_le p h; omega
+    · have h' : a'.toNat = a := by omega
+      have := unitC0_uLo p a
+      rw [h'] at hc; subst h; omega
+    · have := A_add_le p h; omega
+  | left r idx => simp only [Valid] at hc; omega
+  | right r j w => simp only [Valid] at hc; omega
+
+/-- **A corner with a valid place is separated from every piece of every module.** -/
+theorem corner_module_sep (p : Program) {c : Corner} (hc : Valid p c) {r : ℕ}
+    {s : PSpec} (hs : s ∈ moduleSpecs p r) : Piece.Sep (cornerSpec c).piece s.piece := by
+  have h1 := corner_uv c
+  obtain ⟨h2, h2'⟩ := moduleSpecs_uv p r hs
+  have hf := layout_facts p
+  refine PSpec.sep_of_far ?_
+  obtain ⟨k, u, v, tag⟩ := c
+  unfold BoxT.InUV at h1 h2
+  unfold BoxT.Far
+  simp only at h1 ⊢
+  cases tag with
+  | band b n h => simp only [Valid] at hc; omega
+  | halt a' => simp only [Valid] at hc; omega
+  | slab a' t => simp only [Valid] at hc; omega
+  | left r' idx =>
+    simp only [Valid] at hc
+    rcases lt_trichotomy r' r with h | rfl | h
+    · have := U_add_le p h; omega
+    · omega
+    · have := U_add_le p h; omega
+  | right r' j w =>
+    simp only [Valid] at hc
+    rcases lt_trichotomy r' r with h | rfl | h
+    · have := U_add_le p h; omega
+    · obtain ⟨_, _, _, _, hw⟩ := hc
+      rcases hw with ⟨_, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _⟩ <;>
+        rcases h2' with h2' | h2' <;> omega
+    · have := U_add_le p h; omega
+
+/-! ### The corners of the machine -/
+
+/-- The corners of a list of routes. -/
+def specCorners (l : List (WL × List Corner)) : List Corner := l.flatMap (·.2)
+
+/-- The corners of the routes of instruction `i`. -/
+def instrCorners (p : Program) (i : ℕ) : List Corner := specCorners (instrSpecs p i)
+
+/-- All route corners of the machine. -/
+def allCorners (p : Program) : List Corner :=
+  (List.range p.length).flatMap (instrCorners p) ++
+    ((List.range (numRegs p)).filter (mergeUsed p)).flatMap fun r => specCorners (mergeSpecs p r)
+
+/-- The reflectors of routes have the boxes of their corners. -/
+theorem routeSpecs_bx (l : List (WL × List Corner)) :
+    (routeSpecs l).map PSpec.bx = (specCorners l).map fun c => (cornerSpec c).bx := by
+  unfold routeSpecs specCorners
+  rw [List.map_flatMap, List.map_flatMap]
+  simp only [route_bx]
+
+/-- **The route reflectors of the machine have the boxes of its corners.** -/
+theorem linksPart_bx (p : Program) :
+    (linksPart p).map PSpec.bx = (allCorners p).map fun c => (cornerSpec c).bx := by
+  unfold linksPart allCorners instrCorners
+  rw [List.map_append, List.map_append, List.map_flatMap, List.map_flatMap, List.map_flatMap,
+    List.map_flatMap]
+  simp only [routeSpecs_bx]
+
+/-- Separation of boxes. -/
+def BoxT.Sep (B C : BoxT) : Prop := FarApart 2 (Box B.a B.b B.lo B.hi) (Box C.a C.b C.lo C.hi)
+
+/-- Separation of placed pieces depends only on their boxes. -/
+theorem PSpec.sep_iff (s t : PSpec) : Piece.Sep s.piece t.piece ↔ s.bx.Sep t.bx := Iff.rfl
+
+/-- Separation of boxes is symmetric. -/
+theorem BoxT.Sep.symm {B C : BoxT} (h : B.Sep C) : C.Sep B := by
+  intro x hx y hy hn
+  refine h y hy x hx ?_
+  obtain ⟨n1, n2, n3, n4⟩ := hn
+  exact ⟨by omega, by omega, by omega, by omega⟩
+
+/-- A piece of the routes has the box of a corner of the machine. -/
+theorem mem_linksPart {p : Program} {t : PSpec} (ht : t ∈ linksPart p) :
+    ∃ c ∈ allCorners p, t.bx = (cornerSpec c).bx := by
+  have : t.bx ∈ (linksPart p).map PSpec.bx := List.mem_map.2 ⟨t, ht, rfl⟩
+  rw [linksPart_bx] at this
+  obtain ⟨c, hc, h⟩ := List.mem_map.1 this
+  exact ⟨c, hc, h.symm⟩
+
+/-- The window rule gives `e ∈ [0, 14]`. -/
+theorem solveE_bounds (g : WL) (mk : ℤ → List Corner) (win : WL) :
+    0 ≤ solveE g mk win ∧ solveE g mk win ≤ 14 := by
+  change 0 ≤ winE _ _ ∧ winE _ _ ≤ 14
+  unfold winE; omega
+
+/-- The extra delay of an INC continue is `≥ 0`. -/
+theorem G_nonneg (x : ℤ) : 0 ≤ 30 * ceil120 (max 0 x) := by
+  unfold ceil120; omega
+
+/-- The corners of a `halt` instruction. -/
+theorem instrCorners_halt {p : Program} {i : ℕ} (hi : p[i]? = some .halt) :
+    instrCorners p i = haltCorners p i := by
+  simp [instrCorners, specCorners, instrSpecs, hi]
+
+/-- The corners of an `inc r` instruction: the continue and the INC link, with some `G ≥ 0` and
+`e`'s in `[0, 14]`. -/
+theorem instrCorners_inc {p : Program} {i r : ℕ} (hi : p[i]? = some (.inc r)) :
+    ∃ G ec el : ℤ, 0 ≤ G ∧ 0 ≤ ec ∧ ec ≤ 14 ∧ 0 ≤ el ∧ el ≤ 14 ∧
+      instrCorners p i = upCorners p (instrBand i) 0 (A p i + incD)
+          (hairCont p G ec (A p i + incD)) (i + 1)
+          (copyIdx (unitC0 p (i + 1)) (predIdx p (i + 1) i 0) (A p i + incD)) ++
+        upCorners p (instrBand i) 1 (A p i + incR) (hairReg p 1 el (A p i + incR))
+          (p.length + r)
+          (copyIdx C0halt (predIdx p (p.length + r) i (if i + 1 = p.length + r then 1 else 0))
+            (A p i + incR)) := by
+  simp only [instrCorners, specCorners, instrSpecs, hi, incSpecs, List.flatMap_cons,
+    List.flatMap_nil, List.append_nil]
+  exact ⟨_, _, _, G_nonneg _, (solveE_bounds _ _ _).1, (solveE_bounds _ _ _).2,
+    (solveE_bounds _ _ _).1, (solveE_bounds _ _ _).2, rfl⟩
+
+/-- The corners of a `decJz r z` instruction (caller `j`): the tokens and `C`, then the answers,
+with `e`'s in `[0, 14]`. -/
+theorem instrCorners_dec {p : Program} {i r z : ℕ} (hi : p[i]? = some (.decJz r z)) :
+    ∃ eA eB : ℤ, 0 ≤ eA ∧ eA ≤ 14 ∧ 0 ≤ eB ∧ eB ≤ 14 ∧
+      instrCorners p i =
+        downCorners p (instrBand i) 0 (A p i + decL)
+            (hairKNZ p (qOf p (callerIdx p r i)) (A p i + decR) (A p i + decL))
+            (U p r + nzTokChan p (callerIdx p r i)) (nzTokPortV (callerIdx p r i)) r
+            (2 * D p + 1 + 2 * (callerIdx p r i)) ++
+          downCorners p (instrBand i) 1 (A p i + decR)
+            (hairC p (qOf p (callerIdx p r i)) (A p i + decR))
+            (U p r + decChan p (2 * (callerIdx p r i))) (decPortV p (2 * (callerIdx p r i))) r
+            (2 * (callerIdx p r i)) ++
+          ztokCorners p (instrBand i) (A p i + decD)
+            (hairKZ p (qOf p (callerIdx p r i)) (A p i + decD)) r (callerIdx p r i) ++
+          nzAnsCorners p (instrBand i) r (callerIdx p r i)
+            (hairReg p 3 eA (U p r + nzAnsChan p (callerIdx p r i))) (i + 1)
+            (copyIdx (unitC0 p (i + 1)) (predIdx p (i + 1) i 0)
+              (U p r + nzAnsChan p (callerIdx p r i))) ++
+          zAnsCorners p (instrBand i) r (callerIdx p r i)
+            (hairReg p 4 eB (U p r + zAnsChan p (callerIdx p r i))) z
+            (copyIdx (unitC0 p z) (predIdx p z i (if i + 1 = z then 1 else 0))
+              (U p r + zAnsChan p (callerIdx p r i))) := by
+  simp only [instrCorners, specCorners, instrSpecs, hi, decSpecs, List.flatMap_cons,
+    List.flatMap_nil, List.append_nil, List.append_assoc]
+  exact ⟨_, _, (solveE_bounds _ _ _).1, (solveE_bounds _ _ _).2,
+    (solveE_bounds _ _ _).1, (solveE_bounds _ _ _).2, rfl⟩
+
+/-! ### Owners of the places -/
+
+/-- The places owned by instruction `i`: its sub-band, its halt corner, the entry copies of its
+links (predecessor number `predIdx`), the ports of its caller number on its register. -/
+def TagOf (p : Program) (i : ℕ) : CTag → Prop
+  | .band b _ _ => b = 1 + i
+  | .halt a => a = i
+  | .slab a t => ∃ (ins : Instr) (off a' : ℕ), a = a' ∧ p[i]? = some ins ∧
+      off < predContrib p.length a' i ins ∧
+      2 * predIdx p a' i off ≤ t ∧ t ≤ 2 * predIdx p a' i off + 1
+  | .left r idx => ∃ (z r' : ℕ), r = r' ∧ p[i]? = some (.decJz r' z) ∧
+      (idx = 2 * (callerIdx p r' i : ℤ) ∨ idx = 2 * D p + 1 + 2 * (callerIdx p r' i : ℤ) ∨
+        idx = 2 * D p + 2 + 2 * (callerIdx p r' i : ℤ))
+  | .right r j _ => ∃ (z r' : ℕ), r = r' ∧ p[i]? = some (.decJz r' z) ∧ j = callerIdx p r' i
+
+/-- **A place has at most one owner.** -/
+theorem TagOf_unique (p : Program) {i i' : ℕ} {τ : CTag} (h : TagOf p i τ) (h' : TagOf p i' τ) :
+    i = i' := by
+  cases τ with
+  | band b k hb => simp only [TagOf] at h h'; omega
+  | halt a => simp only [TagOf] at h h'; omega
+  | slab a t =>
+    simp only [TagOf] at h h'
+    obtain ⟨ins, off, a1, rfl, hi, ho, h1, h2⟩ := h
+    obtain ⟨ins', off', a2, ha2, hi', ho', h1', h2'⟩ := h'
+    have : a2 = a1 := by omega
+    subst this
+    by_contra hne
+    rcases lt_or_gt_of_ne hne with hlt | hlt
+    · have := predIdx_lt p (off' := off') hi ho hlt; omega
+    · have := predIdx_lt p (off' := off) hi' ho' hlt; omega
+  | left r idx =>
+    simp only [TagOf] at h h'
+    obtain ⟨z, r1, rfl, hi, h1⟩ := h
+    obtain ⟨z', r2, hr2, hi', h1'⟩ := h'
+    have : r2 = r1 := by omega
+    subst this
+    have hD := callerIdx_lt_D p hi
+    have hD' := callerIdx_lt_D p hi'
+    have hDe : D p = (numCallers p : ℤ) := rfl
+    by_contra hne
+    rcases lt_or_gt_of_ne hne with hlt | hlt
+    · have := callerIdx_lt p hi hlt; omega
+    · have := callerIdx_lt p hi' hlt; omega
+  | right r j w =>
+    simp only [TagOf] at h h'
+    obtain ⟨z, r1, rfl, hi, h1⟩ := h
+    obtain ⟨z', r2, hr2, hi', h1'⟩ := h'
+    have : r2 = r1 := by omega
+    subst this
+    by_contra hne
+    rcases lt_or_gt_of_ne hne with hlt | hlt
+    · have := callerIdx_lt p hi hlt; omega
+    · have := callerIdx_lt p hi' hlt; omega
+
+/-- The places owned by the merge link of register `r`: its sub-band and the INC port. -/
+def TagOfM (p : Program) (r : ℕ) : CTag → Prop
+  | .band b _ _ => b = 1 + N p + r
+  | .left r' idx => r' = r ∧ idx = 2 * D p
+  | _ => False
+
+/-- A place of an instruction is not a place of a merge link. -/
+theorem TagOf_not_M (p : Program) {i r : ℕ} (hi : i < p.length) {τ : CTag} (h : TagOf p i τ)
+    (h' : TagOfM p r τ) : False := by
+  cases τ with
+  | band b k hb => simp only [TagOf, TagOfM, N] at h h'; omega
+  | halt a => simp only [TagOfM] at h'
+  | slab a t => simp only [TagOfM] at h'
+  | left r' idx =>
+    simp only [TagOf, TagOfM] at h h'
+    obtain ⟨z, r1, rfl, hi, h1⟩ := h
+    have hD := callerIdx_lt_D p hi
+    have hDe : D p = (numCallers p : ℤ) := rfl
+    omega
+  | right r' j w => simp only [TagOfM] at h'
+
+/-- A place has at most one merge owner. -/
+theorem TagOfM_unique (p : Program) {r r' : ℕ} {τ : CTag} (h : TagOfM p r τ)
+    (h' : TagOfM p r' τ) : r = r' := by
+  cases τ with
+  | band b k hb => simp only [TagOfM] at h h'; omega
+  | halt a => simp only [TagOfM] at h
+  | slab a t => simp only [TagOfM] at h
+  | left r'' idx => simp only [TagOfM] at h h'; omega
+  | right r'' j w => simp only [TagOfM] at h
+
+/-! ### Valid places of the corners of the links -/
+
+/-- `A_a ≥ 0` for `a ≥ 0`. -/
+theorem A_nonneg (p : Program) {a : ℤ} (h : 0 ≤ a) : 0 ≤ A p a := by
+  have := one_le_P p
+  unfold A PU; positivity
+
+/-- `U_r ≥ U_0` for `r ≥ 0`, and the left end of every module is right of every unit column. -/
+theorem U_ge (p : Program) {r : ℤ} (h : 0 ≤ r) :
+    U0 p ≤ U p r ∧ slabR p + 120 ≤ U0 p + modLeft p := by
+  have hD := one_le_D p
+  have h6 := (sep06_units_module0 p (a := 0) (by have := zero_le_N p; have := one_le_R p; omega)).1
+  have hA : A p 0 = 0 := by unfold A; ring
+  refine ⟨by unfold U PM; nlinarith, by omega⟩
+
+/-- The band corners of a link: valid, on sub-band `b`. -/
+theorem bandCorners_valid (p : Program) {b s c H cd : ℤ} {k0 k4 : ℕ}
+    (hb : 1 ≤ b ∧ b ≤ N p + R p) (hs : 0 ≤ s ∧ s ≤ 4) (hc : slabL p + 30 ≤ c)
+    (hH : H ≤ HI p + 360) (hcd : slabL p + 30 ≤ cd) :
+    ∀ x ∈ bandCorners p b s c H cd k0 k4, Valid p x ∧ ∃ k h, x.tag = .band b k h := by
+  intro x hx
+  simp only [bandCorners, List.mem_cons, List.not_mem_nil, or_false] at hx
+  rcases hx with rfl | rfl | rfl | rfl <;>
+    refine ⟨?_, _, _, rfl⟩ <;> simp only [Valid, trackOut, trackBack, track] <;>
+    refine ⟨by omega, by omega, by omega, by omega, by omega, by omega, fun h => ?_,
+      fun h => ?_⟩ <;>
+    first | omega | simp at h
+
+/-- The corners of a link up to entry copy `t` of unit `a`. -/
+theorem upCornersK_valid (p : Program) {k0 : ℕ} {b s c H t : ℤ} {a : ℕ}
+    (hb : 1 ≤ b ∧ b ≤ N p + R p) (hs : 0 ≤ s ∧ s ≤ 4) (hc : slabL p + 30 ≤ c)
+    (hH : H ≤ HI p + 360) (ha : (a : ℤ) < N p + R p) (ht : 0 ≤ t ∧ t < 2 * P p) :
+    ∀ x ∈ upCornersK k0 p b s c H a t, Valid p x ∧
+      ((∃ k h, x.tag = .band b k h) ∨ x.tag = .slab a t) := by
+  have hA := A_nonneg p (a := a) (by omega)
+  have h0 := unitC0_cases p a
+  have hP := one_le_P p
+  intro x hx
+  simp only [upCornersK, List.mem_append, List.mem_cons, List.not_mem_nil, or_false] at hx
+  rcases hx with hx | rfl
+  · obtain ⟨h1, h2⟩ := bandCorners_valid p hb hs hc hH
+      (by unfold destU inCol slabL; omega) x hx
+    exact ⟨h1, Or.inl h2⟩
+  · refine ⟨?_, Or.inr rfl⟩
+    simp only [Valid, destU, destV, inCol, sideV, Int.toNat_natCast]
+    omega
+
+/-- The corners of a link down to left-zone port `idx` of module `r`. -/
+theorem downCorners_valid (p : Program) {b s c H idx vp : ℤ} {r : ℕ}
+    (hb : 1 ≤ b ∧ b ≤ N p + R p) (hs : 0 ≤ s ∧ s ≤ 4) (hc : slabL p + 30 ≤ c)
+    (hH : H ≤ HI p + 360) (hr : (r : ℤ) < R p) (hidx : 0 ≤ idx ∧ idx ≤ 4 * D p)
+    (hvp : modTop p + 72 ≤ vp ∧ vp ≤ 1181 + 144 * D p) :
+    ∀ x ∈ downCorners p b s c H (U p r + leftChan idx vp) vp r idx, Valid p x ∧
+      ((∃ k h, x.tag = .band b k h) ∨ x.tag = .left r idx) := by
+  have hU := U_ge p (r := r) (by omega)
+  have hl := fixp_bounds (uL - 62 * idx) (1 - vp % 2)
+  have hP := one_le_P p
+  have hD := one_le_D p
+  intro x hx
+  simp only [downCorners, List.mem_append, List.mem_cons, List.not_mem_nil, or_false] at hx
+  rcases hx with hx | rfl
+  · obtain ⟨h1, h2⟩ := bandCorners_valid p hb hs hc hH
+      (by unfold leftChan uL slabL slabR modLeft at *; omega) x hx
+    exact ⟨h1, Or.inl h2⟩
+  · refine ⟨?_, Or.inr rfl⟩
+    simp only [Valid]
+    unfold leftChan uL at *
+    omega
+
+/-- The corners of the KZ link (slot `2`) down to the Z token of caller `j` of module `r`. -/
+theorem ztokCorners_valid (p : Program) {b c H j : ℤ} {r : ℕ}
+    (hb : 1 ≤ b ∧ b ≤ N p + R p) (hc : slabL p + 30 ≤ c) (hH : H ≤ HI p + 360)
+    (hr : (r : ℤ) < R p) (hj : 0 ≤ j ∧ j < D p) :
+    ∀ x ∈ ztokCorners p b c H r j, Valid p x ∧
+      ((∃ k h, x.tag = .band b k h) ∨ x.tag = .right r j 2 ∨ x.tag = .right r j 3) := by
+  have hU := U_ge p (r := r) (by omega)
+  have hd := zAnsDepth_eq p j
+  have h1 := fixp_bounds (uR p + 124 * qOf p j + 62) (1 - zTokDepth p j % 2)
+  have hP := one_le_P p
+  intro x hx
+  simp only [ztokCorners, List.mem_append, List.mem_cons, List.not_mem_nil, or_false] at hx
+  rcases hx with hx | rfl | rfl
+  · obtain ⟨h1, h2⟩ := bandCorners_valid p hb (by omega) hc hH
+      (by unfold zTokChan uR qOf slabL slabR modLeft at *; omega) x hx
+    exact ⟨h1, Or.inl h2⟩
+  · refine ⟨?_, Or.inr (Or.inl rfl)⟩
+    simp only [Valid]
+    refine ⟨by omega, hr, hj.1, hj.2, Or.inr (Or.inr (Or.inl ⟨trivial, ?_, ?_, ?_⟩))⟩ <;>
+      unfold zTokChan zTokDepth uR qOf at * <;> omega
+  · refine ⟨?_, Or.inr (Or.inr rfl)⟩
+    simp only [Valid]
+    refine ⟨by omega, hr, hj.1, hj.2, Or.inr (Or.inr (Or.inr ⟨trivial, ?_, ?_⟩))⟩ <;>
+      unfold zTokStation zTokDepth qOf at * <;> omega
+
+/-- The corners of the NZ answer of caller `j` of module `r` to entry copy `t` of unit `a`. -/
+theorem nzAnsCorners_valid (p : Program) {b j H t : ℤ} {r a : ℕ}
+    (hb : 1 ≤ b ∧ b ≤ N p + R p) (hH : H ≤ HI p + 360) (hr : (r : ℤ) < R p)
+    (hj : 0 ≤ j ∧ j < D p) (ha : (a : ℤ) < N p + R p) (ht : 0 ≤ t ∧ t < 2 * P p) :
+    ∀ x ∈ nzAnsCorners p b r j H a t, Valid p x ∧
+      ((∃ k h, x.tag = .band b k h) ∨ x.tag = .slab a t ∨
+        x.tag = .left r (2 * D p + 2 + 2 * j)) := by
+  have hU := U_ge p (r := r) (by omega)
+  have hl := fixp_bounds (uL - 62 * (2 * D p + 2 + 2 * j)) (1 - nzAnsPortV j % 2)
+  have hP := one_le_P p
+  intro x hx
+  simp only [nzAnsCorners, List.mem_cons] at hx
+  rcases hx with rfl | hx
+  · refine ⟨?_, Or.inr (Or.inr rfl)⟩
+    simp only [Valid]
+    unfold nzAnsChan leftChan nzAnsPortV uL modTop at *
+    omega
+  · obtain ⟨h1, h2⟩ := upCornersK_valid p hb (by omega) (by
+      unfold nzAnsChan leftChan uL nzAnsPortV slabL slabR modLeft at *; omega) hH ha ht x hx
+    rcases h2 with h2 | h2
+    · exact ⟨h1, Or.inl h2⟩
+    · exact ⟨h1, Or.inr (Or.inl h2)⟩
+
+/-- The corners of the Z answer of caller `j` of module `r` to entry copy `t` of unit `a`. -/
+theorem zAnsCorners_valid (p : Program) {b j H t : ℤ} {r a : ℕ}
+    (hb : 1 ≤ b ∧ b ≤ N p + R p) (hH : H ≤ HI p + 360) (hr : (r : ℤ) < R p)
+    (hj : 0 ≤ j ∧ j < D p) (ha : (a : ℤ) < N p + R p) (ht : 0 ≤ t ∧ t < 2 * P p) :
+    ∀ x ∈ zAnsCorners p b r j H a t, Valid p x ∧
+      ((∃ k h, x.tag = .band b k h) ∨ x.tag = .slab a t ∨ x.tag = .right r j 0 ∨
+        x.tag = .right r j 1) := by
+  have hU := U_ge p (r := r) (by omega)
+  have hd := zAnsDepth_eq p j
+  have h1 := fixp_bounds (uR p + 124 * qOf p j) (1 - zAnsDepth p j % 2)
+  have hP := one_le_P p
+  intro x hx
+  simp only [zAnsCorners, List.mem_cons] at hx
+  rcases hx with rfl | rfl | hx
+  · refine ⟨?_, Or.inr (Or.inr (Or.inl rfl))⟩
+    simp only [Valid]
+    refine ⟨by omega, hr, hj.1, hj.2, Or.inl ⟨trivial, ?_, ?_⟩⟩ <;>
+      unfold zAnsStation qOf at * <;> omega
+  · refine ⟨?_, Or.inr (Or.inr (Or.inr rfl))⟩
+    simp only [Valid]
+    refine ⟨by omega, hr, hj.1, hj.2, Or.inr (Or.inl ⟨trivial, ?_, ?_, ?_⟩)⟩ <;>
+      unfold zAnsChan uR qOf at * <;> omega
+  · obtain ⟨h1, h2⟩ := upCornersK_valid p hb (by omega) (by
+      unfold zAnsChan uR qOf slabL slabR modLeft at *; omega) hH ha ht x hx
+    rcases h2 with h2 | h2
+    · exact ⟨h1, Or.inl h2⟩
+    · exact ⟨h1, Or.inr (Or.inl h2)⟩
+
+/-- The entry copy of a link is in `[0, 2P)` when its predecessor number is below `P`. -/
+theorem copyIdx_range (p : Program) {C0 e c : ℤ} (he : 0 ≤ e ∧ e < P p) :
+    0 ≤ copyIdx C0 e c ∧ copyIdx C0 e c < 2 * P p ∧ 2 * e ≤ copyIdx C0 e c ∧
+      copyIdx C0 e c ≤ 2 * e + 1 := by
+  have := copyBeta_spec C0 e c
+  omega
+
+/-- Predecessor numbers are `≥ 0`. -/
+theorem predIdx_nonneg (p : Program) (a i off : ℕ) : 0 ≤ predIdx p a i off := by
+  unfold predIdx; omega
+
+/-- **The corners of every instruction are at valid places owned by the instruction.** -/
+theorem instrCorners_valid {p : Program} (hp : p.WellFormed) {i : ℕ} (hi : i < p.length) :
+    ∀ c ∈ instrCorners p i, Valid p c ∧ TagOf p i c.tag := by
+  have hf := layout_facts p
+  have hA := A_nonneg p (a := i) (by omega)
+  have hN : (i : ℤ) < N p := by unfold N; exact_mod_cast hi
+  obtain ⟨ins, hins⟩ : ∃ ins, p[i]? = some ins := ⟨_, List.getElem?_eq_getElem hi⟩
+  have hb : 1 ≤ instrBand i ∧ instrBand i ≤ N p + R p := by unfold instrBand; omega
+  cases ins with
+  | halt =>
+    rw [instrCorners_halt hins]
+    intro c hc
+    simp only [haltCorners, List.mem_cons, List.not_mem_nil, or_false] at hc
+    subst hc
+    refine ⟨?_, by simp [TagOf]⟩
+    simp only [Valid, haltD, trackOut, track, true_and]
+    omega
+  | inc r =>
+    obtain ⟨G, ec, el, hG, he1, he2, hl1, hl2, heq⟩ := instrCorners_inc hins
+    rw [heq]
+    have hi1 := succ_lt_of_wf hp hins (by simp)
+    have hr := reg_lt_R p hins
+    simp only [regBound] at hr
+    have hR : (r : ℤ) < R p := by unfold R; omega
+    have hc1 := fixp_bounds (HI p - 62 - G - 2 * ec) ((A p i + incD) % 2)
+    have hc2 := hairReg_le p (s := 1) (e := el) (c := A p i + incR) (by norm_num) hl1
+    have hoff1 : 0 < predContrib p.length (i + 1) i (.inc r) := by simp [predContrib]
+    have hoff2 : (if i + 1 = p.length + r then 1 else 0) <
+        predContrib p.length (p.length + r) i (.inc r) := by simp [predContrib]
+    have hp1 := predIdx_lt_P p hins hoff1 (by omega)
+    have hp2 := predIdx_lt_P p hins hoff2 (by omega)
+    have ht1 := copyIdx_range p (C0 := unitC0 p (i + 1)) (c := A p i + incD)
+      ⟨predIdx_nonneg p _ _ _, hp1⟩
+    have ht2 := copyIdx_range p (C0 := C0halt) (c := A p i + incR) ⟨predIdx_nonneg p _ _ _, hp2⟩
+    intro c hc
+    rcases List.mem_append.1 hc with hc | hc
+    · obtain ⟨h1, h2⟩ := upCornersK_valid p hb (by norm_num)
+        (by unfold incD slabL at *; omega) (by unfold hairCont at *; omega)
+        (by unfold N at *; omega) ⟨ht1.1, ht1.2.1⟩ c hc
+      refine ⟨h1, ?_⟩
+      rcases h2 with ⟨k, h, h2⟩ | h2 <;> rw [h2]
+      · simp [TagOf, instrBand]
+      · exact ⟨_, 0, _, rfl, hins, hoff1, ht1.2.2.1, ht1.2.2.2⟩
+    · obtain ⟨h1, h2⟩ := upCornersK_valid p hb (by norm_num)
+        (by unfold incR slabL at *; omega) hc2 (by unfold N R at *; omega)
+        ⟨ht2.1, ht2.2.1⟩ c hc
+      refine ⟨h1, ?_⟩
+      rcases h2 with ⟨k, h, h2⟩ | h2 <;> rw [h2]
+      · simp [TagOf, instrBand]
+      · exact ⟨_, _, _, rfl, hins, hoff2, ht2.2.2.1, ht2.2.2.2⟩
+  | decJz r z =>
+    obtain ⟨eA, eB, hA1, hA2, hB1, hB2, heq⟩ := instrCorners_dec hins
+    rw [heq]
+    have hi1 := succ_lt_of_wf hp hins (by simp)
+    have hz := jump_lt_of_wf hp hins
+    have hr := reg_lt_R p hins
+    simp only [regBound] at hr
+    have hR : (r : ℤ) < R p := by unfold R; omega
+    have hj := callerIdx_lt_D p hins
+    have hDe : D p = (numCallers p : ℤ) := rfl
+    have hq : 0 ≤ qOf p (callerIdx p r i) := by unfold qOf; omega
+    have hEC : 0 ≤ eCtot (qOf p (callerIdx p r i)) := by
+      have := xC_spec hq; have := eC_bounds (qOf p (callerIdx p r i))
+      have := sigma_bounds (qOf p (callerIdx p r i)); unfold eCtot; omega
+    have hN8 := eN_spec hq
+    have hx := xC_spec hq
+    have hK := eKZ_spec hq
+    have hec := eC_bounds (qOf p (callerIdx p r i))
+    have hsg := sigma_bounds (qOf p (callerIdx p r i))
+    have hHC := fixp_bounds (HI p + 90 - 2 * eCtot (qOf p (callerIdx p r i))) ((A p i + decR) % 2)
+    have hHN := fixp_bounds (hairC p (qOf p (callerIdx p r i)) (A p i + decR) - 62 -
+      2 * eN (qOf p (callerIdx p r i))) ((A p i + decL) % 2)
+    have hHZ := hairReg_le p (s := 2) (e := eKZ (qOf p (callerIdx p r i))) (c := A p i + decD)
+      (by norm_num) hK.2.1
+    have hH3 := hairReg_le p (s := 3) (e := eA) (c := U p r + nzAnsChan p (callerIdx p r i))
+      (by norm_num) hA1
+    have hH4 := hairReg_le p (s := 4) (e := eB) (c := U p r + zAnsChan p (callerIdx p r i))
+      (by norm_num) hB1
+    have hoff1 : 0 < predContrib p.length (i + 1) i (.decJz r z) := by simp [predContrib]
+    have hoff2 : (if i + 1 = z then 1 else 0) < predContrib p.length z i (.decJz r z) := by
+      simp [predContrib]
+    have hp1 := predIdx_lt_P p hins hoff1 (by omega)
+    have hp2 := predIdx_lt_P p hins hoff2 (by omega)
+    have ht1 := copyIdx_range p (C0 := unitC0 p (i + 1))
+      (c := U p r + nzAnsChan p (callerIdx p r i)) ⟨predIdx_nonneg p _ _ _, hp1⟩
+    have ht2 := copyIdx_range p (C0 := unitC0 p z) (c := U p r + zAnsChan p (callerIdx p r i))
+      ⟨predIdx_nonneg p _ _ _, hp2⟩
+    have hleft : ∀ idx : ℤ, (idx = 2 * (callerIdx p r i : ℤ) ∨
+        idx = 2 * D p + 1 + 2 * (callerIdx p r i : ℤ) ∨
+        idx = 2 * D p + 2 + 2 * (callerIdx p r i : ℤ)) → TagOf p i (.left r idx) := by
+      intro idx h
+      exact ⟨z, r, rfl, hins, h⟩
+    have hright : ∀ w : ℕ, TagOf p i (.right r (callerIdx p r i) w) := by
+      intro w
+      exact ⟨z, r, rfl, hins, rfl⟩
+    have hband : ∀ k h, TagOf p i (.band (instrBand i) k h) := by
+      intro k h; simp [TagOf, instrBand]
+    intro c hc
+    simp only [List.mem_append] at hc
+    rcases hc with (((hc | hc) | hc) | hc) | hc
+    · obtain ⟨h1, h2⟩ := downCorners_valid p hb (s := 0) (by norm_num)
+        (by unfold decL slabL at *; omega) (by unfold hairKNZ hairC at *; omega) hR
+        (idx := 2 * D p + 1 + 2 * (callerIdx p r i)) (by omega)
+        (vp := nzTokPortV (callerIdx p r i)) (by unfold nzTokPortV modTop; omega) c hc
+      refine ⟨h1, ?_⟩
+      rcases h2 with ⟨k, h, h2⟩ | h2 <;> rw [h2]
+      · exact hband k h
+      · exact hleft _ (by omega)
+    · obtain ⟨h1, h2⟩ := downCorners_valid p hb (s := 1) (by norm_num)
+        (by unfold decR slabL at *; omega) (by unfold hairC at *; omega) hR
+        (idx := 2 * (callerIdx p r i)) (by omega)
+        (vp := decPortV p (2 * (callerIdx p r i))) (by unfold decPortV modTop; omega) c hc
+      refine ⟨h1, ?_⟩
+      rcases h2 with ⟨k, h, h2⟩ | h2 <;> rw [h2]
+      · exact hband k h
+      · exact hleft _ (by omega)
+    · obtain ⟨h1, h2⟩ := ztokCorners_valid p hb (by unfold decD slabL at *; omega)
+        (by unfold hairKZ; exact hHZ) hR (j := callerIdx p r i) (by omega) c hc
+      refine ⟨h1, ?_⟩
+      rcases h2 with ⟨k, h, h2⟩ | h2 | h2 <;> rw [h2]
+      · exact hband k h
+      · exact hright 2
+      · exact hright 3
+    · obtain ⟨h1, h2⟩ := nzAnsCorners_valid p hb hH3 hR (j := callerIdx p r i) (by omega)
+        (a := i + 1) (by unfold N at *; omega) ⟨ht1.1, ht1.2.1⟩ c hc
+      refine ⟨h1, ?_⟩
+      rcases h2 with ⟨k, h, h2⟩ | h2 | h2 <;> rw [h2]
+      · exact hband k h
+      · exact ⟨_, 0, _, rfl, hins, hoff1, ht1.2.2.1, ht1.2.2.2⟩
+      · exact hleft _ (by omega)
+    · obtain ⟨h1, h2⟩ := zAnsCorners_valid p hb hH4 hR (j := callerIdx p r i) (by omega)
+        (a := z) (by unfold N at *; omega) ⟨ht2.1, ht2.2.1⟩ c hc
+      refine ⟨h1, ?_⟩
+      rcases h2 with ⟨k, h, h2⟩ | h2 | h2 | h2 <;> rw [h2]
+      · exact hband k h
+      · exact ⟨_, _, _, rfl, hins, hoff2, ht2.2.2.1, ht2.2.2.2⟩
+      · exact hright 0
+      · exact hright 1
+
+/-- Pairwise distinct tags, through the list of tags. -/
+theorem pairwise_tag_iff (L : List Corner) :
+    L.Pairwise (fun c c' => c.tag ≠ c'.tag) ↔ (L.map Corner.tag).Pairwise (· ≠ ·) :=
+  List.pairwise_map.symm
+
+/-- **The corners of one instruction have pairwise distinct places.** -/
+theorem instrCorners_tags {p : Program} (hp : p.WellFormed) {i : ℕ} (hi : i < p.length) :
+    (instrCorners p i).Pairwise fun c c' => c.tag ≠ c'.tag := by
+  obtain ⟨ins, hins⟩ : ∃ ins, p[i]? = some ins := ⟨_, List.getElem?_eq_getElem hi⟩
+  cases ins with
+  | halt =>
+    rw [instrCorners_halt hins]
+    simp [haltCorners]
+  | inc r =>
+    obtain ⟨G, ec, el, -, -, -, -, -, heq⟩ := instrCorners_inc hins
+    have hi1 := succ_lt_of_wf hp hins (by simp)
+    rw [heq, pairwise_tag_iff]
+    simp only [upCorners, upCornersK, bandCorners, List.cons_append, List.nil_append,
+      List.map_cons, List.map_nil]
+    simp [List.pairwise_cons]
+    omega
+  | decJz r z =>
+    obtain ⟨eA, eB, -, -, -, -, heq⟩ := instrCorners_dec hins
+    have hz : i + 1 = z → predIdx p z i (if i + 1 = z then 1 else 0) =
+        predIdx p (i + 1) i 0 + 1 := by
+      intro h; subst h; simp [predIdx]
+    have h1 := copyBeta_spec (unitC0 p (i + 1)) (predIdx p (i + 1) i 0)
+      (U p r + nzAnsChan p (callerIdx p r i))
+    have h2 := copyBeta_spec (unitC0 p z) (predIdx p z i (if i + 1 = z then 1 else 0))
+      (U p r + zAnsChan p (callerIdx p r i))
+    rw [heq, pairwise_tag_iff]
+    simp only [upCornersK, bandCorners, downCorners, ztokCorners, nzAnsCorners,
+      zAnsCorners, List.cons_append, List.nil_append, List.map_cons, List.map_nil]
+    simp only [ne_eq, sub_zero, Int.reduceSub, Nat.cast_add, Nat.cast_one, List.pairwise_cons,
+      List.mem_cons, List.not_mem_nil, or_false, forall_eq_or_imp, CTag.band.injEq,
+      Bool.false_eq_true, and_false, not_false_eq_true, OfNat.zero_ne_ofNat, and_self, and_true,
+      reduceCtorEq, zero_ne_one, forall_eq, Bool.true_eq_false, OfNat.ofNat_ne_one,
+      OfNat.ofNat_eq_ofNat, Nat.succ_ne_self, Nat.reduceEqDiff, CTag.left.injEq, add_eq_right,
+      true_and, add_left_inj, add_right_inj, OfNat.one_ne_ofNat, right_eq_add, CTag.right.injEq,
+      OfNat.ofNat_ne_zero, CTag.slab.injEq, not_and, IsEmpty.forall_iff, implies_true,
+      List.Pairwise.nil]
+    have hD := one_le_D p
+    refine ⟨by omega, by omega, fun h => ?_⟩
+    have := hz (by exact_mod_cast h)
+    omega
+
+/-- **The corners of the merge link of register `r` are at valid places owned by it.** -/
+theorem mergeCorners_valid (p : Program) {r : ℕ} (hr : r < numRegs p) :
+    ∀ c ∈ specCorners (mergeSpecs p r), Valid p c ∧ TagOfM p r c.tag := by
+  have hf := layout_facts p
+  have hR : (r : ℤ) < R p := by unfold R; exact_mod_cast hr
+  have hA := A_nonneg p (a := p.length + r) (by omega)
+  have he := solveE_bounds (unitWL p (p.length + r) haltDWL) (mergeCorners p r)
+    (modWL p r incWin)
+  have hH := hairReg_le p (s := 0) (e := mergeE p r) (c := A p (p.length + r) + haltD)
+    (by norm_num) he.1
+  intro c hc
+  simp only [specCorners, mergeSpecs, List.flatMap_cons, List.flatMap_nil, List.append_nil,
+    mergeCorners] at hc
+  obtain ⟨h1, h2⟩ := downCorners_valid p (b := mergeBand p r) (s := 0)
+    (by unfold mergeBand N at *; omega) (by norm_num) (by unfold haltD at *; omega) hH hR
+    (idx := 2 * D p) (by omega) (vp := incPortV) (by unfold incPortV; omega) c hc
+  refine ⟨h1, ?_⟩
+  rcases h2 with ⟨k, h, h2⟩ | h2 <;> rw [h2]
+  · simp [TagOfM, mergeBand]
+  · simp [TagOfM]
+
+/-- The corners of a merge link have pairwise distinct places. -/
+theorem mergeCorners_tags (p : Program) (r : ℕ) :
+    (specCorners (mergeSpecs p r)).Pairwise fun c c' => c.tag ≠ c'.tag := by
+  have hD := one_le_D p
+  rw [pairwise_tag_iff]
+  simp only [specCorners, mergeSpecs, List.flatMap_cons, List.flatMap_nil, List.append_nil,
+    mergeCorners, downCorners, bandCorners, List.cons_append, List.nil_append, List.map_cons,
+    List.map_nil]
+  simp [List.pairwise_cons]
+
+/-- **Every corner of the machine is at a valid place.** -/
+theorem allCorners_valid {p : Program} (hp : p.WellFormed) : ∀ c ∈ allCorners p, Valid p c := by
+  intro c hc
+  rcases List.mem_append.1 hc with hc | hc
+  · obtain ⟨i, hi, hc⟩ := List.mem_flatMap.1 hc
+    exact (instrCorners_valid hp (List.mem_range.1 hi) c hc).1
+  · obtain ⟨r, hr, hc⟩ := List.mem_flatMap.1 hc
+    exact (mergeCorners_valid p (List.mem_range.1 (List.mem_filter.1 hr).1) c hc).1
+
+/-- **The corners of the machine have pairwise distinct places.** -/
+theorem allCorners_tags {p : Program} (hp : p.WellFormed) :
+    (allCorners p).Pairwise fun c c' => c.tag ≠ c'.tag := by
+  unfold allCorners
+  refine List.pairwise_append.2 ⟨?_, ?_, ?_⟩
+  · refine pairwise_flatMap_lt List.pairwise_lt_range
+      (fun i hi => instrCorners_tags hp (List.mem_range.1 hi)) ?_
+    intro i hi i' hi' hii c hc c' hc' heq
+    have h1 := (instrCorners_valid hp (List.mem_range.1 hi) c hc).2
+    have h2 := (instrCorners_valid hp (List.mem_range.1 hi') c' hc').2
+    rw [heq] at h1
+    have := TagOf_unique p h1 h2
+    omega
+  · refine pairwise_flatMap_lt (pairwise_lt_range_filter _ _) (fun r _ => mergeCorners_tags p r) ?_
+    intro r hr r' hr' hrr c hc c' hc' heq
+    have h1 := (mergeCorners_valid p (List.mem_range.1 (List.mem_filter.1 hr).1) c hc).2
+    have h2 := (mergeCorners_valid p (List.mem_range.1 (List.mem_filter.1 hr').1) c' hc').2
+    rw [heq] at h1
+    have := TagOfM_unique p h1 h2
+    omega
+  · intro c hc c' hc' heq
+    obtain ⟨i, hi, hc⟩ := List.mem_flatMap.1 hc
+    obtain ⟨r, hr, hc'⟩ := List.mem_flatMap.1 hc'
+    have h1 := (instrCorners_valid hp (List.mem_range.1 hi) c hc).2
+    have h2 := (mergeCorners_valid p (List.mem_range.1 (List.mem_filter.1 hr).1) c' hc').2
+    rw [heq] at h1
+    exact TagOf_not_M p (List.mem_range.1 hi) h1 h2
+
+/-- **The route reflectors of the machine are pairwise separated.** -/
+theorem linksPart_sep {p : Program} (hp : p.WellFormed) :
+    (linksPart p).Pairwise fun s t => Piece.Sep s.piece t.piece := by
+  have hv := allCorners_valid hp
+  have h : ((allCorners p).map fun c => (cornerSpec c).bx).Pairwise BoxT.Sep := by
+    refine List.pairwise_map.2 ((allCorners_tags hp).imp_of_mem fun hc hc' hne => ?_)
+    exact (PSpec.sep_iff _ _).1 (PSpec.sep_of_far (corner_far (corner_gap p (hv _ hc)
+      (hv _ hc') hne)))
+  rw [← linksPart_bx] at h
+  have h2 : (linksPart p).Pairwise fun s t => BoxT.Sep s.bx t.bx := List.pairwise_map.1 h
+  exact h2
+
+/-- **Units and routes are separated.** -/
+theorem units_links_sep {p : Program} (hp : p.WellFormed) {s t : PSpec} (hs : s ∈ unitsPart p)
+    (ht : t ∈ linksPart p) : Piece.Sep s.piece t.piece := by
+  obtain ⟨a, -, hs⟩ := mem_unitsPart hs
+  obtain ⟨c, hc, hbx⟩ := mem_linksPart ht
+  have := corner_unit_sep p (allCorners_valid hp c hc) hs
+  rw [PSpec.sep_iff] at this ⊢
+  rw [hbx]
+  exact this.symm
+
+/-- **Modules and routes are separated.** -/
+theorem modules_links_sep {p : Program} (hp : p.WellFormed) {s t : PSpec}
+    (hs : s ∈ modulesPart p) (ht : t ∈ linksPart p) : Piece.Sep s.piece t.piece := by
+  obtain ⟨r, -, hs⟩ := mem_modulesPart hs
+  obtain ⟨c, hc, hbx⟩ := mem_linksPart ht
+  have := corner_module_sep p (allCorners_valid hp c hc) hs
+  rw [PSpec.sep_iff] at this ⊢
+  rw [hbx]
+  exact this.symm
+
+/-- **Separation of the machine (as data)**: for every well-formed program, the placed pieces of
+its machine are pairwise separated. -/
+theorem machSpecs_sep {p : Program} (hp : p.WellFormed) :
+    (machSpecs p).Pairwise fun s t => Piece.Sep s.piece t.piece := by
+  unfold machSpecs
+  refine List.pairwise_append.2 ⟨List.pairwise_append.2 ⟨unitsPart_sep p, modulesPart_sep p,
+    fun s hs t ht => units_modules_sep p hs ht⟩, linksPart_sep hp, ?_⟩
+  intro s hs t ht
+  rcases List.mem_append.1 hs with hs | hs
+  · exact units_links_sep hp hs ht
+  · exact modules_links_sep hp hs ht
+
+/-- **Separation of the machine**: for every well-formed program, the periodic pieces of its Life
+machine (layout `LP` of `R-31`) are pairwise separated: their boxes are far apart. -/
+theorem machPieces_sep (p : Program) (hp : p.WellFormed) : (machPieces p).Pairwise Piece.Sep :=
+  List.pairwise_map.2 (machSpecs_sep hp)
 
 end LP
 
