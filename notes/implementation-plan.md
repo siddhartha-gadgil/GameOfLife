@@ -437,6 +437,10 @@ There are no empirical inputs; every gate is a compiled proof.
   plus the INC control. Verified by simulation (not Lean) for k = 0, 1, 2, 3, 40. Open: `O`
   cannot be supplied by fixed reflector routes (obstruction `O4`: no reachable time matches any
   of 38 016 valid world lines); `R_in` and `C_I` branch not built.
+- **2026-11-15 — `DZ2` reactions at the block certified** (user request, in parallel with the
+  supply search `R-28`). `DecJzLocal.lean`: `dz2Detector_zero`, `dz2Detector_pass` (all `j`),
+  `dz2Restore_zero`, `reg1_increment_neg_one`. `lake build` 3287 jobs, 0 warnings; axiom audit
+  passed for 8656 declarations.
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom

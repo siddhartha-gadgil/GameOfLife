@@ -367,6 +367,14 @@ k = 0, 1, 2, 3, 40 (numerical observation). Obstruction `O4`: fixed routes of 90
 `O`'s lane only at the wrong times (0 of 38 016 world lines). Open: a re-timing gate for `O`; the
 Z branch producing `R_in`, `C_I` and the Z output.
 
+**`DZ2` at the block certified (2026-11-15).** `Theory/Life/DecJzLocal.lean`, frame of
+`counter`: `dz2Detector_zero` (detector + block `-1` → `dz2DetectorBlock`, 9 generations),
+`dz2Detector_pass` (for every `j : ℕ` and `n`, the detector passes the block at `j` untouched,
+with a moving-box footprint), `dz2Restore_zero` (restore glider + `dz2DetectorBlock` → block
+`-1`), and `reg1_increment_neg_one` (`REG1`'s INC input moves the block `-1 → 0`). For this
+`reg1_operation` now takes any position `k ≥ -1`. Not yet: the gliders' supply and timing in the
+world frame, the gate `G_N`, the front `F_A, RF_a, RF_b`.
+
 ## Claims and evidence
 
 No claims beyond the sourced existence of Chapman's pattern.

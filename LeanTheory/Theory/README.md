@@ -56,6 +56,7 @@ These modules build on `Kernel/Life` (definitions only; there is no law).
 | `ZeroTestLogic` | The decision part of the zero test: for every register position `k`, the test gliders and a detector give `zOut` if `k = 0` and `nzOut` otherwise, block unchanged (`zeroTest_decision`) |
 | `Register` | Pipelined operations on the block: `Op`, `launch`, `SpacedLaunch`, `pipeline` (salvos launched at least 13 cells apart act in order), `two_ops` |
 | `Register1`, `Register1Inc`, `Register1Ops` | The register `REG1`: one assembly (16 guns, 14 reflectors) serving one block with a decrement and an increment input; certified input reactions (3120 and 3570 generations); `reg1_decrement`, `reg1_increment` for every position; `salvo_quad_reaction` |
+| `DecJzLocal` | The zero test `DZ2` at the block (decrement from zero): the detector turns block `-1` into `dz2DetectorBlock` and passes every block `j ≥ 0` (`dz2Detector_pass`); the restore glider returns it to `-1`; `reg1_increment_neg_one` moves `-1` to `0` |
 | `Reactions` | Reactions with footprints: `Reaction P Q n F`, parallel and sequential composition, placement; the block decrement rebuilt from these rules (`pull_reaction`) |
 
 ## Stability/ — comparison and energy methods

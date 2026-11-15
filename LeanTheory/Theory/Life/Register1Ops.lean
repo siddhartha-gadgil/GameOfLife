@@ -156,9 +156,9 @@ theorem reg1Block_subset_box (k : ℤ) :
 
 set_option maxRecDepth 100000 in
 /-- An operation of the register: the input reaction beside the resting block, then the salvo's
-reaction on the block beside the resting register. -/
-theorem reg1_operation {C G L : Finset Cell} {N n : ℕ} {B : Set Cell} {X Y d : ℤ} (k : ℕ)
-    (hin : Reaction (reg1 ∪ C) (reg1 ∪ G) N (fun _ => B))
+reaction on the block beside the resting register (block at any position `k ≥ -1`). -/
+theorem reg1_operation {C G L : Finset Cell} {N n : ℕ} {B : Set Cell} {X Y d : ℤ} (k : ℤ)
+    (hk : -1 ≤ k) (hin : Reaction (reg1 ∪ C) (reg1 ∪ G) N (fun _ => B))
     (hB : ∀ c ∈ B, c.2 ≤ 243) (hG : G = translate (148, 240) L)
     (hL : Reaction (L ∪ counter k) (counter (d + k)) n
       (fun _ => {c : Cell | X ≤ c.1 ∧ Y ≤ c.2}))
@@ -196,7 +196,7 @@ register is left in its cycle and nothing else remains. -/
 theorem reg1_decrement (k : ℕ) :
     conway.evolve (3120 + (k * 4 + 48)) (reg1 ∪ reg1DecControl ∪ reg1Block k) =
       conway.evolve (k * 4 + 48) reg1 ∪ reg1Block (k - 1) := by
-  have h := reg1_operation k reg1Dec_reaction (fun c hc => hc.2.2.2) reg1DecSalvo_eq
+  have h := reg1_operation k (by omega) reg1Dec_reaction (fun c hc => hc.2.2.2) reg1DecSalvo_eq
     (salvo_quad_reaction (X := -6) (Y := 0) reg1DecLocal_evolve_four reg1DecLocal_subset_box
       reg1Dec_zero (by norm_num) le_rfl le_rfl (by norm_num) le_rfl le_rfl (by norm_num) k)
     (by norm_num)
@@ -209,7 +209,7 @@ left in its cycle and nothing else remains. -/
 theorem reg1_increment (k : ℕ) :
     conway.evolve (3570 + (k * 4 + 57)) (reg1 ∪ reg1IncControl ∪ reg1Block k) =
       conway.evolve (k * 4 + 57) reg1 ∪ reg1Block (k + 1) := by
-  have h := reg1_operation k reg1Inc_reaction (fun c hc => hc.2.2.2) reg1IncSalvo_eq
+  have h := reg1_operation k (by omega) reg1Inc_reaction (fun c hc => hc.2.2.2) reg1IncSalvo_eq
     (salvo_quad_reaction (X := -11) (Y := -13) reg1IncLocal_evolve_four reg1IncLocal_subset_box
       reg1Inc_zero (by norm_num) le_rfl le_rfl (by norm_num) le_rfl le_rfl (by norm_num) k)
     (by norm_num)
