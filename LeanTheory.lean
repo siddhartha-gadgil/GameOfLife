@@ -163,6 +163,11 @@ public import LeanTheory.Theory.Life.Gen.ActSide
 public import LeanTheory.Theory.Life.ActivationIncEntry
 public import LeanTheory.Theory.Life.ActivationIncArrive
 public import LeanTheory.Theory.Life.ActivationIncMerge
+public import LeanTheory.Theory.Life.ActivationIncCompose
+public import LeanTheory.Theory.Life.ActivationIncReg
+public import LeanTheory.Theory.Life.ActivationIncThread
+public import LeanTheory.Theory.Life.ActivationIncModuleRun
+public import LeanTheory.Theory.Life.ActivationIncStep
 public import LeanTheory.Theory.Life.DiagAppend
 public import LeanTheory.Theory.Life.DiagSmall
 public import LeanTheory.Theory.Life.RouteExamples

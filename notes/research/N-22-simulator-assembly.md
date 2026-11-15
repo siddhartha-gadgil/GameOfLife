@@ -150,3 +150,12 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   15545 generations of the Z restore): the run up to the cut inside `<p>Region`, then the circuit
   alone inside `<p>RestRegion` (components far from the answer's moving box `<p>AnsF`), ending
   exactly at the circuit at rest (and the register diagonal); `<p>AnsS` the answer's flight.
+* 2026-11-16: **`inc_step_of_plan`** (`ActivationIncStep.lean` with `…Compose`, `…Reg`, `…Thread`,
+  `…ModuleRun`; sub-agent, checked here): one `inc` instruction of any well-formed program is
+  simulated (`conway.evolve τ (encM p s) = encM p s'`, `InvM p s'`, footprints in `machRegion`),
+  for every register value (diagonal increment `dz2e*OpG` for `w ≥ 16`, static `dz2jAllG` below),
+  conditional on three explicit structures: `IncPlan.Valid` (layout arithmetic of the three
+  routes: lines, timing, arrival offsets, `late`, piece membership), `IncSep` (separation) and
+  `IncRegion` (footprints in the region). The register needs `RegS.Ready` (`Inv`, `Vb = 18`,
+  `QBeforeL 29`), returned for the new state — to be folded into `InvM`. Numerically the continue
+  arrives ≥ 810 generations after the increment ends (with the `+8500` margin).
