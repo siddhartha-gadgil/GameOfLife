@@ -222,4 +222,40 @@ theorem chain_reaction {G In : Finset Cell} {Δ : ℕ} {v : Cell}
     · exact Set.union_subset ((hBR.trans (box_subset_chainFoot (by omega))))
         image_chainFoot_subset
 
+/-- The chain at a phase that is a whole number of periods is the chain at phase `0`. -/
+theorem relayChain_of_mod (G : Finset Cell) (Δ : ℕ) (v : Cell) (L n : ℕ) (h : n % 30 = 0) :
+    relayChain G Δ v L n = relayChain G Δ v L 0 := by
+  rw [show n = 0 + 30 * (n / 30) by omega, relayChain_add_thirty]
+
+/-- **A chain entered from the side**: if the first copy, at phase `0`, turns a side input `S` into
+the input of the second copy in `Δs ≡ Δ` (mod `30`) generations, inside the box `Rs`, then the
+chain of `L + 2` copies carries `S` to the place of the input of a copy number `L + 2`. -/
+theorem chain_side_reaction {G In S : Finset Cell} {Δ Δs : ℕ} {v : Cell}
+    {a b lo hi ra rb rlo rhi sa sb slo shi : ℤ}
+    (hG : Reaction G G 30 (fun _ => Box a b lo hi))
+    (hrel : Reaction (G ∪ In) (phase G Δ ∪ translate v In) Δ (fun _ => Box ra rb rlo rhi))
+    (hside : Reaction (G ∪ S) (phase G Δs ∪ translate v In) Δs (fun _ => Box sa sb slo shi))
+    (hΔ : (29 * Δ + Δs) % 30 = 0)
+    (hBR : Box a b lo hi ⊆ Box ra rb rlo rhi) (hSR : Box sa sb slo shi ⊆ Box ra rb rlo rhi)
+    (hs0 : hi + 2 < lo + v.2) (hs1 : rhi + 2 < lo + v.2) (hs2 : hi + 2 < rlo + v.2)
+    (hs3 : shi + 2 < lo + v.2) (hv : 0 ≤ v.2) (L : ℕ) :
+    Reaction (relayChain G Δ v (L + 2) 0 ∪ S)
+      (phase G (Δs + (L + 1) * Δ) ∪ translate v (relayChain G Δ v (L + 1) ((L + 1) * Δ) ∪
+        translate (((L + 1 : ℕ) : ℤ) * v.1, ((L + 1 : ℕ) : ℤ) * v.2) In))
+      (Δs + (L + 1) * Δ) (fun _ => chainFoot (Box ra rb rlo rhi) v (L + 2)) := by
+  have h1 := hside.par ((chain_idle (Δ := Δ) hG hs0 hv (L + 1) (29 * Δ) Δs).translate v)
+    fun _ _ => farApart_box_chain hs3 hv
+  have h2 := (phase_reaction hG Δs ((L + 1) * Δ)).par ((chain_reaction hG hrel hBR hs0 hs1 hs2
+    hv L).translate v) fun _ _ => farApart_box_chain hs2 hv
+  rw [relayChain_of_mod G Δ v (L + 1) (29 * Δ + Δs) hΔ] at h1
+  have h := h1.seq_eq (by rw [translate_union]; ac_rfl) h2
+  rw [relayChain_succ, phase, Nat.zero_mod, Rule.evolve_zero, zero_add,
+    show G ∪ translate v (relayChain G Δ v (L + 1) (29 * Δ)) ∪ S =
+      G ∪ S ∪ translate v (relayChain G Δ v (L + 1) (29 * Δ)) by ac_rfl]
+  refine h.mono fun i _ => ?_
+  split_ifs
+  · exact Set.union_subset (hSR.trans (box_subset_chainFoot (by omega)))
+      ((Set.image_mono (chainFoot_mono hBR v _)).trans image_chainFoot_subset)
+  · exact Set.union_subset (hBR.trans (box_subset_chainFoot (by omega))) image_chainFoot_subset
+
 end LeanTheory.Life

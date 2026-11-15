@@ -111,8 +111,10 @@ public import LeanTheory.Theory.Life.DecJzLocal
 public import LeanTheory.Theory.Life.Network
 public import LeanTheory.Theory.Life.Chain
 public import LeanTheory.Theory.Life.MergeChain
+public import LeanTheory.Theory.Life.MergeSide
 public import LeanTheory.Theory.Life.Route
 public import LeanTheory.Theory.Life.RouteExamples
+public import LeanTheory.Theory.Life.Rf0Images
 public import LeanTheory.Theory.Life.Gen.Dz2mk1Run
 public import LeanTheory.Theory.Life.Gen.Dz2mk0Run
 public import LeanTheory.Theory.Life.Gen.Dz2gRun

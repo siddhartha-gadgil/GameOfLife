@@ -75,6 +75,11 @@ Verified so far with this method: the zero test `DZ2` for every register value (
   links (no crossing, or crossings separated by causality), timing by residues (all pitches
   `≡ 0 mod 30`), and a catalogue of 25 local certificates for every program; 11 runs to halting.
 
+* 2026-11-15: certificates of the catalogue of `R-31`: the 8 reflector images as stages
+  (`Rf0Images`), the OR-gate through relay (`orGate_relay`) and the side input at the 3 residues used
+  (`MergeSide`, with `chain_side_reaction`): 12 of 25. Remaining: unit bodies (2), station facts (8),
+  register operations on the module of `R-29` with chains (3, partly `dz2gAll`, `dz2iAll`).
+
 ## Barriers
 
 * Separation for every program (step 3) is the main proof burden; the layout may need to be
