@@ -145,6 +145,9 @@ public import LeanTheory.Theory.Life.MachineState
 public import LeanTheory.Theory.Life.ActivationInc
 public import LeanTheory.Theory.Life.ActivationIncLinks
 public import LeanTheory.Theory.Life.ActivationIncModule
+public import LeanTheory.Theory.Life.Gen.ActSide
+public import LeanTheory.Theory.Life.ActivationIncEntry
+public import LeanTheory.Theory.Life.ActivationIncArrive
 public import LeanTheory.Theory.Life.RouteExamples
 public import LeanTheory.Theory.Life.Rf0Images
 public import LeanTheory.Theory.Life.StationFacts

@@ -89,3 +89,10 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   runs with the diagonal. Caveat: the box of `dz2mk0` (value 0) contains the whole flight of the
   Z answer (to `x = 4564`); the `decJz` activation should cut that run where the answer leaves
   the circuit, or use a lane for it.
+* 2026-11-16: `ActivationIncEntry`, `ActivationIncArrive`, `Gen/ActSide` (sub-agent, checked here):
+  entry chains at the destination for every copy `t` (`entry_reaction`, `entryRelay`,
+  `orOut_flight_unit`, `entry_time`: the control reaches the body input at a time `≡ 0 (mod 30)`),
+  the window rule as a theorem (`upCorners_tau`, `upLink_offset`, `incLink_offset`: arrivals at
+  offset 4 or 5), `window_group` (a group of active pieces with the rest idle). Correction to
+  `R-31`: "R-29 numbering = r0 + 1" should be `r0 + 2`; offset 5 needed new side certificates
+  (`orSide7`, `orChainSide7`; also `orSide8`). Open: merge unit and module input, composition.
