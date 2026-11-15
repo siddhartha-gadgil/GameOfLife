@@ -433,3 +433,12 @@ generations, 247 pieces) and a sharing program for r0 = 0, 1, 2; each ends with 
 rest, the blocks at the interpreter's values, and exactly one glider on the HALT line. Open: the
 crossing check of concurrent links is per layout, not proved for every program; DEC chains with
 `nd > 1` argued, not simulated.
+
+**`DZ2` for every k (2026-11-15).** `dz2gAll` (`Theory/Life/Gen/Dz2gRun.lean`), for every `k ≥ 2`:
+`conway.evolve (4 k + 11 490) (Rest ∪ C' ∪ reg1Block k) = conway.evolve (4 k) Rest ∪ reg1Block (k - 1)
+∪ translate (k, k) NZ`. Method: the run planned without the block; the block (before the salvo is
+free) and the salvo with the block (after) are generic processes with symbolic footprints
+(`salvo_world_all`, three phases: approach, collision, block at rest), separated by `omega`; a tail of
+`4 k` generations. Together with `dz2mk1Run_rest` (k = 1) and `dz2mk0Run_rest` (k = 0) the zero test
+is certified for every register value (the three statements still use separately generated copies
+of the circuit; to be unified).

@@ -247,4 +247,117 @@ theorem Reaction.seq_eq {P Q Q' R : Finset Cell} {n m : ℕ} {F G : ℕ → Set 
     Reaction P R (n + m) (fun i => if i ≤ n then F i else G (i - n)) :=
   h.seq (e ▸ h')
 
+/-! ### Trajectories: one evolution, cut into time windows -/
+
+/-- **A window of a trajectory**: if every generation of `X` lies in its footprint `G i`, then from
+generation `m` on, for `n` generations, `X` is a reaction with the shifted footprint. -/
+theorem trajectory_reaction {X : Finset Cell} {G : ℕ → Set Cell}
+    (hG : ∀ i, (conway.evolve i X : Set Cell) ⊆ G i) (m n : ℕ) :
+    Reaction (conway.evolve m X) (conway.evolve (n + m) X) n (fun i => G (i + m)) :=
+  ⟨by rw [Rule.evolve_add], fun i _ => by rw [← Rule.evolve_add]; exact hG (i + m)⟩
+
+/-- **A salvo and the block, for all time**: under the hypotheses of `salvo_track_reaction`, every
+generation of the salvo and the block at position `k` lies in the sharp footprint: until
+generation `k * 4` the salvo's box moved along the diagonal and the block's box, afterwards the box
+of the reaction at position `0` moved to position `k` (the block at its new position stays
+there). -/
+theorem salvo_track_all {S : Finset Cell} {a b lo hi za zb zlo zhi d : ℤ} {n : ℕ}
+    (h4 : conway.evolve 4 S = translate (1, 1) S)
+    (hB : ∀ r < 4, (conway.evolve r S : Set Cell) ⊆ Box a b lo hi)
+    (hz : Reaction (S ∪ counter 0) (counter d) n (fun _ => Box za zb zlo zhi))
+    (hhi : hi ≤ 9) (k : ℕ) (i : ℕ) :
+    (conway.evolve i (S ∪ counter k) : Set Cell) ⊆
+      if i ≤ k * 4 then
+        Box (a + ((i / 4 : ℕ) : ℤ)) (b + ((i / 4 : ℕ) : ℤ)) (lo + ((i / 4 : ℕ) : ℤ))
+          (hi + ((i / 4 : ℕ) : ℤ)) ∪ Box (7 + k) (8 + k) (11 + k) (12 + k)
+      else if i ≤ k * 4 + n then Box (za + k) (zb + k) (zlo + k) (zhi + k)
+      else Box (7 + (d + k)) (8 + (d + k)) (11 + (d + k)) (12 + (d + k)) := by
+  have h := salvo_track_reaction h4 hB hz hhi k
+  by_cases hi' : i ≤ k * 4 + n
+  · have := h.subset i hi'
+    by_cases h1 : i ≤ k * 4
+    · simpa only [h1, ↓reduceIte] using this
+    · simpa only [h1, hi', ↓reduceIte] using this
+  · -- after the reaction the block stays where it is
+    have e : conway.evolve i (S ∪ counter k) = counter (d + k) := by
+      rw [show i = (i - (k * 4 + n)) + (k * 4 + n) by omega, Rule.evolve_add, h.evolve_eq,
+        (counter_isStillLife _).evolve]
+    simp only [show ¬ (i ≤ k * 4) by omega, hi', ↓reduceIte]
+    rw [e]
+    exact counter_subset_box _
+
+/-- `salvo_track_all` placed at `(vx, vy)`. -/
+theorem salvo_world_all {S : Finset Cell} {a b lo hi za zb zlo zhi d : ℤ} {n : ℕ}
+    (h4 : conway.evolve 4 S = translate (1, 1) S)
+    (hB : ∀ r < 4, (conway.evolve r S : Set Cell) ⊆ Box a b lo hi)
+    (hz : Reaction (S ∪ counter 0) (counter d) n (fun _ => Box za zb zlo zhi))
+    (hhi : hi ≤ 9) (vx vy : ℤ) (k : ℕ) (i : ℕ) :
+    (conway.evolve i (translate (vx, vy) (S ∪ counter k)) : Set Cell) ⊆
+      if i ≤ k * 4 then
+        Box (a + vx + ((i / 4 : ℕ) : ℤ)) (b + vx + ((i / 4 : ℕ) : ℤ))
+          (lo + vy + ((i / 4 : ℕ) : ℤ)) (hi + vy + ((i / 4 : ℕ) : ℤ)) ∪
+          Box (7 + vx + k) (8 + vx + k) (11 + vy + k) (12 + vy + k)
+      else if i ≤ k * 4 + n then Box (za + vx + k) (zb + vx + k) (zlo + vy + k) (zhi + vy + k)
+      else Box (7 + d + vx + k) (8 + d + vx + k) (11 + d + vy + k) (12 + d + vy + k) := by
+  intro c hc
+  rw [Rule.evolve_translate, mem_coe, mem_translate] at hc
+  have := salvo_track_all h4 hB hz hhi k i (mem_coe.2 hc)
+  split_ifs at this ⊢ with hik
+  · rcases this with ⟨h1, h2, h3, h4⟩ | ⟨h1, h2, h3, h4⟩
+    · left
+      simp only [Prod.fst_sub, Prod.snd_sub] at h1 h2 h3 h4
+      exact ⟨by omega, by omega, by omega, by omega⟩
+    · right
+      simp only [Prod.fst_sub, Prod.snd_sub] at h1 h2 h3 h4
+      exact ⟨by omega, by omega, by omega, by omega⟩
+  · obtain ⟨h1, h2, h3, h4⟩ := this
+    simp only [Prod.fst_sub, Prod.snd_sub] at h1 h2 h3 h4
+    exact ⟨by omega, by omega, by omega, by omega⟩
+  · obtain ⟨h1, h2, h3, h4⟩ := this
+    simp only [Prod.fst_sub, Prod.snd_sub] at h1 h2 h3 h4
+    exact ⟨by omega, by omega, by omega, by omega⟩
+
+/-- Far apart from a footprint given by cases. -/
+theorem farApart_ite_left {c : Prop} [Decidable c] {A B C D : Set Cell}
+    (h1 : c → FarApart 2 A D) (h2 : c → FarApart 2 B D) (h3 : ¬ c → FarApart 2 C D) :
+    FarApart 2 (if c then A ∪ B else C) D := by
+  split_ifs with hc
+  · exact FarApart.union_left (h1 hc) (h2 hc)
+  · exact h3 hc
+
+/-- A window of a trajectory, with the end time given as a number. -/
+theorem trajectory_reaction' {X : Finset Cell} {G : ℕ → Set Cell}
+    (hG : ∀ i, (conway.evolve i X : Set Cell) ⊆ G i) (m n m' : ℕ) (h : n + m = m') :
+    Reaction (conway.evolve m X) (conway.evolve m' X) n (fun i => G (i + m)) :=
+  h ▸ trajectory_reaction hG m n
+
+/-- The block at position `k + c`, placed at `(vx, vy)`, is the block at position `k` placed at
+`(vx + c, vy + c)`. -/
+theorem translate_counter_shift (vx vy : ℤ) (c k : ℕ) :
+    translate (vx, vy) (counter ((k + c : ℕ) : ℤ)) = translate (vx + c, vy + c) (counter k) := by
+  rw [counter, counter, translate_ofRows, translate_ofRows]
+  congr 1 <;> push_cast <;> omega
+
+/-- Far apart from a footprint given by three cases. -/
+theorem farApart_ite3_left {c c' : Prop} [Decidable c] [Decidable c'] {A B C E D : Set Cell}
+    (h1 : c → FarApart 2 A D) (h2 : c → FarApart 2 B D) (h3 : ¬ c → c' → FarApart 2 C D)
+    (h4 : ¬ c → ¬ c' → FarApart 2 E D) :
+    FarApart 2 (if c then A ∪ B else if c' then C else E) D := by
+  split_ifs with hc hc'
+  · exact FarApart.union_left (h1 hc) (h2 hc)
+  · exact h3 hc hc'
+  · exact h4 hc hc'
+
+/-- **The end of a pull**: once the salvo has done its work, the block stays at its new position. -/
+theorem salvo_world_end {S : Finset Cell} {a b lo hi za zb zlo zhi d : ℤ} {n : ℕ}
+    (h4 : conway.evolve 4 S = translate (1, 1) S)
+    (hB : ∀ r < 4, (conway.evolve r S : Set Cell) ⊆ Box a b lo hi)
+    (hz : Reaction (S ∪ counter 0) (counter d) n (fun _ => Box za zb zlo zhi))
+    (hhi : hi ≤ 9) (vx vy : ℤ) (k M : ℕ) (hM : n ≤ M) :
+    conway.evolve (k * 4 + M) (translate (vx, vy) (S ∪ counter k)) =
+      translate (vx, vy) (counter (d + k)) := by
+  have h := salvo_track_reaction h4 hB hz hhi k
+  rw [Rule.evolve_translate, show k * 4 + M = (M - n) + (k * 4 + n) by omega, Rule.evolve_add,
+    h.evolve_eq, (counter_isStillLife _).evolve]
+
 end LeanTheory.Life

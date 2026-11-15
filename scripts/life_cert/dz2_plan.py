@@ -50,7 +50,8 @@ def build_groups(pieces):
 
 
 def main():
-    k = int(os.environ.get('DZ2_K', '1'))
+    NB = os.environ.get('DZ2_K') == 'nb'     # no register block at all
+    k = 1 if NB else int(os.environ.get('DZ2_K', '1'))
     d = design()
     pieces = reg1_pieces() + frozen_pieces()[len(reg1_pieces()):] + [d['rfr']] + d['supply'] + d['zb']
     if os.environ.get('DZ2_MOD'):
@@ -66,7 +67,11 @@ def main():
     start = set()
     for p in pieces:
         start |= piece_cells(p, Ts)
-    start |= glider_at(*d['ctrl'], Ts) | translate(set(counter(k)), 148, 240)
+    start |= glider_at(*d['ctrl'], Ts)
+    if NB:
+        groups = [g for g in groups if g.name != 'blk']
+    else:
+        start |= translate(set(counter(k)), 148, 240)
     cyc = []
     for r in range(30):
         cc = set()
@@ -76,7 +81,7 @@ def main():
     act, segs, final = P.plan(groups, start, Ts, N, lambda t: cyc[(t - Ts) % 30], log)
     pickle.dump({'groups': [(g.name, g.kind, g.env, getattr(g, 'members', None)) for g in groups],
                  'k': k, 'Ts': Ts, 'N': N, 'pieces': pieces, 'act': act, 'segs': segs,
-                 'final': final}, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'results', 'dz2%s_plan_k%d.pkl' % ('m' if os.environ.get('DZ2_MOD') else '', k)), 'wb'))
+                 'final': final}, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'results', 'dz2%s_plan_k%s.pkl' % ('m' if os.environ.get('DZ2_MOD') else '', 'nb' if NB else k)), 'wb'))
     log('done: %d segments' % len(segs))
 
 
