@@ -61,6 +61,7 @@ These modules build on `Kernel/Life` (definitions only; there is no law).
 | `Chain`, `MergeChain` | Chains of relays of any length by induction (`chain_reaction`: a periodic piece relaying its input to a translate of itself, three separation inequalities); the merge chain of OR gates of `R-29` for every length (`orChain`: copies every `(35, 64)`, `254` generations per copy) |
 | `Route` | Routes as lists of relay stages (`Stage`: a period-30 piece turning an input into an output): `Stage.route_reaction` carries the input of the first stage to the output of the last, given pairwise separation of the stages' boxes; `Stage.idle` for a route at rest |
 | `Diagonal` | The diagonal of a register (note `N-20`): salvos in flight (`flights_reaction`, `flights_evolve_mul`) and **`diag_strip`**: a block with a valid queue of salvos behind it stays in the strip of its diagonal at every generation |
+| `Salvos` | The pulling and pushing salvos of the machine as `Salvo`s (`regPull`, `regPush`) and diagonal parameters for both (`regParams_good`: gap 28) |
 | `RouteExamples` | Instances of stages: the reflector `rf0Stage`, `flightStage`, and a two-stage route `rf0_route` |
 | `Rf0Images` | The eight images of the reflector as route stages (`rf0SWNW`, …, `rf0SWSE`): the corner pieces of every route of the layout `R-31` |
 | `MergeSide` | The merge chain entered from the side input (residues 5, 6, 9 of `R-29`), for every length: `orChainSide5`, `orChainSide6`, `orChainSide9` (by `chain_side_reaction`) |
