@@ -128,3 +128,10 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   Second finding: the constant box footprints of the register runs contain other module pieces
   (`RF_J`, the INC gate, possibly stations): the footprints are being refined to unions of
   diagonal-and-axis boxes.
+* 2026-11-16: refined regions of the runs (`RunRegion.lean`, `Gen/*RunG.lean`, `Gen/Dz2jAllG.lean`,
+  generator `scripts/life_cert/emit_rung.py`): each run (`bodyIncRun_restG`, `dz2eOpG`,
+  `dz2dOpG`, …, `dz2jAllG`) is a reaction inside `<p>Region = unionL <p>RegL`, a list of components
+  `BU` (box ∩ diagonal box; e.g. 46 for `dz2e`) and `regLanes`; `<p>Region_far` reduces
+  separation from a piece to one linear check per component (`BU.farApart_box`,
+  `regLanes_farApart_box`). Checked numerically: `RF_J` and the INC gate are far from every
+  component of `dz2e`.
