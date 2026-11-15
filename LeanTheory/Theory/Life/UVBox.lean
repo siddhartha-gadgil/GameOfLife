@@ -108,4 +108,27 @@ theorem flight_reaction_uv {G G' : Finset Cell} {dx dy U₁ U₂ V₁ V₂ : ℤ
       at h1 h2 h3 h4
     refine ⟨?_, ?_, ?_, ?_⟩ <;> linarith
 
+/-- **Flight with both footprints**: the box in `x, y` and the diagonal box, both moving. -/
+theorem flight_reaction_xyuv {G G' : Finset Cell} {dx dy a b lo hi U₁ U₂ V₁ V₂ : ℤ}
+    (h4 : conway.evolve 4 G = translate (dx, dy) G)
+    (hB : ∀ r < 4, (conway.evolve r G : Set Cell) ⊆ Box a b lo hi)
+    (hU : ∀ r < 4, (conway.evolve r G : Set Cell) ⊆ UVBox U₁ U₂ V₁ V₂) (q r : ℕ)
+    (hend : translate ((q : ℤ) * dx, (q : ℤ) * dy) (conway.evolve r G) = G') :
+    Reaction G G' (4 * q + r) (fun i =>
+      Box (a + ((i / 4 : ℕ) : ℤ) * dx) (b + ((i / 4 : ℕ) : ℤ) * dx) (lo + ((i / 4 : ℕ) : ℤ) * dy)
+        (hi + ((i / 4 : ℕ) : ℤ) * dy) ∩
+      UVBox (U₁ + ((i / 4 : ℕ) : ℤ) * (dx - dy)) (U₂ + ((i / 4 : ℕ) : ℤ) * (dx - dy))
+        (V₁ + ((i / 4 : ℕ) : ℤ) * (dx + dy)) (V₂ + ((i / 4 : ℕ) : ℤ) * (dx + dy))) :=
+  ⟨(flight_reaction h4 hB q r hend).evolve_eq, fun i hi c hc =>
+    ⟨(flight_reaction h4 hB q r hend).subset i hi hc,
+      (flight_reaction_uv h4 hU q r hend).subset i hi hc⟩⟩
+
+/-- Far apart from a part of a set: the intersection with another set, on the left. -/
+theorem FarApart.inter_left {A A' B : Set Cell} (h : FarApart 2 A B) : FarApart 2 (A ∩ A') B :=
+  fun a ha => h a ha.1
+
+/-- Far apart from a part of a set: the intersection with another set, on the right (second). -/
+theorem FarApart.inter_left' {A A' B : Set Cell} (h : FarApart 2 A' B) : FarApart 2 (A ∩ A') B :=
+  fun a ha => h a ha.2
+
 end LeanTheory.Life
