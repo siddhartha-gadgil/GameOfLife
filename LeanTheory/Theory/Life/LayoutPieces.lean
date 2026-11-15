@@ -109,25 +109,54 @@ def eatZEndP : Piece := ⟨eatZEndR, 1013, 1016, -478, -475, eatZEndR_rest⟩
 
 /-! ### Placed pieces as data -/
 
-/-- A placed piece as data: a name of the base (for the cross-check), the base piece, the
-translation and the phase at time `0`. -/
+/-- The base pieces of the machine. -/
+inductive Base where
+  /-- The OR gate. -/
+  | orGate
+  /-- The reflector image `k`. -/
+  | rf (k : ℕ)
+  /-- Group `i` of the body of a `dec` unit. -/
+  | bodyDec (i : ℕ)
+  /-- Group `i` of the body of an `inc` unit. -/
+  | bodyInc (i : ℕ)
+  /-- Group `i` of the register circuit. -/
+  | dz2g (i : ℕ)
+  /-- Piece `i` of the station NZ. -/
+  | stNZ (i : ℕ)
+  /-- Piece `i` of the station Z. -/
+  | stZ (i : ℕ)
+  /-- The line-end eater NZ. -/
+  | eatNZ
+  /-- The line-end eater Z. -/
+  | eatZ
+  deriving Repr, DecidableEq
+
+/-- The base piece. -/
+def Base.piece : Base → Piece
+  | .orGate => orGateP
+  | .rf k => rfP k
+  | .bodyDec i => bodyDecPieces.getD i orGateP
+  | .bodyInc i => bodyIncPieces.getD i orGateP
+  | .dz2g i => dz2gPieces.getD i orGateP
+  | .stNZ i => [stNZ0P, stNZ1P, stNZ2P].getD i orGateP
+  | .stZ i => [stZ0P, stZ1P, stZ2P].getD i orGateP
+  | .eatNZ => eatNZEndP
+  | .eatZ => eatZEndP
+
+/-- A placed piece as data: the base piece, the translation and the phase at time `0`. -/
 structure PSpec where
-  /-- Name of the base piece. -/
-  name : String
   /-- The base piece. -/
-  g : Piece
+  base : Base
   /-- Translation in `x`. -/
   vx : ℤ
   /-- Translation in `y`. -/
   vy : ℤ
   /-- Phase at time `0`. -/
   ph : ℕ
+  deriving Repr
 
 /-- The placed piece of a spec. -/
-def PSpec.piece (s : PSpec) : Piece := s.g.place s.vx s.vy s.ph
-
-/-- The data of a spec without the base piece (for evaluation). -/
-def PSpec.data (s : PSpec) : String × ℤ × ℤ × ℕ := (s.name, s.vx, s.vy, s.ph)
+def PSpec.piece (s : PSpec) : Piece := s.base.piece.place s.vx s.vy s.ph
 
 /-! ### World lines and reflectors (`scripts/life_machine/net.py`) -/
 
@@ -223,7 +252,7 @@ def reflect (g : WL) (c : Corner) : PSpec × WL :=
   let p := rfX c.k c.u c.v
   let q := rfY c.k c.u c.v
   let s := g.tau - (rfIn c.k).tau + 4 * (rfIn c.k).dx * p
-  (⟨"rf" ++ toString c.k, rfP c.k, p, q, ((-s) % 30).toNat⟩, (rfOut c.k).shift p q s)
+  (⟨.rf c.k, p, q, ((-s) % 30).toNat⟩, (rfOut c.k).shift p q s)
 
 /-- A route: the reflectors at the corners, and the final glider. -/
 def route (g : WL) : List Corner → List PSpec × WL
@@ -293,18 +322,18 @@ def unitDY (p : Program) (a : ℕ) : ℤ := (VU p - A p a) / 2
 translated by `(dx, dy)`. -/
 def chainSpecs (n : ℕ) (dx dy : ℤ) : List PSpec :=
   (List.range n).map fun t : ℕ =>
-    ⟨"orGate", orGateP, dx - 35 * (t : ℤ), dy - 64 * (t : ℤ), 14 * t % 30⟩
+    ⟨.orGate, dx - 35 * (t : ℤ), dy - 64 * (t : ℤ), 14 * t % 30⟩
 
 /-- A list of base pieces translated by `(dx, dy)` at phase `0`. -/
-def groupSpecs (nm : String) (L : List Piece) (dx dy : ℤ) : List PSpec :=
-  L.map fun g => ⟨nm, g, dx, dy, 0⟩
+def groupSpecs (L : List Base) (dx dy : ℤ) : List PSpec :=
+  L.map fun g => ⟨g, dx, dy, 0⟩
 
 /-- The pieces of unit `a`: entry chain of `2P` copies and the body of its kind. -/
 def unitSpecs (p : Program) (a : ℕ) : List PSpec :=
   chainSpecs (2 * numPreds p) (unitDX p a) (unitDY p a) ++
     match unitKind p a with
-    | .dec => groupSpecs "bodyDec" bodyDecPieces (unitDX p a) (unitDY p a)
-    | .inc => groupSpecs "bodyInc" bodyIncPieces (unitDX p a) (unitDY p a)
+    | .dec => groupSpecs ((List.range 8).map Base.bodyDec) (unitDX p a) (unitDY p a)
+    | .inc => groupSpecs ((List.range 3).map Base.bodyInc) (unitDX p a) (unitDY p a)
     | _ => []
 
 /-- The world line `w` of a unit template, in unit `a`. -/
@@ -346,32 +375,32 @@ def modDY (p : Program) (r : ℕ) : ℤ := -(U p r / 2)
 `(-1700 - 35 m, -1727 - 64 m)`), translated by `(dx, dy)`. -/
 def decChainSpecs (n : ℕ) (dx dy : ℤ) : List PSpec :=
   (List.range n).map fun m : ℕ =>
-    ⟨"orGate", orGateP, dx - 1700 - 35 * (m : ℤ), dy - 1727 - 64 * (m : ℤ), (15 + 14 * m) % 30⟩
+    ⟨.orGate, dx - 1700 - 35 * (m : ℤ), dy - 1727 - 64 * (m : ℤ), (15 + 14 * m) % 30⟩
 
 /-- The `n` stations on the answer lines (station `j` moved by `(72 j, ±72 j)`, `288 j`
 generations later), translated by `(dx, dy)`. -/
 def stationSpecs (n : ℕ) (dx dy : ℤ) : List PSpec :=
   (List.range n).flatMap fun j : ℕ =>
-    groupSpecs "stNZ" [stNZ0P, stNZ1P, stNZ2P] (dx + 72 * (j : ℤ)) (dy + 72 * (j : ℤ)) |>.map
+    groupSpecs [.stNZ 0, .stNZ 1, .stNZ 2] (dx + 72 * (j : ℤ)) (dy + 72 * (j : ℤ)) |>.map
       (fun s => { s with ph := 12 * j % 30 })
 
 /-- The `n` stations on the line Z, translated by `(dx, dy)`. -/
 def stationZSpecs (n : ℕ) (dx dy : ℤ) : List PSpec :=
   (List.range n).flatMap fun j : ℕ =>
-    groupSpecs "stZ" [stZ0P, stZ1P, stZ2P] (dx + 72 * (j : ℤ)) (dy - 72 * (j : ℤ)) |>.map
+    groupSpecs [.stZ 0, .stZ 1, .stZ 2] (dx + 72 * (j : ℤ)) (dy - 72 * (j : ℤ)) |>.map
       (fun s => { s with ph := 12 * j % 30 })
 
 /-- The pieces of module `r`: register circuit, `RF_J`, INC OR gate, DEC chain of `2D` copies,
 `D` stations per answer line, two line-end eaters. -/
 def moduleSpecs (p : Program) (r : ℕ) : List PSpec :=
-  groupSpecs "dz2g" dz2gPieces (modDX p r) (modDY p r) ++
-    [⟨"rf4", rfP 4, modDX p r - 850, modDY p r - 1044, 25⟩,
-      ⟨"orGate", orGateP, modDX p r - 1132, modDY p r - 1291, 16⟩] ++
+  groupSpecs ((List.range 28).map Base.dz2g) (modDX p r) (modDY p r) ++
+    [⟨.rf 4, modDX p r - 850, modDY p r - 1044, 25⟩,
+      ⟨.orGate, modDX p r - 1132, modDY p r - 1291, 16⟩] ++
     decChainSpecs (2 * numCallers p) (modDX p r) (modDY p r) ++
     stationSpecs (numCallers p) (modDX p r) (modDY p r) ++
     stationZSpecs (numCallers p) (modDX p r) (modDY p r) ++
-    [⟨"eatNZEnd", eatNZEndP, modDX p r + 72 * (D p - 1), modDY p r + 72 * (D p - 1), 0⟩,
-      ⟨"eatZEnd", eatZEndP, modDX p r + 72 * (D p - 1), modDY p r - 72 * (D p - 1), 0⟩]
+    [⟨.eatNZ, modDX p r + 72 * (D p - 1), modDY p r + 72 * (D p - 1), 0⟩,
+      ⟨.eatZ, modDX p r + 72 * (D p - 1), modDY p r - 72 * (D p - 1), 0⟩]
 
 /-- A world line of the module, in module `r`. -/
 def modWL (p : Program) (r : ℕ) (w : WL) : WL := w.shift (modDX p r) (modDY p r) 0
@@ -417,9 +446,13 @@ def bandCorners (p : Program) (b s c H cd : ℤ) (k0 k4 : ℕ) : List Corner :=
     ⟨4, H, trackBack p b s c, .band b (9 - s) true⟩,
     ⟨k4, cd, trackBack p b s c, .band b (9 - s) false⟩]
 
+/-- A link from the column `c` (first turn with image `k0`) up to entry copy `t` of unit `a`. -/
+def upCornersK (k0 : ℕ) (p : Program) (b s c H : ℤ) (a : ℕ) (t : ℤ) : List Corner :=
+  bandCorners p b s c H (destU p a t) k0 6 ++ [⟨1, destU p a t, destV p t, .slab a t⟩]
+
 /-- A link from a unit column `c` up to entry copy `t` of unit `a`. -/
 def upCorners (p : Program) (b s c H : ℤ) (a : ℕ) (t : ℤ) : List Corner :=
-  bandCorners p b s c H (destU p a t) 3 6 ++ [⟨1, destU p a t, destV p t, .slab a t⟩]
+  upCornersK 3 p b s c H a t
 
 /-- A link from a unit column `c` down to the port line `vp` of left-zone channel `idx` of
 module `r` (column `cd`). -/
@@ -435,13 +468,13 @@ def ztokCorners (p : Program) (b c H : ℤ) (r : ℕ) (j : ℤ) : List Corner :=
 /-- The NZ answer (slot `3`) of caller `j` of module `r` to entry copy `t` of unit `a`. -/
 def nzAnsCorners (p : Program) (b : ℤ) (r : ℕ) (j H : ℤ) (a : ℕ) (t : ℤ) : List Corner :=
   ⟨0, U p r + nzAnsChan p j, nzAnsPortV j, .left r (2 * D p + 2 + 2 * j)⟩ ::
-    upCorners p b 3 (U p r + nzAnsChan p j) H a t |>.modifyHead fun c => { c with k := 5 }
+    upCornersK 5 p b 3 (U p r + nzAnsChan p j) H a t
 
 /-- The Z answer (slot `4`) of caller `j` of module `r` to entry copy `t` of unit `a`. -/
 def zAnsCorners (p : Program) (b : ℤ) (r : ℕ) (j H : ℤ) (a : ℕ) (t : ℤ) : List Corner :=
   ⟨4, U p r + zAnsStation j, zAnsDepth p j, .right r j 0⟩ ::
     ⟨6, U p r + zAnsChan p j, zAnsDepth p j, .right r j 1⟩ ::
-    (upCorners p b 4 (U p r + zAnsChan p j) H a t |>.modifyHead fun c => { c with k := 5 })
+    upCornersK 5 p b 4 (U p r + zAnsChan p j) H a t
 
 /-- The halt link of unit `a`: one corner, on the top track. -/
 def haltCorners (p : Program) (a : ℕ) : List Corner :=

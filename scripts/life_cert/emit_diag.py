@@ -35,8 +35,12 @@ def uvrange(cells):
 
 
 class DiagEmitter(Emitter):
-    def __init__(self, plan, prefix, merge):
+    def __init__(self, plan, prefix, merge, kind='pull'):
         super().__init__(plan, prefix)
+        self.kind = kind
+        self.SN = 'regPull' if kind == 'pull' else 'regPush'
+        self.SD = 'dz2gPullS' if kind == 'pull' else 'dz2jPullS'
+        self.SW = (-1, 5, [5, 518, 642, 768]) if kind == 'pull' else (-6, -7, [320, 384, 128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 16390, 32770, 57344])
         segs = plan['segs']
         self.jM = [j for j, sg in enumerate(segs) if sg['a'] == merge][0]
         self.oM = merge - plan['Ts']
@@ -48,7 +52,7 @@ class DiagEmitter(Emitter):
         for sg in segs[self.jM:]:
             assert any(is_salvo(p) for p in sg['procs'])
         # the offset of the salvo at the merge, relative to regPull.S = dz2gPullS
-        S = {(x, y) for x, y in cells_of(-1, 5, [5, 518, 642, 768])}
+        S = cells_of(*self.SW)
         loc = {(x - VX, y - VY) for x, y in sal}
         es = [e for e in range(-50, 300) if {(x - e, y - e) for x, y in S} == loc]
         assert len(es) == 1, ('salvo does not match regPull', es)
@@ -194,7 +198,7 @@ class DiagEmitter(Emitter):
 
     # ---------------------------------------------------------------- segments
     def qexpr(self, j):
-        return 'q' if j < self.jM else '(q ++ [(regPull, %s)])' % self.eP()
+        return 'q' if j < self.jM else '(q ++ [(@SN@, %s)])' % self.eP()
 
     def eP(self):
         return '((%d : ℤ) + (((m0 + %d) / 4 : ℕ) : ℤ))' % (self.e0, self.oM)
@@ -231,7 +235,7 @@ class DiagEmitter(Emitter):
         args = '(q : List (Salvo × ℤ)) (K Vs Vb Vs\' : ℤ) (m0 : ℕ)'
         self.seglem.append('/-- The processes of segment %d (generations %d to %d of the run). -/\n'
                            'def %sL%d %s\n    (hv : DiagValid regParams Vs Vb K q)\n'
-                           '    (hv\' : DiagValid regParams Vs\' Vb K (q ++ [(regPull, %s)])) :\n'
+                           '    (hv\' : DiagValid regParams Vs\' Vb K (q ++ [(@SN@, %s)])) :\n'
                            '    List (Proc %d) :=\n  [%s]\n'
                            % (j, a, b, P, j, args, self.eP(), n, ',\n   '.join([glit] + lits + [bundle])))
         gterms = ['(fun i _hi => %s)' % self.gen_sep(j, o, n, q) for q in movers]
@@ -245,7 +249,7 @@ class DiagEmitter(Emitter):
         parts.append('trivial')
         self.seglem.append('set_option maxRecDepth 100000 in\n/-- **Segment %d** of the run with the register diagonal. -/\n'
                            'theorem %sSeg%d %s\n    (hv : DiagValid regParams Vs Vb K q)\n'
-                           '    (hv\' : DiagValid regParams Vs\' Vb K (q ++ [(regPull, %s)]))\n'
+                           '    (hv\' : DiagValid regParams Vs\' Vb K (q ++ [(@SN@, %s)]))\n'
                            '    (hm : (m0 + @OM@) %% 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ))\n'
                            '    (hVs\' : -34 ≤ Vs\' + 2 * (((m0 + %d) / 4 : ℕ) : ℤ)) :\n'
                            '    Reaction (Proc.start (%sL%d q K Vs Vb Vs\' m0 hv hv\'))\n'
@@ -269,24 +273,23 @@ class DiagEmitter(Emitter):
         special = None
         if j + 1 == self.jM:
             gq = 'conway.evolve (m0 + %d) (diagW q K)' % self.oM
-            gq2 = 'conway.evolve (m0 + %d) (diagW (q ++ [(regPull, %s)]) K)' % (self.oM, self.eP())
+            gq2 = 'conway.evolve (m0 + %d) (diagW (q ++ [(@SN@, %s)]) K)' % (self.oM, self.eP())
             B.remove((gq2, None))
             B.append((gq, None))
             sa = self.atom(self.salvo_w)
             B.append((sa, set(self.salvo_w)))
             name = '%sMrg' % P
-            S = cells_of(-1, 5, [5, 518, 642, 768])
             self.gluelem.append(
                 'set_option maxRecDepth 100000 in\n/-- The pull salvo joins the register diagonal. -/\n'
                 'theorem %s (q : List (Salvo × ℤ)) (K Vs Vb : ℤ) (m0 : ℕ) (hv : DiagValid regParams Vs Vb K q)\n'
                 '    (hm : (m0 + @OM@) %% 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ)) :\n'
                 '    %s = %s ∪ %s := by\n'
-                '  rw [diagW_add hv regPull _ (m0 + %d) (by omega) (by simp only [regPull]; omega)\n'
-                '    (by simp only [regPull]; omega)]\n'
+                '  rw [diagW_add hv @SN@ _ (m0 + %d) (by omega) (by simp only [@SN@]; omega)\n'
+                '    (by simp only [@SN@]; omega)]\n'
                 '  congr 1\n'
                 '  rw [show %s - (((m0 + %d) / 4 : ℕ) : ℤ) = %d by ring]\n'
-                '  simp only [Salvo.at, regPull]\n'
-                '  rw [dz2gPullS, translate_translate, translate_ofRows, %s]\n  norm_num\n'
+                '  simp only [Salvo.at, @SN@]\n'
+                '  rw [@SD@, translate_translate, translate_ofRows, %s]\n  norm_num\n'
                 % (name, gq2, gq, sa, self.oM, self.eP(), self.oM, self.e0, sa))
             special = name
         for e, c in list(A):
@@ -351,7 +354,7 @@ class DiagEmitter(Emitter):
         self.gluelem.append('set_option maxRecDepth 100000 in\n/-- The end of segment %d is the start of segment %d. -/\n'
                             'theorem %sGl%d (q : List (Salvo × ℤ)) (K Vs Vb Vs\' : ℤ) (m0 : ℕ)\n'
                             '    (hv : DiagValid regParams Vs Vb K q)\n'
-                            '    (hv\' : DiagValid regParams Vs\' Vb K (q ++ [(regPull, %s)]))\n'
+                            '    (hv\' : DiagValid regParams Vs\' Vb K (q ++ [(@SN@, %s)]))\n'
                             '    (hm : (m0 + @OM@) %% 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ)) :\n'
                             '    Proc.stop (%sL%d q K Vs Vb Vs\' m0 hv hv\') = Proc.start (%sL%d q K Vs Vb Vs\' m0 hv hv\') := by\n%s'
                             % (j, j + 1, P, j, self.eP(), P, j, P, j + 1, body))
@@ -383,7 +386,7 @@ class DiagEmitter(Emitter):
         final = ('set_option maxRecDepth 100000 in\n/-- **The run with the register diagonal**: %d generations, %d segments. -/\n'
                  'theorem %sRun (q : List (Salvo × ℤ)) (K Vs Vb Vs\' : ℤ) (m0 : ℕ)\n'
                  '    (hv : DiagValid regParams Vs Vb K q)\n'
-                 '    (hv\' : DiagValid regParams Vs\' Vb K (q ++ [(regPull, %s)]))\n'
+                 '    (hv\' : DiagValid regParams Vs\' Vb K (q ++ [(@SN@, %s)]))\n'
                  '    (hm : (m0 + @OM@) %% 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ))\n'
                  '    (hVs\' : -34 ≤ Vs\' + 2 * (((m0 + %d) / 4 : ℕ) : ℤ)) :\n'
                  '    conway.evolve %d (Proc.start (%sL0 q K Vs Vb Vs\' m0 hv hv\')) =\n'
@@ -412,20 +415,21 @@ class DiagEmitter(Emitter):
         unfA = ', '.join(sorted(set(a for a, _ in st + en)))
         lhs = ' ∪ '.join(ofrows(c) for _, c in st)
         rhs = ' ∪ '.join(ofrows(c) for _, c in en)
-        q2 = '(q ++ [(regPull, %s)])' % self.eP()
+        rhs = (rhs + ' ∪ ') if rhs else ''
+        q2 = '(q ++ [(@SN@, %s)])' % self.eP()
         return ('/-- The register circuit at rest at the reference time. -/\ndef %sRest : Finset Cell :=\n  %s\n\n'
                 'set_option maxRecDepth 100000 in\n'
-                '/-- **The zero test with the register diagonal, value at least `1`**: the circuit at rest, its\n'
-                'control glider and the register diagonal (block `K`, salvos `q` in flight, every block at\n'
-                'position `≥ 0`) evolve in %d generations into the circuit at rest, the answer NZ, and the\n'
-                'diagonal with the new pulling salvo added. -/\n'
-                'theorem %sNZ (q : List (Salvo × ℤ)) (K Vs Vb Vs\' : ℤ) (m0 : ℕ)\n'
+                '/-- **An operation of the register with the register diagonal**: the circuit at rest, its control\n'
+                'glider and the register diagonal (block `K`, salvos `q` in flight, every block at position\n'
+                '`≥ 0`) evolve in %d generations into the circuit at rest, the answer (if any), and the\n'
+                'diagonal with the new salvo added. -/\n'
+                'theorem %sOp (q : List (Salvo × ℤ)) (K Vs Vb Vs\' : ℤ) (m0 : ℕ)\n'
                 '    (hv : DiagValid regParams Vs Vb K q)\n'
                 '    (hv\' : DiagValid regParams Vs\' Vb K %s)\n'
                 '    (hm : (m0 + @OM@) %% 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ))\n'
                 '    (hVs\' : -34 ≤ Vs\' + 2 * (((m0 + @OM@) / 4 : ℕ) : ℤ)) :\n'
                 '    conway.evolve %d (%sRest ∪ %s ∪ conway.evolve m0 (diagW q K)) =\n'
-                '      %sRest ∪ %s ∪ conway.evolve (m0 + %d) (diagW %s K) := by\n'
+                '      %sRest ∪ %sconway.evolve (m0 + %d) (diagW %s K) := by\n'
                 '  have h := %sRun q K Vs Vb Vs\' m0 hv hv\' hm hVb hVs hVs\'\n'
                 '  simp only [%sL0, %sL%d, %s, %s, Proc.stop_cons, Proc.start_cons, Proc.stop_nil,\n'
                 '    Proc.start_nil, Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty,\n'
@@ -450,10 +454,11 @@ def cells_of(x0, y0, rows):
 def main():
     plan_path, prefix, moddir, merge = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4])
     per = int(sys.argv[5]) if len(sys.argv) > 5 else 8
+    kind = sys.argv[6] if len(sys.argv) > 6 else 'pull'
     plan = pickle.load(open(plan_path, 'rb'))
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'life_machine'))
     from net import piece_cells
-    em = DiagEmitter(plan, prefix, merge)
+    em = DiagEmitter(plan, prefix, merge, kind)
     em.rest = {}
     Ts = plan['Ts']
     for name, kind, env, members in plan['groups']:
@@ -476,7 +481,7 @@ def main():
         f.write(HEADER % ('public import LeanTheory.Theory.Life.DiagProc',
                           doc % (prefix, 'the pieces and configurations')))
         f.write(opts)
-        f.write('\n'.join(pieces_txt + em.atom_defs + em.lemmas).replace('@OM@', str(em.oM)))
+        f.write('\n'.join(pieces_txt + em.atom_defs + em.lemmas).replace('@OM@', str(em.oM)).replace('@SN@', em.SN).replace('@SD@', em.SD))
         f.write(FOOTER)
     files = []
     for c in range(0, len(chunks), per):
@@ -487,7 +492,7 @@ def main():
             f.write(HEADER % ('public import %s%sData' % (base, Cap),
                               doc % (prefix, 'segments %d to %d' % (c, min(c + per, len(chunks)) - 1))))
             f.write(opts)
-            f.write('\n'.join(em.seglem[lo:hi]).replace('@OM@', str(em.oM)))
+            f.write('\n'.join(em.seglem[lo:hi]).replace('@OM@', str(em.oM)).replace('@SN@', em.SN).replace('@SD@', em.SD))
             f.write(FOOTER)
     with open(os.path.join(moddir, Cap + 'Run.lean'), 'w') as f:
         f.write(HEADER % ('\n'.join('public import %s%s' % (base, nm) for nm in files),
@@ -495,7 +500,7 @@ def main():
         f.write('set_option linter.style.longLine false\nset_option linter.unusedSimpArgs false\n'
                 'set_option linter.unusedTactic false\nset_option linter.unreachableTactic false\n'
                 'set_option linter.unusedVariables false\n\n')
-        f.write('\n'.join(em.gluelem + [final]).replace('@OM@', str(em.oM)))
+        f.write('\n'.join(em.gluelem + [final]).replace('@OM@', str(em.oM)).replace('@SN@', em.SN).replace('@SD@', em.SD))
         f.write(FOOTER)
     print('segments', len(chunks), 'atoms', len(em.atoms), 'merge segment', em.jM, 'offset', em.e0, 'files', files)
 

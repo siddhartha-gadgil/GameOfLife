@@ -1818,11 +1818,11 @@ def dz2dRest : Finset Cell :=
   dz2dR0 ∪ (dz2dR1 ∪ (dz2dR2 ∪ (dz2dR3 ∪ (dz2dR4 ∪ (dz2dR5 ∪ (dz2dR6 ∪ (dz2dR7 ∪ (dz2dR8 ∪ (dz2dR9 ∪ (dz2dR10 ∪ (dz2dR11 ∪ (dz2dR12 ∪ (dz2dR13 ∪ (dz2dR14 ∪ (dz2dR15 ∪ (dz2dR16 ∪ (dz2dR17 ∪ (dz2dR18 ∪ (dz2dR19 ∪ (dz2dR20 ∪ (dz2dR21 ∪ (dz2dR22 ∪ (dz2dR23 ∪ (dz2dR24 ∪ (dz2dR25 ∪ (dz2dR26 ∪ (dz2dR27)))))))))))))))))))))))))))
 
 set_option maxRecDepth 100000 in
-/-- **The zero test with the register diagonal, value at least `1`**: the circuit at rest, its
-control glider and the register diagonal (block `K`, salvos `q` in flight, every block at
-position `≥ 0`) evolve in 11490 generations into the circuit at rest, the answer NZ, and the
-diagonal with the new pulling salvo added. -/
-theorem dz2dNZ (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
+/-- **An operation of the register with the register diagonal**: the circuit at rest, its control
+glider and the register diagonal (block `K`, salvos `q` in flight, every block at position
+`≥ 0`) evolve in 11490 generations into the circuit at rest, the answer (if any), and the
+diagonal with the new salvo added. -/
+theorem dz2dOp (q : List (Salvo × ℤ)) (K Vs Vb Vs' : ℤ) (m0 : ℕ)
     (hv : DiagValid regParams Vs Vb K q)
     (hv' : DiagValid regParams Vs' Vb K (q ++ [(regPull, ((16 : ℤ) + (((m0 + 6555) / 4 : ℕ) : ℤ)))]))
     (hm : (m0 + 6555) % 4 = 0) (hVb : 18 ≤ Vb) (hVs : 18 ≤ Vs + 2 * ((m0 / 4 : ℕ) : ℤ))
