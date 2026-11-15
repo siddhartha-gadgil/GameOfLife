@@ -116,6 +116,8 @@ public import LeanTheory.Theory.Life.Route
 public import LeanTheory.Theory.Life.RouteExamples
 public import LeanTheory.Theory.Life.Rf0Images
 public import LeanTheory.Theory.Life.StationFacts
+public import LeanTheory.Theory.Life.Gen.BodyIncRun
+public import LeanTheory.Theory.Life.Gen.BodyDecRun
 public import LeanTheory.Theory.Life.Gen.Dz2mk1Run
 public import LeanTheory.Theory.Life.Gen.Dz2mk0Run
 public import LeanTheory.Theory.Life.Gen.Dz2gRun

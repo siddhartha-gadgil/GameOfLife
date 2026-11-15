@@ -80,6 +80,10 @@ Verified so far with this method: the zero test `DZ2` for every register value (
   (`MergeSide`, with `chain_side_reaction`): 12 of 25. Remaining: unit bodies (2), station facts (8),
   register operations on the module of `R-29` with chains (3, partly `dz2gAll`, `dz2iAll`).
 
+* 2026-11-15: station facts (8, `StationFacts`) and unit bodies (2, `bodyIncRun_rest`,
+  `bodyDecRun_rest`): 22 of 25. Remaining: the register operations on the module of `R-31`, including
+  a bridge for INC (the module drives `G_I` at side residue 8, `dz2iAll` at residue 1).
+
 ## Barriers
 
 * Separation for every program (step 3) is the main proof burden; the layout may need to be
