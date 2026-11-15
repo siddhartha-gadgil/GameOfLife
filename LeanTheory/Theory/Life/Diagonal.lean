@@ -170,8 +170,10 @@ theorem flights_evolve_mul {A B g : ℤ} (hg : B - A + 3 ≤ g) (hg0 : 0 ≤ g) 
     rw [flights, h.evolve_eq, σ.evolve_at, flights_evolve_mul hg hg0 q (e + g) hq m]
     rfl
 
-/-- The strip of a register diagonal: lanes `U₁ ≤ x - y ≤ U₂`, and `x + y ≥ V₀`. -/
-def diagStrip (U₁ U₂ V₀ : ℤ) : Set Cell := {c | U₁ ≤ c.1 - c.2 ∧ c.1 - c.2 ≤ U₂ ∧ V₀ ≤ c.1 + c.2}
+/-- The strip of a register diagonal at generation `i`: lanes `U₁ ≤ x - y ≤ U₂`, and `x + y` at
+least `Vs + 2 (i / 4)` (the salvos advance) or `Vb` (blocks and reactions). -/
+def diagStrip (U₁ U₂ Vs Vb : ℤ) (i : ℕ) : Set Cell :=
+  {c | U₁ ≤ c.1 - c.2 ∧ c.1 - c.2 ≤ U₂ ∧ min (Vs + 2 * ((i / 4 : ℕ) : ℤ)) Vb ≤ c.1 + c.2}
 
 /-- The parameters of a register diagonal: boxes of the salvos, the gap between salvos, the
 strip. -/
@@ -190,32 +192,31 @@ structure DiagParams where
   U₁ : ℤ
   /-- Upper lane of the strip. -/
   U₂ : ℤ
-  /-- Lower bound of `x + y` in the strip. -/
-  V₀ : ℤ
 
 /-- The gap is large enough for the salvos and reactions of the parameters. -/
 def DiagParams.Good (P : DiagParams) : Prop :=
   P.B - P.A + 3 ≤ P.g ∧ P.B - 4 ≤ P.g ∧ P.B + P.N / 4 + 3 - P.ZA ≤ P.g ∧ (P.N : ℤ) / 4 + 1 ≤ P.g ∧
     P.U₁ ≤ -5 ∧ -3 ≤ P.U₂
 
-/-- Every salvo of a list, at its offset, lies in the strip. -/
-def InStrip (P : DiagParams) : List (Salvo × ℤ) → Prop
+/-- Every salvo of a list, at its offset, lies in the strip (`x + y ≥ Vs` at generation `0`). -/
+def InStrip (P : DiagParams) (Vs : ℤ) : List (Salvo × ℤ) → Prop
   | [] => True
-  | (τ, f) :: q => P.U₁ ≤ τ.a - τ.hi ∧ τ.b - τ.lo ≤ P.U₂ ∧ P.V₀ ≤ τ.a + τ.lo - 2 * f ∧ InStrip P q
+  | (τ, f) :: q => P.U₁ ≤ τ.a - τ.hi ∧ τ.b - τ.lo ≤ P.U₂ ∧ Vs ≤ τ.a + τ.lo - 2 * f ∧
+      InStrip P Vs q
 
 /-- A valid queue: the front salvo is in front of the block (at offset `≥ -K`), fits the
 parameters, every box lies in the strip, the rest is far enough behind, and the queue that remains
 after the front salvo has moved the block is valid. -/
-def DiagValid (P : DiagParams) : ℤ → List (Salvo × ℤ) → Prop
-  | K, [] => P.V₀ ≤ 18 + 2 * K
-  | K, (σ, e) :: q => 0 ≤ K + e ∧ σ.n % 4 = 0 ∧ P.A ≤ σ.a ∧ σ.b ≤ P.B ∧ P.ZA ≤ σ.za ∧
+def DiagValid (P : DiagParams) : ℤ → ℤ → ℤ → List (Salvo × ℤ) → Prop
+  | _, Vb, K, [] => Vb ≤ 18 + 2 * K
+  | Vs, Vb, K, (σ, e) :: q => 0 ≤ K + e ∧ σ.n % 4 = 0 ∧ P.A ≤ σ.a ∧ σ.b ≤ P.B ∧ P.ZA ≤ σ.za ∧
       σ.n ≤ P.N ∧ (σ.d = 1 ∨ σ.d = -1) ∧
       P.U₁ ≤ σ.a - σ.hi ∧ σ.b - σ.lo ≤ P.U₂ ∧ P.U₁ ≤ σ.za - σ.zhi ∧ σ.zb - σ.zlo ≤ P.U₂ ∧
-      P.V₀ ≤ σ.a + σ.lo - 2 * e ∧ P.V₀ ≤ σ.za + σ.zlo + 2 * K ∧ P.V₀ ≤ 18 + 2 * K ∧
-      P.V₀ ≤ 18 + 2 * (K + σ.d) ∧
-      Behind P.A P.B P.g (e + P.g) q ∧ InStrip P q ∧
-      DiagValid P (K + σ.d) (shiftQ q (K + e + σ.n / 4))
-  termination_by _ q => q.length
+      Vs ≤ σ.a + σ.lo - 2 * e ∧ Vb ≤ σ.za + σ.zlo + 2 * K ∧ Vb ≤ 18 + 2 * K ∧
+      Vb ≤ 18 + 2 * (K + σ.d) ∧
+      Behind P.A P.B P.g (e + P.g) q ∧ InStrip P Vs q ∧
+      DiagValid P (Vs + 2 * (K + e + σ.n / 4)) Vb (K + σ.d) (shiftQ q (K + e + σ.n / 4))
+  termination_by _ _ _ q => q.length
   decreasing_by simp [shiftQ]
 
 /-- The footprint of the front salvo and the block at generation `i` (the block at `K`, the salvo
@@ -266,29 +267,30 @@ theorem Salvo.front_end (σ : Salvo) {e K : ℤ} {Kn : ℕ} (hK : (Kn : ℤ) = K
   omega
 
 /-- Salvos in flight inside the strip stay inside it. -/
-theorem flightsFoot_strip (P : DiagParams) : ∀ (q : List (Salvo × ℤ)), InStrip P q →
-    ∀ i, flightsFoot q i ⊆ diagStrip P.U₁ P.U₂ P.V₀
+theorem flightsFoot_strip (P : DiagParams) (Vs Vb : ℤ) : ∀ (q : List (Salvo × ℤ)), InStrip P Vs q →
+    ∀ i, flightsFoot q i ⊆ diagStrip P.U₁ P.U₂ Vs Vb i
   | [], _, _, _, hc => hc.elim
   | (τ, f) :: q, ⟨h1, h2, h3, hq⟩, i, c, hc => by
     rcases hc with ⟨a1, a2, a3, a4⟩ | hc
     · refine ⟨by linarith, by linarith, ?_⟩
-      have : (0 : ℤ) ≤ ((i / 4 : ℕ) : ℤ) := by positivity
+      have := min_le_left (Vs + 2 * ((i / 4 : ℕ) : ℤ)) Vb
       linarith
-    · exact flightsFoot_strip P q hq i hc
+    · exact flightsFoot_strip P Vs Vb q hq i hc
 
 /-- **The diagonal of a register stays in its strip**: a block at `K` with a valid queue of salvos
 behind it lies, at every generation, in the strip of the diagonal. -/
-theorem diag_strip (P : DiagParams) (hP : P.Good) : ∀ (n : ℕ) (q : List (Salvo × ℤ)) (K : ℤ),
-    q.length = n → DiagValid P K q →
-      ∀ i, (conway.evolve i (flights q ∪ counter K) : Set Cell) ⊆ diagStrip P.U₁ P.U₂ P.V₀
-  | _, [], K, _, hv, i => by
+theorem diag_strip (P : DiagParams) (hP : P.Good) :
+    ∀ (n : ℕ) (q : List (Salvo × ℤ)) (Vs Vb K : ℤ), q.length = n → DiagValid P Vs Vb K q →
+      ∀ i, (conway.evolve i (flights q ∪ counter K) : Set Cell) ⊆ diagStrip P.U₁ P.U₂ Vs Vb i
+  | _, [], Vs, Vb, K, _, hv, i => by
     rw [DiagValid] at hv
     obtain ⟨-, -, -, -, hU₁, hU₂⟩ := hP
     rw [flights, empty_union, (counter_isStillLife K).evolve]
     intro c hc
     obtain ⟨a1, a2, a3, a4⟩ := counter_subset_box K hc
+    have := min_le_right (Vs + 2 * ((i / 4 : ℕ) : ℤ)) Vb
     exact ⟨by linarith, by linarith, by linarith⟩
-  | n, (σ, e) :: q, K, hlen, hv, i => by
+  | n, (σ, e) :: q, Vs, Vb, K, hlen, hv, i => by
     rw [DiagValid] at hv
     obtain ⟨hKe, hn4, hA, hB, hZA, hN, hd, hu1, hu2, hz1, hz2, hv1, hv2, hv3, hv4, hbeh, hin,
       hrest⟩ := hv
@@ -329,14 +331,14 @@ theorem diag_strip (P : DiagParams) (hP : P.Good) : ∀ (n : ℕ) (q : List (Sal
       (flights_reaction hg1 hg0 q (e + P.g) hbeh (Kn * 4 + σ.n)) hsep
     by_cases hi : i ≤ Kn * 4 + σ.n
     · rw [hcfg]
-      refine (hpar.subset i hi).trans (Set.union_subset ?_ (flightsFoot_strip P q hin i))
+      refine (hpar.subset i hi).trans (Set.union_subset ?_ (flightsFoot_strip P Vs Vb q hin i))
       intro c hc
+      have m1 := min_le_left (Vs + 2 * ((i / 4 : ℕ) : ℤ)) Vb
+      have m2 := min_le_right (Vs + 2 * ((i / 4 : ℕ) : ℤ)) Vb
       simp only [frontFoot] at hc
       split_ifs at hc with h1
       · rcases hc with ⟨a1, a2, a3, a4⟩ | ⟨a1, a2, a3, a4⟩
-        · refine ⟨by linarith, by linarith, ?_⟩
-          have : (0 : ℤ) ≤ ((i / 4 : ℕ) : ℤ) := by positivity
-          linarith
+        · exact ⟨by linarith, by linarith, by linarith⟩
         · exact ⟨by linarith, by linarith, by linarith⟩
       · obtain ⟨a1, a2, a3, a4⟩ := hc
         exact ⟨by linarith, by linarith, by linarith⟩
@@ -349,9 +351,23 @@ theorem diag_strip (P : DiagParams) (hP : P.Good) : ∀ (n : ℕ) (q : List (Sal
         congr 2
         push_cast
         rw [hK]
-      rw [show i = (i - (Kn * 4 + σ.n)) + (Kn * 4 + σ.n) by omega, Rule.evolve_add, hend]
-      exact diag_strip P ⟨hg1, hg2, hg3, hg4, hU₁, hU₂⟩ (n - 1) _ _
-        (by simp [shiftQ] at hlen ⊢; omega) hrest _
+      have hsplit : conway.evolve i (flights ((σ, e) :: q) ∪ counter K) =
+          conway.evolve (i - (Kn * 4 + σ.n)) (conway.evolve (Kn * 4 + σ.n)
+            (flights ((σ, e) :: q) ∪ counter K)) := by
+        rw [← Rule.evolve_add, show i - (Kn * 4 + σ.n) + (Kn * 4 + σ.n) = i by omega]
+      rw [hsplit, hend]
+      have hih := diag_strip P ⟨hg1, hg2, hg3, hg4, hU₁, hU₂⟩ (n - 1) _ _ _ _
+        (by simp [shiftQ] at hlen ⊢; omega) hrest (i - (Kn * 4 + σ.n))
+      refine hih.trans fun c ⟨c1, c2, c3⟩ => ⟨c1, c2, ?_⟩
+      have key : Vs + 2 * (K + e + ↑σ.n / 4) + 2 * (((i - (Kn * 4 + σ.n)) / 4 : ℕ) : ℤ) =
+          Vs + 2 * ((i / 4 : ℕ) : ℤ) := by
+        have h5 : (i - (Kn * 4 + σ.n)) / 4 = i / 4 - (Kn + σ.n / 4) := by omega
+        have h6 : Kn + σ.n / 4 ≤ i / 4 := by omega
+        rw [h5]
+        push_cast [h6]
+        rw [← hK]
+        omega
+      rwa [key] at c3
 
 /-- The sum of the moves of a queue. -/
 def qMove : List (Salvo × ℤ) → ℤ
@@ -375,8 +391,8 @@ theorem qMove_shiftQ : ∀ (q : List (Salvo × ℤ)) (m : ℤ), qMove (shiftQ q 
 
 /-- **One step of the diagonal**: when the front salvo has done its work, the block has moved and
 the other salvos have come closer. -/
-theorem diag_step (P : DiagParams) (hP : P.Good) (σ : Salvo) (e K : ℤ) (q : List (Salvo × ℤ))
-    (hv : DiagValid P K ((σ, e) :: q)) :
+theorem diag_step (P : DiagParams) (hP : P.Good) (σ : Salvo) (Vs Vb e K : ℤ)
+    (q : List (Salvo × ℤ)) (hv : DiagValid P Vs Vb K ((σ, e) :: q)) :
     conway.evolve ((K + e).toNat * 4 + σ.n) (flights ((σ, e) :: q) ∪ counter K) =
       flights (shiftQ q (K + e + σ.n / 4)) ∪ counter (K + σ.d) := by
   rw [DiagValid] at hv
@@ -424,19 +440,19 @@ theorem diag_step (P : DiagParams) (hP : P.Good) (σ : Salvo) (e K : ℤ) (q : L
 
 /-- **The value of a register**: once every salvo of a valid queue has arrived, the block is at its
 start moved by all the salvos, and stays there. -/
-theorem diag_end (P : DiagParams) (hP : P.Good) : ∀ (n : ℕ) (q : List (Salvo × ℤ)) (K : ℤ),
-    q.length = n → DiagValid P K q → ∀ j : ℕ,
-      conway.evolve (j + diagTime K q) (flights q ∪ counter K) = counter (K + qMove q)
-  | _, [], K, _, _, j => by
+theorem diag_end (P : DiagParams) (hP : P.Good) :
+    ∀ (n : ℕ) (q : List (Salvo × ℤ)) (Vs Vb K : ℤ), q.length = n → DiagValid P Vs Vb K q →
+      ∀ j : ℕ, conway.evolve (j + diagTime K q) (flights q ∪ counter K) = counter (K + qMove q)
+  | _, [], _, _, K, _, _, j => by
     rw [diagTime, flights, empty_union, (counter_isStillLife K).evolve, qMove, add_zero]
-  | n, (σ, e) :: q, K, hlen, hv, j => by
-    have hstep := diag_step P hP σ e K q hv
+  | n, (σ, e) :: q, Vs, Vb, K, hlen, hv, j => by
+    have hstep := diag_step P hP σ Vs Vb e K q hv
     rw [DiagValid] at hv
     have hrest := hv.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2
     rw [diagTime, show j + ((K + e).toNat * 4 + σ.n + diagTime (K + σ.d)
         (shiftQ q (K + e + σ.n / 4))) = (j + diagTime (K + σ.d) (shiftQ q (K + e + σ.n / 4))) +
         ((K + e).toNat * 4 + σ.n) by ring, Rule.evolve_add, hstep,
-      diag_end P hP (n - 1) _ _ (by simp [shiftQ] at hlen ⊢; omega) hrest j, qMove_shiftQ, qMove]
+      diag_end P hP (n - 1) _ _ _ _ (by simp [shiftQ] at hlen ⊢; omega) hrest j, qMove_shiftQ, qMove]
     congr 1
     ring
 

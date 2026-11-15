@@ -70,9 +70,8 @@ def regPush : Salvo where
   hz := dz2jPullHz
   hhi := by norm_num
 
-/-- Parameters of a register diagonal carrying pulling and pushing salvos, with the lower bound
-`V₀` of `x + y` (which depends on how far back the salvos are). -/
-def regParams (V₀ : ℤ) : DiagParams where
+/-- Parameters of a register diagonal carrying pulling and pushing salvos. -/
+def regParams : DiagParams where
   A := -6
   B := 10
   ZA := -6
@@ -80,10 +79,9 @@ def regParams (V₀ : ℤ) : DiagParams where
   g := 28
   U₁ := -21
   U₂ := 22
-  V₀ := V₀
 
 /-- The parameters are good: the gap `28` is enough for both salvos. -/
-theorem regParams_good (V₀ : ℤ) : (regParams V₀).Good := by
+theorem regParams_good : regParams.Good := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> simp [regParams]
 
 end LeanTheory.Life
