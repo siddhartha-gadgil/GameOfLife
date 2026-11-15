@@ -116,3 +116,8 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
 * 2026-11-16: `dz2jAllR` (`Gen/Dz2jRunR.lean`, `Gen/Dz2jAllR.lean`): the increment of a static
   block at any position `k` as a reaction inside `Box (-1395) 668 (-1489) 659 ∪ regLanes`
   (`dz2jPullG_sub`: the generic salvo and block in the box near the circuit, then in the lanes).
+* 2026-11-16: `DiagSmall` (sub-agent, checked here): `diag_arrived_le` (value `≤ W` and every salvo
+  `≥ N/4 + 4 + W` along ⇒ arrived), `diagW_static`, `QBeforeL` (kept by the increment with margin
+  76 and by the pull with margin 1217), `RegS.push_dichotomy` / `RegS.pull_dichotomy` (either the
+  value condition of the diagonal operation holds, or the register is a static block `≤ 15` / `≤ 7`),
+  `RegS.block` after a static-block run.
