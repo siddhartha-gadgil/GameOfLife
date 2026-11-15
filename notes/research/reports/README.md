@@ -27,3 +27,5 @@ declaration.
   inputs, a shared glider through an OR gate); `scripts/life_machine`.
 - [`R-26-decjz.md`](R-26-decjz.md): the decrement-from-zero decision `DZ1` (free gliders) and
   the supply obstruction `O3`; `scripts/life_zero`.
+- [`R-27-decjz-inc.md`](R-27-decjz-inc.md): the decJz design `DZ2` (restore via `REG1`'s INC
+  input), verified by simulation for k = 0, 1, 2, 3, 40; supply of `O` open (`O4`).

@@ -84,3 +84,39 @@ def harmless(w, kmax=200):
 def passes_sim(w, k):
     st, t, rest, gl = run_free([w], extra=counter(k), t0=int(time_at(w, (7 + k, 11 + k))) - 80, max_gen=500)
     return st == 'settled' and set(rest) == set(counter(k)) and gl == [w]
+
+
+class Near:
+    """A fixed set of cells with fast Chebyshev distance queries (bucket grid)."""
+
+    def __init__(self, cells, size=16):
+        self.size = size
+        self.b = {}
+        for (x, y) in cells:
+            self.b.setdefault((x // size, y // size), []).append((x, y))
+
+    def dist(self, A, cap=64):
+        """min(cap, Chebyshev distance between A and the set)"""
+        s = self.size
+        r = cap // s + 1
+        best = cap
+        seen = {}
+        for (x, y) in A:
+            bx, by = x // s, y // s
+            for i in range(bx - r, bx + r + 1):
+                for j in range(by - r, by + r + 1):
+                    L = self.b.get((i, j))
+                    if not L:
+                        continue
+                    # lower bound by bucket
+                    dx = max(i * s - x, x - (i * s + s - 1), 0)
+                    dy = max(j * s - y, y - (j * s + s - 1), 0)
+                    if max(dx, dy) >= best:
+                        continue
+                    for (a, b) in L:
+                        d = max(abs(a - x), abs(b - y))
+                        if d < best:
+                            best = d
+                            if best == 0:
+                                return 0
+        return best

@@ -31,7 +31,7 @@ if __name__ == '__main__':
     start = (7, 8) if sw else (4, 11)
     D = (SW, 9, 0) if sw else (NE, -10, 0)
     fixed = (MPULL if MIRROR else PULL) + [D]
-    goal = (7, 11)
+    goal = tuple(int(v) for v in os.environ.get('D12_GOAL', '7,11').split(','))
     steps = [('move', [(d, rl, 0)], (u, v)) for (d, rl, (u, v)) in MOVES]
     steps += [('unit', [un[0], un[1]], un[2]) for un in U if not un[3]]
     bydisp = {}

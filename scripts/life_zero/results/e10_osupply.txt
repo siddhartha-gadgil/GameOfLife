@@ -1,0 +1,2 @@
+required O (all gates, crossings 25..199): 38016
+matches 0

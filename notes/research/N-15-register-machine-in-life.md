@@ -357,6 +357,16 @@ gives position `-1`, as the decrement-from-zero design needs). The block reactio
 of the general lemma `salvo_quad_reaction`. Build: each input file about 7 minutes, peak memory
 well under the 12 GB cap. Not yet: continue gliders for `REG1`, the zero test, reuse spacing.
 
+**Design `DZ2` (2026-11-15, report `R-27`).** Decrement from zero, restored through `REG1`'s INC
+input. One control glider feeds `REG1`'s DEC input (through a transposed fan-out `F_A`) and a
+detector glider `D` (through reflectors `RF_a`, `RF_b`). For k ≥ 1, `D` passes and fires a gate
+`G_N` that emits the NZ glider and a second glider annihilating the unconditional glider `O`. For
+k = 0, `D` hits the block at −1; `O` survives as Z; a reflected glider `R` (reflector `RF_R`)
+returns the debris to block −1 and `REG1`'s INC control pushes it to 0. Simulated exactly for
+k = 0, 1, 2, 3, 40 (numerical observation). Obstruction `O4`: fixed routes of 90° turns reach
+`O`'s lane only at the wrong times (0 of 38 016 world lines). Open: a re-timing gate for `O`; the
+Z branch producing `R_in`, `C_I` and the Z output.
+
 ## Claims and evidence
 
 No claims beyond the sourced existence of Chapman's pattern.

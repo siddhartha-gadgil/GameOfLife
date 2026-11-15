@@ -431,6 +431,12 @@ There are no empirical inputs; every gate is a compiled proof.
   `R-27`). `reg1_decrement`, `reg1_increment` for every position on one block; the two input
   reactions are certificates of 3120 and 3570 generations on a 476 × 616 assembly (about 7
   minutes each).
+- **2026-11-15 — decJz design `DZ2`** (search `R-27`, sub-agent). Decrement from zero with the
+  restore through `REG1`'s INC input: one control glider drives the DEC input and a detector;
+  NZ by a new gate `G_N`, Z by an unconditional glider `O`, restore by a reflected glider `R`
+  plus the INC control. Verified by simulation (not Lean) for k = 0, 1, 2, 3, 40. Open: `O`
+  cannot be supplied by fixed reflector routes (obstruction `O4`: no reachable time matches any
+  of 38 016 valid world lines); `R_in` and `C_I` branch not built.
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom
