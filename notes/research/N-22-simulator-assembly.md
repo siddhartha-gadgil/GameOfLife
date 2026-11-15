@@ -102,3 +102,14 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   `incGate_reaction`, `incGate_out`), RF_J as a route corner (`rfJ_reflect`, `rfJ_meet`) and the
   hand-over to the increment (`rfJ_to_dz2e`: at `1140 + 30k` the glider is the input of `dz2eOp`
   at module `r`). Open: composition of `inc_step`; `DiagValid` for an appended salvo.
+* 2026-11-16: `DiagAppend` (sub-agent, checked here): `diagValid_append` (a salvo appended at least
+  `g` behind keeps the queue valid), `QBefore`, `joinVs`, the exact `hv'`/`hVs'` of the eight
+  register operations (`dz2e_join` … `dz2d3_join`), `RegS.pushAny_join`, `RegS.inv_pushAny_join`.
+  **Finding**: these need the value condition `hz` — the target value `w = K + qMove q` must be
+  `≥ 16` (push) or `≥ 8` (pull), because the static reaction box of a salvo reaching a block near
+  the circuit dips below `Vb = 18`. Small values are genuinely different: the reaction then
+  happens near the circuit, inside the run. **Resolution (plan)**: for small `w` every salvo has
+  already arrived at the start of the operation (generalized `diag_arrived`: each queued salvo is
+  far along, and the block is near), so the register is a static block and the static-block
+  certificates apply: `dz2jAll` (INC, every `k`), `dz2gAll` (`k ≥ 2`), `dz2mk1` (`k = 1`), `dz2mk0`
+  (`k = 0`); their outputs are on the same world lines as `dz2dOp`'s (the circuit "in its cycle").

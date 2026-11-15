@@ -149,6 +149,7 @@ public import LeanTheory.Theory.Life.Gen.ActSide
 public import LeanTheory.Theory.Life.ActivationIncEntry
 public import LeanTheory.Theory.Life.ActivationIncArrive
 public import LeanTheory.Theory.Life.ActivationIncMerge
+public import LeanTheory.Theory.Life.DiagAppend
 public import LeanTheory.Theory.Life.RouteExamples
 public import LeanTheory.Theory.Life.Rf0Images
 public import LeanTheory.Theory.Life.StationFacts
