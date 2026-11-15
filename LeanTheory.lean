@@ -125,6 +125,7 @@ public import LeanTheory.Theory.Life.UVBox
 public import LeanTheory.Theory.Life.DiagProc
 public import LeanTheory.Theory.Life.RunFoot
 public import LeanTheory.Theory.Life.RunRegion
+public import LeanTheory.Theory.Life.RunSplit
 public import LeanTheory.Theory.Life.Gen.Dz2dRun
 public import LeanTheory.Theory.Life.Gen.Dz2dRunR
 public import LeanTheory.Theory.Life.Gen.Dz2dRunG

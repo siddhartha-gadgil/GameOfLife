@@ -135,3 +135,11 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   separation from a piece to one linear check per component (`BU.farApart_box`,
   `regLanes_farApart_box`). Checked numerically: `RF_J` and the INC gate are far from every
   component of `dz2e`.
+* 2026-11-16: probe of the run regions against all module pieces (stations, DEC chain, eaters,
+  `j < 40`, `D ≤ 40`): `dz2e*` and `dz2j` are far from every piece; the `decJz` runs are not —
+  `dz2mk0` carries the Z answer past all Z stations to the line-end eater (its 27540 generations
+  are the long Z restore), and `dz2d*` / `dz2mk1` reach the NZ end eater when `D = 1`. In the
+  machine the answer is handed to the stations while the circuit finishes. Tool:
+  `Reaction.split` (`RunSplit.lean`): a far-apart flight is split off a joint run, leaving the
+  circuit's own reaction. Needed next for `decJz`: emitted footprints of the answer flight and of
+  the rest from a cut segment on.
