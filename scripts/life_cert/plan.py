@@ -224,7 +224,7 @@ def segment(groups, cells, a, b, activeset, merges=()):
     return procs, total
 
 
-def plan(groups, start, Ts, N, cycle_all, log=None):
+def plan(groups, start, Ts, N, cycle_all, log=None, extra_bounds=()):
     act = detect(groups, start, Ts, N, cycle_all, log)
     if log:
         log('activity: %s' % {k: v for k, v in act.items() if v})
@@ -233,6 +233,7 @@ def plan(groups, start, Ts, N, cycle_all, log=None):
         for s, e in ivs:
             bounds.add(max(Ts, s))
             bounds.add(min(Ts + N, e + 1))
+    bounds |= {t for t in extra_bounds if Ts < t < Ts + N}
     bounds = sorted(bounds)
     # long active segments are cut into certificates of at most CHUNK generations
     extra = set()

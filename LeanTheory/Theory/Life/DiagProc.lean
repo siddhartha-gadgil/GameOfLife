@@ -83,4 +83,13 @@ theorem farApart_uv_wStrip_u {U₁ U₂ V₁ V₂ Vs Vb : ℤ} {i : ℕ} (h : U�
   push_cast at n1 n2 n3 n4
   omega
 
+/-- **A salvo joins the register diagonal** (at the register): `diag_add` placed at the register. -/
+theorem diagW_add {q : List (Salvo × ℤ)} {Vs Vb K : ℤ} (hv : DiagValid regParams Vs Vb K q)
+    (σ : Salvo) (e : ℤ) (t : ℕ) (ht : t % 4 = 0) (h1 : σ.b + σ.hi - 2 * e + 5 ≤ Vs)
+    (h2 : σ.b + σ.hi - 2 * e + 2 * ((t / 4 : ℕ) : ℤ) + 5 ≤ Vb) :
+    conway.evolve t (diagW (q ++ [(σ, e)]) K) =
+      conway.evolve t (diagW q K) ∪ translate (148, 240) (σ.at (e - (t / 4 : ℕ))) := by
+  rw [diagW, diagW, Rule.evolve_translate, Rule.evolve_translate,
+    diag_add regParams regParams_good q Vs Vb K hv σ e t ht h1 h2, translate_union]
+
 end LeanTheory.Life

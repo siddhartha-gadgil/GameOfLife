@@ -51,3 +51,11 @@ work for every well-formed program; concrete generated certificates apply only t
 1 → 2 → the `inc` activation → the `decJz` activations (value 0, 1, ≥ 2) → halt → encoding and
 `Simulator` → corollary. The `decJz` activation with value `≥ 2` needs the zero test regenerated
 with the register diagonal as a generic process (`emit_generic` with `diag_add`, `diag_near`).
+
+## Progress
+
+* 2026-11-15: `dz2dNZ` (`Gen/Dz2dRun.lean`): the `decJz` activation at the register for value `≥ 1`
+  with any queue of salvos in flight (the diagonal a generic process; the detector separated from
+  every block at position `≥ 0` in `x + y`, `UVBox`); the pull salvo joins the queue
+  (`diagW_add`) once past `REG1`. Station chains (`StationChain`), placed pieces (`Placed`), one
+  circuit for all operations (`RegisterCircuit`). Placements of the whole machine: sub-agent running.

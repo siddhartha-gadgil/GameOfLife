@@ -131,4 +131,13 @@ theorem FarApart.inter_left {A A' B : Set Cell} (h : FarApart 2 A B) : FarApart 
 theorem FarApart.inter_left' {A A' B : Set Cell} (h : FarApart 2 A' B) : FarApart 2 (A ∩ A') B :=
   fun a ha => h a ha.2
 
+/-- Far apart from a part of a set: the intersection with another set, on the right. -/
+theorem FarApart.inter_right {A B B' : Set Cell} (h : FarApart 2 A B) : FarApart 2 A (B ∩ B') :=
+  fun a ha b hb => h a ha b hb.1
+
+/-- Far apart from a part of a set: the intersection with another set, on the right (second). -/
+theorem FarApart.inter_right' {A B B' : Set Cell} (h : FarApart 2 A B') :
+    FarApart 2 A (B ∩ B') :=
+  fun a ha b hb => h a ha b hb.2
+
 end LeanTheory.Life

@@ -85,10 +85,11 @@ def main():
         for p in pieces:
             cc |= piece_cells(p, Ts + r)
         cyc.append(cc)
-    act, segs, final = P.plan(groups, start, Ts, N, lambda t: cyc[(t - Ts) % 30], log)
+    act, segs, final = P.plan(groups, start, Ts, N, lambda t: cyc[(t - Ts) % 30], log,
+                              [int(x) for x in os.environ.get('DZ2_EXTRA', '').split(',') if x])
     pickle.dump({'groups': [(g.name, g.kind, g.env, getattr(g, 'members', None)) for g in groups],
                  'k': k, 'Ts': Ts, 'N': N, 'pieces': pieces, 'act': act, 'segs': segs,
-                 'final': final}, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'results', 'dz2%s%s%s_plan_k%s.pkl' % ('m' if os.environ.get('DZ2_MOD') else '', 'inc' if os.environ.get('DZ2_OP') == 'inc' else '', os.environ.get('DZ2_INC_TAU', ''), 'nb' if NB else k)), 'wb'))
+                 'final': final}, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'results', 'dz2%s%s%s%s_plan_k%s.pkl' % (os.environ.get('DZ2_TAG', ''), 'm' if os.environ.get('DZ2_MOD') else '', 'inc' if os.environ.get('DZ2_OP') == 'inc' else '', os.environ.get('DZ2_INC_TAU', ''), 'nb' if NB else k)), 'wb'))
     log('done: %d segments' % len(segs))
 
 
