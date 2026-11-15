@@ -66,6 +66,9 @@ Verified so far with this method: the zero test `DZ2` for every register value (
 * 2026-11-15: plan item 2, first part: `chain_reaction` (`Theory/Life/Chain.lean`), a generic
   induction for chains of relays, and `orChain` (`Theory/Life/MergeChain.lean`), the OR-gate merge
   chain for every length. Side inputs, stations and routes next.
+* 2026-11-15: `Stage.route_reaction` (`Theory/Life/Route.lean`): routes of heterogeneous stages
+  (reflectors, gates, flights) for any list of stages. A layout for provability is being designed
+  (search `R-31`).
 
 ## Barriers
 
