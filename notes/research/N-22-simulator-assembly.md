@@ -64,3 +64,11 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   fitted formulas, cross-checked for `D, P ≤ 4`; several `halt` instructions are placed but their
   dynamics is not yet addressed.
 * 2026-11-15: `diag_arrived` (zero case), `dz2eOp` (increment with the diagonal).
+* 2026-11-15: `MachineState.lean`, `ActivationInc.lean` (sub-agent, checked here): the encoding
+  `encM`, `InvM`, region and halt cell; building blocks of the `inc` activation (reflections and
+  routes on world lines through the idle machine, body, RF_J, `dz2eOp` at a module). **Open**:
+  (1) phase mod 4: activation times are fixed only mod 30, `dz2eOp`/`dz2dOp` need the merge time
+  `≡ 0 (mod 4)` relative to the diagonal; (2) separation of route flights and relay boxes from all
+  other pieces (R-31 #13, segment vs piece); (3) `T ≤ meetT` and arrival residues; (4) entry and merge
+  chains on the way; (5) footprints of the body and register runs; (6) concurrent active processes;
+  (7) other registers' strips vs pieces; then the step and `Simulator`.
