@@ -121,3 +121,10 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   76 and by the pull with margin 1217), `RegS.push_dichotomy` / `RegS.pull_dichotomy` (either the
   value condition of the diagonal operation holds, or the register is a static block `≤ 15` / `≤ 7`),
   `RegS.block` after a static-block run.
+* 2026-11-16: layout correction (found by the `inc_step` agent): with the continue delay
+  `tinc + 500`, the continue could reach unit `i + 1` before the increment at module `r` ended
+  (probe: up to 420 generations early). `incSpecs` now uses `tinc + 8500` (the increment ends about
+  `8000` after `tinc`); only `G_nonneg` was used about `G`, so all layout facts are unchanged.
+  Second finding: the constant box footprints of the register runs contain other module pieces
+  (`RF_J`, the INC gate, possibly stations): the footprints are being refined to unions of
+  diagonal-and-axis boxes.

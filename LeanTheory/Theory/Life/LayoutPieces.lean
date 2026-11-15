@@ -503,8 +503,9 @@ on `r`. -/
 def callerIdx (p : Program) (r i : ℕ) : ℕ := ((p.take i).filter (isDecOn r)).length
 
 /-- The routes of an `inc r` instruction `i`: the continue (slot `0`, to unit `i + 1`, far hairpin
-`G` for the minimum delay after the INC control) and the INC link (slot `1`, to merge unit
-`N + r`). -/
+`G` for the minimum delay after the INC control: the continue reaches unit `i + 1` only after the
+increment at module `r` has finished, `8500` generations after the INC control reaches the
+module) and the INC link (slot `1`, to merge unit `N + r`). -/
 def incSpecs (p : Program) (i r : ℕ) : List (WL × List Corner) :=
   let b := instrBand i
   let a := p.length + r
@@ -523,7 +524,7 @@ def incSpecs (p : Program) (i r : ℕ) : List (WL × List Corner) :=
   let gD := unitWL p i incDWL
   let ec0 := solveE gD (mkc 0) (destWin p (i + 1) tc)
   let t0 := timeUV (route gD ((mkc 0 ec0).take 3)).2 (destU p (i + 1) tc) (trackBack p b 0 cc)
-  let G := 30 * ceil120 (max 0 (tinc + 500 - t0))
+  let G := 30 * ceil120 (max 0 (tinc + 8500 - t0))
   let ec := solveE gD (mkc G) (destWin p (i + 1) tc)
   [(gD, mkc G ec), (gR, mkl el)]
 
