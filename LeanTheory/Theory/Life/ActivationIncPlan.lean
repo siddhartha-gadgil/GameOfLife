@@ -21,8 +21,9 @@ Research note `N-22`, item (h): the layout-arithmetic hypothesis `IncPlan.Valid`
   multiple of `30` it has the reflectors of `mergeSpecs` (`route_delay`).
 
 `incPlan_valid` proves every field of `IncPlan.Valid`: the lines (`unitLink_lines`,
-`mergeCorners_lines`), the route law (`unitLink_timed`, `mergeLink_timed`), the arrivals
-(`incLink_offset`, `mergeLink_offset`), the ends of the routes (`upLink_end`, `routeEnd_snoc`),
+`mergeCorners_lines`), the route law with corner windows (`unitLink_timedX`, `mergeLink_timedX`),
+the arrivals (`incLink_offset`, `mergeLink_offset`), the ends of the routes (`upLink_endX`,
+`routeEndX_snoc`),
 the order `late` (the continue's delay `G` of `incSpecs` against the time `tinc` at which the
 increment starts: `Tg = tinc - 1 - δm`, and the continue arrives at least `G`-delayed after the
 corner `t0`) and the membership of the active pieces in `machPieces`.
@@ -129,6 +130,73 @@ theorem hairCont_G (p : Program) (G e c : ℤ) (hG : G % 2 = 0) :
   unfold hairCont fixp
   omega
 
+/-- **The route law with corner windows for a link from a unit output to an entry copy**
+(`unitLink_timed` with `RouteTimedX`). -/
+theorem unitLink_timedX (p : Program) (i a : ℕ) (w τ b s H e' d : ℤ)
+    (hw : (w = 68 ∧ τ = 605) ∨ (w = 157 ∧ τ = 1029)) (hb : 0 ≤ b) (hs : 0 ≤ s ∧ s ≤ 4)
+    (hH : (H - (A p i + w)) % 2 = 0) (hHI : H ≤ HI p + 90) (he : 0 ≤ e' ∧ e' < P p) :
+    RouteTimedX ((unitWL p i ⟨1, 1, w, τ⟩).shift 0 0 d)
+      (upCorners p b s (A p i + w) H a (copyIdx (unitC0 p a) e' (A p i + w))) (2010 + d) := by
+  have hu := unitD_uv p i
+  have ha := A_even p a
+  have hai := A_even p i
+  have hv := VU_even p
+  have hc := copyBeta_spec (unitC0 p a) e' (A p i + w)
+  have hr := copyIdx_range p (C0 := unitC0 p a) (c := A p i + w) he
+  have hC0 : unitC0 p a % 2 = 1 ∧ -237 ≤ unitC0 p a := by
+    obtain h | h | h := unitC0_cases p a <;> rw [h] <;> exact ⟨rfl, by norm_num⟩
+  have hA0 := A_nonneg p (a := a) (by omega)
+  have hAi := A_nonneg p (a := i) (by omega)
+  have hHI' : HI p ≤ -716 - 122 * P p := by unfold HI; omega
+  have hVT := VT_mod p
+  refine upCorners_timedX p b s (A p i + w) H a _ (g := (unitWL p i ⟨1, 1, w, τ⟩).shift 0 0 d)
+    rfl rfl ?_ hH ?_ ?_ (2010 + d) ?_ ?_ ?_ ?_ ?_
+  · simp only [unitWL, WL.shift]; omega
+  · simp only [destU, inCol] at hc ⊢; omega
+  · simp only [destU, destV, inCol, sideV]; omega
+  · simp only [unitWL, WL.shift, trackOut, track, VU] at hu ⊢
+    rcases hw with ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ <;> omega
+  · omega
+  · simp only [destU, inCol]; omega
+  · simp only [trackOut, trackBack, track]; omega
+  · simp only [destV, sideV, trackBack, track, VU]; omega
+
+/-- **The route law with corner windows for the merge link** (`mergeLink_timed` with
+`RouteTimedX`), from the time `T` at which the glider leaves the merge unit's chain
+(`T ≤ tau + 914`). -/
+theorem mergeLink_timedX (p : Program) {r : ℕ} (hr : (r : ℤ) < R p) (e : ℤ) (he : 0 ≤ e)
+    (D' T : ℤ) (hT : T ≤ D' + 914) :
+    RouteTimedX ((unitWL p (p.length + r) haltDWL).shift 0 0 D') (mergeCorners p r e) T := by
+  have hu := unitD_uv p (p.length + r)
+  have hA := A_even p (p.length + r)
+  have hA0 := A_nonneg p (a := ((p.length + r : ℕ) : ℤ)) (by omega)
+  push_cast at hu hA hA0
+  have hU := U_even p r
+  have hUg := U_ge p (r := r) (by omega)
+  have hc := incChan_even p
+  have hcb := fixp_bounds (uL - 62 * (2 * D p)) (1 - incPortV % 2)
+  have hHI : HI p ≤ -716 - 122 * P p := by unfold HI; omega
+  have hP := one_le_P p
+  have hD := one_le_D p
+  have h3 := (sep03_band_modules p).1
+  have hH := hairReg_le p (s := 0) (e := e) (c := A p (p.length + r) + haltD) (by norm_num) he
+  have hVT := VT_mod p
+  have hmb : 1 ≤ mergeBand p r := by unfold mergeBand N; omega
+  simp only [mergeCorners]
+  refine downCorners_timedX p _ 0 _ _ _ _ r _
+    (g := (unitWL p (p.length + r) haltDWL).shift 0 0 D')
+    rfl rfl ?_ (hairReg_par _ _ _ _) ?_ ?_ T ?_ ?_ ?_ ?_ ?_
+  · simp only [unitWL, WL.shift, haltDWL, haltD]; omega
+  · simp only [haltD]; omega
+  · simp only [incPortV]; omega
+  · simp only [unitWL, WL.shift, trackOut, track, VU, haltDWL, haltD] at hu ⊢; omega
+  · simp only [haltD] at hH ⊢; omega
+  · simp only [incChan, leftChan, uL, modLeft, slabR] at hcb hUg ⊢
+    have := le_max_left (238 : ℤ) (86 + 58 * P p)
+    simp only [haltD] at hH ⊢; omega
+  · simp only [trackOut, trackBack, track]; omega
+  · simp only [trackBack, track, incPortV, mergeBand, NB, modTop, N, R] at h3 hr ⊢; omega
+
 /-- **The facts of a link from a unit output to an entry copy** (continue or INC link), started
 at `2010`: lines, route law, the copy is in range, arrival on the window of the copy (with offset
 and periods read off the arrival time), and the arrival time `T0` (`entry_time`) after the end
@@ -138,15 +206,15 @@ theorem upLink_plan (p : Program) (i a : ℕ) (w τ b s H e' : ℤ)
     (hH : (H - (A p i + w)) % 2 = 0) (hHI : H ≤ HI p + 90) (he : 0 ≤ e' ∧ e' < P p)
     {g : WL} {t : ℤ} {cs : List Corner} (hg : g = unitWL p i ⟨1, 1, w, τ⟩)
     (ht : t = copyIdx (unitC0 p a) e' (A p i + w)) (hcs : cs = upCorners p b s (A p i + w) H a t) :
-    RouteLines g cs ∧ RouteTimed g cs ((2010 : ℕ) : ℤ) ∧ 0 ≤ t ∧ t < 2 * P p ∧
+    RouteLines g cs ∧ RouteTimedX g cs ((2010 : ℕ) : ℤ) ∧ 0 ≤ t ∧ t < 2 * P p ∧
       (route g cs).2 = (destWin p a ((t.toNat : ℕ) : ℤ)).shift 0 0
         (((route g cs).2.tau - (destWin p a t).tau) % 30 +
           30 * (((route g cs).2.tau - (destWin p a t).tau) / 30)) ∧
-      (routeEnd g cs 2010 : ℤ) + 2 ≤
+      (routeEndX g cs 2010 : ℤ) + 2 ≤
         180 + 30 * (((route g cs).2.tau - (destWin p a t).tau) / 30) + 16 * t % 30 := by
   subst hg hcs
   obtain ⟨hl, hdx, hdy, hth⟩ := unitLink_lines p i a w τ b s H e' hH
-  have htim := unitLink_timed p i a w τ b s H e' 0 hw hb hs hH hHI he
+  have htim := unitLink_timedX p i a w τ b s H e' 0 hw hb hs hH hHI he
   rw [WL.shift_zero, add_zero] at htim
   have hr := copyIdx_range p (C0 := unitC0 p a) (c := A p i + w) he
   rw [← ht] at hl hdx hdy hth htim hr
@@ -155,7 +223,7 @@ theorem upLink_plan (p : Program) (i a : ℕ) (w τ b s H e' : ℤ)
     obtain h | h | h := unitC0_cases p a <;>
       simp only [destU, destV, h, C0dec, C0inc, C0halt] at this ⊢ <;> have := VU_even p <;>
       have := A_even p a <;> omega
-  have hend := upLink_end p b s (A p i + w) H a t (unitWL p i ⟨1, 1, w, τ⟩) 2010 htim hv
+  have hend := upLink_endX p b s (A p i + w) H a t (unitWL p i ⟨1, 1, w, τ⟩) 2010 htim hv
   have harr := arrival_eq p a t hdx hdy hth
   have htN : ((t.toNat : ℕ) : ℤ) = t := Int.toNat_of_nonneg hr.1
   refine ⟨hl, htim, hr.1, hr.2.1, ?_, ?_⟩
@@ -333,7 +401,7 @@ theorem incPlan_valid {p : Program} {i r : ℕ} (hp : p.WellFormed)
       (destWin p (p.length + r) (incTl p i r)).tau = incXl p i r := rfl
   rw [hxc] at fC eC
   rw [hxl] at fR eR
-  have hre := fun g cs T => (Int.natCast_nonneg (routeEnd g cs T))
+  have hre := fun g cs T => (Int.natCast_nonneg (routeEndX g cs T))
   have htcN : (((incTc p i).toNat : ℕ) : ℤ) = incTc p i := Int.toNat_of_nonneg tc0
   have htlN : (((incTl p i r).toNat : ℕ) : ℤ) = incTl p i r := Int.toNat_of_nonneg tl0
   have hT0c : (((180 + 30 * (incXc p i r / 30) + 16 * incTc p i % 30).toNat : ℕ) : ℤ) =
@@ -375,7 +443,7 @@ theorem incPlan_valid {p : Program} {i r : ℕ} (hp : p.WellFormed)
   obtain ⟨lM, dxM, dyM, thM⟩ := mergeCorners_lines p r (mergeE p r) rfl rfl hlane
   obtain ⟨-, dx0, dy0, th0⟩ := mergeCorners_lines p r (mergeE p r) rfl rfl hlane0
   have heM : 0 ≤ mergeE p r := (solveE_bounds _ _ _).1
-  have tM := mergeLink_timed p hR (mergeE p r) heM ((incT1 p i r : ℤ) + 166 - 1080)
+  have tM := mergeLink_timedX p hR (mergeE p r) heM ((incT1 p i r : ℤ) + 166 - 1080)
     (incT1 p i r) (by omega)
   have fM := incWin_arrival p r dx0 dy0 th0 ((incT1 p i r : ℤ) + 166 - 1080)
   have hxm : (route (unitWL p (p.length + r) haltDWL) (mergeCorners p r (mergeE p r))).2.tau +
@@ -394,12 +462,12 @@ theorem incPlan_valid {p : Program} {i r : ℕ} (hp : p.WellFormed)
     simp only [modWL, incWin, WL.shift, modDX]
     omega
   -- the end of the merge route
-  have hend : (routeEnd ((unitWL p (p.length + r) haltDWL).shift 0 0
+  have hend : (routeEndX ((unitWL p (p.length + r) haltDWL).shift 0 0
       ((incT1 p i r : ℤ) + 166 - 1080)) (mergeCorners p r (mergeE p r)) (incT1 p i r) : ℤ) =
       (route ((unitWL p (p.length + r) haltDWL).shift 0 0
         ((incT1 p i r : ℤ) + 166 - 1080)) (mergeCorners p r (mergeE p r))).2.tau -
-        (rfOut 4).tau + 4 * (rfOut 4).dx * rfX 4 (U p r + incChan p) incPortV - 30 :=
-    routeEnd_snoc (bandCorners p (mergeBand p r) 0 (A p (p.length + r) + haltD)
+        (rfOut 4).tau + 4 * (rfOut 4).dx * rfX 4 (U p r + incChan p) incPortV - 20 :=
+    routeEndX_snoc (bandCorners p (mergeBand p r) 0 (A p (p.length + r) + haltD)
       (hairReg p 0 (mergeE p r) (A p (p.length + r) + haltD)) (U p r + incChan p) 3 2)
       ⟨4, U p r + incChan p, incPortV, .left r (2 * D p)⟩ _ _ tM
   have hpar := (incChan_parity p (p.length + r) r).2
@@ -415,7 +483,7 @@ theorem incPlan_valid {p : Program} {i r : ℕ} (hp : p.WellFormed)
   simp only [rfOut, rfX, rfCU, rfCV] at hend
   have hTgN : (((194 + 30 * (incXm p i r / 30)).toNat : ℕ) : ℤ) = 194 + 30 * (incXm p i r / 30) :=
     Int.toNat_of_nonneg (by
-      have := Int.natCast_nonneg (routeEnd ((unitWL p (p.length + r) haltDWL).shift 0 0
+      have := Int.natCast_nonneg (routeEndX ((unitWL p (p.length + r) haltDWL).shift 0 0
         ((incT1 p i r : ℤ) + 166 - 1080)) (mergeCorners p r (mergeE p r)) (incT1 p i r))
       simp only [incPortV, uL] at hend hpar hch
       omega)
@@ -502,7 +570,7 @@ theorem incPlan_valid {p : Program} {i r : ℕ} (hp : p.WellFormed)
   · change _ = _ + _ + 16 * (((incTc p i).toNat : ℕ) : ℤ) % 30
     rw [htcN]
     exact hT0c
-  · have h : (routeEnd (unitWL p i incDWL) (incMkc p i (incG p i r) (incEc p i r)) 2010 : ℤ) ≤
+  · have h : (routeEndX (unitWL p i incDWL) (incMkc p i (incG p i r) (incEc p i r)) 2010 : ℤ) ≤
         (((180 + 30 * (incXc p i r / 30) + 16 * incTc p i % 30).toNat : ℕ) : ℤ) := by
       rw [hT0c]
       omega
@@ -510,12 +578,12 @@ theorem incPlan_valid {p : Program} {i r : ℕ} (hp : p.WellFormed)
   · change _ = _ + _ + 16 * (((incTl p i r).toNat : ℕ) : ℤ) % 30
     rw [htlN]
     exact hT0l
-  · have h : (routeEnd (unitWL p i incRWL) (incMkl p i r (incEl p i r)) 2010 : ℤ) ≤
+  · have h : (routeEndX (unitWL p i incRWL) (incMkl p i r (incEl p i r)) 2010 : ℤ) ≤
         ((incT0l p i r : ℕ) : ℤ) := by
       rw [hT0l]
       omega
     exact_mod_cast h
-  · have h : (routeEnd ((unitWL p (p.length + r) haltDWL).shift 0 0
+  · have h : (routeEndX ((unitWL p (p.length + r) haltDWL).shift 0 0
         ((incT1 p i r : ℤ) + 166 - 1080)) (mergeCorners p r (mergeE p r)) (incT1 p i r) : ℤ) ≤
         (((194 + 30 * (incXm p i r / 30)).toNat : ℕ) : ℤ) := by
       rw [hTgN]
@@ -578,12 +646,14 @@ theorem incPlan_valid {p : Program} {i r : ℕ} (hp : p.WellFormed)
 /-- **The `inc` step**: for a well-formed program and a state with the instruction `inc r` at the
 program counter (register `r` ready), the machine evolves `encM s` into `encM s'` for the next
 state `s'` of the counter machine, inside the region of the machine — given the separation and
-region facts of the activation plan read off the layout (`incPlan`). -/
+region facts of the activation plan read off the layout (`incPlan`); it takes `τ > 0`
+generations, and every other register is `τ` generations later. -/
 theorem inc_step {p : Program} {r : ℕ} (hp : p.WellFormed) (s : MState) (hinv : InvM p s)
     (hins : p[s.pc]? = some (.inc r)) (hready : (s.reg r).Ready)
     (hsep : IncSep (incPlan p s.pc r) ((s.reg r).later 930))
     (hreg : IncRegion (incPlan p s.pc r) ((s.reg r).later 930)) :
-    ∃ (τ : ℕ) (s' : MState), p.step s.cfg = some s'.cfg ∧ InvM p s' ∧ (s'.reg r).Ready ∧
+    ∃ (τ : ℕ) (s' : MState), 0 < τ ∧ (∀ r', r' ≠ r → s'.reg r' = (s.reg r').later τ) ∧
+      p.step s.cfg = some s'.cfg ∧ InvM p s' ∧ (s'.reg r).Ready ∧
       conway.evolve τ (encM p s) = encM p s' ∧
       ∀ j ≤ τ, (conway.evolve j (encM p s) : Set Cell) ⊆ machRegion p :=
   inc_step_of_plan hp s hinv hins hready _ (incPlan_valid hp hins) hsep hreg

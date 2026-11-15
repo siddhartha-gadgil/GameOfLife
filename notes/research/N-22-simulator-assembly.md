@@ -208,3 +208,14 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   WindowData => EverAlive c w.cells`. Remaining: the fields of `MachineSteps` — inc separation
   (`IncSep`; `IncRegion` is already dischargeable), the decJz step, `HaltSep` for the last
   instruction.
+* 2026-11-16: **route separation corrected** (sub-agent, checked here): extended relay window at
+  every corner — `Gen/RfEarly.lean` (generator `scripts/life_cert/rf_early.py`: 60-generation
+  joint runs of each of the 8 reflector images with the glider, footprint `rfBoxE k ⊆ rxBox k`),
+  `reflect_earlyX`, `RouteTimedX`, `routeEndX`, `routeFootX`, `route_window_footX`, and the
+  satisfiable condition `RouteSepX` (from `RouteSep.lean`, the separation agent's definition: flight
+  far from all pieces before `meetT − 20` and from `meetT + 40`). `IncSep.sepC/sepR/sepM` now use
+  `RouteSepX`; `inc_step_of_plan`, `inc_step`, `inc_step'` also give `0 < τ` and the other
+  registers unchanged; `MachineSteps.incSep` is `IncSep` only. Numerically the incoming glider
+  first touches its reflector at `meetT − 12` / `− 10`, the outgoing last at `meetT + 30 / 32`.
+  Open: `mergeLink_sep` starts at `T1 + 3` (gap of 3 generations to `sepM`); `entR` may fail for
+  the merge unit at entry copy 0 (crude entry footprint vs the slab corner's reflector).

@@ -21,9 +21,22 @@ copies, the arrival offsets and the arrival times. `IncPlan.Valid` collects the 
 facts of the plan (lines of the routes, route law, arrival on the windows, order of the arrival
 times, membership of the active pieces in the machine): all of them are facts about the layout
 arithmetic of `incSpecs` / `mergeSpecs` (several are proved in `ActivationInc*`), not about
-separation. `IncSep` collects the **separation facts** (the routes' `RouteSep`, far-apart facts of
+separation. `IncSep` collects the **separation facts** (the routes' `RouteSepX`, far-apart facts of
 flights, entries, the module part and the lanes of the registers, concurrency of the two threads),
 `IncRegion` the facts that the footprints lie in the region of the machine.
+
+**Corner windows** (the separation facts are satisfiable): the routes are run with
+`route_window_footX` / `link_entryX` (`ActivationIncCompose`, `ActivationIncThread`). At each
+corner the reflector and the glider are run together from `meetT - 20` to `meetT + 40` inside the
+extended relay box `relayBoxX` (`RouteSep`); the flight to a corner is required far from the
+pieces only until `meetT - 20`, and the next leg starts at `meetT + 40`. So the route fields of
+`IncSep` are `RouteSepX` (proved for the links of the layout in `RouteSep5`: `incLinks_sep`,
+`mergeLink_sep`), the plan's times are `RouteTimedX`, the ends of the routes are `routeEndX`
+(`IncPlan.eM` included), and the footprints `contFoot`, `earlyFoot`, `incFoot` use `linkFootX` and
+`routeFootX` (the glider box until `meetT - 20`, then `relayBoxX` of the corner until
+`meetT + 40`). The flight fields `flyC`, `flyR`, `flyM` start at `routeEndX`. (The former
+conditions `RouteSep` / `RouteSepM` include the corner's own reflector in the flight clause up to
+`meetT` and are unsatisfiable: `ActivationHalt.not_far_before_meet`.)
 
 Composition (`inc_step_of_plan`):
 
@@ -97,7 +110,7 @@ def IncPlan.gM (P : IncPlan p i r) : WL :=
   (unitWL p (mergeUnit p r) haltDWL).shift 0 0 ((P.T1 : ℤ) + 166 - 1080)
 
 /-- The end of the merge route. -/
-def IncPlan.eM (P : IncPlan p i r) : ℕ := routeEnd P.gM P.csM P.T1
+def IncPlan.eM (P : IncPlan p i r) : ℕ := routeEndX P.gM P.csM P.T1
 
 /-- The time at which the continue's chain releases the control. -/
 def IncPlan.Tc (P : IncPlan p i r) : ℕ := P.T0c + (134 + P.tc * 254)
@@ -119,7 +132,7 @@ structure IncPlan.Valid (P : IncPlan p i r) : Prop where
   /-- The continue meets its corners on their input lines. -/
   linesC : RouteLines (unitWL p i incDWL) P.csC
   /-- The continue meets its corners in order from `2010`. -/
-  timedC : RouteTimed (unitWL p i incDWL) P.csC ((2010 : ℕ) : ℤ)
+  timedC : RouteTimedX (unitWL p i incDWL) P.csC ((2010 : ℕ) : ℤ)
   /-- The continue arrives on the window of its entry copy. -/
   finC : (route (unitWL p i incDWL) P.csC).2 = (destWin p (i + 1) P.tc).shift 0 0 (P.δc + 30 * P.kc)
   /-- Offset of the continue. -/
@@ -127,11 +140,11 @@ structure IncPlan.Valid (P : IncPlan p i r) : Prop where
   /-- Arrival time of the continue. -/
   T0cE : (P.T0c : ℤ) = 180 + 30 * P.kc + 16 * (P.tc : ℤ) % 30
   /-- The continue leaves its last corner before its arrival. -/
-  endC : routeEnd (unitWL p i incDWL) P.csC 2010 ≤ P.T0c
+  endC : routeEndX (unitWL p i incDWL) P.csC 2010 ≤ P.T0c
   /-- The INC link meets its corners on their input lines. -/
   linesR : RouteLines (unitWL p i incRWL) P.csR
   /-- The INC link meets its corners in order from `2010`. -/
-  timedR : RouteTimed (unitWL p i incRWL) P.csR ((2010 : ℕ) : ℤ)
+  timedR : RouteTimedX (unitWL p i incRWL) P.csR ((2010 : ℕ) : ℤ)
   /-- The INC link arrives on the window of its entry copy at the merge unit. -/
   finR : (route (unitWL p i incRWL) P.csR).2 =
     (destWin p (mergeUnit p r) P.tl).shift 0 0 (P.δl + 30 * P.kl)
@@ -140,11 +153,11 @@ structure IncPlan.Valid (P : IncPlan p i r) : Prop where
   /-- Arrival time of the INC link. -/
   T0lE : (P.T0l : ℤ) = 180 + 30 * P.kl + 16 * (P.tl : ℤ) % 30
   /-- The INC link leaves its last corner before its arrival. -/
-  endR : routeEnd (unitWL p i incRWL) P.csR 2010 ≤ P.T0l
+  endR : routeEndX (unitWL p i incRWL) P.csR 2010 ≤ P.T0l
   /-- The merge link meets its corners on their input lines. -/
   linesM : RouteLines P.gM P.csM
   /-- The merge link meets its corners in order from `T1`. -/
-  timedM : RouteTimed P.gM P.csM P.T1
+  timedM : RouteTimedX P.gM P.csM P.T1
   /-- The merge link arrives on the INC window of module `r`. -/
   finM : (route P.gM P.csM).2 = (modWL p r incWin).shift 0 0 (P.δm + 30 * P.km)
   /-- Offset of the merge link. -/
@@ -171,7 +184,7 @@ def bodyBox (p : Program) (i : ℕ) : Set Cell :=
 /-- **The footprint of the continue thread**, `j` generations after `2010`. -/
 def IncPlan.contFoot (P : IncPlan p i r) (j : ℕ) : Set Cell :=
   if j ≤ P.Tc - 2010 then
-    boxesOf (dd P.LCraw) ∪ linkFoot p (i + 1) P.tc (unitWL p i incDWL) P.csC 2010 P.T0c j
+    boxesOf (dd P.LCraw) ∪ linkFootX p (i + 1) P.tc (unitWL p i incDWL) P.csC 2010 P.T0c j
   else boxesOf (dd P.LCraw) ∪ (fun c => (unitDX p (i + 1), unitDY p (i + 1)) + c) ''
     chainOutWL.box (-166 + ((j - (P.Tc - 2010) : ℕ) : ℤ))
 
@@ -180,8 +193,8 @@ def IncPlan.earlyFoot (P : IncPlan p i r) (j : ℕ) : Set Cell :=
   if j ≤ P.T1 - 2010 + (P.eM - P.T1) then
     (if j ≤ P.T1 - 2010 then
       boxesOf (dd P.LIraw) ∪
-        linkFoot p (mergeUnit p r) P.tl (unitWL p i incRWL) P.csR 2010 P.T0l j
-    else boxesOf (dd P.LIraw) ∪ routeFoot P.gM P.csM P.T1 (j - (P.T1 - 2010)))
+        linkFootX p (mergeUnit p r) P.tl (unitWL p i incRWL) P.csR 2010 P.T0l j
+    else boxesOf (dd P.LIraw) ∪ routeFootX P.gM P.csM P.T1 (j - (P.T1 - 2010)))
   else boxesOf (dd P.LIraw) ∪
     (route P.gM P.csM).2.box ((P.eM : ℤ) + ((j - (P.T1 - 2010 + (P.eM - P.T1)) : ℕ) : ℤ))
 
@@ -193,14 +206,14 @@ def IncPlan.incFoot (P : IncPlan p i r) (R0 : RegS) (j : ℕ) : Set Cell :=
 
 /-- **The separation facts of the activation** (`R0`: register `r` at time `2010`). -/
 structure IncSep (P : IncPlan p i r) (R0 : RegS) : Prop where
-  /-- Separation of the continue's route (whole machine, region as `Z`). -/
-  sepC : RouteSep (machPieces p) (machRegion p) (unitWL p i incDWL) P.csC 2010
-  /-- Separation of the INC link's route. -/
-  sepR : RouteSep (machPieces p) (machRegion p) (unitWL p i incRWL) P.csR 2010
-  /-- Separation of the merge link's route. -/
-  sepM : RouteSep (machPieces p) (machRegion p) P.gM P.csM P.T1
+  /-- Separation of the continue's route with corner windows (whole machine, region as `Z`). -/
+  sepC : RouteSepX (machPieces p) (machRegion p) (unitWL p i incDWL) P.csC ((2010 : ℕ) : ℤ)
+  /-- Separation of the INC link's route with corner windows. -/
+  sepR : RouteSepX (machPieces p) (machRegion p) (unitWL p i incRWL) P.csR ((2010 : ℕ) : ℤ)
+  /-- Separation of the merge link's route with corner windows. -/
+  sepM : RouteSepX (machPieces p) (machRegion p) P.gM P.csM (P.T1 : ℤ)
   /-- The continue's flight to the side input. -/
-  flyC : ∀ j : ℕ, routeEnd (unitWL p i incDWL) P.csC 2010 ≤ j → j < P.T0c → ∀ h ∈ P.LCraw,
+  flyC : ∀ j : ℕ, routeEndX (unitWL p i incDWL) P.csC 2010 ≤ j → j < P.T0c → ∀ h ∈ P.LCraw,
     FarApart 2 ((route (unitWL p i incDWL) P.csC).2.box j) h.box
   /-- The entry chain of unit `i + 1`. -/
   entC : ∀ h ∈ P.LCraw, h ∉ chainPieces p (i + 1) P.tc →
@@ -210,7 +223,7 @@ structure IncSep (P : IncPlan p i r) (R0 : RegS) : Prop where
     ((fun c => (unitDX p (i + 1), unitDY p (i + 1)) + c) '' chainOutWL.box (-166 + (j : ℤ)))
     h.box
   /-- The INC link's flight to the side input. -/
-  flyR : ∀ j : ℕ, routeEnd (unitWL p i incRWL) P.csR 2010 ≤ j → j < P.T0l → ∀ h ∈ P.LIraw,
+  flyR : ∀ j : ℕ, routeEndX (unitWL p i incRWL) P.csR 2010 ≤ j → j < P.T0l → ∀ h ∈ P.LIraw,
     FarApart 2 ((route (unitWL p i incRWL) P.csR).2.box j) h.box
   /-- The entry chain of the merge unit. -/
   entR : ∀ h ∈ P.LIraw, h ∉ chainPieces p (mergeUnit p r) P.tl →
@@ -273,9 +286,9 @@ theorem IncPlan.contThread (hp : p.WellFormed) (P : IncPlan p i r) (hv : P.Valid
     Reaction (piecesAt (dd P.LCraw) 2010 ∪ (unitWL p i incDWL).cells 2010)
       (piecesAt (dd P.LCraw) P.Tend ∪ ctrlAt p (i + 1)) (P.Tend - 2010) P.contFoot := by
   have hL := dd_pairwise (machPieces_sep p hp) hv.memC
-  have hsM := RouteSep.toM (L := dd P.LCraw) (fun h hh => hv.memC h (mem_dd.1 hh)) P.csC _ 2010
-    (fun x hx => mem_dd.2 (List.mem_append_left _ (List.mem_map_of_mem hx))) hs.sepC
-  obtain ⟨hle, h1⟩ := link_entry p hL (i + 1) P.tc (g := unitWL p i incDWL)
+  have hsM := RouteSepX.toXM (L := dd P.LCraw) (fun h hh => hv.memC h (mem_dd.1 hh)) P.csC _ 2010
+    hv.timedC (fun x hx => mem_dd.2 (List.mem_append_left _ (List.mem_map_of_mem hx))) hs.sepC
+  obtain ⟨hle, h1⟩ := link_entryX p hL (i + 1) P.tc (g := unitWL p i incDWL)
     ⟨Or.inl rfl, Or.inl rfl⟩ hv.linesC hv.timedC hsM hv.δcR hv.finC hv.T0cE hv.endC
     (fun x hx => mem_dd.2 (List.mem_append_right _ hx))
     (fun j h1 h2 h hh => hs.flyC j h1 h2 h (mem_dd.1 hh))
@@ -297,17 +310,17 @@ theorem IncPlan.incThread (hp : p.WellFormed) (P : IncPlan p i r) (hv : P.Valid)
         (piecesAt (dd P.LIraw) P.Tend ∪ regAt p r R') (P.Tend - 2010) (P.incFoot R0) := by
   have hL := dd_pairwise (machPieces_sep p hp) hv.memI
   have memI : ∀ x ∈ P.LIraw, x ∈ dd P.LIraw := fun x hx => mem_dd.2 hx
-  have hsR := RouteSep.toM (L := dd P.LIraw) (fun h hh => hv.memI h (mem_dd.1 hh)) P.csR _ 2010
-    (fun x hx => memI _ (by simp [IncPlan.LIraw, List.mem_map_of_mem hx])) hs.sepR
-  obtain ⟨hle, h1⟩ := link_entry p hL (mergeUnit p r) P.tl (g := unitWL p i incRWL)
+  have hsR := RouteSepX.toXM (L := dd P.LIraw) (fun h hh => hv.memI h (mem_dd.1 hh)) P.csR _ 2010
+    hv.timedR (fun x hx => memI _ (by simp [IncPlan.LIraw, List.mem_map_of_mem hx])) hs.sepR
+  obtain ⟨hle, h1⟩ := link_entryX p hL (mergeUnit p r) P.tl (g := unitWL p i incRWL)
     ⟨Or.inl rfl, Or.inl rfl⟩ hv.linesR hv.timedR hsR hv.δlR hv.finR hv.T0lE hv.endR
     (fun x hx => memI _ (by simp [IncPlan.LIraw, hx]))
     (fun j h1 h2 h hh => hs.flyR j h1 h2 h (mem_dd.1 hh))
     (fun h hh hn => hs.entR h (mem_dd.1 hh) hn)
   rw [mergeStart_eq p (mergeUnit p r) ((P.T0l + (134 + P.tl * 254) : ℕ) : ℤ)] at h1
-  have hsM := RouteSep.toM (L := dd P.LIraw) (fun h hh => hv.memI h (mem_dd.1 hh)) P.csM _ P.T1
-    (fun x hx => memI _ (by simp [IncPlan.LIraw, List.mem_map_of_mem hx])) hs.sepM
-  obtain ⟨hle2, h2⟩ := route_window_foot hL P.csM P.gM P.T1 ⟨Or.inl rfl, Or.inl rfl⟩ hv.linesM
+  have hsM := RouteSepX.toXM (L := dd P.LIraw) (fun h hh => hv.memI h (mem_dd.1 hh)) P.csM _
+    P.T1 hv.timedM (fun x hx => memI _ (by simp [IncPlan.LIraw, List.mem_map_of_mem hx])) hs.sepM
+  obtain ⟨hle2, h2⟩ := route_window_footX hL P.csM P.gM P.T1 ⟨Or.inl rfl, Or.inl rfl⟩ hv.linesM
     hv.timedM hsM
   have hd3 : (route P.gM P.csM).2.Dir := by
     rw [hv.finM]
@@ -407,12 +420,14 @@ def incRegs (s : MState) (r : ℕ) (R' : RegS) (n : ℕ) : ℕ → RegS :=
 /-- **The `inc` step, from an activation plan**: for a well-formed program, a state with the
 instruction `inc r` at the program counter (register `r` ready), and a valid activation plan with
 its separation and region facts, the machine evolves `encM s` into `encM s'` for the next state
-`s'` of the counter machine, inside the region of the machine. -/
+`s'` of the counter machine, inside the region of the machine, in `τ > 0` generations, with every
+other register `τ` generations later. -/
 theorem inc_step_of_plan (hp : p.WellFormed) (s : MState) (hinv : InvM p s)
     (hins : p[s.pc]? = some (.inc r)) (hready : (s.reg r).Ready) (P : IncPlan p s.pc r)
     (hv : P.Valid) (hsep : IncSep P ((s.reg r).later 930))
     (hreg : IncRegion P ((s.reg r).later 930)) :
-    ∃ (τ : ℕ) (s' : MState), p.step s.cfg = some s'.cfg ∧ InvM p s' ∧ (s'.reg r).Ready ∧
+    ∃ (τ : ℕ) (s' : MState), 0 < τ ∧ (∀ r', r' ≠ r → s'.reg r' = (s.reg r').later τ) ∧
+      p.step s.cfg = some s'.cfg ∧ InvM p s' ∧ (s'.reg r).Ready ∧
       conway.evolve τ (encM p s) = encM p s' ∧
       ∀ j ≤ τ, (conway.evolve j (encM p s) : Set Cell) ⊆ machRegion p := by
   have hr := lt_numRegs_of_inc hins
@@ -503,7 +518,9 @@ theorem inc_step_of_plan (hp : p.WellFormed) (s : MState) (hinv : InvM p s)
     rw [h1, h2, h3]
     simp only [union_assoc]
     rfl
-  refine ⟨τ, s', ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨τ, s', by omega, fun r' hne => ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · change incRegs s r R' τ r' = _
+    rw [incRegs, Function.update_of_ne hne]
   · -- the counter machine
     rw [Program.step]
     change (p[s.pc]?.bind fun ins => ins.exec s.cfg) = _

@@ -5,7 +5,7 @@ Authors: LeanTheory contributors
 -/
 module
 
-public import LeanTheory.Theory.Life.ActivationIncPlan
+public import LeanTheory.Theory.Life.ActivationIncRegion
 public import LeanTheory.Theory.Life.ActivationHalt
 public import LeanTheory.Theory.Life.Simulation
 public import LeanTheory.Theory.Life.StartFamily
@@ -22,9 +22,10 @@ its step lemmas, and the resulting undecidability of `EverAlive`.
 * **The `inc` step with its bookkeeping** (`inc_step_full`): `inc_step_of_plan` with two more
   conclusions, a positive duration and the other registers simply later; with it the `inc` step
   keeps `MInv` (`inc_step_minv`).
-* **What is still open** is bundled in `MachineSteps p`: the separation and region facts of the
-  `inc` activations (`incSep`), the `decJz` step (`dec`, stated in its expected form), and the
-  separation facts of the halt activation of the unique `halt` (`haltSep`).
+* **What is still open** is bundled in `MachineSteps p`: the separation facts of the `inc`
+  activations (`incSep`; the region facts are discharged by `IncPlan.region`), the `decJz` step
+  (`dec`, stated in its expected form), and the separation facts of the halt activation of the
+  unique `halt` (`haltSep`).
 * **The simulator** `simulatorOf` (`S = MState`, `proj = cfg`, `enc = encM p`,
   `cH = haltCellC p`, `region = machRegion p`, the duration and the next state chosen from the
   step lemmas), and the **conditional main theorems**:
@@ -45,7 +46,7 @@ namespace LP
 
 /-- **The `inc` step, from an activation plan, with its bookkeeping**: as `inc_step_of_plan`, and
 moreover the duration is positive and every register other than `r` is the old register later by
-the duration. (The proof is that of `inc_step_of_plan`, whose statement hides these facts.) -/
+the duration (part of the statement of `inc_step_of_plan`). -/
 theorem inc_step_full {p : Program} {r : ℕ} (hp : p.WellFormed) (s : MState) (hinv : InvM p s)
     (hins : p[s.pc]? = some (.inc r)) (hready : (s.reg r).Ready) (P : IncPlan p s.pc r)
     (hv : P.Valid) (hsep : IncSep P ((s.reg r).later 930))
@@ -53,145 +54,8 @@ theorem inc_step_full {p : Program} {r : ℕ} (hp : p.WellFormed) (s : MState) (
     ∃ (τ : ℕ) (s' : MState), 0 < τ ∧ (∀ r', r' ≠ r → s'.reg r' = (s.reg r').later τ) ∧
       p.step s.cfg = some s'.cfg ∧ InvM p s' ∧ (s'.reg r).Ready ∧
       conway.evolve τ (encM p s) = encM p s' ∧
-      ∀ j ≤ τ, (conway.evolve j (encM p s) : Set Cell) ⊆ machRegion p := by
-  have hr := lt_numRegs_of_inc hins
-  have hLM := machPieces_sep p hp
-  have hinvR : ∀ r' ∈ List.range (numRegs p), (s.reg r').Inv :=
-    fun r' h => hinv.2.2.1 r' (List.mem_range.1 h)
-  have hlate := hv.late
-  have hTend : P.Tend % 30 = 0 := by
-    have := hv.T0cE
-    simp only [IncPlan.Tend, IncPlan.Tc]
-    omega
-  -- the body, with every register idle
-  have S1 := (body_window hp hv.memB hsep.body).par
-    (regsOn_reaction p s.reg 930 (List.range (numRegs p)) List.nodup_range hinvR
-      fun j _ r₁ h₁ r₂ h₂ hne => (hsep.lanes r₁ (List.mem_range.1 h₁) r₂ (List.mem_range.1 h₂)
-        hne).mono (regStrip_subset (hinvR r₁ h₁) p r₁ j) (regStrip_subset (hinvR r₂ h₂) p r₂ j))
-    fun j _ a ha b hb => by
-      obtain ⟨r', hr', hb⟩ := mem_stripsOn.1 hb
-      exact hsep.laneBody r' (List.mem_range.1 hr') a ha b
-        (regStrip_subset (hinvR r' hr') p r' j hb)
-  -- the two threads inside the idle machine, with the other registers idle
-  have hC := P.contThread hp hv hsep
-  obtain ⟨R', hval, hrdy, hI⟩ := P.incThread hp hv (hready.later 930) hsep
-  have hCI := hC.par hI hsep.threads
-  set A := dd P.LCraw ++ dd P.LIraw with hAdef
-  have hA : ∀ x ∈ A, x ∈ machPieces p := by
-    intro x hx
-    rcases List.mem_append.1 hx with h | h
-    · exact hv.memC x (mem_dd.1 h)
-    · exact hv.memI x (mem_dd.1 h)
-  have hCI' : Reaction (piecesAt A 2010 ∪ ((unitWL p s.pc incDWL).cells 2010 ∪
-        ((unitWL p s.pc incRWL).cells 2010 ∪ regAt p r ((s.reg r).later 930))))
-      (piecesAt A (2010 + (P.Tend - 2010)) ∪ (ctrlAt p (s.pc + 1) ∪ regAt p r R'))
-      (P.Tend - 2010) (fun j => P.contFoot j ∪ P.incFoot ((s.reg r).later 930) j) := by
-    refine hCI.congrPQ ?_ ?_
-    · rw [hAdef, piecesAt_append]
-      ac_rfl
-    · rw [hAdef, piecesAt_append, show 2010 + (P.Tend - 2010) = P.Tend by omega]
-      ac_rfl
-  have W2 := window_mem hLM hA 2010 (P.Tend - 2010) hCI' fun j hj g hg hn =>
-    hsep.idle j hj g hg fun h => hn (by
-      rcases List.mem_append.1 h with h | h
-      · exact List.mem_append_left _ (mem_dd.2 h)
-      · exact List.mem_append_right _ (mem_dd.2 h))
-  set others := (List.range (numRegs p)).filter (fun r' => r' ≠ r) with hoth
-  have hothR : ∀ r' ∈ others, r' < numRegs p ∧ r' ≠ r := fun r' h => by
-    simp only [hoth, List.mem_filter, List.mem_range, ne_eq, decide_eq_true_eq] at h
-    exact h
-  have hinvO : ∀ r' ∈ others, ((s.reg r').later 930).Inv :=
-    fun r' h => (hinv.2.2.1 r' (hothR r' h).1).later 930
-  have S2 := W2.par (regsOn_reaction p (fun r' => (s.reg r').later 930) (P.Tend - 2010) others
-      (List.nodup_range.filter _) hinvO
-      fun j _ r₁ h₁ r₂ h₂ hne => (hsep.lanes r₁ (hothR r₁ h₁).1 r₂ (hothR r₂ h₂).1 hne).mono
-        (regStrip_subset (hinvO r₁ h₁) p r₁ j) (regStrip_subset (hinvO r₂ h₂) p r₂ j))
-    fun j hj a ha b hb => by
-      obtain ⟨r', hr', hb⟩ := mem_stripsOn.1 hb
-      exact hsep.laneAct j hj r' (hothR r' hr').1 (hothR r' hr').2 a ha b
-        (regStrip_subset (hinvO r' hr') p r' j hb)
-  have e12 : piecesAt (machPieces p) (1080 + 930) ∪
-        ((unitWL p s.pc incDWL).cells 2010 ∪ (unitWL p s.pc incRWL).cells 2010) ∪
-        regsOn p (fun r' => (s.reg r').later 930) (List.range (numRegs p)) =
-      piecesAt (machPieces p) 2010 ∪ ((unitWL p s.pc incDWL).cells 2010 ∪
-        ((unitWL p s.pc incRWL).cells 2010 ∪ regAt p r ((s.reg r).later 930))) ∪
-        regsOn p (fun r' => (s.reg r').later 930) others := by
-    rw [regsOn_split _ _ hr, show 1080 + 930 = 2010 by norm_num]
-    ac_rfl
-  have S := S1.seq_eq e12 S2
-  set τ := 930 + (P.Tend - 2010) with hτ
-  set s' : MState := ⟨s.pc + 1, s.T + τ, incRegs s r R' τ⟩ with hs'
-  have estart : encM p s = piecesAt (machPieces p) 1080 ∪ ctrlAt p s.pc ∪
-      regsOn p s.reg (List.range (numRegs p)) := by
-    rw [encM, machAt, regsAt_eq, piecesAt_mod _ (show s.T % 30 = 1080 % 30 by
-      have := hinv.2.1; omega)]
-  have eend : encM p s' = piecesAt (machPieces p) (2010 + (P.Tend - 2010)) ∪
-      (ctrlAt p (s.pc + 1) ∪ regAt p r R') ∪
-        regsOn p (fun r' => ((s.reg r').later 930).later (P.Tend - 2010)) others := by
-    rw [encM, machAt, regsAt_eq, regsOn_split _ _ hr]
-    have h1 : piecesAt (machPieces p) s'.T = piecesAt (machPieces p) (2010 + (P.Tend - 2010)) :=
-      piecesAt_mod _ (by have := hinv.2.1; change (s.T + τ) % 30 = _; omega)
-    have h2 : regsOn p s'.reg others =
-        regsOn p (fun r' => ((s.reg r').later 930).later (P.Tend - 2010)) others :=
-      regsOn_congr fun r' h => by
-        change incRegs s r R' τ r' = _
-        rw [incRegs, Function.update_of_ne (hothR r' h).2, RegS.later_later, hτ]
-    have h3 : s'.reg r = R' := by
-      change incRegs s r R' τ r = R'
-      rw [incRegs, Function.update_self]
-    rw [h1, h2, h3]
-    simp only [union_assoc]
-    rfl
-  refine ⟨τ, s', by omega, fun r' hne => ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · change incRegs s r R' τ r' = _
-    rw [incRegs, Function.update_of_ne hne]
-  · -- the counter machine
-    rw [Program.step]
-    change (p[s.pc]?.bind fun ins => ins.exec s.cfg) = _
-    rw [hins, Option.bind_some]
-    change some (⟨s.pc + 1, Function.update (fun r' => (s.reg r').val) r ((s.reg r).val + 1)⟩ :
-      Cfg) = some ⟨s.pc + 1, fun r' => (incRegs s r R' τ r').val⟩
-    refine congrArg some (Cfg.ext rfl (funext fun r' => ?_))
-    by_cases he : r' = r
-    · subst he
-      dsimp only
-      rw [Function.update_self, incRegs, Function.update_self, hval, RegS.val_later]
-    · dsimp only
-      rw [Function.update_of_ne he, incRegs, Function.update_of_ne he, RegS.val_later]
-  · -- the invariant
-    refine ⟨succ_lt_of_inc hp hins, ?_, fun r' hr' => ?_, fun r' hr' => ?_⟩
-    · have := hinv.2.1
-      change (s.T + τ) % 30 = 0
-      omega
-    · change (incRegs s r R' τ r').Inv
-      by_cases he : r' = r
-      · subst he
-        rw [incRegs, Function.update_self]
-        exact hrdy.1
-      · rw [incRegs, Function.update_of_ne he]
-        exact (hinv.2.2.1 r' hr').later τ
-    · have he : r' ≠ r := by omega
-      change (incRegs s r R' τ r').val = 0
-      rw [incRegs, Function.update_of_ne he, RegS.val_later]
-      exact hinv.2.2.2 r' hr'
-  · change (incRegs s r R' τ r).Ready
-    rw [incRegs, Function.update_self]
-    exact hrdy
-  · rw [estart, eend]
-    exact S.evolve_eq
-  · intro j hj
-    rw [estart]
-    refine (S.subset j hj).trans ?_
-    have hstrips : ∀ (reg : ℕ → RegS) (l : List ℕ) (k : ℕ), (∀ r' ∈ l, r' < numRegs p) →
-        (∀ r' ∈ l, (reg r').Inv) → stripsOn p reg l k ⊆ machRegion p := by
-      intro reg l k hl hi x hx
-      obtain ⟨r', hr', hx⟩ := mem_stripsOn.1 hx
-      exact hreg.lanes r' (hl r' hr') (regStrip_subset (hi r' hr') p r' k hx)
-    split_ifs with hj1
-    · refine Set.union_subset (Set.union_subset hreg.pieces hreg.body) ?_
-      exact hstrips _ _ _ (fun r' h => List.mem_range.1 h) hinvR
-    · refine Set.union_subset (Set.union_subset hreg.pieces (hreg.threads _ (by omega))) ?_
-      exact hstrips _ _ _ (fun r' h => (hothR r' h).1) hinvO
+      ∀ j ≤ τ, (conway.evolve j (encM p s) : Set Cell) ⊆ machRegion p :=
+  inc_step_of_plan hp s hinv hins hready P hv hsep hreg
 
 /-! ### The invariant of the simulator -/
 
@@ -210,14 +74,13 @@ def GoodStep (p : Program) (s : MState) (ts : ℕ × MState) : Prop :=
     conway.evolve ts.1 (encM p s) = encM p ts.2 ∧
     ∀ j ≤ ts.1, (conway.evolve j (encM p s) : Set Cell) ⊆ machRegion p
 
-/-- **The `inc` step keeps the invariant**, given the separation and region facts of its
-activation plan. -/
+/-- **The `inc` step keeps the invariant**, given the separation facts of its activation plan
+(the region facts are discharged by `IncPlan.region`). -/
 theorem inc_step_minv {p : Program} {r : ℕ} (hp : p.WellFormed) (s : MState) (hinv : MInv p s)
-    (hins : p[s.pc]? = some (.inc r)) (hsep : IncSep (incPlan p s.pc r) ((s.reg r).later 930))
-    (hreg : IncRegion (incPlan p s.pc r) ((s.reg r).later 930)) :
+    (hins : p[s.pc]? = some (.inc r)) (hsep : IncSep (incPlan p s.pc r) ((s.reg r).later 930)) :
     ∃ ts, GoodStep p s ts := by
-  obtain ⟨τ, s', hτ, hoth, hstep, hinv', hrdy, hev, hsub⟩ := inc_step_full hp s hinv.1 hins
-    (hinv.2 r (lt_numRegs_of_inc hins)) _ (incPlan_valid hp hins) hsep hreg
+  obtain ⟨τ, s', hτ, hoth, hstep, hinv', hrdy, hev, hsub⟩ := inc_step' hp s hinv.1 hins
+    (hinv.2 r (lt_numRegs_of_inc hins)) hsep
   refine ⟨(τ, s'), hτ, hstep, ⟨hinv', fun r' hr' => ?_⟩, hev, hsub⟩
   by_cases he : r' = r
   · exact he ▸ hrdy
@@ -228,11 +91,10 @@ theorem inc_step_minv {p : Program} {r : ℕ} (hp : p.WellFormed) (s : MState) (
 
 /-- **The step lemmas still to be proved** for the program `p`, as hypotheses. -/
 structure MachineSteps (p : Program) : Prop where
-  /-- The separation and region facts of the activation plan of every `inc` step from a state
-  with the invariant (the hypotheses of `inc_step`). -/
+  /-- The separation facts of the activation plan of every `inc` step from a state with the
+  invariant (the hypothesis of `inc_step'`; the region facts are discharged). -/
   incSep : ∀ (s : MState) (r : ℕ), MInv p s → p[s.pc]? = some (.inc r) →
-    IncSep (incPlan p s.pc r) ((s.reg r).later 930) ∧
-      IncRegion (incPlan p s.pc r) ((s.reg r).later 930)
+    IncSep (incPlan p s.pc r) ((s.reg r).later 930)
   /-- **The `decJz` step**: from a state with the invariant and the instruction `decJz r z`, the
   machine evolves, in a positive number of generations and inside the region of the machine,
   into the encoding of a state with the invariant whose configuration is the next one of the
@@ -258,8 +120,7 @@ theorem exists_goodStep {p : Program} (hp : p.WellFormed) (M : MachineSteps p) {
     exact absurd hinv.1.1 (by omega)
   · cases ins with
     | inc r =>
-      obtain ⟨h1, h2⟩ := M.incSep s r hinv hi
-      exact inc_step_minv hp s hinv hi h1 h2
+      exact inc_step_minv hp s hinv hi (M.incSep s r hinv hi)
     | decJz r z =>
       obtain ⟨τ, s', h⟩ := M.dec s r z hinv hi
       exact ⟨(τ, s'), h⟩

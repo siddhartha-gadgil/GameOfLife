@@ -171,6 +171,10 @@ public import LeanTheory.Theory.Life.ActivationIncModuleRun
 public import LeanTheory.Theory.Life.ActivationIncStep
 public import LeanTheory.Theory.Life.ActivationIncPlan
 public import LeanTheory.Theory.Life.ActivationIncRegion
+public import LeanTheory.Theory.Life.Gen.RfEarly
+public import LeanTheory.Theory.Life.RouteSep
+public import LeanTheory.Theory.Life.StartFamily
+public import LeanTheory.Theory.Life.MainTheorem
 public import LeanTheory.Theory.Life.ActivationHalt
 public import LeanTheory.Theory.Life.Gen.ActSideDec
 public import LeanTheory.Theory.Life.ActivationDecLinks

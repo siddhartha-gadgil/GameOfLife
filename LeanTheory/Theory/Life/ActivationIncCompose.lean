@@ -7,6 +7,8 @@ module
 
 public import LeanTheory.Theory.Life.ActivationIncMerge
 public import LeanTheory.Theory.Life.ActivationIncLinks
+public import LeanTheory.Theory.Life.RouteSep
+public import LeanTheory.Theory.Life.Gen.RfEarly
 
 /-!
 # Composition tools for the activations
@@ -27,7 +29,16 @@ by side with `Reaction.par`.
   `RouteSep.toM`: the separation conditions of `RouteSep` (stated for the whole machine) give
   `RouteSepM` for every sublist containing the reflectors of the route;
   `RouteSep.foot_subset`: the footprint stays in the set `Z` of `RouteSep`;
-* `regsOn`, `stripsOn`, `regsOn_reaction`: the diagonals of a list of registers idling side by side.
+* `regsOn`, `stripsOn`, `regsOn_reaction`: the diagonals of a list of registers idling side by side;
+* **corner windows** (the satisfiable form of the route conditions): the flight clause of
+  `RouteSep` / `RouteSepM` asks the glider to be far from the corner's own reflector up to the
+  meeting time, which never holds (`ActivationHalt.not_far_before_meet`, `RouteSep.rfIn_near`).
+  Instead the reflector and the glider are run together from `meetT - 20` to `meetT + 40`
+  (`reflect_earlyX`, from the certificates `rfE_early` of `Gen.RfEarly`) inside the extended relay
+  box `relayBoxX` of `RouteSep`; the separation condition is `RouteSepX` (`RouteSep`), its
+  membership form `RouteSepXM` (`RouteSepX.toXM`), the times `RouteTimedX` (`T + 20 ≤ meetT`,
+  next leg from `meetT + 40`; `upCorners_timedX`, `downCorners_timedX`), the end `routeEndX`, the
+  footprint `routeFootX`, and the window `route_window_footX`.
 -/
 
 @[expose] public section
@@ -251,6 +262,255 @@ theorem RouteSep.foot_subset {M : List Piece} {Z : Set Cell} :
         have := hi
         simp only [hm] at this ⊢
         omega
+
+/-! ### Corner windows: early reflections -/
+
+/-- The placed reflector `10` phases after its meeting phase. -/
+theorem reflect_piece_ph10 (g : WL) (c : Corner) (T : ℕ)
+    (hT : ((T : ℤ) - delayS g c) % 30 = 10) :
+    conway.evolve (T % 30) (reflect g c).1.piece.rest =
+      translate (cornerV c) (conway.evolve 10 (rfStage c.k).G) := by
+  simp only [reflect, PSpec.piece, Base.piece, Piece.place, phase, cornerV]
+  rw [Rule.evolve_translate, ← Rule.evolve_add, rfP_rest]
+  congr 1
+  rw [conway.evolve_mod_of_evolve_eq (rfStage c.k).rest.evolve_eq]
+  congr 1
+  have h1 := Int.emod_nonneg (-delayS g c) (by norm_num : (30 : ℤ) ≠ 0)
+  have h2 := Int.toNat_of_nonneg h1
+  unfold delayS at hT h1 h2
+  omega
+
+/-- The certified box of the early reflection, placed at the corner, lies in the extended relay
+box `relayBoxX` of the corner. -/
+theorem rfBoxE_sub (c : Corner) : (fun x => cornerV c + x) '' rfBoxE c.k ⊆ relayBoxX c := by
+  rintro _ ⟨y, hy, rfl⟩
+  obtain ⟨k, u, v, tag⟩ := c
+  rcases k with _ | _ | _ | _ | _ | _ | _ | k <;> obtain ⟨h1, h2, h3, h4⟩ := hy <;>
+    simp only [relayBoxX, rxB, rxBox, cornerV] <;>
+    refine ⟨?_, ?_, ?_, ?_⟩ <;> simp only [Prod.fst_add, Prod.snd_add] <;> omega
+
+/-- **The early reflection at a corner, in world-line terms** (every image): from `20`
+generations before the meeting time to `40` after, the placed reflector and the glider on the
+input line of the corner become the reflector and the outgoing glider, inside the extended relay
+box `relayBoxX c`. -/
+theorem reflect_earlyX {g : WL} {c : Corner} (hl : OnLine g c) (T : ℕ)
+    (hT : (T : ℤ) + 20 = meetT g c) :
+    Reaction (conway.evolve (T % 30) (reflect g c).1.piece.rest ∪ g.cells T)
+      (conway.evolve ((T + 60) % 30) (reflect g c).1.piece.rest ∪
+        (reflect g c).2.cells ((T + 60 : ℕ) : ℤ))
+      60 (fun _ => relayBoxX c) := by
+  unfold meetT at hT
+  rw [reflect_piece_ph10 g c T (by omega), reflect_piece_ph10 g c (T + 60) (by push_cast; omega)]
+  have hg : g.cells T = translate (cornerV c) ((rfIn c.k).cells (-80)) := by
+    rw [hl, WL.shift_cells (rfIn_dir _), show (T : ℤ) - delayS g c = -80 by omega, cornerV]
+  have ho : (reflect g c).2.cells ((T + 60 : ℕ) : ℤ) =
+      translate (cornerV c) ((rfOut c.k).cells (-20)) := by
+    rw [show (reflect g c).2 = (rfOut c.k).shift (rfX c.k c.u c.v) (rfY c.k c.u c.v)
+        (delayS g c) from rfl, WL.shift_cells (rfOut_dir _),
+      show ((T + 60 : ℕ) : ℤ) - delayS g c = -20 by push_cast; omega, cornerV]
+  rw [hg, ho, ← translate_union, ← translate_union]
+  exact ((rfE_early c.k).translate (cornerV c)).mono fun _ _ => rfBoxE_sub c
+
+/-- The early reflection with a single active piece, in the form of `window_mem`. -/
+theorem reflect_earlyX_single {g : WL} {c : Corner} (hl : OnLine g c) (T : ℕ)
+    (hT : (T : ℤ) + 20 = meetT g c) :
+    Reaction (piecesAt [(reflect g c).1.piece] T ∪ g.cells T)
+      (piecesAt [(reflect g c).1.piece] (T + 60) ∪ (reflect g c).2.cells ((T + 60 : ℕ) : ℤ)) 60
+      (fun _ => relayBoxX c) := by
+  rw [piecesAt_single, piecesAt_single]
+  exact reflect_earlyX hl T hT
+
+/-! ### Routes with corner windows -/
+
+/-- **The corners of a route are met in order with corner windows**, from time `T`: each corner
+is met at least `20` generations after `T`, and the next leg starts `40` generations after the
+corner is met. -/
+def RouteTimedX : WL → List Corner → ℤ → Prop
+  | _, [], _ => True
+  | g, c :: cs, T => T + 20 ≤ meetT g c ∧ RouteTimedX (reflect g c).2 cs (meetT g c + 40)
+
+/-- The time at which the glider leaves the corner window of the last corner of a route (started
+at time `T`): `40` generations after the last corner is met. -/
+def routeEndX : WL → List Corner → ℕ → ℕ
+  | _, [], T => T
+  | g, c :: cs, _ => routeEndX (reflect g c).2 cs ((meetT g c).toNat + 40)
+
+/-- **The footprint of a route with corner windows** from time `T`, at generation `i`: the box of
+the glider until `20` generations before a corner, the extended relay box of the corner during
+the window, then the footprint of the rest of the route. -/
+def routeFootX : WL → List Corner → ℕ → ℕ → Set Cell
+  | g, [], T, i => g.box ((T : ℤ) + i)
+  | g, c :: cs, T, i =>
+    if (T : ℤ) + i ≤ meetT g c - 20 then g.box ((T : ℤ) + i)
+    else if (T : ℤ) + i ≤ meetT g c + 40 then relayBoxX c
+    else routeFootX (reflect g c).2 cs ((meetT g c).toNat + 40) (T + i - ((meetT g c).toNat + 40))
+
+/-- **The separation conditions of a route with corner windows, by membership**: until `20`
+generations before each corner the glider is far from every piece of `L`; the reflector of the
+corner is a piece of `L` and its extended relay box is far from every other piece of `L`; the next
+leg starts `40` generations after the corner is met. -/
+def RouteSepXM (L : List Piece) : WL → List Corner → ℕ → Prop
+  | _, [], _ => True
+  | g, c :: cs, T =>
+      (∀ i : ℕ, (T : ℤ) + i < meetT g c - 20 → ∀ h ∈ L, FarApart 2 (g.box ((T : ℤ) + i)) h.box) ∧
+      (reflect g c).1.piece ∈ L ∧
+      (∀ h ∈ L, h ≠ (reflect g c).1.piece → FarApart 2 (relayBoxX c) h.box) ∧
+      RouteSepXM L (reflect g c).2 cs ((meetT g c).toNat + 40)
+
+/-- The next leg of a timed route starts at `meetT + 40`, a natural number. -/
+theorem meetT_cast_X {g : WL} {c : Corner} {T : ℤ} (h0 : 0 ≤ T) (ht : T + 20 ≤ meetT g c) :
+    (((meetT g c).toNat + 40 : ℕ) : ℤ) = meetT g c + 40 := by
+  push_cast
+  rw [Int.toNat_of_nonneg (by omega)]
+
+/-- A route timed with corner windows ends at or after its start. -/
+theorem le_routeEndX : ∀ (cs : List Corner) (g : WL) (T : ℕ), RouteTimedX g cs T →
+    T ≤ routeEndX g cs T
+  | [], _, _, _ => le_rfl
+  | c :: cs, g, T, ⟨ht, hts⟩ => by
+    have hm := meetT_cast_X (Int.natCast_nonneg T) ht
+    have := le_routeEndX cs _ ((meetT g c).toNat + 40) (by rw [hm]; exact hts)
+    simp only [routeEndX]
+    omega
+
+/-- A route timed from `T'` is timed from every earlier `T`. -/
+theorem RouteTimed.anti {g : WL} {cs : List Corner} {T T' : ℤ} (h : RouteTimed g cs T')
+    (hT : T ≤ T') : RouteTimed g cs T := by
+  cases cs with
+  | nil => trivial
+  | cons c cs => exact ⟨le_trans hT h.1, h.2⟩
+
+/-- **Timed with corner windows implies timed.** -/
+theorem RouteTimedX.timed : ∀ (cs : List Corner) (g : WL) (T : ℤ), RouteTimedX g cs T →
+    RouteTimed g cs T
+  | [], _, _, _ => trivial
+  | c :: cs, g, T, ⟨ht, hts⟩ =>
+    ⟨by omega, (RouteTimedX.timed cs _ _ hts).anti (by omega)⟩
+
+/-- **A glider follows a route through a list of idle pieces, with corner windows**: under the
+satisfiable conditions `RouteTimedX` and `RouteSepXM`, the pieces and the glider of `g` at time
+`T` become the pieces and the glider of the final world line at `routeEndX`; at every generation
+the pattern lies in the boxes of the pieces and the footprint `routeFootX`. -/
+theorem route_window_footX {L : List Piece} (hL : L.Pairwise Piece.Sep) :
+    ∀ (cs : List Corner) (g : WL) (T : ℕ), g.Dir → RouteLines g cs → RouteTimedX g cs T →
+      RouteSepXM L g cs T → T ≤ routeEndX g cs T ∧
+      Reaction (piecesAt L T ∪ g.cells T)
+        (piecesAt L (routeEndX g cs T) ∪ (route g cs).2.cells (routeEndX g cs T))
+        (routeEndX g cs T - T) (fun i => boxesOf L ∪ routeFootX g cs T i)
+  | [], g, T, hd, _, _, _ => by
+    refine ⟨le_rfl, ?_⟩
+    have h := window hL T 0 (WL.flight hd T 0) fun i hi => absurd hi (Nat.not_lt_zero i)
+    simp only [route, routeEndX, Nat.sub_self, Nat.cast_zero, add_zero] at h ⊢
+    refine h.mono fun i hi => Set.union_subset_union le_rfl ?_
+    rw [show i = 0 by omega]
+    simp [routeFootX]
+  | c :: cs, g, T, hd, ⟨hl, hls⟩, ⟨ht, hts⟩, ⟨hfl, hmem, hfar, hrest⟩ => by
+    set m := (meetT g c).toNat with hm
+    have hmT : ((m : ℕ) : ℤ) = meetT g c := by rw [hm]; exact Int.toNat_of_nonneg (by omega)
+    have hTm : T + 20 ≤ m := by omega
+    have hts' : RouteTimedX (reflect g c).2 cs ((m + 40 : ℕ) : ℤ) := by
+      push_cast
+      rw [hmT]
+      exact hts
+    obtain ⟨hend, hr⟩ := route_window_footX hL cs _ _ (reflect_dir g c) hls hts' hrest
+    have h1 := window hL T (m - 20 - T) (WL.flight hd T (m - 20 - T)) fun i hi =>
+      hfl i (by omega)
+    rw [show T + (m - 20 - T) = m - 20 by omega,
+      show (T : ℤ) + ((m - 20 - T : ℕ) : ℤ) = ((m - 20 : ℕ) : ℤ) by omega] at h1
+    have h2 := window_mem hL (A := [(reflect g c).1.piece]) (fun x hx => by
+        rw [List.mem_singleton] at hx; exact hx ▸ hmem) (m - 20) 60
+      (reflect_earlyX_single hl (m - 20) (by omega)) fun i _ h hh hne =>
+        hfar h hh (by simpa using hne)
+    rw [show m - 20 + 60 = m + 40 by omega] at h2
+    have h123 := (h1.seq h2).seq hr
+    simp only [routeEndX, route] at hend ⊢
+    rw [← hm]
+    refine ⟨by omega, ?_⟩
+    rw [show routeEndX (reflect g c).2 cs (m + 40) - T =
+      m - 20 - T + 60 + (routeEndX (reflect g c).2 cs (m + 40) - (m + 40)) by omega]
+    refine h123.mono fun i _ => ?_
+    simp only [routeFootX, ← hmT, Int.toNat_natCast]
+    by_cases ha : i ≤ m - 20 - T
+    · have h' : (T : ℤ) + i ≤ m - 20 := by omega
+      simp only [show i ≤ m - 20 - T + 60 by omega, ha, h', ↓reduceIte]
+      exact le_rfl
+    · by_cases hb : i ≤ m - 20 - T + 60
+      · have h' : ¬ ((T : ℤ) + i ≤ m - 20) := by omega
+        have h'' : (T : ℤ) + i ≤ m + 40 := by omega
+        simp only [hb, ha, h', h'', ↓reduceIte]
+        exact le_rfl
+      · have h' : ¬ ((T : ℤ) + i ≤ m - 20) := by omega
+        have h'' : ¬ ((T : ℤ) + i ≤ m + 40) := by omega
+        simp only [hb, h', h'', ↓reduceIte]
+        rw [show i - (m - 20 - T + 60) = T + i - (m + 40) by omega]
+
+/-- **`RouteSepX` (`RouteSep`, whole machine) gives `RouteSepXM` for every sublist containing
+the reflectors of the route**, for a route timed with corner windows from a natural time. -/
+theorem RouteSepX.toXM {M L : List Piece} {Z : Set Cell} (hLM : ∀ h ∈ L, h ∈ M) :
+    ∀ (cs : List Corner) (g : WL) (T : ℕ), RouteTimedX g cs T →
+      (∀ x ∈ (route g cs).1, x.piece ∈ L) → RouteSepX M Z g cs T → RouteSepXM L g cs T
+  | [], _, _, _, _, _ => trivial
+  | c :: cs, g, T, ⟨ht, hts⟩, hrf, ⟨_, s2, _, ⟨L', hperm, hfar⟩, s5⟩ => by
+    have hm := meetT_cast_X (Int.natCast_nonneg T) ht
+    refine ⟨fun i hi h hh => s2 _ (by omega) hi h (hLM h hh), hrf _ (by simp [route]), ?_,
+      RouteSepX.toXM hLM cs _ _ (by rw [hm]; exact hts) (fun x hx => hrf x (by simp [route, hx]))
+        (by rw [hm]; exact s5)⟩
+    intro h hh hne
+    have := hperm.mem_iff.1 (hLM h hh)
+    rcases List.mem_cons.1 this with he | he
+    · exact absurd he hne
+    · exact hfar h he
+
+/-- **`RouteSepX` from a later start**: the separation of a route from `T'`, and of the first
+flight between `T` and `T'`, give the separation from `T`. -/
+theorem RouteSepX.of_start {L : List Piece} {Z : Set Cell} {g : WL} {c : Corner}
+    {cs : List Corner} {T T' : ℤ} (h : RouteSepX L Z g (c :: cs) T')
+    (hfl : ∀ t : ℤ, T ≤ t → t < T' →
+      g.box t ⊆ Z ∧ ∀ h ∈ L, FarApart 2 (g.box t) h.box) :
+    RouteSepX L Z g (c :: cs) T := by
+  obtain ⟨s1, s2, s3, s4, s5⟩ := h
+  refine ⟨fun t h1 h2 => ?_, fun t h1 h2 => ?_, s3, s4, s5⟩
+  · by_cases ht : t < T'
+    · exact (hfl t h1 ht).1
+    · exact s1 t (by omega) h2
+  · by_cases ht : t < T'
+    · exact (hfl t h1 ht).2
+    · exact s2 t (by omega) h2
+
+/-- **The route law with corner windows for an up-going link** (`upCorners_timed` with the
+first corner `20` generations later). -/
+theorem upCorners_timedX (p : Program) (b s c H : ℤ) (a : ℕ) (t : ℤ) {g : WL} (hdx : g.dx = 1)
+    (hdy : g.dy = 1) (hl : g.lane = c) (hH : (H - c) % 2 = 0) (hd : (destU p a t - c) % 2 = 0)
+    (hv : (destU p a t + destV p t) % 2 = 1) (T : ℤ)
+    (h0 : T + 20 ≤ g.tau + 2 * (c + trackOut p b s c) - 10) (hcH : H + 40 ≤ c)
+    (hdH : H + 40 ≤ destU p a t) (hOB : trackOut p b s c + 40 ≤ trackBack p b s c)
+    (hDB : destV p t + 40 ≤ trackBack p b s c) :
+    RouteTimedX g (upCorners p b s c H a t) T := by
+  have ho := trackOut_par p b s c
+  have hb := trackBack_par p b s c
+  obtain ⟨dx, dy, lane, tau⟩ := g
+  simp only at hdx hdy hl h0
+  subst hdx hdy hl
+  simp only [upCorners, upCornersK, bandCorners, List.cons_append, List.nil_append, RouteTimedX,
+    reflect, meetT, delayS, WL.shift, rfIn, rfOut, rfX, rfCU, rfCV]
+  refine ⟨?_, ?_, ?_, ?_, ?_, trivial⟩ <;> omega
+
+/-- **The route law with corner windows for a down-going link** (`downCorners_timed`). -/
+theorem downCorners_timedX (p : Program) (b s c H cd vp : ℤ) (r : ℕ) (idx : ℤ) {g : WL}
+    (hdx : g.dx = 1) (hdy : g.dy = 1) (hl : g.lane = c) (hH : (H - c) % 2 = 0)
+    (hd : (cd - c) % 2 = 0) (hv : (cd + vp) % 2 = 1) (T : ℤ)
+    (h0 : T + 20 ≤ g.tau + 2 * (c + trackOut p b s c) - 10) (hcH : H + 40 ≤ c)
+    (hdH : H + 40 ≤ cd) (hOB : trackOut p b s c + 40 ≤ trackBack p b s c)
+    (hDB : trackBack p b s c + 40 ≤ vp) :
+    RouteTimedX g (downCorners p b s c H cd vp r idx) T := by
+  have ho := trackOut_par p b s c
+  have hb := trackBack_par p b s c
+  obtain ⟨dx, dy, lane, tau⟩ := g
+  simp only at hdx hdy hl h0
+  subst hdx hdy hl
+  simp only [downCorners, bandCorners, List.cons_append, List.nil_append, RouteTimedX,
+    reflect, meetT, delayS, WL.shift, rfIn, rfOut, rfX, rfCU, rfCV]
+  refine ⟨?_, ?_, ?_, ?_, ?_, trivial⟩ <;> omega
 
 /-! ### Registers -/
 

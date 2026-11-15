@@ -24,11 +24,12 @@ The proof rests on **anchors**: pieces of the machine near each footprint, whose
 * Units: copy `0` of an entry chain gives `uMin ≤ A_a - 32` (`uMin_le_chain`), the body of an
   `inc` unit `uMin ≤ A_a - 36` (`uMin_le_body`); the body box (`u ≥ A_i - 173`), the entry chains
   (`u ≥ A_a - 60`) and the flight out of a chain (`u ≥ A_a + 10`) lie above.
-* Routes (`route_region`), **without separation facts**: every corner is a placed reflector, so
-  `uMin ≤ c.u - 5` (`uMin_le_corner`); the glider box at the meeting time and at the output time is
-  at most `60` left of the corner (`uLo_meet`, `uLo_out`), a relay box at most `26`
-  (`relayBox_u`, generic boxes in the corner frame: `cornerBox_u`), and between two times the
-  least `u` of a glider box is at least the smaller of its values at the ends (`WL.uLo_between`).
+* Routes with corner windows (`route_region`, footprint `routeFootX`), **without separation
+  facts**: every corner is a placed reflector, so `uMin ≤ c.u - 5` (`uMin_le_corner`); the glider
+  box at the meeting time is at most `60` left of the corner (`uLo_meet`), `40` generations later
+  at most `70` (`uLo_out40`), the extended relay box `relayBoxX` at most `30` (`relayBoxX_u`;
+  also `uLo_out`, `relayBox_u`, `cornerBox_u`), and between two times the least `u` of a glider
+  box is at least the smaller of its values at the ends (`WL.uLo_between`).
   After a route, a glider flying `NE`/`SW` with growing `u` stays in the region (`WL.uLo_mono`).
 
 The register part after the increment (`modRunFoot` beyond `946`) uses the region statement of
@@ -51,19 +52,19 @@ variable {p : Program}
 /-! ### The least `u` of the machine -/
 
 /-- A fold of `min` from `0` is at most every value of the list. -/
-theorem foldr_min_le {α : Type*} (f : α → ℤ) : ∀ (l : List α) (s : α), s ∈ l →
+theorem foldr_min_le_of_mem {α : Type*} (f : α → ℤ) : ∀ (l : List α) (s : α), s ∈ l →
     l.foldr (fun s m => min m (f s)) 0 ≤ f s
   | [], _, h => by simp at h
   | x :: l, s, h => by
     rw [List.foldr_cons]
     rcases List.mem_cons.1 h with rfl | h
     · exact min_le_right _ _
-    · exact (min_le_left _ _).trans (foldr_min_le f l s h)
+    · exact (min_le_left _ _).trans (foldr_min_le_of_mem f l s h)
 
 /-- **Every piece of the machine has its least `u` at least `uMin`.** -/
 theorem uMin_le_piece {g : Piece} (h : g ∈ machPieces p) : uMin p ≤ g.a - g.hi := by
   obtain ⟨s, hs, rfl⟩ := List.mem_map.1 h
-  exact foldr_min_le (fun s : PSpec => s.bx.a - s.bx.hi) _ s hs
+  exact foldr_min_le_of_mem (fun s : PSpec => s.bx.a - s.bx.hi) _ s hs
 
 /-- Membership in the region of the machine. -/
 theorem mem_machRegion {c : Cell} : c ∈ machRegion p ↔ uMin p - 300 ≤ c.1 - c.2 := Iff.rfl
@@ -206,69 +207,72 @@ theorem relayBox_u {c : Corner} {x : Cell} (hx : x ∈ relayBox c) : c.u - 26 �
   rcases k with _ | _ | _ | _ | _ | _ | _ | _ | k <;> obtain ⟨h1, h2, h3, h4⟩ := hy <;>
     simp only [cornerV, rfX, rfY, rfCU, rfCV, Prod.fst_add, Prod.snd_add] <;> omega
 
+/-- **The glider leaving a corner window**: `40` generations after the meeting time its box is
+at most `70` left of the corner point. -/
+theorem uLo_out40 (g : WL) (c : Corner) : c.u - 70 ≤ (reflect g c).2.uLo (meetT g c + 40) := by
+  obtain ⟨k, u, v, tag⟩ := c
+  rcases k with _ | _ | _ | _ | _ | _ | _ | _ | k <;>
+    simp only [reflect, WL.uLo, WL.px, WL.py, WL.qt, WL.shift, meetT, delayS, rfIn, rfOut,
+      rfX, rfY, rfCU, rfCV] <;> omega
+
+/-- **The extended relay box of a corner** (`relayBoxX`) is at most `30` left of the corner
+point. -/
+theorem relayBoxX_u {c : Corner} {x : Cell} (hx : x ∈ relayBoxX c) : c.u - 30 ≤ x.1 - x.2 := by
+  obtain ⟨k, u, v, tag⟩ := c
+  obtain ⟨h1, h2, h3, h4⟩ := hx
+  rcases k with _ | _ | _ | _ | _ | _ | _ | k <;>
+    simp only [rxB, rxBox, rfX, rfY, rfCU, rfCV] at h1 h2 h3 h4 ⊢ <;> omega
+
 /-! ### Routes -/
 
-/-- A route met in order from `T` ends at or after `T`. -/
-theorem le_routeEnd_of_timed : ∀ (cs : List Corner) (g : WL) (T : ℕ), RouteTimed g cs T →
-    T ≤ routeEnd g cs T
-  | [], _, _, _ => le_rfl
-  | c :: cs, g, T, ⟨ht, hts⟩ => by
-    have h0 : (0 : ℤ) ≤ meetT g c := le_trans (Int.natCast_nonneg T) ht
-    have hm : (((meetT g c).toNat + 30 : ℕ) : ℤ) = meetT g c + 30 := by
-      push_cast
-      rw [Int.toNat_of_nonneg h0]
-    have := le_routeEnd_of_timed cs _ ((meetT g c).toNat + 30) (by rw [hm]; exact hts)
-    simp only [routeEnd]
-    omega
-
-/-- **A route stays in the region** (no separation facts): from a glider in the region, through
-corners met on their input lines, in order, whose reflectors are pieces of the machine, the
-footprint `routeFoot` lies in the region up to the end of the route, and so does the box of the
-final glider at the end. -/
+/-- **A route with corner windows stays in the region** (no separation facts): from a glider in
+the region, through corners met on their input lines, in order, whose reflectors are pieces of the
+machine, the footprint `routeFootX` lies in the region up to the end of the route, and so does the
+box of the final glider at the end. -/
 theorem route_region : ∀ (cs : List Corner) (g : WL) (T : ℕ), g.Dir → RouteLines g cs →
-    RouteTimed g cs T → (∀ x ∈ (route g cs).1, x.piece ∈ machPieces p) →
+    RouteTimedX g cs T → (∀ x ∈ (route g cs).1, x.piece ∈ machPieces p) →
     uMin p - 300 ≤ g.uLo T →
-    (∀ i, T + i ≤ routeEnd g cs T → routeFoot g cs T i ⊆ machRegion p) ∧
-      uMin p - 300 ≤ (route g cs).2.uLo (routeEnd g cs T)
+    (∀ i, T + i ≤ routeEndX g cs T → routeFootX g cs T i ⊆ machRegion p) ∧
+      uMin p - 300 ≤ (route g cs).2.uLo (routeEndX g cs T)
   | [], g, T, _, _, _, _, h0 => by
     refine ⟨fun i hi => ?_, h0⟩
-    simp only [routeEnd] at hi
+    simp only [routeEndX] at hi
     rw [show i = 0 by omega]
-    simpa [routeFoot] using WL.box_region h0
+    simpa [routeFootX] using WL.box_region h0
   | c :: cs, g, T, hd, ⟨hl, hls⟩, ⟨ht, hts⟩, hmem, h0 => by
     set m := (meetT g c).toNat with hm
     have hmT : ((m : ℕ) : ℤ) = meetT g c := by rw [hm]; exact Int.toNat_of_nonneg (by omega)
     have hc := uMin_le_corner (g := g) (c := c) (hmem _ (by simp [route]))
     have h1 := uLo_meet hl
-    have h2 := uLo_out g c
-    have hts' : RouteTimed (reflect g c).2 cs ((m + 30 : ℕ) : ℤ) := by
+    have h2 := uLo_out40 g c
+    have hts' : RouteTimedX (reflect g c).2 cs ((m + 40 : ℕ) : ℤ) := by
       push_cast
       rw [hmT]
       exact hts
-    obtain ⟨ih1, ih2⟩ := route_region cs _ (m + 30) (reflect_dir g c) hls hts'
+    obtain ⟨ih1, ih2⟩ := route_region cs _ (m + 40) (reflect_dir g c) hls hts'
       (fun x hx => hmem x (by simp [route, hx])) (by push_cast; rw [hmT]; omega)
     refine ⟨fun i hi => ?_, ih2⟩
-    simp only [routeEnd, ← hm] at hi
-    simp only [routeFoot, ← hm]
+    simp only [routeEndX, ← hm] at hi
+    simp only [routeFootX, ← hm]
     split_ifs with ha hb
     · exact WL.box_region (le_trans (le_min (by omega) (by omega))
-        (WL.uLo_between hd (t₁ := T) (t₂ := meetT g c) (by omega) ha))
+        (WL.uLo_between hd (t₁ := T) (t₂ := meetT g c) (by omega) (by omega)))
     · intro x hx
-      have := relayBox_u hx
+      have := relayBoxX_u hx
       rw [mem_machRegion]
       omega
     · exact ih1 _ (by omega)
 
-/-- **A link into an entry chain stays in the region** (`linkFoot`): the route, the flight with
+/-- **A link into an entry chain stays in the region** (`linkFootX`): the route, the flight with
 growing `u` after it, and the entry chain (assumed in the region). -/
 theorem linkFoot_region {a t : ℕ} {g : WL} {cs : List Corner} {T T0 : ℕ} (hd : g.Dir)
-    (hl : RouteLines g cs) (htim : RouteTimed g cs T)
+    (hl : RouteLines g cs) (htim : RouteTimedX g cs T)
     (hmem : ∀ x ∈ (route g cs).1, x.piece ∈ machPieces p) (h0 : uMin p - 300 ≤ g.uLo T)
     (hdx : (route g cs).2.dx = 1) (hdy : (route g cs).2.dy = -1)
     (hent : entryFoot p a t ⊆ machRegion p) (j : ℕ) :
-    linkFoot p a t g cs T T0 j ⊆ machRegion p := by
+    linkFootX p a t g cs T T0 j ⊆ machRegion p := by
   obtain ⟨h1, h2⟩ := route_region cs g T hd hl htim hmem h0
-  unfold linkFoot
+  unfold linkFootX
   split_ifs with ha hb
   · exact h1 j ha
   · exact WL.box_region (h2.trans (WL.uLo_mono hdx hdy (by omega)))
@@ -452,8 +456,8 @@ theorem IncPlan.region {i r : ℕ} (hp : p.WellFormed) (P : IncPlan p i r) (hv :
     · exact Set.union_subset hLC (chainOut_region hAi1 _)
   · -- the increment thread
     have hlate := hv.late
-    have hT0 := le_routeEnd_of_timed P.csR (unitWL p i incRWL) 2010 hv.timedR
-    have hT1 := le_routeEnd_of_timed P.csM P.gM P.T1 hv.timedM
+    have hT0 := le_routeEndX P.csR (unitWL p i incRWL) 2010 hv.timedR
+    have hT1 := le_routeEndX P.csM P.gM P.T1 hv.timedM
     have hendR := hv.endR
     have hendM := hv.endM
     have hTg2 : 2010 ≤ P.Tg := by
@@ -508,11 +512,13 @@ theorem IncPlan.region {i r : ℕ} (hp : p.WellFormed) (P : IncPlan p i r) (hv :
 /-- **The `inc` step with the region facts discharged**: for a well-formed program and a state
 with the instruction `inc r` at the program counter (register `r` ready), the machine evolves
 `encM s` into `encM s'` for the next state `s'` of the counter machine, inside the region of the
-machine — given the separation facts of the activation plan read off the layout. -/
+machine, in `τ > 0` generations with every other register `τ` generations later — given the
+separation facts of the activation plan read off the layout. -/
 theorem inc_step' {r : ℕ} (hp : p.WellFormed) (s : MState) (hinv : InvM p s)
     (hins : p[s.pc]? = some (.inc r)) (hready : (s.reg r).Ready)
     (hsep : IncSep (incPlan p s.pc r) ((s.reg r).later 930)) :
-    ∃ (τ : ℕ) (s' : MState), p.step s.cfg = some s'.cfg ∧ InvM p s' ∧ (s'.reg r).Ready ∧
+    ∃ (τ : ℕ) (s' : MState), 0 < τ ∧ (∀ r', r' ≠ r → s'.reg r' = (s.reg r').later τ) ∧
+      p.step s.cfg = some s'.cfg ∧ InvM p s' ∧ (s'.reg r).Ready ∧
       conway.evolve τ (encM p s) = encM p s' ∧
       ∀ j ≤ τ, (conway.evolve j (encM p s) : Set Cell) ⊆ machRegion p :=
   inc_step hp s hinv hins hready hsep
