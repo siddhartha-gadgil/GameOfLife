@@ -170,6 +170,7 @@ public import LeanTheory.Theory.Life.ActivationIncThread
 public import LeanTheory.Theory.Life.ActivationIncModuleRun
 public import LeanTheory.Theory.Life.ActivationIncStep
 public import LeanTheory.Theory.Life.ActivationIncPlan
+public import LeanTheory.Theory.Life.ActivationIncRegion
 public import LeanTheory.Theory.Life.ActivationHalt
 public import LeanTheory.Theory.Life.Gen.ActSideDec
 public import LeanTheory.Theory.Life.ActivationDecLinks

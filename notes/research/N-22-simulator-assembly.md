@@ -195,3 +195,8 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   answer routes), unpaired tokens, answer routes (lines, closed forms, offsets 4/5), and lateness
   of the next control (`decNZ_late`, `decZ_late`). Open: separation, `RouteTimed` of the answer
   routes, packaging of two free flights, the composition `decJz_step`.
+* 2026-11-16: `ActivationIncRegion` (sub-agent, checked here): `IncPlan.region` and
+  **`inc_step'`** — `IncRegion` is discharged (anchors `uMin_le_mod/chain/body/corner`, glider
+  boxes between corners, run regions `u ≥ −738` in the module frame; every footprint at least 163
+  inside the region); `inc_step'` is conditional only on `IncSep` (to be reformulated with the
+  extended relay window).
