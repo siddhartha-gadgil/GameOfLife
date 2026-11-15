@@ -29,7 +29,8 @@ namespace LeanTheory.Life
 open Finset
 
 /-- The register diagonal (block at `K`, salvos `q`) placed at the register circuit. -/
-def diagW (q : List (Salvo × ℤ)) (K : ℤ) : Finset Cell := translate (148, 240) (flights q ∪ counter K)
+def diagW (q : List (Salvo × ℤ)) (K : ℤ) : Finset Cell :=
+  translate (148, 240) (flights q ∪ counter K)
 
 /-- The strip of the register diagonal at the register, at generation `i`. -/
 def wStrip (Vs Vb : ℤ) (i : ℕ) : Set Cell :=

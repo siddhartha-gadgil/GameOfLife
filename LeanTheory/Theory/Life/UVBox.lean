@@ -119,7 +119,7 @@ theorem flight_reaction_xyuv {G G' : Finset Cell} {dx dy a b lo hi U₁ U₂ V�
         (hi + ((i / 4 : ℕ) : ℤ) * dy) ∩
       UVBox (U₁ + ((i / 4 : ℕ) : ℤ) * (dx - dy)) (U₂ + ((i / 4 : ℕ) : ℤ) * (dx - dy))
         (V₁ + ((i / 4 : ℕ) : ℤ) * (dx + dy)) (V₂ + ((i / 4 : ℕ) : ℤ) * (dx + dy))) :=
-  ⟨(flight_reaction h4 hB q r hend).evolve_eq, fun i hi c hc =>
+  ⟨(flight_reaction h4 hB q r hend).evolve_eq, fun i hi _ hc =>
     ⟨(flight_reaction h4 hB q r hend).subset i hi hc,
       (flight_reaction_uv h4 hU q r hend).subset i hi hc⟩⟩
 
