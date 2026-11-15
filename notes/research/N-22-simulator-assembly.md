@@ -242,3 +242,7 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   (`incPlan_laneSep`) and `HaltSep` (`haltLanes`, `haltLaneMach`) are proved.
 * 2026-11-16: name clashes between RouteSep* and ActivationDec* fixed (`_rs` suffixes); the whole
   library builds (3549 jobs); axiom audit: 99 622 declarations, only the standard axioms.
+* 2026-11-16: **`hsep_haltSep`** (`HaltSepProof.lean`, sub-agent, checked here): `HaltSep p
+  (p.length − 1)` for every well-formed single-halt program (the halt route is `haltLink_sep`
+  with delay `−1080`; the outgoing glider is far in `v` from everything; the obstruction by other
+  halt corners is excluded by `SingleHalt`). The `haltSep` field of `MachineSteps` is discharged.

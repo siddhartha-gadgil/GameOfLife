@@ -187,6 +187,7 @@ public import LeanTheory.Theory.Life.MainTheorem
 public import LeanTheory.Theory.Life.LaneSep
 public import LeanTheory.Theory.Life.LaneSep2
 public import LeanTheory.Theory.Life.LaneSep3
+public import LeanTheory.Theory.Life.HaltSepProof
 public import LeanTheory.Theory.Life.ActivationHalt
 public import LeanTheory.Theory.Life.Gen.ActSideDec
 public import LeanTheory.Theory.Life.ActivationDecLinks
