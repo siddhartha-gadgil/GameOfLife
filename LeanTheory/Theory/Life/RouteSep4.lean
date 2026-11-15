@@ -123,7 +123,7 @@ theorem legDst {p : Program} (hp : p.WellFormed) {b s c : ℤ} {a : ℕ} {t : �
       ⟨1, destU p a t, destV p t, .slab a t⟩ := by
   have hts := tracks_range p b s c
   have hf := layout_facts p
-  have hR := slabR_ge p
+  have hR := slabR_ge_rs p
   have hc0 := unitC0_cases p a
   refine legOK_of hp h1 h2 (u1 := destU p a t - 4) (u2 := destU p a t + 4)
     (v1 := destV p t + 11) (v2 := trackBack p b s c - 7) ?_ ?_
@@ -292,7 +292,7 @@ theorem unitUpLink_sep {p : Program} (hp : p.WellFormed) {i : ℕ} (hi : i < p.l
     RouteSepX (machPieces p) (machRegion p) ((unitWL p i ⟨1, 1, w, τ⟩).shift 0 0 d)
       (upCorners p (instrBand i) s (A p i + w) H a t) T := by
   have hf := layout_facts p
-  have hR := slabR_ge p
+  have hR := slabR_ge_rs p
   have hiN : (i : ℤ) < N p := by unfold N; exact_mod_cast hi
   have hb : 1 ≤ instrBand i ∧ instrBand i ≤ N p + R p := by unfold instrBand; omega
   have hcorner := instrRoute_corner hi hx
@@ -359,7 +359,7 @@ theorem unitDownLink_sep {p : Program} (hp : p.WellFormed) {a : ℕ} {b s w τ H
     RouteSepX (machPieces p) (machRegion p) ((unitWL p a ⟨1, 1, w, τ⟩).shift 0 0 d)
       (downCorners p b s (A p a + w) H cd vp r idx) T := by
   have hf := layout_facts p
-  have hR := slabR_ge p
+  have hR := slabR_ge_rs p
   have hbr' : 1 ≤ b ∧ b ≤ N p + R p := ⟨by omega, hbr⟩
   have hpar := downCorners_par (p := p) (b := b) (s := s) (r := r) (idx := idx) hH hd hv
   have hok : ∀ x ∈ downCorners p b s (A p a + w) H cd vp r idx, CornerOK p x :=

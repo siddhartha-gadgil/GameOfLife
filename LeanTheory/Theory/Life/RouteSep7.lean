@@ -30,7 +30,7 @@ namespace LP
 
 /-- **The lines of the KZ link**: a glider flying `SE` on the source column `c` meets every
 corner of `ztokCorners` on its input line. -/
-theorem ztokCorners_lines (p : Program) (b c H : ℤ) (r : ℕ) (j : ℤ) {g : WL} (hdx : g.dx = 1)
+theorem ztokCorners_lines_rs (p : Program) (b c H : ℤ) (r : ℕ) (j : ℤ) {g : WL} (hdx : g.dx = 1)
     (hdy : g.dy = 1) (hl : g.lane = c) (hH : (H - c) % 2 = 0)
     (hd : (U p r + zTokChan p j - c) % 2 = 0)
     (hv1 : (U p r + zTokChan p j + zTokDepth p j) % 2 = 1)
@@ -326,7 +326,7 @@ theorem decLinks_sep {p : Program} (hp : p.WellFormed) {i r z : ℕ}
   rw [heq] at hx
   -- the numeric facts of the corners
   have hf := layout_facts p
-  have hRs := slabR_ge p
+  have hRs := slabR_ge_rs p
   have hb : instrBand (i : ℤ) = 1 + i := rfl
   have hiN : (i : ℤ) < N p := by unfold N; exact_mod_cast hlt
   have hA0 := A_nonneg p (a := i) (by omega)
@@ -450,7 +450,7 @@ theorem decLinks_sep {p : Program} (hp : p.WellFormed) {i r z : ℕ}
       have hxm := hx _ (List.mem_cons_of_mem _ (List.mem_cons_of_mem _ List.mem_cons_self))
       have hu := unitD_uv p i
       have hpz := hpar.2.2.1
-      have hlines := ztokCorners_lines p (instrBand i) (A p i + decD)
+      have hlines := ztokCorners_lines_rs p (instrBand i) (A p i + decD)
         (hairKZ p q (A p i + decD)) r j (g := unitWL p i ⟨1, 1, decD, 787⟩) rfl rfl
         (by simp only [unitWL, WL.shift]; clear hpar hd; omega) hpz.2.2.2 hpz.1 hpz.2.1 hpz.2.2.1
       have hcm := instrRoute_corner hlt hxm

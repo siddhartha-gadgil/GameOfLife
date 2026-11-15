@@ -358,7 +358,7 @@ theorem upCornersK5_lines (p : Program) (b s c H : ℤ) (a : ℕ) (t : ℤ) {g :
 
 /-- **The lines of the NZ answer**: a glider flying `SW` on the port line of the NZ answer of
 caller `j` of module `r` meets every corner of the NZ answer on its input line. -/
-theorem nzAnsCorners_lines (p : Program) (b : ℤ) (r : ℕ) (j H : ℤ) (a : ℕ) (t : ℤ) {g : WL}
+theorem nzAnsCorners_lines_rs (p : Program) (b : ℤ) (r : ℕ) (j H : ℤ) (a : ℕ) (t : ℤ) {g : WL}
     (hdx : g.dx = -1) (hdy : g.dy = 1) (hl : g.lane = nzAnsPortV j)
     (hH : (H - (U p r + nzAnsChan p j)) % 2 = 0)
     (hd : (destU p a t - (U p r + nzAnsChan p j)) % 2 = 0)
@@ -379,7 +379,7 @@ theorem nzAnsCorners_lines (p : Program) (b : ℤ) (r : ℕ) (j H : ℤ) (a : �
 
 /-- **The lines of the Z answer**: a glider flying `SE` on the Z answer station column of caller
 `j` of module `r` meets every corner of the Z answer on its input line. -/
-theorem zAnsCorners_lines (p : Program) (b : ℤ) (r : ℕ) (j H : ℤ) (a : ℕ) (t : ℤ) {g : WL}
+theorem zAnsCorners_lines_rs (p : Program) (b : ℤ) (r : ℕ) (j H : ℤ) (a : ℕ) (t : ℤ) {g : WL}
     (hdx : g.dx = 1) (hdy : g.dy = 1) (hl : g.lane = U p r + zAnsStation j)
     (hH : (H - (U p r + zAnsChan p j)) % 2 = 0)
     (hd : (destU p a t - (U p r + zAnsChan p j)) % 2 = 0)
@@ -448,7 +448,7 @@ theorem unitLink_sep {p : Program} (hp : p.WellFormed) {a : ℕ} {b s w τ vS : 
     RouteSepX (machPieces p) (machRegion p) ((unitWL p a ⟨1, 1, w, τ⟩).shift 0 0 d)
       (⟨3, A p a + w, trackOut p b s (A p a + w), .band b s false⟩ :: rest) T := by
   have hf := layout_facts p
-  have hR := slabR_ge p
+  have hR := slabR_ge_rs p
   have hlines' := routeLines_delay d _ _ hlines
   refine routeSepX_of hp _ _ _ (List.cons_ne_nil _ _) hlines' ?_ hchain
     (route_mem_delay hmem hd30)
@@ -522,7 +522,7 @@ theorem nzAnsLink_sep {p : Program} (hp : p.WellFormed) {i : ℕ} (hi : i < p.le
     · rcases List.mem_cons.1 hx' with rfl | hx'
       · simp only [CPar, rfCU, rfCV]; omega
       · exact hpar x hx'
-  have hlines := nzAnsCorners_lines p (instrBand i) r j H a t hg.1 hg.2.1 hg.2.2 hH hd hv
+  have hlines := nzAnsCorners_lines_rs p (instrBand i) r j H a t hg.1 hg.2.1 hg.2.2 hH hd hv
   have hlines' := routeLines_delay d _ _ hlines
   have hsplit := ownSplit_instr hp hi
   have hchain : ChainOK p (nzAnsCorners p (instrBand i) r j H a t) := by
@@ -604,7 +604,7 @@ theorem zAnsLink_sep {p : Program} (hp : p.WellFormed) {i : ℕ} (hi : i < p.len
       rcases List.mem_cons.1 hx' with rfl | hx'
       · simp only [CPar, rfCU, rfCV]; omega
       · exact hpar x hx'
-  have hlines := zAnsCorners_lines p (instrBand i) r j H a t hg.1 hg.2.1 hg.2.2 hH hd hv
+  have hlines := zAnsCorners_lines_rs p (instrBand i) r j H a t hg.1 hg.2.1 hg.2.2 hH hd hv
   have hlines' := routeLines_delay d _ _ hlines
   have hsplit := ownSplit_instr hp hi
   have hchain : ChainOK p (zAnsCorners p (instrBand i) r j H a t) := by

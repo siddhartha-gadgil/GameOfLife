@@ -55,7 +55,7 @@ theorem module_gap (p : Program) {r r' : ℤ} (h : r < r') :
   unfold PM modRight modLeft at *; omega
 
 /-- `slabR` bounds. -/
-theorem slabR_ge (p : Program) : 238 ≤ slabR p ∧ 86 + 58 * P p ≤ slabR p := by
+theorem slabR_ge_rs (p : Program) : 238 ≤ slabR p ∧ 86 + 58 * P p ≤ slabR p := by
   unfold slabR; omega
 
 /-! ### Tracks of the band -/
@@ -135,7 +135,7 @@ theorem src_corner {p : Program} {a : ℕ} {b w v1 v2 : ℤ} (hb : b = 1 + (a : 
     {c : Corner} (hd : Desc p c) (hband : ∀ b' k h, c.tag = .band b' k h → b' ≠ b) :
     FarRect (cornerSpec c).bx (A p a + w - 4) (A p a + w + 4) v1 v2 := by
   have hf := layout_facts p
-  have hR := slabR_ge p
+  have hR := slabR_ge_rs p
   have hc0 := unitC0_cases p a
   refine corner_farRect ?_
   obtain ⟨hv, hcol, hhalt, -⟩ := hd
@@ -201,7 +201,7 @@ theorem slab_unit_other {p : Program} {a : ℕ} {u1 u2 v1 v2 : ℤ}
   intro a' s _ hne hs
   have h := unitSpecs_uv p a' hs
   have hf := layout_facts p
-  have hR := slabR_ge p
+  have hR := slabR_ge_rs p
   have hk : -180 ≤ (unitKind p a').uLo := by cases unitKind p a' <;> simp [UKind.uLo]
   rcases lt_or_gt_of_ne hne with h' | h'
   · have := A_add_le p (a := a') (a' := a) (by exact_mod_cast h')
@@ -230,7 +230,7 @@ theorem dst_corner {p : Program} {a : ℕ} {t b v1 v2 : ℤ} (ha : (a : ℤ) < N
     (hne : c.tag ≠ .slab a t) :
     FarRect (cornerSpec c).bx (destU p a t - 4) (destU p a t + 4) v1 v2 := by
   have hf := layout_facts p
-  have hR := slabR_ge p
+  have hR := slabR_ge_rs p
   have hc0 := unitC0_cases p a
   have hA := A_nonneg p (a := a) (by omega)
   refine corner_farRect ?_
@@ -312,7 +312,7 @@ theorem zone_unit {p : Program} {u1 u2 v1 v2 : ℤ} (hu : U0 p + modLeft p + 20 
     ∀ a s, a < p.length + numRegs p → s ∈ unitSpecs p a → FarRect s.bx u1 u2 v1 v2 := by
   intro a s ha hs
   have h := unitSpecs_uv p a hs
-  have hR := slabR_ge p
+  have hR := slabR_ge_rs p
   have h6 := (sep06_units_module0 p (a := a) (by unfold N R; omega)).1
   exact farRect_of_uv h (Or.inl (by omega))
 
@@ -345,7 +345,7 @@ theorem left_corner {p : Program} {r : ℕ} {idx cd b v1 v2 : ℤ} (hr : (r : �
     (hd : Desc p c) (hband : ∀ b' k h, c.tag = .band b' k h → b' ≠ b)
     (hne : c.tag ≠ .left r idx) : FarRect (cornerSpec c).bx (cd - 4) (cd + 4) v1 v2 := by
   have hf := layout_facts p
-  have hR := slabR_ge p
+  have hR := slabR_ge_rs p
   have hl := left_range p hidx hcd
   have h0 := unit_module_gap p (a := 0) (r := r) ⟨le_rfl, by omega⟩ (by omega)
   have hA0 : A p 0 = 0 := by unfold A; ring
@@ -427,7 +427,7 @@ theorem right_corner {p : Program} {r : ℕ} {j cd b v1 v2 : ℤ} (hr : (r : ℤ
         cd ≤ U p r + 1410 + 144 * D p + 124 * (D p - 1 - j) ∧ c.tag ≠ .right r j 1)) :
     FarRect (cornerSpec c).bx (cd - 4) (cd + 4) v1 v2 := by
   have hf := layout_facts p
-  have hR := slabR_ge p
+  have hR := slabR_ge_rs p
   have h0 := unit_module_gap p (a := 0) (r := r) ⟨le_rfl, by omega⟩ (by omega)
   have hA0 : A p 0 = 0 := by unfold A; ring
   refine corner_farRect ?_
@@ -510,7 +510,7 @@ theorem rzone_corner {p : Program} {r : ℕ} {j V u1 u2 : ℤ} (hj : 0 ≤ j ∧
       (V = 1561 + 180 * (D p - 1 - j) ∧ c.tag ≠ .right r j 2 ∧ c.tag ≠ .right r j 3)) :
     FarRect (cornerSpec c).bx u1 u2 (V - 2) (V + 6) := by
   have hf := layout_facts p
-  have hR := slabR_ge p
+  have hR := slabR_ge_rs p
   refine corner_farRect ?_
   obtain ⟨k', u, v, tag⟩ := c
   simp only at hV ⊢
@@ -560,7 +560,7 @@ theorem zstation_corner {p : Program} {r : ℕ} {j v1 v2 : ℤ} (hj : 0 ≤ j �
     (hv1 : 706 ≤ v1) {c : Corner} (hv : Valid p c) (hne : c.tag ≠ .right r j 0) :
     FarRect (cornerSpec c).bx (U p r + 1297 + 144 * j) (U p r + 1305 + 144 * j) v1 v2 := by
   have hf := layout_facts p
-  have hR := slabR_ge p
+  have hR := slabR_ge_rs p
   refine corner_farRect ?_
   obtain ⟨k', u, v, tag⟩ := c
   simp only at hne ⊢

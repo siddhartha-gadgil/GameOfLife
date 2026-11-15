@@ -261,7 +261,7 @@ theorem {p}Region_far {{B : Set Cell}} (h : FarAll B {p}RegL) : FarApart 2 {p}Re
         ei = comps.index(find(early)[1])
         out.append(f'''/-- The salvo and the block of the generic process stay in the region of the run: the salvo in
 a component while near the circuit, then in the lanes of the register diagonal. -/
-theorem {p}PullG_sub (k j : ℕ) : {p}PullG k j ⊆ {region} := by
+theorem {p}PullG_subG (k j : ℕ) : {p}PullG k j ⊆ {region} := by
   intro c hc
   have h : c ∈ {bu(comps[ei])} ∨ c ∈ regLanes := by
     simp only [{p}PullG] at hc
@@ -305,7 +305,7 @@ theorem {p}PullG_sub (k j : ℕ) : {p}PullG k j ⊆ {region} := by
                 c = comp_of(fx, n)
                 if 'PullG' in fx:
                     am = re.search(r'PullG (\w+) \(i \+ (\d+)\)', fx)
-                    proofs.append(f'fun i _ => {p}PullG_sub {am.group(1)} (i + {am.group(2)})')
+                    proofs.append(f'fun i _ => {p}PullG_subG {am.group(1)} (i + {am.group(2)})')
                 elif 'wStrip' in fx:
                     proofs.append(f'fun i hi => (wStrip_subset_regLanes (by omega) (by omega)).trans '
                                   f'(subset_unionL (L := {p}RegL) ({memproof(lanes_idx)}) '

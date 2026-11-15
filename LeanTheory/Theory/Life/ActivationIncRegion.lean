@@ -291,6 +291,7 @@ theorem bodyBox_region {i : ℕ} (h : uMin p ≤ A p i - 36) : bodyBox p i ⊆ m
 /-- **The entry chain** of unit `a` from any copy lies in the region (`u ≥ A_a - 60`). -/
 theorem entryFoot_region {a : ℕ} (t : ℕ) (h : uMin p ≤ A p a - 32) :
     entryFoot p a t ⊆ machRegion p := by
+  refine (entryFoot_subset_crude p a t).trans ?_
   rintro _ ⟨c, ⟨j, hj, h1, h2, h3, h4⟩, rfl⟩
   have := unitD_uv p a
   rw [mem_machRegion]

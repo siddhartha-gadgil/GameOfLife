@@ -228,3 +228,17 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   first `inc` on a register (merge unit, entry copy 0): the crude entry footprint `Box 0 90 (-6) 60`
   overlaps the slab corner's reflector (x 0..7, y 54..60); a tighter certified footprint of the
   side reaction of copy 0 is needed. Open: register strips (#14–#17), the other `IncSep` fields.
+* 2026-11-16: **entry footprint fixed** (sub-agent, checked here): the OR gate relays go into
+  `Box 0 90 (-6) 38` until generation 166 / 46, then only the gate and its output glider in
+  `Box 49 73 36 60` (`Gen/OrTight.lean` from `scripts/life_cert/or_tight.py`, `OrChainTight.lean`:
+  `orFoot`, `orChainSideT` …); `entryFoot` now uses `orFoot`, and `incPlan_entC`, `incPlan_entR`
+  (`ActivationIncEntrySep.lean`) hold for every program. Open: the DEC chain still uses the crude
+  footprint; `IncSep.idle`.
+* 2026-11-16: **register lanes** (`LaneSep.lean`, `LaneSep2.lean`, `LaneSep3.lean`, sub-agent,
+  checked here): every register's lanes are far from every piece (`machBoxes_far`; the 28 groups of
+  the register circuit — group 0 reaches `v ≤ 260`, not 218 as R-31 says, still clear), from every
+  other register's lanes (`modLanes_far`), from every route and extended relay box
+  (`lane_instrRoute`, `lane_mergeRoute`, `lane_relay_clear`), and the lane fields of `IncSep`
+  (`incPlan_laneSep`) and `HaltSep` (`haltLanes`, `haltLaneMach`) are proved.
+* 2026-11-16: name clashes between RouteSep* and ActivationDec* fixed (`_rs` suffixes); the whole
+  library builds (3549 jobs); axiom audit: 99 622 declarations, only the standard axioms.

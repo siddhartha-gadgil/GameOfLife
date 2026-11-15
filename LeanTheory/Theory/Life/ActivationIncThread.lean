@@ -65,10 +65,17 @@ theorem upLink_end (p : Program) (b s c H : ℤ) (a : ℕ) (t : ℤ) (g : WL) (T
   simp only [rfOut, rfX, rfCU, rfCV]
   omega
 
-/-- The footprint of the entry chain of unit `a` from copy `t` (`entry_reaction`). -/
+/-- The footprint of the entry chain of unit `a` from copy `t` (`entry_reaction`): the copies of
+the tight relay footprint `orFoot` (`OrChainTight`). -/
 def entryFoot (p : Program) (a t : ℕ) : Set Cell :=
   (fun c => (unitDX p a - 35 * t, unitDY p a - 64 * t) + c) ''
-    chainFoot (Box 0 90 (-6) 60) chainV (t + 1)
+    chainFoot orFoot chainV (t + 1)
+
+/-- The entry footprint lies in the copies of the crude relay box `Box 0 90 (-6) 60`. -/
+theorem entryFoot_subset_crude (p : Program) (a t : ℕ) :
+    entryFoot p a t ⊆ (fun c => (unitDX p a - 35 * t, unitDY p a - 64 * t) + c) ''
+      chainFoot (Box 0 90 (-6) 60) chainV (t + 1) :=
+  Set.image_mono (chainFoot_mono orFoot_subset _ _)
 
 /-- The pieces of the copies `0 … t` of the entry chain of unit `a`. -/
 def chainPieces (p : Program) (a t : ℕ) : List Piece :=

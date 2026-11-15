@@ -25,6 +25,15 @@ separation. `IncSep` collects the **separation facts** (the routes' `RouteSepX`,
 flights, entries, the module part and the lanes of the registers, concurrency of the two threads),
 `IncRegion` the facts that the footprints lie in the region of the machine.
 
+**Tight entry footprints** (change of 2026-11-16): `entryFoot` (`ActivationIncThread`) is now the
+union of the copies of the tight relay footprint `orFoot = Box 0 90 (-6) 38 ∪ Box 49 73 36 60`
+(`OrChainTight`, certificates `Gen/OrTight`) instead of the crude box `Box 0 90 (-6) 60`. With the
+crude box `entR` was false for the first `inc` on a register (the reflector of the input corner of
+copy `0` of the merge unit, `C0 = -67`, meets the box); `entC` likewise for a continue into copy
+`0` of a `halt` unit. The names and roles of `IncSep`, `link_entryX`, `entry_reaction` are kept;
+only the footprint changed. `entC` and `entR` are proved for the plan `incPlan` of every
+well-formed program in `ActivationIncEntrySep` (`incPlan_entC`, `incPlan_entR`).
+
 **Corner windows** (the separation facts are satisfiable): the routes are run with
 `route_window_footX` / `link_entryX` (`ActivationIncCompose`, `ActivationIncThread`). At each
 corner the reflector and the glider are run together from `meetT - 20` to `meetT + 40` inside the

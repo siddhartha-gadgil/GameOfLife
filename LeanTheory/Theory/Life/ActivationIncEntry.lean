@@ -8,6 +8,7 @@ module
 public import LeanTheory.Theory.Life.ActivationIncModule
 public import LeanTheory.Theory.Life.MergeSide
 public import LeanTheory.Theory.Life.Gen.ActSide
+public import LeanTheory.Theory.Life.OrChainTight
 
 /-!
 # Entering a unit: the side input, the entry chain and the flight to the body
@@ -19,7 +20,10 @@ copy `t` of unit `a` (`destWin p a t`) at window offset `δ ∈ {4, 5}` (the win
 * `side_arrival`: at time `180 + 30 k + (16 t mod 30)` the glider is the side input `orSide6`
   (`δ = 4`) or `orSide7` (`δ = 5`, `Gen/ActSide`) of copy `t`, and copy `t` is at phase `0`;
 * `entryRelay`: the copies `t, …, 0` carry it (side input, then through relays) to the output of
-  copy `0`, in `134 + 254 t` generations (`orChainSide6/7`, `orGate_side6/7`);
+  copy `0`, in `134 + 254 t` generations (`orChainSide6T/7T`, `orGate_side6T/7T`), inside the
+  copies of the **tight footprint** `orFoot` of the relays (`OrChainTight`; the crude box
+  `Box 0 90 (-6) 60` meets the reflector of the input corner of copy `0` of a merge or halt
+  unit);
 * `chainSpecs_piecesAt`: the copies `0 … t` of the layout (`chainSpecs`, phases `14 u`) at time
   `T` with `T + 14 t ≡ m (mod 30)` are the chain `relayChain` of the certificates at phase `m`;
 * `entry_reaction`: everything together in unit `a`, from the arriving glider to the output of
@@ -90,27 +94,24 @@ theorem entryRelay (t : ℕ) {S : Finset Cell} (hS : S = orSide6 ∨ S = orSide7
     Reaction (relayChain orGate 254 chainV (t + 1) 0 ∪ S)
       (relayChain orGate 254 chainV (t + 1) (134 + t * 254) ∪
         translate (((t + 1 : ℕ) : ℤ) * 35, ((t + 1 : ℕ) : ℤ) * 64) orIn)
-      (134 + t * 254) (fun _ => chainFoot (Box 0 90 (-6) 60) chainV (t + 1)) := by
+      (134 + t * 254) (fun _ => chainFoot orFoot chainV (t + 1)) := by
   rcases t with _ | L
   · have h : Reaction (orGate ∪ S) (phase orGate 134 ∪ translate (35, 64) orIn) 134
-        (fun _ => Box 0 90 0 60) := by
+        (fun _ => orFoot) := by
       rcases hS with rfl | rfl
-      · exact orGate_side6
-      · exact orGate_side7
+      · exact orGate_side6T
+      · exact orGate_side7T
     rw [relayChain_one, relayChain_one, phase, Nat.zero_mod, Rule.evolve_zero]
     simp only [zero_mul, add_zero, zero_add, Nat.cast_one, one_mul]
-    refine h.mono fun _ _ => (fun c hc => ?_)
-    refine box_subset_chainFoot (by omega) ?_
-    obtain ⟨h1, h2, h3, h4⟩ := hc
-    exact ⟨h1, h2, by omega, h4⟩
+    exact h.mono fun _ _ => box_subset_chainFoot (by omega)
   · have h : Reaction (relayChain orGate 254 (35, 64) (L + 2) 0 ∪ S)
         (phase orGate (134 + (L + 1) * 254) ∪ translate (35, 64) (relayChain orGate 254 (35, 64)
           (L + 1) ((L + 1) * 254) ∪ translate (((L + 1 : ℕ) : ℤ) * (35, 64).1,
             ((L + 1 : ℕ) : ℤ) * (35, 64).2) orIn))
-        (134 + (L + 1) * 254) (fun _ => chainFoot (Box 0 90 (-6) 60) (35, 64) (L + 2)) := by
+        (134 + (L + 1) * 254) (fun _ => chainFoot orFoot (35, 64) (L + 2)) := by
       rcases hS with rfl | rfl
-      · exact orChainSide6 L
-      · exact orChainSide7 L
+      · exact orChainSide6T L
+      · exact orChainSide7T L
     rw [show L + 1 + 1 = L + 2 by ring,
       relayChain_succ orGate 254 chainV (L + 1) (134 + (L + 1) * 254),
       show 134 + (L + 1) * 254 + 29 * 254 = (L + 1) * 254 + 30 * 250 by ring,
@@ -173,7 +174,7 @@ theorem entry_reaction (p : Program) (a t : ℕ) {δ : ℤ} (hδ : δ = 4 ∨ δ
           (T0 + (134 + t * 254)) ∪ translate (unitDX p a + 35, unitDY p a + 64) orIn)
       (134 + t * 254)
       (fun _ => (fun c => (unitDX p a - 35 * t, unitDY p a - 64 * t) + c) ''
-        chainFoot (Box 0 90 (-6) 60) chainV (t + 1)) := by
+        chainFoot orFoot chainV (t + 1)) := by
   rw [chainSpecs_piecesAt t _ _ T0 0 (by omega),
     chainSpecs_piecesAt t _ _ (T0 + (134 + t * 254)) (134 + t * 254) (by omega), hT0,
     side_arrival p a t δ k hδ, ← translate_union]

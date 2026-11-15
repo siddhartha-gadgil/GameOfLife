@@ -100,7 +100,7 @@ theorem incLinks_sep {p : Program} (hp : p.WellFormed) {i r : ℕ} (hi : p[i]? =
     simp [instrCorners, specCorners, hspec, heq]
   obtain ⟨hi1, hHc, hHl1, hHl2, hA1, hAm, hA0⟩ := inc_facts hp hi hG hec ⟨hel, hel'⟩
   have hf := layout_facts p
-  have hR := slabR_ge p
+  have hR := slabR_ge_rs p
   have hiN : (i : ℤ) < N p := by unfold N; exact_mod_cast hlt
   have hr := reg_lt_R p hi
   simp only [regBound] at hr
@@ -273,7 +273,7 @@ theorem mergeLink_sep {p : Program} (hp : p.WellFormed) {r : ℕ} (hr : r < numR
   simp only [mergeSpecs, List.mem_cons, List.not_mem_nil, or_false] at hx
   subst hx
   have hf := layout_facts p
-  have hR := slabR_ge p
+  have hR := slabR_ge_rs p
   have hRr : (r : ℤ) < R p := by unfold R; exact_mod_cast hr
   have hsplit := ownSplit_merge hp r
   have hown := mergeCorners_desc hr
@@ -368,7 +368,7 @@ theorem merge_first {p : Program} (hp : p.WellFormed) {r : ℕ} (hr : r < numReg
     exact List.mem_cons_self
   have hu' := unitD_uv p a
   have hf := layout_facts p
-  have hRs := slabR_ge p
+  have hRs := slabR_ge_rs p
   have hRr : (r : ℤ) < R p := by unfold R; exact_mod_cast hr
   have haN : (a : ℤ) < N p + R p := by unfold N; push_cast [ha]; omega
   have hpx : ((unitWL p a haltDWL).shift 0 0 d).px t = unitDX p a + 71 ∧
@@ -445,7 +445,7 @@ theorem mergeLink_sep' {p : Program} (hp : p.WellFormed) {r : ℕ} (hr : r < num
   refine routeSepX_extend h fun t ht1 ht2 => merge_first hp hr hu ⟨by omega, by omega⟩
 
 /-- The world line delayed by `0` is the world line (for the undelayed forms of the links). -/
-theorem WL.shift_zero (w : WL) : w.shift 0 0 0 = w := by
+theorem WL.shift_zero_rs (w : WL) : w.shift 0 0 0 = w := by
   obtain ⟨dx, dy, lane, tau⟩ := w
   simp [WL.shift]
 

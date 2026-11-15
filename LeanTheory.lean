@@ -171,6 +171,9 @@ public import LeanTheory.Theory.Life.ActivationIncModuleRun
 public import LeanTheory.Theory.Life.ActivationIncStep
 public import LeanTheory.Theory.Life.ActivationIncPlan
 public import LeanTheory.Theory.Life.ActivationIncRegion
+public import LeanTheory.Theory.Life.Gen.OrTight
+public import LeanTheory.Theory.Life.OrChainTight
+public import LeanTheory.Theory.Life.ActivationIncEntrySep
 public import LeanTheory.Theory.Life.Gen.RfEarly
 public import LeanTheory.Theory.Life.RouteSep
 public import LeanTheory.Theory.Life.RouteSep2
@@ -181,6 +184,9 @@ public import LeanTheory.Theory.Life.RouteSep6
 public import LeanTheory.Theory.Life.RouteSep7
 public import LeanTheory.Theory.Life.StartFamily
 public import LeanTheory.Theory.Life.MainTheorem
+public import LeanTheory.Theory.Life.LaneSep
+public import LeanTheory.Theory.Life.LaneSep2
+public import LeanTheory.Theory.Life.LaneSep3
 public import LeanTheory.Theory.Life.ActivationHalt
 public import LeanTheory.Theory.Life.Gen.ActSideDec
 public import LeanTheory.Theory.Life.ActivationDecLinks
