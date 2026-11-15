@@ -342,6 +342,21 @@ incoming path of a restore glider, i.e. into that glider's emitter; the same col
 reuse. So `DZ1` cannot yet be supplied from guns. Ideas: wider two- and three-glider
 catalogues; making NZ the output of a two-release gate; using `REG1`'s INC input for the restore.
 
+**`REG1` certified (2026-11-15).** `Theory/Life/Register1.lean`, `Register1Inc.lean`,
+`Register1Ops.lean`: the assembly `reg1` (period 30, box), the decrement input
+`reg1Dec_reaction` (3120 generations, 26 parts) and the increment input `reg1Inc_reaction` (3570
+generations, 30 parts), and
+
+`reg1_decrement : ∀ k : ℕ, conway.evolve (3120 + (k * 4 + 48))
+  (reg1 ∪ reg1DecControl ∪ reg1Block k) = conway.evolve (k * 4 + 48) reg1 ∪ reg1Block (k - 1)`,
+`reg1_increment : ∀ k : ℕ, conway.evolve (3570 + (k * 4 + 57))
+  (reg1 ∪ reg1IncControl ∪ reg1Block k) = conway.evolve (k * 4 + 57) reg1 ∪ reg1Block (k + 1)`
+
+on the **same** block `reg1Block k = translate (148, 240) (counter k)` (the decrement at `k = 0`
+gives position `-1`, as the decrement-from-zero design needs). The block reactions are instances
+of the general lemma `salvo_quad_reaction`. Build: each input file about 7 minutes, peak memory
+well under the 12 GB cap. Not yet: continue gliders for `REG1`, the zero test, reuse spacing.
+
 ## Claims and evidence
 
 No claims beyond the sourced existence of Chapman's pattern.

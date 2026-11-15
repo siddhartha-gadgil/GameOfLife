@@ -55,6 +55,7 @@ These modules build on `Kernel/Life` (definitions only; there is no law).
 | `SlidingBlock` | Sliding block memory: `counter k`, the two-glider `pull` and three-glider `push` for every position `k`, and the flight lemma `evolve_flight` |
 | `ZeroTestLogic` | The decision part of the zero test: for every register position `k`, the test gliders and a detector give `zOut` if `k = 0` and `nzOut` otherwise, block unchanged (`zeroTest_decision`) |
 | `Register` | Pipelined operations on the block: `Op`, `launch`, `SpacedLaunch`, `pipeline` (salvos launched at least 13 cells apart act in order), `two_ops` |
+| `Register1`, `Register1Inc`, `Register1Ops` | The register `REG1`: one assembly (16 guns, 14 reflectors) serving one block with a decrement and an increment input; certified input reactions (3120 and 3570 generations); `reg1_decrement`, `reg1_increment` for every position; `salvo_quad_reaction` |
 | `Reactions` | Reactions with footprints: `Reaction P Q n F`, parallel and sequential composition, placement; the block decrement rebuilt from these rules (`pull_reaction`) |
 
 ## Stability/ — comparison and energy methods

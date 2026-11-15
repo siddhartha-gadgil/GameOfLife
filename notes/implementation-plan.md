@@ -36,6 +36,7 @@ to a proof that Life is Turing complete, and ultimately self-replication.
 | `Theory/Life/Invariant`, `ZeroTestLogic` | `N-15` | `life_invariant`; `zeroTest_decision`: test gliders + detector ⟶ `zOut` (k = 0) or `nzOut` (k ≥ 1), block unchanged |
 | `Theory/Life/IncrementContinue` | `N-15` | `incrementContinue_evolve`: one control glider ⟶ pushing salvo + continue glider |
 | `Theory/Life/ContinueIncrement` | `N-15` | `continueIncrement`: increment for every `k` that also emits a continue glider |
+| `Theory/Life/Register1`, `Register1Inc`, `Register1Ops` | `N-15` | `reg1_decrement`, `reg1_increment`: one register block, both operations, every position |
 | `Theory/Life/Decision` | `N-12` | `WindowData`, `EverAlive`, reduction from a computable family to the general decision problem |
 | `Theory/Computability/*` | `N-14` | Counter machines; `exists_computes_code`; an undecidable halting problem |
 
@@ -61,9 +62,11 @@ side-tracking; Hickerson's shotgun with suppression, 1990; Chapman 2002; stable 
 `S-11`), see `N-15`. One formal precedent: verified Life circuits in HOL4 (`S-07`), which proves
 self-simulation on generally infinite states and leaves the link to computability open.
 
-**Latest result.** Certified: both register operations triggered by one glider, for every block
-position — `decrement` (pull generator, `k ≥ 1`) and `increment` (push generator, all `k`) — and
-the pull generator with a continue glider. Each generator serves its own block.
+**Latest result.** Certified: the register `REG1` — one block, decrement and increment inputs,
+both proved for every position (`reg1_decrement`, `reg1_increment`). Earlier: separate pull and push
+generators with continue gliders; the zero-test decision of an abandoned design. Open: continue
+gliders for `REG1`, the zero test (decrement from zero; search `R-27` running), the layout of a
+program, the simulation theorem.
 
 **Main barriers.** (i) One register block served by both generators (needs a joint design), the
 zero-test logic with its glider supply, and continue signals composed with the block. (ii) The layout
@@ -424,6 +427,10 @@ There are no empirical inputs; every gate is a compiled proof.
 - **2026-11-14 — decrement-from-zero decision** (search `R-26`, sub-agent): `DZ1` works with free
   gliders, also inside `REG1`, but its NZ output runs into a restore glider's emitter (`O3`);
   not yet suppliable.
+- **2026-11-15 — `REG1` certified** (user request, in parallel with the zero-test search
+  `R-27`). `reg1_decrement`, `reg1_increment` for every position on one block; the two input
+  reactions are certificates of 3120 and 3570 generations on a 476 × 616 assembly (about 7
+  minutes each).
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom

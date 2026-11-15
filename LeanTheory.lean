@@ -104,6 +104,9 @@ public import LeanTheory.Theory.Life.Locality
 public import LeanTheory.Theory.Life.Patterns
 public import LeanTheory.Theory.Life.Reactions
 public import LeanTheory.Theory.Life.Register
+public import LeanTheory.Theory.Life.Register1
+public import LeanTheory.Theory.Life.Register1Inc
+public import LeanTheory.Theory.Life.Register1Ops
 public import LeanTheory.Theory.Life.SalvoGenerator
 public import LeanTheory.Theory.Life.SlidingBlock
 public import LeanTheory.Theory.Life.ZeroTestLogic
