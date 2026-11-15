@@ -20,7 +20,7 @@ Conventions as in R-21 … R-30: world frame of REG1, cells `(x, y)` with `y` do
 | certificates | finite catalogue (§4.4): OR-gate side input at 3 residues, OR-gate relay, 8 `RF0` images (one phase each), 2 unit bodies, 8 station facts, 3 register operations — 25 local certificates for every program, plus the generic lemmas (flight, chains by induction, idle bundle) |
 | concurrency | at any time only the gliders of one instruction activation are in flight (+ the unpaired token, consumed ≥ 2 463 generations before anything else can come near); decJz trio: **no crossing** (nested U-routes); inc: one crossing (continue × INC link), ≥ 69 000 generations apart by the delay rule; token × answer crossings ≥ 40 000 apart (§5) |
 | HALT | the halt glider flies SW on the top track `v = OUT_0` for ever; HALT cell 600 left (in `u`) of every piece: ≥ 300 cells from every piece and every other route (§6) |
-| verification | static checks `p2` on the three test layouts: 0 failures; `p5` on 25 random layouts (`N ≤ 9, R ≤ 4, D ≤ 4, P ≤ 4`): residue formulas, token formulas, slacks, gaps all as claimed; **exact runs (psim) of `add` (r0 = 0 … 3), `share` (r0 = 0, 1, 2) and a random 7-instruction, 3-register program (4 inputs): see §7** |
+| verification | static checks `p2` on the three test layouts: 0 failures; `p5` on 25 random layouts (`N ≤ 9, R ≤ 4, D ≤ 4, P ≤ 4`): residue formulas, token formulas, slacks, gaps all as claimed; **exact runs (psim) of `add` (r0 = 0 … 3), `share` (r0 = 0, 1, 2) and a random 7-instruction, 3-register program (4 inputs): all 11 runs halt correctly (§7)** |
 
 ## 1. Parts
 
@@ -290,7 +290,21 @@ and backward). "ok" = exactly one escaped glider, on the HALT line, passing the 
 generations after it left, the whole plane equals the cycle of all pieces + eaters + blocks at the
 interpreter's final values.
 
-RUN_TABLE
+| program | input | instruction trace | halt glider leaves core at (from start) | final registers | result |
+| --- | --- | --- | --- | --- | --- |
+| `add` | {0: 0, 1: 0, 2: 0} | [0, 3] | 143340 | {0: 0, 1: 0, 2: 0} | ok (1 escaped glider, HALT cell passed: yes) |
+| `add` | {0: 1, 1: 0, 2: 0} | [0, 1, 2, 0, 3] | 446940 | {0: 0, 1: 1, 2: 0} | ok (1 escaped glider, HALT cell passed: yes) |
+| `add` | {0: 2, 1: 0, 2: 0} | [0, 1, 2, 0, 1, 2, 0, 3] | 751140 | {0: 0, 1: 2, 2: 0} | ok (1 escaped glider, HALT cell passed: yes) |
+| `add` | {0: 3, 1: 0, 2: 0} | [0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 3] | 1055340 | {0: 0, 1: 3, 2: 0} | ok (1 escaped glider, HALT cell passed: yes) |
+| `rand` | {0: 0, 1: 0, 2: 0} | [0, 1, 4, 5, 3, 6] | 722940 | {0: 1, 1: 0, 2: 1} | ok (1 escaped glider, HALT cell passed: yes) |
+| `rand` | {0: 1, 1: 0, 2: 0} | [0, 1, 2, 3, 4, 5, 3, 6] | 965340 | {0: 1, 1: 0, 2: 1} | ok (1 escaped glider, HALT cell passed: yes) |
+| `rand` | {0: 1, 1: 2, 2: 1} | [0, 1, 2, 3, 4, 5, 6] | 812340 | {0: 1, 1: 1, 2: 2} | ok (1 escaped glider, HALT cell passed: yes) |
+| `rand` | {0: 2, 1: 1, 2: 0} | [0, 1, 2, 3, 4, 5, 6] | 812340 | {0: 2, 1: 0, 2: 1} | ok (1 escaped glider, HALT cell passed: yes) |
+| `share` | {0: 0} | [0, 1, 2, 3] | 305940 | {0: 0} | ok (1 escaped glider, HALT cell passed: yes) |
+| `share` | {0: 1} | [0, 1, 2, 3] | 297540 | {0: 0} | ok (1 escaped glider, HALT cell passed: yes) |
+| `share` | {0: 2} | [0, 1, 2, 3] | 297540 | {0: 1} | ok (1 escaped glider, HALT cell passed: yes) |
+
+All 11 runs: ok. Run times 3–17 min each (11 in parallel, ≈ 1 ms per generation per process under load, < 30 MB each); the longest run (`add`, r0 = 3) is 1 085 010 generations.
 
 ## 8. Caveats and obstructions
 
