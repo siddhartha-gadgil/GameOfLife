@@ -133,6 +133,7 @@ test for `k ≥ 1`; the train of operations as a `Reaction`; optional catalogue 
 | `N-17` | [Self-replication](research/N-17-self-replication.md) | `G-8`; `Q-10` | `N-01`, `N-04` (types); sources | research | exploratory; sources surveyed (`R-18` §E); formal goal postponed | Draft definitions when `G-8` is activated |
 | `N-18` | [Source acquisition](research/N-18-source-acquisition.md) | `Q-9` | none | routine | largely done: reports `R-18` (sources), `R-19`, `R-20` (own searches); literature check on salvo generators in `N-15` | licences only matter if external patterns are ever used; remaining unread sources (`S-02`, `S-03`, `S-09`) only if needed |
 | `N-19` | Architecture of the simulation theorem (networks of processes, parametric parts, layout for provability, step theorem) | `G-7` | stated; components in progress |
+| `N-20` | Register diagonal dynamics: a block with a queue of salvos in flight (encoding and queue lemma for the step theorem) | `G-7` | stated |
 
 Dependency graph (an arrow means "is needed by"). Edges out of `N-01`–`N-07` and `N-14` are
 **established** (compiled); edges out of `N-08`–`N-12` are established for the parts listed as
