@@ -390,8 +390,9 @@ active groups, flights, still lifes, and one bundle of idle pieces) with pairwis
 footprints (`Theory/Life/Network.lean`: `Reaction.parList`, `Piece.bundle`, `flight_reaction`),
 glued at the boundaries; the Lean is generated (`scripts/life_cert/emit.py`). Result:
 `dz2k1Run_rest` (`Theory/Life/Gen/Dz2k1Run.lean`): 11 490 generations of the whole circuit with
-the block at `1` end with the circuit at rest, the block at `0` and the NZ glider. Next: k = 0
-(the Z path, 27 540 generations) and the NZ case for every k (the block and the salvo as generic
+the block at `1` end with the circuit at rest, the block at `0` and the NZ glider. Also k = 0:
+`dz2k0Run_rest` (`Gen/Dz2k0Run.lean`): 27 540 generations, the block restored to `0` and the Z
+glider out (110 segments). Next: the NZ case for every k (the block and the salvo as generic
 processes, the detector by `dz2Detector_pass`).
 
 ## Claims and evidence

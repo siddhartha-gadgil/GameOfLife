@@ -301,7 +301,7 @@ class Emitter:
             lines.append('  rw [%s]' % ',\n    '.join(pads))
             lines.append('  rw [%s]' % ', '.join(['← ofRows_orRows'] * (len(atoms) - 1)))
             lines.append('  rfl')
-        self.gluelem.append('/-- %s -/\ntheorem %s :\n    %s =\n      %s := by\n%s\n'
+        self.gluelem.append('set_option maxRecDepth 100000 in\n/-- %s -/\ntheorem %s :\n    %s =\n      %s := by\n%s\n'
                             % (doc, name, lhs, ofrows_ml(Zcells, '      '), '\n'.join(lines)))
 
     def glue(self, j, stop, start):

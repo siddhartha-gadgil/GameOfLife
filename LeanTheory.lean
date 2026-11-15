@@ -110,6 +110,7 @@ public import LeanTheory.Theory.Life.Register1Ops
 public import LeanTheory.Theory.Life.DecJzLocal
 public import LeanTheory.Theory.Life.Network
 public import LeanTheory.Theory.Life.Gen.Dz2k1Run
+public import LeanTheory.Theory.Life.Gen.Dz2k0Run
 public import LeanTheory.Theory.Life.SalvoGenerator
 public import LeanTheory.Theory.Life.SlidingBlock
 public import LeanTheory.Theory.Life.ZeroTestLogic

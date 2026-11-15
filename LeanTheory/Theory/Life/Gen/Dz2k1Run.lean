@@ -30,6 +30,7 @@ set_option linter.unusedSimpArgs false
 set_option linter.unusedTactic false
 set_option linter.unreachableTactic false
 
+set_option maxRecDepth 100000 in
 /-- Glue 0, cluster 0, before. -/
 theorem dz2k1Z0_0a :
     dz2k1A2 ∪ (conway.evolve 23 dz2k1R14) =
@@ -47,6 +48,7 @@ theorem dz2k1Z0_0a :
   rw [← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 0, cluster 0, after. -/
 theorem dz2k1Z0_0b :
     dz2k1A3 =
@@ -69,6 +71,7 @@ theorem dz2k1Gl0 : Proc.stop dz2k1L0 = Proc.start dz2k1L1 := by
     _ = (dz2k1A3) ∪ dz2k1A0 ∪ (conway.evolve 23 dz2k1R0) ∪ (conway.evolve 23 dz2k1R1) ∪ (conway.evolve 23 dz2k1R2) ∪ (conway.evolve 23 dz2k1R3) ∪ (conway.evolve 23 dz2k1R4) ∪ (conway.evolve 23 dz2k1R5) ∪ (conway.evolve 23 dz2k1R6) ∪ (conway.evolve 23 dz2k1R7) ∪ (conway.evolve 23 dz2k1R8) ∪ (conway.evolve 23 dz2k1R9) ∪ (conway.evolve 23 dz2k1R10) ∪ (conway.evolve 23 dz2k1R11) ∪ (conway.evolve 23 dz2k1R12) ∪ (conway.evolve 23 dz2k1R13) ∪ (conway.evolve 23 dz2k1R15) ∪ (conway.evolve 23 dz2k1R16) ∪ (conway.evolve 23 dz2k1R17) ∪ (conway.evolve 23 dz2k1R18) ∪ (conway.evolve 23 dz2k1R19) ∪ (conway.evolve 23 dz2k1R20) ∪ (conway.evolve 23 dz2k1R21) ∪ (conway.evolve 23 dz2k1R22) ∪ (conway.evolve 23 dz2k1R23) ∪ (conway.evolve 23 dz2k1R24) ∪ (conway.evolve 23 dz2k1R25) ∪ (conway.evolve 23 dz2k1R26) := by rw [dz2k1Z0_0a, ← dz2k1Z0_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 1, cluster 0, before. -/
 theorem dz2k1Z1_0a :
     dz2k1A4 =
@@ -82,6 +85,7 @@ theorem dz2k1Z1_0a :
          0, 0, 0, 0, 0, 22517998136852480, 27021597764222976, 9007199254740992] := by
   rw [dz2k1A4]
 
+set_option maxRecDepth 100000 in
 /-- Glue 1, cluster 0, after. -/
 theorem dz2k1Z1_0b :
     dz2k1A5 ∪ (conway.evolve 20 dz2k1R14) =
@@ -108,6 +112,7 @@ theorem dz2k1Gl1 : Proc.stop dz2k1L1 = Proc.start dz2k1L2 := by
     _ = (dz2k1A5 ∪ (conway.evolve 20 dz2k1R14)) ∪ dz2k1A0 ∪ (conway.evolve 20 dz2k1R0) ∪ (conway.evolve 20 dz2k1R1) ∪ (conway.evolve 20 dz2k1R2) ∪ (conway.evolve 20 dz2k1R3) ∪ (conway.evolve 20 dz2k1R4) ∪ (conway.evolve 20 dz2k1R5) ∪ (conway.evolve 20 dz2k1R6) ∪ (conway.evolve 20 dz2k1R7) ∪ (conway.evolve 20 dz2k1R8) ∪ (conway.evolve 20 dz2k1R9) ∪ (conway.evolve 20 dz2k1R10) ∪ (conway.evolve 20 dz2k1R11) ∪ (conway.evolve 20 dz2k1R12) ∪ (conway.evolve 20 dz2k1R13) ∪ (conway.evolve 20 dz2k1R15) ∪ (conway.evolve 20 dz2k1R16) ∪ (conway.evolve 20 dz2k1R17) ∪ (conway.evolve 20 dz2k1R18) ∪ (conway.evolve 20 dz2k1R19) ∪ (conway.evolve 20 dz2k1R20) ∪ (conway.evolve 20 dz2k1R21) ∪ (conway.evolve 20 dz2k1R22) ∪ (conway.evolve 20 dz2k1R23) ∪ (conway.evolve 20 dz2k1R24) ∪ (conway.evolve 20 dz2k1R25) ∪ (conway.evolve 20 dz2k1R26) := by rw [dz2k1Z1_0a, ← dz2k1Z1_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 2, cluster 0, before. -/
 theorem dz2k1Z2_0a :
     dz2k1A6 ∪ (conway.evolve 20 dz2k1R15) =
@@ -125,6 +130,7 @@ theorem dz2k1Z2_0a :
   rw [← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 2, cluster 0, after. -/
 theorem dz2k1Z2_0b :
     dz2k1A7 =
@@ -147,6 +153,7 @@ theorem dz2k1Gl2 : Proc.stop dz2k1L2 = Proc.start dz2k1L3 := by
     _ = (dz2k1A7) ∪ dz2k1A0 ∪ (conway.evolve 20 dz2k1R0) ∪ (conway.evolve 20 dz2k1R1) ∪ (conway.evolve 20 dz2k1R2) ∪ (conway.evolve 20 dz2k1R3) ∪ (conway.evolve 20 dz2k1R4) ∪ (conway.evolve 20 dz2k1R5) ∪ (conway.evolve 20 dz2k1R6) ∪ (conway.evolve 20 dz2k1R7) ∪ (conway.evolve 20 dz2k1R8) ∪ (conway.evolve 20 dz2k1R9) ∪ (conway.evolve 20 dz2k1R10) ∪ (conway.evolve 20 dz2k1R11) ∪ (conway.evolve 20 dz2k1R12) ∪ (conway.evolve 20 dz2k1R13) ∪ (conway.evolve 20 dz2k1R14) ∪ (conway.evolve 20 dz2k1R16) ∪ (conway.evolve 20 dz2k1R17) ∪ (conway.evolve 20 dz2k1R18) ∪ (conway.evolve 20 dz2k1R19) ∪ (conway.evolve 20 dz2k1R20) ∪ (conway.evolve 20 dz2k1R21) ∪ (conway.evolve 20 dz2k1R22) ∪ (conway.evolve 20 dz2k1R23) ∪ (conway.evolve 20 dz2k1R24) ∪ (conway.evolve 20 dz2k1R25) ∪ (conway.evolve 20 dz2k1R26) := by rw [dz2k1Z2_0a, ← dz2k1Z2_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 3, cluster 0, before. -/
 theorem dz2k1Z3_0a :
     dz2k1A8 =
@@ -161,6 +168,7 @@ theorem dz2k1Z3_0a :
          1729382256910270464] := by
   rw [dz2k1A8]
 
+set_option maxRecDepth 100000 in
 /-- Glue 3, cluster 0, after. -/
 theorem dz2k1Z3_0b :
     dz2k1A9 ∪ dz2k1A11 ∪ (conway.evolve 10 dz2k1R15) =
@@ -189,6 +197,7 @@ theorem dz2k1Gl3 : Proc.stop dz2k1L3 = Proc.start dz2k1L4 := by
     _ = (dz2k1A9 ∪ dz2k1A11 ∪ (conway.evolve 10 dz2k1R15)) ∪ dz2k1A0 ∪ (conway.evolve 10 dz2k1R0) ∪ (conway.evolve 10 dz2k1R1) ∪ (conway.evolve 10 dz2k1R2) ∪ (conway.evolve 10 dz2k1R3) ∪ (conway.evolve 10 dz2k1R4) ∪ (conway.evolve 10 dz2k1R5) ∪ (conway.evolve 10 dz2k1R6) ∪ (conway.evolve 10 dz2k1R7) ∪ (conway.evolve 10 dz2k1R8) ∪ (conway.evolve 10 dz2k1R9) ∪ (conway.evolve 10 dz2k1R10) ∪ (conway.evolve 10 dz2k1R11) ∪ (conway.evolve 10 dz2k1R12) ∪ (conway.evolve 10 dz2k1R13) ∪ (conway.evolve 10 dz2k1R14) ∪ (conway.evolve 10 dz2k1R16) ∪ (conway.evolve 10 dz2k1R17) ∪ (conway.evolve 10 dz2k1R18) ∪ (conway.evolve 10 dz2k1R19) ∪ (conway.evolve 10 dz2k1R20) ∪ (conway.evolve 10 dz2k1R21) ∪ (conway.evolve 10 dz2k1R22) ∪ (conway.evolve 10 dz2k1R23) ∪ (conway.evolve 10 dz2k1R24) ∪ (conway.evolve 10 dz2k1R25) ∪ (conway.evolve 10 dz2k1R26) := by rw [dz2k1Z3_0a, ← dz2k1Z3_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 4, cluster 0, before. -/
 theorem dz2k1Z4_0a :
     dz2k1A12 ∪ (conway.evolve 10 dz2k1R14) =
@@ -206,6 +215,7 @@ theorem dz2k1Z4_0a :
   rw [← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 4, cluster 0, after. -/
 theorem dz2k1Z4_0b :
     dz2k1A13 =
@@ -228,6 +238,7 @@ theorem dz2k1Gl4 : Proc.stop dz2k1L4 = Proc.start dz2k1L5 := by
     _ = (dz2k1A13) ∪ dz2k1A0 ∪ dz2k1A10 ∪ (conway.evolve 10 dz2k1R0) ∪ (conway.evolve 10 dz2k1R1) ∪ (conway.evolve 10 dz2k1R2) ∪ (conway.evolve 10 dz2k1R3) ∪ (conway.evolve 10 dz2k1R4) ∪ (conway.evolve 10 dz2k1R5) ∪ (conway.evolve 10 dz2k1R6) ∪ (conway.evolve 10 dz2k1R7) ∪ (conway.evolve 10 dz2k1R8) ∪ (conway.evolve 10 dz2k1R9) ∪ (conway.evolve 10 dz2k1R10) ∪ (conway.evolve 10 dz2k1R11) ∪ (conway.evolve 10 dz2k1R12) ∪ (conway.evolve 10 dz2k1R13) ∪ (conway.evolve 10 dz2k1R15) ∪ (conway.evolve 10 dz2k1R16) ∪ (conway.evolve 10 dz2k1R17) ∪ (conway.evolve 10 dz2k1R18) ∪ (conway.evolve 10 dz2k1R19) ∪ (conway.evolve 10 dz2k1R20) ∪ (conway.evolve 10 dz2k1R21) ∪ (conway.evolve 10 dz2k1R22) ∪ (conway.evolve 10 dz2k1R23) ∪ (conway.evolve 10 dz2k1R24) ∪ (conway.evolve 10 dz2k1R25) ∪ (conway.evolve 10 dz2k1R26) := by rw [dz2k1Z4_0a, ← dz2k1Z4_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 5, cluster 0, before. -/
 theorem dz2k1Z5_0a :
     dz2k1A14 =
@@ -241,6 +252,7 @@ theorem dz2k1Z5_0a :
          412316860416, 274877906944] := by
   rw [dz2k1A14]
 
+set_option maxRecDepth 100000 in
 /-- Glue 5, cluster 0, after. -/
 theorem dz2k1Z5_0b :
     dz2k1A16 ∪ (conway.evolve 16 dz2k1R14) =
@@ -267,6 +279,7 @@ theorem dz2k1Gl5 : Proc.stop dz2k1L5 = Proc.start dz2k1L6 := by
     _ = (dz2k1A16 ∪ (conway.evolve 16 dz2k1R14)) ∪ dz2k1A0 ∪ dz2k1A15 ∪ (conway.evolve 16 dz2k1R0) ∪ (conway.evolve 16 dz2k1R1) ∪ (conway.evolve 16 dz2k1R2) ∪ (conway.evolve 16 dz2k1R3) ∪ (conway.evolve 16 dz2k1R4) ∪ (conway.evolve 16 dz2k1R5) ∪ (conway.evolve 16 dz2k1R6) ∪ (conway.evolve 16 dz2k1R7) ∪ (conway.evolve 16 dz2k1R8) ∪ (conway.evolve 16 dz2k1R9) ∪ (conway.evolve 16 dz2k1R10) ∪ (conway.evolve 16 dz2k1R11) ∪ (conway.evolve 16 dz2k1R12) ∪ (conway.evolve 16 dz2k1R13) ∪ (conway.evolve 16 dz2k1R15) ∪ (conway.evolve 16 dz2k1R16) ∪ (conway.evolve 16 dz2k1R17) ∪ (conway.evolve 16 dz2k1R18) ∪ (conway.evolve 16 dz2k1R19) ∪ (conway.evolve 16 dz2k1R20) ∪ (conway.evolve 16 dz2k1R21) ∪ (conway.evolve 16 dz2k1R22) ∪ (conway.evolve 16 dz2k1R23) ∪ (conway.evolve 16 dz2k1R24) ∪ (conway.evolve 16 dz2k1R25) ∪ (conway.evolve 16 dz2k1R26) := by rw [dz2k1Z5_0a, ← dz2k1Z5_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 6, cluster 0, before. -/
 theorem dz2k1Z6_0a :
     dz2k1A18 ∪ (conway.evolve 23 dz2k1R8) =
@@ -284,6 +297,7 @@ theorem dz2k1Z6_0a :
   rw [← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 6, cluster 0, after. -/
 theorem dz2k1Z6_0b :
     dz2k1A19 =
@@ -306,6 +320,7 @@ theorem dz2k1Gl6 : Proc.stop dz2k1L6 = Proc.start dz2k1L7 := by
     _ = (dz2k1A19) ∪ dz2k1A0 ∪ dz2k1A17 ∪ (conway.evolve 23 dz2k1R0) ∪ (conway.evolve 23 dz2k1R1) ∪ (conway.evolve 23 dz2k1R2) ∪ (conway.evolve 23 dz2k1R3) ∪ (conway.evolve 23 dz2k1R4) ∪ (conway.evolve 23 dz2k1R5) ∪ (conway.evolve 23 dz2k1R6) ∪ (conway.evolve 23 dz2k1R7) ∪ (conway.evolve 23 dz2k1R9) ∪ (conway.evolve 23 dz2k1R10) ∪ (conway.evolve 23 dz2k1R11) ∪ (conway.evolve 23 dz2k1R12) ∪ (conway.evolve 23 dz2k1R13) ∪ (conway.evolve 23 dz2k1R14) ∪ (conway.evolve 23 dz2k1R15) ∪ (conway.evolve 23 dz2k1R16) ∪ (conway.evolve 23 dz2k1R17) ∪ (conway.evolve 23 dz2k1R18) ∪ (conway.evolve 23 dz2k1R19) ∪ (conway.evolve 23 dz2k1R20) ∪ (conway.evolve 23 dz2k1R21) ∪ (conway.evolve 23 dz2k1R22) ∪ (conway.evolve 23 dz2k1R23) ∪ (conway.evolve 23 dz2k1R24) ∪ (conway.evolve 23 dz2k1R25) ∪ (conway.evolve 23 dz2k1R26) := by rw [dz2k1Z6_0a, ← dz2k1Z6_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 7, cluster 0, before. -/
 theorem dz2k1Z7_0a :
     dz2k1A20 =
@@ -317,6 +332,7 @@ theorem dz2k1Z7_0a :
          0, 0, 0, 0, 224, 224, 272, 520, 272, 224, 0, 0, 0, 0, 0, 0, 0, 0, 0, 96, 96] := by
   rw [dz2k1A20]
 
+set_option maxRecDepth 100000 in
 /-- Glue 7, cluster 0, after. -/
 theorem dz2k1Z7_0b :
     dz2k1A23 ∪ (conway.evolve 20 dz2k1R8) =
@@ -341,6 +357,7 @@ theorem dz2k1Gl7 : Proc.stop dz2k1L7 = Proc.start dz2k1L8 := by
     _ = (dz2k1A23 ∪ (conway.evolve 20 dz2k1R8)) ∪ dz2k1A0 ∪ dz2k1A21 ∪ (conway.evolve 20 dz2k1R0) ∪ (conway.evolve 20 dz2k1R1) ∪ (conway.evolve 20 dz2k1R2) ∪ (conway.evolve 20 dz2k1R3) ∪ (conway.evolve 20 dz2k1R4) ∪ (conway.evolve 20 dz2k1R5) ∪ (conway.evolve 20 dz2k1R6) ∪ (conway.evolve 20 dz2k1R7) ∪ (conway.evolve 20 dz2k1R9) ∪ (conway.evolve 20 dz2k1R10) ∪ (conway.evolve 20 dz2k1R11) ∪ (conway.evolve 20 dz2k1R12) ∪ (conway.evolve 20 dz2k1R13) ∪ (conway.evolve 20 dz2k1R14) ∪ (conway.evolve 20 dz2k1R15) ∪ (conway.evolve 20 dz2k1R16) ∪ (conway.evolve 20 dz2k1R17) ∪ (conway.evolve 20 dz2k1R18) ∪ (conway.evolve 20 dz2k1R19) ∪ (conway.evolve 20 dz2k1R20) ∪ (conway.evolve 20 dz2k1R21) ∪ (conway.evolve 20 dz2k1R22) ∪ (conway.evolve 20 dz2k1R23) ∪ (conway.evolve 20 dz2k1R24) ∪ (conway.evolve 20 dz2k1R25) ∪ (conway.evolve 20 dz2k1R26) := by rw [dz2k1Z7_0a, ← dz2k1Z7_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 8, cluster 0, before. -/
 theorem dz2k1Z8_0a :
     dz2k1A24 ∪ (conway.evolve 20 dz2k1R9) =
@@ -358,6 +375,7 @@ theorem dz2k1Z8_0a :
   rw [← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 8, cluster 0, after. -/
 theorem dz2k1Z8_0b :
     dz2k1A25 =
@@ -380,6 +398,7 @@ theorem dz2k1Gl8 : Proc.stop dz2k1L8 = Proc.start dz2k1L9 := by
     _ = (dz2k1A25) ∪ dz2k1A0 ∪ dz2k1A22 ∪ (conway.evolve 20 dz2k1R0) ∪ (conway.evolve 20 dz2k1R1) ∪ (conway.evolve 20 dz2k1R2) ∪ (conway.evolve 20 dz2k1R3) ∪ (conway.evolve 20 dz2k1R4) ∪ (conway.evolve 20 dz2k1R5) ∪ (conway.evolve 20 dz2k1R6) ∪ (conway.evolve 20 dz2k1R7) ∪ (conway.evolve 20 dz2k1R8) ∪ (conway.evolve 20 dz2k1R10) ∪ (conway.evolve 20 dz2k1R11) ∪ (conway.evolve 20 dz2k1R12) ∪ (conway.evolve 20 dz2k1R13) ∪ (conway.evolve 20 dz2k1R14) ∪ (conway.evolve 20 dz2k1R15) ∪ (conway.evolve 20 dz2k1R16) ∪ (conway.evolve 20 dz2k1R17) ∪ (conway.evolve 20 dz2k1R18) ∪ (conway.evolve 20 dz2k1R19) ∪ (conway.evolve 20 dz2k1R20) ∪ (conway.evolve 20 dz2k1R21) ∪ (conway.evolve 20 dz2k1R22) ∪ (conway.evolve 20 dz2k1R23) ∪ (conway.evolve 20 dz2k1R24) ∪ (conway.evolve 20 dz2k1R25) ∪ (conway.evolve 20 dz2k1R26) := by rw [dz2k1Z8_0a, ← dz2k1Z8_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 9, cluster 0, before. -/
 theorem dz2k1Z9_0a :
     dz2k1A26 =
@@ -393,6 +412,7 @@ theorem dz2k1Z9_0a :
          253952, 405504, 0, 0, 0, 0, 196608, 0, 0, 0, 49152, 49152] := by
   rw [dz2k1A26]
 
+set_option maxRecDepth 100000 in
 /-- Glue 9, cluster 0, after. -/
 theorem dz2k1Z9_0b :
     dz2k1A28 ∪ dz2k1A31 ∪ (conway.evolve 10 dz2k1R9) =
@@ -420,6 +440,7 @@ theorem dz2k1Gl9 : Proc.stop dz2k1L9 = Proc.start dz2k1L10 := by
     _ = (dz2k1A28 ∪ dz2k1A31 ∪ (conway.evolve 10 dz2k1R9)) ∪ dz2k1A0 ∪ dz2k1A27 ∪ (conway.evolve 10 dz2k1R0) ∪ (conway.evolve 10 dz2k1R1) ∪ (conway.evolve 10 dz2k1R2) ∪ (conway.evolve 10 dz2k1R3) ∪ (conway.evolve 10 dz2k1R4) ∪ (conway.evolve 10 dz2k1R5) ∪ (conway.evolve 10 dz2k1R6) ∪ (conway.evolve 10 dz2k1R7) ∪ (conway.evolve 10 dz2k1R8) ∪ (conway.evolve 10 dz2k1R10) ∪ (conway.evolve 10 dz2k1R11) ∪ (conway.evolve 10 dz2k1R12) ∪ (conway.evolve 10 dz2k1R13) ∪ (conway.evolve 10 dz2k1R14) ∪ (conway.evolve 10 dz2k1R15) ∪ (conway.evolve 10 dz2k1R16) ∪ (conway.evolve 10 dz2k1R17) ∪ (conway.evolve 10 dz2k1R18) ∪ (conway.evolve 10 dz2k1R19) ∪ (conway.evolve 10 dz2k1R20) ∪ (conway.evolve 10 dz2k1R21) ∪ (conway.evolve 10 dz2k1R22) ∪ (conway.evolve 10 dz2k1R23) ∪ (conway.evolve 10 dz2k1R24) ∪ (conway.evolve 10 dz2k1R25) ∪ (conway.evolve 10 dz2k1R26) := by rw [dz2k1Z9_0a, ← dz2k1Z9_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 10, cluster 0, before. -/
 theorem dz2k1Z10_0a :
     dz2k1A32 ∪ (conway.evolve 10 dz2k1R8) =
@@ -436,6 +457,7 @@ theorem dz2k1Z10_0a :
   rw [← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 10, cluster 0, after. -/
 theorem dz2k1Z10_0b :
     dz2k1A33 =
@@ -457,6 +479,7 @@ theorem dz2k1Gl10 : Proc.stop dz2k1L10 = Proc.start dz2k1L11 := by
     _ = (dz2k1A33) ∪ dz2k1A0 ∪ dz2k1A29 ∪ dz2k1A30 ∪ (conway.evolve 10 dz2k1R0) ∪ (conway.evolve 10 dz2k1R1) ∪ (conway.evolve 10 dz2k1R2) ∪ (conway.evolve 10 dz2k1R3) ∪ (conway.evolve 10 dz2k1R4) ∪ (conway.evolve 10 dz2k1R5) ∪ (conway.evolve 10 dz2k1R6) ∪ (conway.evolve 10 dz2k1R7) ∪ (conway.evolve 10 dz2k1R9) ∪ (conway.evolve 10 dz2k1R10) ∪ (conway.evolve 10 dz2k1R11) ∪ (conway.evolve 10 dz2k1R12) ∪ (conway.evolve 10 dz2k1R13) ∪ (conway.evolve 10 dz2k1R14) ∪ (conway.evolve 10 dz2k1R15) ∪ (conway.evolve 10 dz2k1R16) ∪ (conway.evolve 10 dz2k1R17) ∪ (conway.evolve 10 dz2k1R18) ∪ (conway.evolve 10 dz2k1R19) ∪ (conway.evolve 10 dz2k1R20) ∪ (conway.evolve 10 dz2k1R21) ∪ (conway.evolve 10 dz2k1R22) ∪ (conway.evolve 10 dz2k1R23) ∪ (conway.evolve 10 dz2k1R24) ∪ (conway.evolve 10 dz2k1R25) ∪ (conway.evolve 10 dz2k1R26) := by rw [dz2k1Z10_0a, ← dz2k1Z10_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 11, cluster 0, before. -/
 theorem dz2k1Z11_0a :
     dz2k1A34 =
@@ -468,6 +491,7 @@ theorem dz2k1Z11_0a :
          0, 0, 0, 0, 64, 432, 0, 520, 0, 856, 0, 0, 0, 0, 0, 0, 0, 0, 96, 96] := by
   rw [dz2k1A34]
 
+set_option maxRecDepth 100000 in
 /-- Glue 11, cluster 0, after. -/
 theorem dz2k1Z11_0b :
     dz2k1A38 ∪ (conway.evolve 16 dz2k1R8) =
@@ -492,6 +516,7 @@ theorem dz2k1Gl11 : Proc.stop dz2k1L11 = Proc.start dz2k1L12 := by
     _ = (dz2k1A38 ∪ (conway.evolve 16 dz2k1R8)) ∪ dz2k1A0 ∪ dz2k1A35 ∪ dz2k1A36 ∪ (conway.evolve 16 dz2k1R0) ∪ (conway.evolve 16 dz2k1R1) ∪ (conway.evolve 16 dz2k1R2) ∪ (conway.evolve 16 dz2k1R3) ∪ (conway.evolve 16 dz2k1R4) ∪ (conway.evolve 16 dz2k1R5) ∪ (conway.evolve 16 dz2k1R6) ∪ (conway.evolve 16 dz2k1R7) ∪ (conway.evolve 16 dz2k1R9) ∪ (conway.evolve 16 dz2k1R10) ∪ (conway.evolve 16 dz2k1R11) ∪ (conway.evolve 16 dz2k1R12) ∪ (conway.evolve 16 dz2k1R13) ∪ (conway.evolve 16 dz2k1R14) ∪ (conway.evolve 16 dz2k1R15) ∪ (conway.evolve 16 dz2k1R16) ∪ (conway.evolve 16 dz2k1R17) ∪ (conway.evolve 16 dz2k1R18) ∪ (conway.evolve 16 dz2k1R19) ∪ (conway.evolve 16 dz2k1R20) ∪ (conway.evolve 16 dz2k1R21) ∪ (conway.evolve 16 dz2k1R22) ∪ (conway.evolve 16 dz2k1R23) ∪ (conway.evolve 16 dz2k1R24) ∪ (conway.evolve 16 dz2k1R25) ∪ (conway.evolve 16 dz2k1R26) := by rw [dz2k1Z11_0a, ← dz2k1Z11_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 12, cluster 0, before. -/
 theorem dz2k1Z12_0a :
     dz2k1A40 ∪ (conway.evolve 26 dz2k1R16) =
@@ -504,6 +529,7 @@ theorem dz2k1Z12_0a :
   rw [← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 12, cluster 0, after. -/
 theorem dz2k1Z12_0b :
     dz2k1A41 =
@@ -521,6 +547,7 @@ theorem dz2k1Gl12 : Proc.stop dz2k1L12 = Proc.start dz2k1L13 := by
     _ = (dz2k1A41) ∪ dz2k1A0 ∪ dz2k1A37 ∪ dz2k1A39 ∪ (conway.evolve 26 dz2k1R0) ∪ (conway.evolve 26 dz2k1R1) ∪ (conway.evolve 26 dz2k1R2) ∪ (conway.evolve 26 dz2k1R3) ∪ (conway.evolve 26 dz2k1R4) ∪ (conway.evolve 26 dz2k1R5) ∪ (conway.evolve 26 dz2k1R6) ∪ (conway.evolve 26 dz2k1R7) ∪ (conway.evolve 26 dz2k1R8) ∪ (conway.evolve 26 dz2k1R9) ∪ (conway.evolve 26 dz2k1R10) ∪ (conway.evolve 26 dz2k1R11) ∪ (conway.evolve 26 dz2k1R12) ∪ (conway.evolve 26 dz2k1R13) ∪ (conway.evolve 26 dz2k1R14) ∪ (conway.evolve 26 dz2k1R15) ∪ (conway.evolve 26 dz2k1R17) ∪ (conway.evolve 26 dz2k1R18) ∪ (conway.evolve 26 dz2k1R19) ∪ (conway.evolve 26 dz2k1R20) ∪ (conway.evolve 26 dz2k1R21) ∪ (conway.evolve 26 dz2k1R22) ∪ (conway.evolve 26 dz2k1R23) ∪ (conway.evolve 26 dz2k1R24) ∪ (conway.evolve 26 dz2k1R25) ∪ (conway.evolve 26 dz2k1R26) := by rw [dz2k1Z12_0a, ← dz2k1Z12_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 13, cluster 0, before. -/
 theorem dz2k1Z13_0a :
     dz2k1A42 =
@@ -529,6 +556,7 @@ theorem dz2k1Z13_0a :
          96] := by
   rw [dz2k1A42]
 
+set_option maxRecDepth 100000 in
 /-- Glue 13, cluster 0, after. -/
 theorem dz2k1Z13_0b :
     dz2k1A45 ∪ (conway.evolve 3 dz2k1R16) =
@@ -550,6 +578,7 @@ theorem dz2k1Gl13 : Proc.stop dz2k1L13 = Proc.start dz2k1L14 := by
     _ = (dz2k1A45 ∪ (conway.evolve 3 dz2k1R16)) ∪ dz2k1A0 ∪ dz2k1A43 ∪ dz2k1A44 ∪ (conway.evolve 3 dz2k1R0) ∪ (conway.evolve 3 dz2k1R1) ∪ (conway.evolve 3 dz2k1R2) ∪ (conway.evolve 3 dz2k1R3) ∪ (conway.evolve 3 dz2k1R4) ∪ (conway.evolve 3 dz2k1R5) ∪ (conway.evolve 3 dz2k1R6) ∪ (conway.evolve 3 dz2k1R7) ∪ (conway.evolve 3 dz2k1R8) ∪ (conway.evolve 3 dz2k1R9) ∪ (conway.evolve 3 dz2k1R10) ∪ (conway.evolve 3 dz2k1R11) ∪ (conway.evolve 3 dz2k1R12) ∪ (conway.evolve 3 dz2k1R13) ∪ (conway.evolve 3 dz2k1R14) ∪ (conway.evolve 3 dz2k1R15) ∪ (conway.evolve 3 dz2k1R17) ∪ (conway.evolve 3 dz2k1R18) ∪ (conway.evolve 3 dz2k1R19) ∪ (conway.evolve 3 dz2k1R20) ∪ (conway.evolve 3 dz2k1R21) ∪ (conway.evolve 3 dz2k1R22) ∪ (conway.evolve 3 dz2k1R23) ∪ (conway.evolve 3 dz2k1R24) ∪ (conway.evolve 3 dz2k1R25) ∪ (conway.evolve 3 dz2k1R26) := by rw [dz2k1Z13_0a, ← dz2k1Z13_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 14, cluster 0, before. -/
 theorem dz2k1Z14_0a :
     dz2k1A48 ∪ (conway.evolve 22 dz2k1R10) =
@@ -562,6 +591,7 @@ theorem dz2k1Z14_0a :
   rw [← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 14, cluster 0, after. -/
 theorem dz2k1Z14_0b :
     dz2k1A49 =
@@ -579,6 +609,7 @@ theorem dz2k1Gl14 : Proc.stop dz2k1L14 = Proc.start dz2k1L15 := by
     _ = (dz2k1A49) ∪ dz2k1A0 ∪ dz2k1A46 ∪ dz2k1A47 ∪ (conway.evolve 22 dz2k1R0) ∪ (conway.evolve 22 dz2k1R1) ∪ (conway.evolve 22 dz2k1R2) ∪ (conway.evolve 22 dz2k1R3) ∪ (conway.evolve 22 dz2k1R4) ∪ (conway.evolve 22 dz2k1R5) ∪ (conway.evolve 22 dz2k1R6) ∪ (conway.evolve 22 dz2k1R7) ∪ (conway.evolve 22 dz2k1R8) ∪ (conway.evolve 22 dz2k1R9) ∪ (conway.evolve 22 dz2k1R11) ∪ (conway.evolve 22 dz2k1R12) ∪ (conway.evolve 22 dz2k1R13) ∪ (conway.evolve 22 dz2k1R14) ∪ (conway.evolve 22 dz2k1R15) ∪ (conway.evolve 22 dz2k1R16) ∪ (conway.evolve 22 dz2k1R17) ∪ (conway.evolve 22 dz2k1R18) ∪ (conway.evolve 22 dz2k1R19) ∪ (conway.evolve 22 dz2k1R20) ∪ (conway.evolve 22 dz2k1R21) ∪ (conway.evolve 22 dz2k1R22) ∪ (conway.evolve 22 dz2k1R23) ∪ (conway.evolve 22 dz2k1R24) ∪ (conway.evolve 22 dz2k1R25) ∪ (conway.evolve 22 dz2k1R26) := by rw [dz2k1Z14_0a, ← dz2k1Z14_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 15, cluster 0, before. -/
 theorem dz2k1Z15_0a :
     dz2k1A50 =
@@ -587,6 +618,7 @@ theorem dz2k1Z15_0a :
          24576, 8192] := by
   rw [dz2k1A50]
 
+set_option maxRecDepth 100000 in
 /-- Glue 15, cluster 0, after. -/
 theorem dz2k1Z15_0b :
     dz2k1A54 ∪ (conway.evolve 29 dz2k1R10) =
@@ -608,6 +640,7 @@ theorem dz2k1Gl15 : Proc.stop dz2k1L15 = Proc.start dz2k1L16 := by
     _ = (dz2k1A54 ∪ (conway.evolve 29 dz2k1R10)) ∪ dz2k1A0 ∪ dz2k1A51 ∪ dz2k1A52 ∪ (conway.evolve 29 dz2k1R0) ∪ (conway.evolve 29 dz2k1R1) ∪ (conway.evolve 29 dz2k1R2) ∪ (conway.evolve 29 dz2k1R3) ∪ (conway.evolve 29 dz2k1R4) ∪ (conway.evolve 29 dz2k1R5) ∪ (conway.evolve 29 dz2k1R6) ∪ (conway.evolve 29 dz2k1R7) ∪ (conway.evolve 29 dz2k1R8) ∪ (conway.evolve 29 dz2k1R9) ∪ (conway.evolve 29 dz2k1R11) ∪ (conway.evolve 29 dz2k1R12) ∪ (conway.evolve 29 dz2k1R13) ∪ (conway.evolve 29 dz2k1R14) ∪ (conway.evolve 29 dz2k1R15) ∪ (conway.evolve 29 dz2k1R16) ∪ (conway.evolve 29 dz2k1R17) ∪ (conway.evolve 29 dz2k1R18) ∪ (conway.evolve 29 dz2k1R19) ∪ (conway.evolve 29 dz2k1R20) ∪ (conway.evolve 29 dz2k1R21) ∪ (conway.evolve 29 dz2k1R22) ∪ (conway.evolve 29 dz2k1R23) ∪ (conway.evolve 29 dz2k1R24) ∪ (conway.evolve 29 dz2k1R25) ∪ (conway.evolve 29 dz2k1R26) := by rw [dz2k1Z15_0a, ← dz2k1Z15_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 16, cluster 0, before. -/
 theorem dz2k1Z16_0a :
     dz2k1A53 ∪ (conway.evolve 15 dz2k1R0) =
@@ -738,6 +771,7 @@ theorem dz2k1Z16_0a :
   rw [← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 16, cluster 0, after. -/
 theorem dz2k1Z16_0b :
     dz2k1A57 =
@@ -922,6 +956,7 @@ theorem dz2k1Gl23 : Proc.stop dz2k1L23 = Proc.start dz2k1L24 := by
     Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
   all_goals ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 24, cluster 0, before. -/
 theorem dz2k1Z24_0a :
     dz2k1A79 =
@@ -1051,6 +1086,7 @@ theorem dz2k1Z24_0a :
          33451117797795934712303577408972542258970624] := by
   rw [dz2k1A79]
 
+set_option maxRecDepth 100000 in
 /-- Glue 24, cluster 0, after. -/
 theorem dz2k1Z24_0b :
     dz2k1A83 ∪ dz2k1A86 ∪ (conway.evolve 15 dz2k1R0) =
@@ -1201,6 +1237,7 @@ theorem dz2k1Gl25 : Proc.stop dz2k1L25 = Proc.start dz2k1L26 := by
     Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
   all_goals ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 26, cluster 0, before. -/
 theorem dz2k1Z26_0a :
     dz2k1A0 ∪ dz2k1A90 =
@@ -1213,6 +1250,7 @@ theorem dz2k1Z26_0a :
   rw [← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 26, cluster 0, after. -/
 theorem dz2k1Z26_0b :
     dz2k1A92 =
@@ -1251,6 +1289,7 @@ theorem dz2k1Gl29 : Proc.stop dz2k1L29 = Proc.start dz2k1L30 := by
     Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
   all_goals ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 30, cluster 0, before. -/
 theorem dz2k1Z30_0a :
     dz2k1A105 ∪ dz2k1A107 =
@@ -1263,6 +1302,7 @@ theorem dz2k1Z30_0a :
   rw [← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 30, cluster 0, after. -/
 theorem dz2k1Z30_0b :
     dz2k1A109 =
@@ -1287,6 +1327,7 @@ theorem dz2k1Gl31 : Proc.stop dz2k1L31 = Proc.start dz2k1L32 := by
     Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
   all_goals ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 32, cluster 0, before. -/
 theorem dz2k1Z32_0a :
     dz2k1A114 ∪ (conway.evolve 15 dz2k1R11) =
@@ -1299,6 +1340,7 @@ theorem dz2k1Z32_0a :
   rw [← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 32, cluster 0, after. -/
 theorem dz2k1Z32_0b :
     dz2k1A115 =
@@ -1316,6 +1358,7 @@ theorem dz2k1Gl32 : Proc.stop dz2k1L32 = Proc.start dz2k1L33 := by
     _ = (dz2k1A115) ∪ dz2k1A110 ∪ dz2k1A113 ∪ (conway.evolve 15 dz2k1R0) ∪ (conway.evolve 15 dz2k1R1) ∪ (conway.evolve 15 dz2k1R2) ∪ (conway.evolve 15 dz2k1R3) ∪ (conway.evolve 15 dz2k1R4) ∪ (conway.evolve 15 dz2k1R5) ∪ (conway.evolve 15 dz2k1R6) ∪ (conway.evolve 15 dz2k1R7) ∪ (conway.evolve 15 dz2k1R8) ∪ (conway.evolve 15 dz2k1R9) ∪ (conway.evolve 15 dz2k1R10) ∪ (conway.evolve 15 dz2k1R12) ∪ (conway.evolve 15 dz2k1R13) ∪ (conway.evolve 15 dz2k1R14) ∪ (conway.evolve 15 dz2k1R15) ∪ (conway.evolve 15 dz2k1R16) ∪ (conway.evolve 15 dz2k1R17) ∪ (conway.evolve 15 dz2k1R18) ∪ (conway.evolve 15 dz2k1R19) ∪ (conway.evolve 15 dz2k1R20) ∪ (conway.evolve 15 dz2k1R21) ∪ (conway.evolve 15 dz2k1R22) ∪ (conway.evolve 15 dz2k1R23) ∪ (conway.evolve 15 dz2k1R24) ∪ (conway.evolve 15 dz2k1R25) ∪ (conway.evolve 15 dz2k1R26) := by rw [dz2k1Z32_0a, ← dz2k1Z32_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 33, cluster 0, before. -/
 theorem dz2k1Z33_0a :
     dz2k1A116 =
@@ -1324,6 +1367,7 @@ theorem dz2k1Z33_0a :
          4096, 0, 0, 0, 6144, 6144] := by
   rw [dz2k1A116]
 
+set_option maxRecDepth 100000 in
 /-- Glue 33, cluster 0, after. -/
 theorem dz2k1Z33_0b :
     dz2k1A119 ∪ (conway.evolve 22 dz2k1R11) =
@@ -1352,6 +1396,7 @@ theorem dz2k1Gl34 : Proc.stop dz2k1L34 = Proc.start dz2k1L35 := by
     Piece.bundle, Piece.idle, List.map_cons, List.map_nil, union_empty]
   all_goals ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 35, cluster 0, before. -/
 theorem dz2k1Z35_0a :
     dz2k1A110 ∪ dz2k1A121 =
@@ -1363,6 +1408,7 @@ theorem dz2k1Z35_0a :
   rw [← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 35, cluster 0, after. -/
 theorem dz2k1Z35_0b :
     dz2k1A123 =
@@ -1379,12 +1425,14 @@ theorem dz2k1Gl35 : Proc.stop dz2k1L35 = Proc.start dz2k1L36 := by
     _ = (dz2k1A123) ∪ dz2k1A122 ∪ (conway.evolve 24 dz2k1R0) ∪ (conway.evolve 24 dz2k1R1) ∪ (conway.evolve 24 dz2k1R2) ∪ (conway.evolve 24 dz2k1R3) ∪ (conway.evolve 24 dz2k1R4) ∪ (conway.evolve 24 dz2k1R5) ∪ (conway.evolve 24 dz2k1R6) ∪ (conway.evolve 24 dz2k1R7) ∪ (conway.evolve 24 dz2k1R8) ∪ (conway.evolve 24 dz2k1R9) ∪ (conway.evolve 24 dz2k1R10) ∪ (conway.evolve 24 dz2k1R11) ∪ (conway.evolve 24 dz2k1R12) ∪ (conway.evolve 24 dz2k1R13) ∪ (conway.evolve 24 dz2k1R14) ∪ (conway.evolve 24 dz2k1R15) ∪ (conway.evolve 24 dz2k1R16) ∪ (conway.evolve 24 dz2k1R17) ∪ (conway.evolve 24 dz2k1R18) ∪ (conway.evolve 24 dz2k1R19) ∪ (conway.evolve 24 dz2k1R20) ∪ (conway.evolve 24 dz2k1R21) ∪ (conway.evolve 24 dz2k1R22) ∪ (conway.evolve 24 dz2k1R23) ∪ (conway.evolve 24 dz2k1R24) ∪ (conway.evolve 24 dz2k1R25) ∪ (conway.evolve 24 dz2k1R26) := by rw [dz2k1Z35_0a, ← dz2k1Z35_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 36, cluster 0, before. -/
 theorem dz2k1Z36_0a :
     dz2k1A124 =
       ofRows 135 251 [3145728, 3145728, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5, 3] := by
   rw [dz2k1A124]
 
+set_option maxRecDepth 100000 in
 /-- Glue 36, cluster 0, after. -/
 theorem dz2k1Z36_0b :
     dz2k1A110 ∪ dz2k1A126 =
@@ -1404,6 +1452,7 @@ theorem dz2k1Gl36 : Proc.stop dz2k1L36 = Proc.start dz2k1L37 := by
     _ = (dz2k1A110 ∪ dz2k1A126) ∪ dz2k1A125 ∪ (conway.evolve 11 dz2k1R0) ∪ (conway.evolve 11 dz2k1R1) ∪ (conway.evolve 11 dz2k1R2) ∪ (conway.evolve 11 dz2k1R3) ∪ (conway.evolve 11 dz2k1R4) ∪ (conway.evolve 11 dz2k1R5) ∪ (conway.evolve 11 dz2k1R6) ∪ (conway.evolve 11 dz2k1R7) ∪ (conway.evolve 11 dz2k1R8) ∪ (conway.evolve 11 dz2k1R9) ∪ (conway.evolve 11 dz2k1R10) ∪ (conway.evolve 11 dz2k1R11) ∪ (conway.evolve 11 dz2k1R12) ∪ (conway.evolve 11 dz2k1R13) ∪ (conway.evolve 11 dz2k1R14) ∪ (conway.evolve 11 dz2k1R15) ∪ (conway.evolve 11 dz2k1R16) ∪ (conway.evolve 11 dz2k1R17) ∪ (conway.evolve 11 dz2k1R18) ∪ (conway.evolve 11 dz2k1R19) ∪ (conway.evolve 11 dz2k1R20) ∪ (conway.evolve 11 dz2k1R21) ∪ (conway.evolve 11 dz2k1R22) ∪ (conway.evolve 11 dz2k1R23) ∪ (conway.evolve 11 dz2k1R24) ∪ (conway.evolve 11 dz2k1R25) ∪ (conway.evolve 11 dz2k1R26) := by rw [dz2k1Z36_0a, ← dz2k1Z36_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 37, cluster 0, before. -/
 theorem dz2k1Z37_0a :
     dz2k1A128 ∪ (conway.evolve 11 dz2k1R17) =
@@ -1421,6 +1470,7 @@ theorem dz2k1Z37_0a :
   rw [← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 37, cluster 0, after. -/
 theorem dz2k1Z37_0b :
     dz2k1A129 =
@@ -1443,6 +1493,7 @@ theorem dz2k1Gl37 : Proc.stop dz2k1L37 = Proc.start dz2k1L38 := by
     _ = (dz2k1A129) ∪ dz2k1A110 ∪ dz2k1A127 ∪ (conway.evolve 11 dz2k1R0) ∪ (conway.evolve 11 dz2k1R1) ∪ (conway.evolve 11 dz2k1R2) ∪ (conway.evolve 11 dz2k1R3) ∪ (conway.evolve 11 dz2k1R4) ∪ (conway.evolve 11 dz2k1R5) ∪ (conway.evolve 11 dz2k1R6) ∪ (conway.evolve 11 dz2k1R7) ∪ (conway.evolve 11 dz2k1R8) ∪ (conway.evolve 11 dz2k1R9) ∪ (conway.evolve 11 dz2k1R10) ∪ (conway.evolve 11 dz2k1R11) ∪ (conway.evolve 11 dz2k1R12) ∪ (conway.evolve 11 dz2k1R13) ∪ (conway.evolve 11 dz2k1R14) ∪ (conway.evolve 11 dz2k1R15) ∪ (conway.evolve 11 dz2k1R16) ∪ (conway.evolve 11 dz2k1R18) ∪ (conway.evolve 11 dz2k1R19) ∪ (conway.evolve 11 dz2k1R20) ∪ (conway.evolve 11 dz2k1R21) ∪ (conway.evolve 11 dz2k1R22) ∪ (conway.evolve 11 dz2k1R23) ∪ (conway.evolve 11 dz2k1R24) ∪ (conway.evolve 11 dz2k1R25) ∪ (conway.evolve 11 dz2k1R26) := by rw [dz2k1Z37_0a, ← dz2k1Z37_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 38, cluster 0, before. -/
 theorem dz2k1Z38_0a :
     dz2k1A131 ∪ (conway.evolve 10 dz2k1R13) =
@@ -1454,6 +1505,7 @@ theorem dz2k1Z38_0a :
   rw [← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 38, cluster 0, after. -/
 theorem dz2k1Z38_0b :
     dz2k1A132 =
@@ -1470,6 +1522,7 @@ theorem dz2k1Gl38 : Proc.stop dz2k1L38 = Proc.start dz2k1L39 := by
     _ = (dz2k1A132) ∪ dz2k1A130 ∪ dz2k1A110 ∪ (conway.evolve 10 dz2k1R0) ∪ (conway.evolve 10 dz2k1R1) ∪ (conway.evolve 10 dz2k1R2) ∪ (conway.evolve 10 dz2k1R3) ∪ (conway.evolve 10 dz2k1R4) ∪ (conway.evolve 10 dz2k1R5) ∪ (conway.evolve 10 dz2k1R6) ∪ (conway.evolve 10 dz2k1R7) ∪ (conway.evolve 10 dz2k1R8) ∪ (conway.evolve 10 dz2k1R9) ∪ (conway.evolve 10 dz2k1R10) ∪ (conway.evolve 10 dz2k1R11) ∪ (conway.evolve 10 dz2k1R12) ∪ (conway.evolve 10 dz2k1R14) ∪ (conway.evolve 10 dz2k1R15) ∪ (conway.evolve 10 dz2k1R16) ∪ (conway.evolve 10 dz2k1R18) ∪ (conway.evolve 10 dz2k1R19) ∪ (conway.evolve 10 dz2k1R20) ∪ (conway.evolve 10 dz2k1R21) ∪ (conway.evolve 10 dz2k1R22) ∪ (conway.evolve 10 dz2k1R23) ∪ (conway.evolve 10 dz2k1R24) ∪ (conway.evolve 10 dz2k1R25) ∪ (conway.evolve 10 dz2k1R26) := by rw [dz2k1Z38_0a, ← dz2k1Z38_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 39, cluster 0, before. -/
 theorem dz2k1Z39_0a :
     dz2k1A133 =
@@ -1477,6 +1530,7 @@ theorem dz2k1Z39_0a :
         [2621440, 2228224, 3221356548, 3223388163, 131078, 2234368, 2626560, 1024, 1536] := by
   rw [dz2k1A133]
 
+set_option maxRecDepth 100000 in
 /-- Glue 39, cluster 0, after. -/
 theorem dz2k1Z39_0b :
     dz2k1A136 ∪ (conway.evolve 22 dz2k1R13) =
@@ -1497,6 +1551,7 @@ theorem dz2k1Gl39 : Proc.stop dz2k1L39 = Proc.start dz2k1L40 := by
     _ = (dz2k1A136 ∪ (conway.evolve 22 dz2k1R13)) ∪ dz2k1A134 ∪ dz2k1A110 ∪ (conway.evolve 22 dz2k1R0) ∪ (conway.evolve 22 dz2k1R1) ∪ (conway.evolve 22 dz2k1R2) ∪ (conway.evolve 22 dz2k1R3) ∪ (conway.evolve 22 dz2k1R4) ∪ (conway.evolve 22 dz2k1R5) ∪ (conway.evolve 22 dz2k1R6) ∪ (conway.evolve 22 dz2k1R7) ∪ (conway.evolve 22 dz2k1R8) ∪ (conway.evolve 22 dz2k1R9) ∪ (conway.evolve 22 dz2k1R10) ∪ (conway.evolve 22 dz2k1R11) ∪ (conway.evolve 22 dz2k1R12) ∪ (conway.evolve 22 dz2k1R14) ∪ (conway.evolve 22 dz2k1R15) ∪ (conway.evolve 22 dz2k1R16) ∪ (conway.evolve 22 dz2k1R18) ∪ (conway.evolve 22 dz2k1R19) ∪ (conway.evolve 22 dz2k1R20) ∪ (conway.evolve 22 dz2k1R21) ∪ (conway.evolve 22 dz2k1R22) ∪ (conway.evolve 22 dz2k1R23) ∪ (conway.evolve 22 dz2k1R24) ∪ (conway.evolve 22 dz2k1R25) ∪ (conway.evolve 22 dz2k1R26) := by rw [dz2k1Z39_0a, ← dz2k1Z39_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 40, cluster 0, before. -/
 theorem dz2k1Z40_0a :
     dz2k1A135 =
@@ -1510,6 +1565,7 @@ theorem dz2k1Z40_0a :
          166092754257524555776, 55340232221128654848] := by
   rw [dz2k1A135]
 
+set_option maxRecDepth 100000 in
 /-- Glue 40, cluster 0, after. -/
 theorem dz2k1Z40_0b :
     dz2k1A139 ∪ (conway.evolve 20 dz2k1R17) =
@@ -1536,6 +1592,7 @@ theorem dz2k1Gl40 : Proc.stop dz2k1L40 = Proc.start dz2k1L41 := by
     _ = (dz2k1A139 ∪ (conway.evolve 20 dz2k1R17)) ∪ dz2k1A110 ∪ dz2k1A137 ∪ (conway.evolve 20 dz2k1R0) ∪ (conway.evolve 20 dz2k1R1) ∪ (conway.evolve 20 dz2k1R2) ∪ (conway.evolve 20 dz2k1R3) ∪ (conway.evolve 20 dz2k1R4) ∪ (conway.evolve 20 dz2k1R5) ∪ (conway.evolve 20 dz2k1R6) ∪ (conway.evolve 20 dz2k1R7) ∪ (conway.evolve 20 dz2k1R8) ∪ (conway.evolve 20 dz2k1R9) ∪ (conway.evolve 20 dz2k1R10) ∪ (conway.evolve 20 dz2k1R11) ∪ (conway.evolve 20 dz2k1R12) ∪ (conway.evolve 20 dz2k1R13) ∪ (conway.evolve 20 dz2k1R14) ∪ (conway.evolve 20 dz2k1R15) ∪ (conway.evolve 20 dz2k1R16) ∪ (conway.evolve 20 dz2k1R18) ∪ (conway.evolve 20 dz2k1R19) ∪ (conway.evolve 20 dz2k1R20) ∪ (conway.evolve 20 dz2k1R21) ∪ (conway.evolve 20 dz2k1R22) ∪ (conway.evolve 20 dz2k1R23) ∪ (conway.evolve 20 dz2k1R24) ∪ (conway.evolve 20 dz2k1R25) ∪ (conway.evolve 20 dz2k1R26) := by rw [dz2k1Z40_0a, ← dz2k1Z40_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 41, cluster 0, before. -/
 theorem dz2k1Z41_0a :
     dz2k1A138 ∪ (conway.evolve 2 dz2k1R12) =
@@ -1551,6 +1608,7 @@ theorem dz2k1Z41_0a :
   rw [← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 41, cluster 0, after. -/
 theorem dz2k1Z41_0b :
     dz2k1A141 =
@@ -1571,6 +1629,7 @@ theorem dz2k1Gl41 : Proc.stop dz2k1L41 = Proc.start dz2k1L42 := by
     _ = (dz2k1A141) ∪ dz2k1A110 ∪ dz2k1A140 ∪ (conway.evolve 2 dz2k1R0) ∪ (conway.evolve 2 dz2k1R1) ∪ (conway.evolve 2 dz2k1R2) ∪ (conway.evolve 2 dz2k1R3) ∪ (conway.evolve 2 dz2k1R4) ∪ (conway.evolve 2 dz2k1R5) ∪ (conway.evolve 2 dz2k1R6) ∪ (conway.evolve 2 dz2k1R7) ∪ (conway.evolve 2 dz2k1R8) ∪ (conway.evolve 2 dz2k1R9) ∪ (conway.evolve 2 dz2k1R10) ∪ (conway.evolve 2 dz2k1R11) ∪ (conway.evolve 2 dz2k1R13) ∪ (conway.evolve 2 dz2k1R14) ∪ (conway.evolve 2 dz2k1R15) ∪ (conway.evolve 2 dz2k1R16) ∪ (conway.evolve 2 dz2k1R17) ∪ (conway.evolve 2 dz2k1R18) ∪ (conway.evolve 2 dz2k1R19) ∪ (conway.evolve 2 dz2k1R20) ∪ (conway.evolve 2 dz2k1R21) ∪ (conway.evolve 2 dz2k1R22) ∪ (conway.evolve 2 dz2k1R23) ∪ (conway.evolve 2 dz2k1R24) ∪ (conway.evolve 2 dz2k1R25) ∪ (conway.evolve 2 dz2k1R26) := by rw [dz2k1Z41_0a, ← dz2k1Z41_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 42, cluster 0, before. -/
 theorem dz2k1Z42_0a :
     dz2k1A142 =
@@ -1583,6 +1642,7 @@ theorem dz2k1Z42_0a :
          428, 0, 0, 0, 0, 0, 0, 0, 0, 48, 48] := by
   rw [dz2k1A142]
 
+set_option maxRecDepth 100000 in
 /-- Glue 42, cluster 0, after. -/
 theorem dz2k1Z42_0b :
     dz2k1A144 ∪ dz2k1A146 ∪ (conway.evolve 28 dz2k1R12) =
@@ -1609,6 +1669,7 @@ theorem dz2k1Gl42 : Proc.stop dz2k1L42 = Proc.start dz2k1L43 := by
     _ = (dz2k1A144 ∪ dz2k1A146 ∪ (conway.evolve 28 dz2k1R12)) ∪ dz2k1A110 ∪ dz2k1A143 ∪ (conway.evolve 28 dz2k1R0) ∪ (conway.evolve 28 dz2k1R1) ∪ (conway.evolve 28 dz2k1R2) ∪ (conway.evolve 28 dz2k1R3) ∪ (conway.evolve 28 dz2k1R4) ∪ (conway.evolve 28 dz2k1R5) ∪ (conway.evolve 28 dz2k1R6) ∪ (conway.evolve 28 dz2k1R7) ∪ (conway.evolve 28 dz2k1R8) ∪ (conway.evolve 28 dz2k1R9) ∪ (conway.evolve 28 dz2k1R10) ∪ (conway.evolve 28 dz2k1R11) ∪ (conway.evolve 28 dz2k1R13) ∪ (conway.evolve 28 dz2k1R14) ∪ (conway.evolve 28 dz2k1R15) ∪ (conway.evolve 28 dz2k1R16) ∪ (conway.evolve 28 dz2k1R17) ∪ (conway.evolve 28 dz2k1R18) ∪ (conway.evolve 28 dz2k1R19) ∪ (conway.evolve 28 dz2k1R20) ∪ (conway.evolve 28 dz2k1R21) ∪ (conway.evolve 28 dz2k1R22) ∪ (conway.evolve 28 dz2k1R23) ∪ (conway.evolve 28 dz2k1R24) ∪ (conway.evolve 28 dz2k1R25) ∪ (conway.evolve 28 dz2k1R26) := by rw [dz2k1Z42_0a, ← dz2k1Z42_0b]
     _ = _ := by ac_rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 43, cluster 0, before. -/
 theorem dz2k1Z43_0a :
     dz2k1A145 ∪ dz2k1A147 ∪ dz2k1A148 =
@@ -1620,6 +1681,7 @@ theorem dz2k1Z43_0a :
   rw [← ofRows_orRows, ← ofRows_orRows]
   rfl
 
+set_option maxRecDepth 100000 in
 /-- Glue 43, cluster 0, after. -/
 theorem dz2k1Z43_0b :
     dz2k1A149 =
