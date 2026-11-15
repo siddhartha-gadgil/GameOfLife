@@ -104,7 +104,8 @@ theorem flight_reaction_uv {G G' : Finset Cell} {dx dy U₁ U₂ V₁ V₂ : ℤ
   · rw [mem_coe, show i = i % 4 + (i / 4) * 4 by omega, Rule.evolve_add,
       conway.evolve_mul_of_evolve_eq_translate h4, Rule.evolve_translate, mem_translate] at hc
     obtain ⟨h1, h2, h3, h4⟩ := hB (i % 4) (Nat.mod_lt _ (by norm_num)) (mem_coe.2 hc)
-    simp only [Prod.fst_sub, Prod.snd_sub, Prod.smul_fst, Prod.smul_snd, nsmul_eq_mul] at h1 h2 h3 h4
+    simp only [Prod.fst_sub, Prod.snd_sub, Prod.smul_fst, Prod.smul_snd, nsmul_eq_mul]
+      at h1 h2 h3 h4
     refine ⟨?_, ?_, ?_, ?_⟩ <;> linarith
 
 end LeanTheory.Life
