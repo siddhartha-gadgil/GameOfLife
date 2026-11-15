@@ -595,6 +595,506 @@ def machSpecs (p : Program) : List PSpec := unitsPart p ++ modulesPart p ++ link
 /-- **Every periodic piece of the machine of `p` at time `0`.** -/
 def machPieces (p : Program) : List Piece := (machSpecs p).map PSpec.piece
 
+/-! ### Separation: boxes -/
+
+/-- An axis-parallel box `[a, b] × [lo, hi]` as data. -/
+structure BoxT where
+  /-- Left edge. -/
+  a : ℤ
+  /-- Right edge. -/
+  b : ℤ
+  /-- Top edge. -/
+  lo : ℤ
+  /-- Bottom edge. -/
+  hi : ℤ
+
+/-- The box of a placed spec. -/
+def PSpec.bx (s : PSpec) : BoxT :=
+  ⟨s.base.piece.a + s.vx, s.base.piece.b + s.vx, s.base.piece.lo + s.vy, s.base.piece.hi + s.vy⟩
+
+/-- Two boxes are far apart: more than `2` apart in `x` or in `y`. -/
+def BoxT.Far (B C : BoxT) : Prop :=
+  B.b + 2 < C.a ∨ C.b + 2 < B.a ∨ B.hi + 2 < C.lo ∨ C.hi + 2 < B.lo
+
+/-- The `uv`-hull of a box (`u = x - y`, `v = x + y`) lies in `[u1, u2] × [v1, v2]`. -/
+def BoxT.InUV (B : BoxT) (u1 u2 v1 v2 : ℤ) : Prop :=
+  u1 ≤ B.a - B.hi ∧ B.b - B.lo ≤ u2 ∧ v1 ≤ B.a + B.lo ∧ B.b + B.hi ≤ v2
+
+/-- Boxes with `uv`-hulls `6` apart in `u` or in `v` are far apart. -/
+theorem BoxT.far_of_uv {B C : BoxT} {u1 u2 v1 v2 u1' u2' v1' v2' : ℤ}
+    (hB : B.InUV u1 u2 v1 v2) (hC : C.InUV u1' u2' v1' v2')
+    (h : u2 + 6 ≤ u1' ∨ u2' + 6 ≤ u1 ∨ v2 + 6 ≤ v1' ∨ v2' + 6 ≤ v1) : B.Far C := by
+  unfold BoxT.InUV at hB hC; unfold BoxT.Far; omega
+
+/-- Far boxes give separated pieces. -/
+theorem PSpec.sep_of_far {s t : PSpec} (h : s.bx.Far t.bx) : Piece.Sep s.piece t.piece := by
+  refine Box.farApart (r := 2) ?_
+  simp only [PSpec.bx, BoxT.Far] at h
+  simp only [PSpec.piece, Piece.place]
+  push_cast; omega
+
+/-- Translation preserves separation. -/
+theorem Piece.sep_place {g h : Piece} (hgh : Piece.Sep g h) (dx dy : ℤ) (p p' : ℕ) :
+    Piece.Sep (g.place dx dy p) (h.place dx dy p') := by
+  intro x hx y hy hn
+  obtain ⟨x1, x2, x3, x4⟩ := hx
+  obtain ⟨y1, y2, y3, y4⟩ := hy
+  refine hgh (x.1 - dx, x.2 - dy) ?_ (y.1 - dx, y.2 - dy) ?_ ?_
+  · simp only [Piece.place] at x1 x2 x3 x4
+    exact ⟨by omega, by omega, by omega, by omega⟩
+  · simp only [Piece.place] at y1 y2 y3 y4
+    exact ⟨by omega, by omega, by omega, by omega⟩
+  · obtain ⟨n1, n2, n3, n4⟩ := hn
+    exact ⟨by omega, by omega, by omega, by omega⟩
+
+/-- Pairwise separation of a translated group of base pieces. -/
+theorem groupSpecs_sep {L : List Base} (hL : (L.map Base.piece).Pairwise Piece.Sep) (dx dy : ℤ) :
+    (groupSpecs L dx dy).Pairwise fun s t => Piece.Sep s.piece t.piece := by
+  unfold groupSpecs
+  rw [List.pairwise_map]
+  rw [List.pairwise_map] at hL
+  exact hL.imp fun h => Piece.sep_place h dx dy 0 0
+
+/-- A list ordered by `<` and a family of lists: pairwise relations of the flattened list. -/
+theorem pairwise_flatMap_lt {α : Type*} {R : α → α → Prop} {f : ℕ → List α} {l : List ℕ}
+    (hl : l.Pairwise (· < ·)) (h1 : ∀ a ∈ l, (f a).Pairwise R)
+    (h2 : ∀ a ∈ l, ∀ a' ∈ l, a < a' → ∀ x ∈ f a, ∀ y ∈ f a', R x y) :
+    (l.flatMap f).Pairwise R :=
+  List.pairwise_flatMap.2 ⟨h1, hl.imp_of_mem fun ha hb hab => h2 _ ha _ hb hab⟩
+
+/-- A filtered range is ordered by `<`. -/
+theorem pairwise_lt_range_filter (n : ℕ) (q : ℕ → Bool) :
+    ((List.range n).filter q).Pairwise (· < ·) :=
+  List.pairwise_lt_range.filter q
+
+/-! ### Separation: units -/
+
+/-- Lower bound of `u` (unit frame) of the pieces of a unit of kind `k`. -/
+def UKind.uLo : UKind → ℤ
+  | .dec => -180
+  | .inc => -36
+  | _ => -32
+
+/-- `A_a` is even. -/
+theorem A_even (p : Program) (a : ℤ) : A p a % 2 = 0 := by have := A_mod p a; omega
+
+/-- `V_U` is even. -/
+theorem VU_even (p : Program) : VU p % 2 = 0 := by have := VT_mod p; unfold VU; omega
+
+/-- `U_r` is even. -/
+theorem U_even (p : Program) (r : ℤ) : U p r % 2 = 0 := by have := U_mod p r; omega
+
+/-- The unit translation in `uv`: `dx - dy = A_a`, `dx + dy = V_U`. -/
+theorem unitD_uv (p : Program) (a : ℕ) :
+    unitDX p a - unitDY p a = A p a ∧ unitDX p a + unitDY p a = VU p := by
+  have := A_even p a; have := VU_even p
+  unfold unitDX unitDY; omega
+
+/-- The module translation in `uv`: `dx - dy = U_r`, `dx + dy = 0`. -/
+theorem modD_uv (p : Program) (r : ℕ) : modDX p r - modDY p r = U p r ∧ modDX p r + modDY p r = 0 := by
+  have := U_even p r
+  unfold modDX modDY; omega
+
+/-- The groups of the `dec` body, in the unit frame: `u ∈ [-180, 212]`, `v ∈ [213, 1527]`,
+`y ≥ 61`. -/
+theorem bodyDec_uv (i : ℕ) (hi : i < 8) :
+    -180 ≤ (Base.bodyDec i).piece.a - (Base.bodyDec i).piece.hi ∧
+      (Base.bodyDec i).piece.b - (Base.bodyDec i).piece.lo ≤ 212 ∧
+      213 ≤ (Base.bodyDec i).piece.a + (Base.bodyDec i).piece.lo ∧
+      (Base.bodyDec i).piece.b + (Base.bodyDec i).piece.hi ≤ 1527 ∧
+      61 ≤ (Base.bodyDec i).piece.lo := by
+  interval_cases i <;>
+    simp only [Base.piece, bodyDecPieces, bodyDecG0, bodyDecG1, bodyDecG2, bodyDecG3, bodyDecG4,
+      bodyDecG5, bodyDecG6, bodyDecG7, List.getD_cons_zero, List.getD_cons_succ] <;> norm_num
+
+/-- The groups of the `inc` body, in the unit frame: `u ∈ [-36, 181]`, `v ∈ [214, 433]`,
+`y ≥ 61`. -/
+theorem bodyInc_uv (i : ℕ) (hi : i < 3) :
+    -36 ≤ (Base.bodyInc i).piece.a - (Base.bodyInc i).piece.hi ∧
+      (Base.bodyInc i).piece.b - (Base.bodyInc i).piece.lo ≤ 181 ∧
+      214 ≤ (Base.bodyInc i).piece.a + (Base.bodyInc i).piece.lo ∧
+      (Base.bodyInc i).piece.b + (Base.bodyInc i).piece.hi ≤ 433 ∧
+      61 ≤ (Base.bodyInc i).piece.lo := by
+  interval_cases i <;>
+    simp only [Base.piece, bodyIncPieces, bodyIncG0, bodyIncG1, bodyIncG2, List.getD_cons_zero,
+      List.getD_cons_succ] <;> norm_num
+
+/-- Membership in a translated group. -/
+theorem mem_groupSpecs {L : List Base} {dx dy : ℤ} {s : PSpec} (h : s ∈ groupSpecs L dx dy) :
+    ∃ g ∈ L, s = ⟨g, dx, dy, 0⟩ := by
+  unfold groupSpecs at h
+  obtain ⟨g, hg, rfl⟩ := List.mem_map.1 h
+  exact ⟨g, hg, rfl⟩
+
+/-- Membership in a chain. -/
+theorem mem_chainSpecs {n : ℕ} {dx dy : ℤ} {s : PSpec} (h : s ∈ chainSpecs n dx dy) :
+    ∃ t < n, s = ⟨.orGate, dx - 35 * (t : ℤ), dy - 64 * (t : ℤ), 14 * t % 30⟩ := by
+  unfold chainSpecs at h
+  obtain ⟨t, ht, rfl⟩ := List.mem_map.1 h
+  exact ⟨t, List.mem_range.1 ht, rfl⟩
+
+/-- The box of a chain copy. -/
+theorem chain_bx (dx dy : ℤ) (t ph : ℕ) :
+    (PSpec.mk .orGate (dx - 35 * (t : ℤ)) (dy - 64 * (t : ℤ)) ph).bx =
+      ⟨dx - 35 * t, dx - 35 * t + 90, dy - 64 * t, dy - 64 * t + 32⟩ := by
+  simp only [PSpec.bx, Base.piece, orGateP]; congr 1 <;> ring
+
+/-- **Region of a unit**: every piece of unit `a` lies in `u ∈ [A_a + uLo, A_a + 58 P + 212]`,
+`v ∈ [V_U - 198 P, V_U + 1527]`. -/
+theorem unitSpecs_uv (p : Program) (a : ℕ) {s : PSpec} (hs : s ∈ unitSpecs p a) :
+    s.bx.InUV (A p a + (unitKind p a).uLo) (A p a + 58 * P p + 212) (VU p - 198 * P p)
+      (VU p + 1527) := by
+  have hd := unitD_uv p a
+  have hP := one_le_P p
+  unfold unitSpecs at hs
+  rcases List.mem_append.1 hs with hs | hs
+  · obtain ⟨t, ht, rfl⟩ := mem_chainSpecs hs
+    rw [chain_bx]
+    have ht' : (t : ℤ) < 2 * P p := by unfold P; omega
+    have hk : (unitKind p a).uLo ≤ -32 := by cases unitKind p a <;> simp [UKind.uLo]
+    unfold BoxT.InUV; simp only; omega
+  · cases hk : unitKind p a <;> rw [hk] at hs <;> simp only [List.not_mem_nil] at hs
+    · obtain ⟨g, hg, rfl⟩ := mem_groupSpecs hs
+      obtain ⟨i, hi, rfl⟩ := List.mem_map.1 hg
+      have := bodyDec_uv i (List.mem_range.1 hi)
+      simp only [BoxT.InUV, PSpec.bx, UKind.uLo]; omega
+    · obtain ⟨g, hg, rfl⟩ := mem_groupSpecs hs
+      obtain ⟨i, hi, rfl⟩ := List.mem_map.1 hg
+      have := bodyInc_uv i (List.mem_range.1 hi)
+      simp only [BoxT.InUV, PSpec.bx, UKind.uLo]; omega
+
+/-- The copies of a chain are pairwise separated (`64` apart in `y`). -/
+theorem chainSpecs_sep (n : ℕ) (dx dy : ℤ) :
+    (chainSpecs n dx dy).Pairwise fun s t => Piece.Sep s.piece t.piece := by
+  unfold chainSpecs
+  rw [List.pairwise_map]
+  refine List.pairwise_lt_range.imp fun {t t'} h => PSpec.sep_of_far ?_
+  rw [chain_bx, chain_bx]
+  unfold BoxT.Far; simp only; omega
+
+/-- The groups of the `dec` body are the generated `bodyDecPieces`. -/
+theorem bodyDec_map : (List.range 8).map (fun i => (Base.bodyDec i).piece) = bodyDecPieces := rfl
+
+/-- The groups of the `inc` body are the generated `bodyIncPieces`. -/
+theorem bodyInc_map : (List.range 3).map (fun i => (Base.bodyInc i).piece) = bodyIncPieces := rfl
+
+/-- **The pieces of a unit are pairwise separated.** -/
+theorem unitSpecs_sep (p : Program) (a : ℕ) :
+    (unitSpecs p a).Pairwise fun s t => Piece.Sep s.piece t.piece := by
+  unfold unitSpecs
+  refine List.pairwise_append.2 ⟨chainSpecs_sep _ _ _, ?_, ?_⟩
+  · cases unitKind p a
+    · exact groupSpecs_sep (by rw [List.map_map]; exact bodyDec_map ▸ bodyDecPieces_sep) _ _
+    · exact groupSpecs_sep (by rw [List.map_map]; exact bodyInc_map ▸ bodyIncPieces_sep) _ _
+    · exact List.Pairwise.nil
+    · exact List.Pairwise.nil
+  · intro s hs t ht
+    obtain ⟨c, hc, rfl⟩ := mem_chainSpecs hs
+    refine PSpec.sep_of_far ?_
+    rw [chain_bx]
+    cases hk : unitKind p a <;> rw [hk] at ht <;> simp only [List.not_mem_nil] at ht
+    · obtain ⟨g, hg, rfl⟩ := mem_groupSpecs ht
+      obtain ⟨i, hi, rfl⟩ := List.mem_map.1 hg
+      have := bodyDec_uv i (List.mem_range.1 hi)
+      simp only [BoxT.Far, PSpec.bx]; omega
+    · obtain ⟨g, hg, rfl⟩ := mem_groupSpecs ht
+      obtain ⟨i, hi, rfl⟩ := List.mem_map.1 hg
+      have := bodyInc_uv i (List.mem_range.1 hi)
+      simp only [BoxT.Far, PSpec.bx]; omega
+
+/-- **Units `a < a'` are separated** (their regions are `≥ 6` apart in `u`). -/
+theorem unitSpecs_cross (p : Program) {a a' : ℕ} (h : a < a') {s t : PSpec}
+    (hs : s ∈ unitSpecs p a) (ht : t ∈ unitSpecs p a') : Piece.Sep s.piece t.piece := by
+  have h1 := unitSpecs_uv p a hs
+  have h2 := unitSpecs_uv p a' ht
+  have hA := A_add_le p (a := a) (a' := a') (by exact_mod_cast h)
+  have hk : -180 ≤ (unitKind p a').uLo := by cases unitKind p a' <;> simp [UKind.uLo]
+  have hP := one_le_P p
+  refine PSpec.sep_of_far (BoxT.far_of_uv h1 h2 (Or.inl ?_))
+  unfold PU at hA; omega
+
+/-- **The pieces of all units are pairwise separated.** -/
+theorem unitsPart_sep (p : Program) :
+    (unitsPart p).Pairwise fun s t => Piece.Sep s.piece t.piece :=
+  pairwise_flatMap_lt (pairwise_lt_range_filter _ _) (fun a _ => unitSpecs_sep p a)
+    fun _ _ _ _ h _ hs _ ht => unitSpecs_cross p h hs ht
+
+/-! ### Separation: modules -/
+
+/-- The groups of the register circuit (module frame): `u ∈ [-738, 798]`, `v ∈ [-2324, 670]`,
+and far from `RF_J` and from the INC OR gate. -/
+theorem dz2g_facts (i : ℕ) (hi : i < 28) :
+    -738 ≤ (Base.dz2g i).piece.a - (Base.dz2g i).piece.hi ∧
+      (Base.dz2g i).piece.b - (Base.dz2g i).piece.lo ≤ 798 ∧
+      -2324 ≤ (Base.dz2g i).piece.a + (Base.dz2g i).piece.lo ∧
+      (Base.dz2g i).piece.b + (Base.dz2g i).piece.hi ≤ 670 ∧
+      BoxT.Far ⟨(Base.dz2g i).piece.a, (Base.dz2g i).piece.b, (Base.dz2g i).piece.lo,
+        (Base.dz2g i).piece.hi⟩ ⟨-872, -850, -1042, -1034⟩ ∧
+      BoxT.Far ⟨(Base.dz2g i).piece.a, (Base.dz2g i).piece.b, (Base.dz2g i).piece.lo,
+        (Base.dz2g i).piece.hi⟩ ⟨-1132, -1042, -1291, -1259⟩ := by
+  interval_cases i <;>
+    simp only [Base.piece, dz2gPieces, dz2gG0, dz2gG1, dz2gG2, dz2gG3, dz2gG4, dz2gG5, dz2gG6, dz2gG7, dz2gG8, dz2gG9, dz2gG10, dz2gG11, dz2gG12, dz2gG13, dz2gG14, dz2gG15, dz2gG16, dz2gG17, dz2gG18, dz2gG19, dz2gG20, dz2gG21, dz2gG22, dz2gG23, dz2gG24, dz2gG25, dz2gG26, dz2gG27, List.getD_cons_zero, List.getD_cons_succ,
+      BoxT.Far] <;> norm_num
+
+/-- The groups of the register circuit are the generated `dz2gPieces`. -/
+theorem dz2g_map : (List.range 28).map (fun i => (Base.dz2g i).piece) = dz2gPieces := rfl
+
+/-- The three pieces of the station NZ. -/
+theorem stNZ_cases (i : ℕ) (hi : i < 3) :
+    ((Base.stNZ i).piece.a = 380 ∧ (Base.stNZ i).piece.b = 412 ∧ (Base.stNZ i).piece.lo = 829 ∧
+        (Base.stNZ i).piece.hi = 919) ∨
+      ((Base.stNZ i).piece.a = 431 ∧ (Base.stNZ i).piece.b = 439 ∧
+        (Base.stNZ i).piece.lo = 891 ∧ (Base.stNZ i).piece.hi = 913) ∨
+      ((Base.stNZ i).piece.a = 464 ∧ (Base.stNZ i).piece.b = 467 ∧
+        (Base.stNZ i).piece.lo = 820 ∧ (Base.stNZ i).piece.hi = 823) := by
+  interval_cases i <;> simp [Base.piece, stNZ0P, stNZ1P, stNZ2P]
+
+/-- The three pieces of the station Z. -/
+theorem stZ_cases (i : ℕ) (hi : i < 3) :
+    ((Base.stZ i).piece.a = 889 ∧ (Base.stZ i).piece.b = 979 ∧ (Base.stZ i).piece.lo = -325 ∧
+        (Base.stZ i).piece.hi = -293) ∨
+      ((Base.stZ i).piece.a = 951 ∧ (Base.stZ i).piece.b = 973 ∧
+        (Base.stZ i).piece.lo = -352 ∧ (Base.stZ i).piece.hi = -344) ∨
+      ((Base.stZ i).piece.a = 880 ∧ (Base.stZ i).piece.b = 883 ∧
+        (Base.stZ i).piece.lo = -380 ∧ (Base.stZ i).piece.hi = -377) := by
+  interval_cases i <;> simp [Base.piece, stZ0P, stZ1P, stZ2P]
+
+/-- The classes of pieces of a module. -/
+inductive ModCls (p : Program) (r : ℕ) : PSpec → Prop where
+  /-- A group of the register circuit. -/
+  | dz2g (i : ℕ) (ph : ℕ) : i < 28 → ModCls p r ⟨.dz2g i, modDX p r, modDY p r, ph⟩
+  /-- `RF_J`. -/
+  | rfj (ph : ℕ) : ModCls p r ⟨.rf 4, modDX p r - 850, modDY p r - 1044, ph⟩
+  /-- The INC OR gate. -/
+  | inc (ph : ℕ) : ModCls p r ⟨.orGate, modDX p r - 1132, modDY p r - 1291, ph⟩
+  /-- Copy `m` of the DEC chain. -/
+  | dec (m ph : ℕ) : m < 2 * numCallers p →
+      ModCls p r ⟨.orGate, modDX p r - 1700 - 35 * (m : ℤ), modDY p r - 1727 - 64 * (m : ℤ), ph⟩
+  /-- Piece `i` of station `j` on the line NZ. -/
+  | stNZ (i j ph : ℕ) : i < 3 → j < numCallers p →
+      ModCls p r ⟨.stNZ i, modDX p r + 72 * (j : ℤ), modDY p r + 72 * (j : ℤ), ph⟩
+  /-- Piece `i` of station `j` on the line Z. -/
+  | stZ (i j ph : ℕ) : i < 3 → j < numCallers p →
+      ModCls p r ⟨.stZ i, modDX p r + 72 * (j : ℤ), modDY p r - 72 * (j : ℤ), ph⟩
+  /-- The line-end eater NZ. -/
+  | eatNZ (ph : ℕ) : ModCls p r ⟨.eatNZ, modDX p r + 72 * (D p - 1), modDY p r + 72 * (D p - 1), ph⟩
+  /-- The line-end eater Z. -/
+  | eatZ (ph : ℕ) : ModCls p r ⟨.eatZ, modDX p r + 72 * (D p - 1), modDY p r - 72 * (D p - 1), ph⟩
+
+/-- Every piece of a module is in one of the classes. -/
+theorem moduleSpecs_cls (p : Program) (r : ℕ) {s : PSpec} (hs : s ∈ moduleSpecs p r) :
+    ModCls p r s := by
+  unfold moduleSpecs at hs
+  simp only [List.mem_append, List.mem_cons, List.not_mem_nil, or_false] at hs
+  rcases hs with ((((hs | hs | hs) | hs) | hs) | hs) | hs | hs
+  · obtain ⟨g, hg, rfl⟩ := mem_groupSpecs hs
+    obtain ⟨i, hi, rfl⟩ := List.mem_map.1 hg
+    exact .dz2g i 0 (List.mem_range.1 hi)
+  · subst hs; exact .rfj _
+  · subst hs; exact .inc _
+  · unfold decChainSpecs at hs
+    obtain ⟨m, hm, rfl⟩ := List.mem_map.1 hs
+    exact .dec m _ (List.mem_range.1 hm)
+  · unfold stationSpecs at hs
+    obtain ⟨j, hj, hs⟩ := List.mem_flatMap.1 hs
+    obtain ⟨s', hs', rfl⟩ := List.mem_map.1 hs
+    obtain ⟨g, hg, rfl⟩ := mem_groupSpecs hs'
+    simp only [List.mem_cons, List.not_mem_nil, or_false] at hg
+    rcases hg with rfl | rfl | rfl
+    · exact .stNZ 0 j _ (by norm_num) (List.mem_range.1 hj)
+    · exact .stNZ 1 j _ (by norm_num) (List.mem_range.1 hj)
+    · exact .stNZ 2 j _ (by norm_num) (List.mem_range.1 hj)
+  · unfold stationZSpecs at hs
+    obtain ⟨j, hj, hs⟩ := List.mem_flatMap.1 hs
+    obtain ⟨s', hs', rfl⟩ := List.mem_map.1 hs
+    obtain ⟨g, hg, rfl⟩ := mem_groupSpecs hs'
+    simp only [List.mem_cons, List.not_mem_nil, or_false] at hg
+    rcases hg with rfl | rfl | rfl
+    · exact .stZ 0 j _ (by norm_num) (List.mem_range.1 hj)
+    · exact .stZ 1 j _ (by norm_num) (List.mem_range.1 hj)
+    · exact .stZ 2 j _ (by norm_num) (List.mem_range.1 hj)
+  · subst hs; exact .eatNZ _
+  · subst hs; exact .eatZ _
+
+/-- Membership in the DEC chain. -/
+theorem mem_decChainSpecs {n : ℕ} {dx dy : ℤ} {s : PSpec} (h : s ∈ decChainSpecs n dx dy) :
+    ∃ m < n, s = ⟨.orGate, dx - 1700 - 35 * (m : ℤ), dy - 1727 - 64 * (m : ℤ), (15 + 14 * m) % 30⟩ := by
+  unfold decChainSpecs at h
+  obtain ⟨m, hm, rfl⟩ := List.mem_map.1 h
+  exact ⟨m, List.mem_range.1 hm, rfl⟩
+
+/-- Membership in the stations NZ. -/
+theorem mem_stationSpecs {n : ℕ} {dx dy : ℤ} {s : PSpec} (h : s ∈ stationSpecs n dx dy) :
+    ∃ j < n, ∃ i < 3, s = ⟨.stNZ i, dx + 72 * (j : ℤ), dy + 72 * (j : ℤ), 12 * j % 30⟩ := by
+  unfold stationSpecs at h
+  obtain ⟨j, hj, h⟩ := List.mem_flatMap.1 h
+  obtain ⟨s', hs', rfl⟩ := List.mem_map.1 h
+  obtain ⟨g, hg, rfl⟩ := mem_groupSpecs hs'
+  simp only [List.mem_cons, List.not_mem_nil, or_false] at hg
+  refine ⟨j, List.mem_range.1 hj, ?_⟩
+  rcases hg with rfl | rfl | rfl
+  · exact ⟨0, by norm_num, rfl⟩
+  · exact ⟨1, by norm_num, rfl⟩
+  · exact ⟨2, by norm_num, rfl⟩
+
+/-- Membership in the stations Z. -/
+theorem mem_stationZSpecs {n : ℕ} {dx dy : ℤ} {s : PSpec} (h : s ∈ stationZSpecs n dx dy) :
+    ∃ j < n, ∃ i < 3, s = ⟨.stZ i, dx + 72 * (j : ℤ), dy - 72 * (j : ℤ), 12 * j % 30⟩ := by
+  unfold stationZSpecs at h
+  obtain ⟨j, hj, h⟩ := List.mem_flatMap.1 h
+  obtain ⟨s', hs', rfl⟩ := List.mem_map.1 h
+  obtain ⟨g, hg, rfl⟩ := mem_groupSpecs hs'
+  simp only [List.mem_cons, List.not_mem_nil, or_false] at hg
+  refine ⟨j, List.mem_range.1 hj, ?_⟩
+  rcases hg with rfl | rfl | rfl
+  · exact ⟨0, by norm_num, rfl⟩
+  · exact ⟨1, by norm_num, rfl⟩
+  · exact ⟨2, by norm_num, rfl⟩
+
+/-- The box of a spec, unfolded. -/
+theorem PSpec.bx_mk (g : Base) (vx vy : ℤ) (ph : ℕ) :
+    (PSpec.mk g vx vy ph).bx = ⟨g.piece.a + vx, g.piece.b + vx, g.piece.lo + vy, g.piece.hi + vy⟩ :=
+  rfl
+
+/-- The boxes of the OR gate and of the reflector image `4`. -/
+theorem base_boxes :
+    Base.orGate.piece.a = 0 ∧ Base.orGate.piece.b = 90 ∧ Base.orGate.piece.lo = 0 ∧
+      Base.orGate.piece.hi = 32 ∧ (Base.rf 4).piece.a = -22 ∧ (Base.rf 4).piece.b = 0 ∧
+      (Base.rf 4).piece.lo = 2 ∧ (Base.rf 4).piece.hi = 10 ∧ Base.eatNZ.piece.a = 563 ∧
+      Base.eatNZ.piece.b = 566 ∧ Base.eatNZ.piece.lo = 954 ∧ Base.eatNZ.piece.hi = 957 ∧
+      Base.eatZ.piece.a = 1013 ∧ Base.eatZ.piece.b = 1016 ∧ Base.eatZ.piece.lo = -478 ∧
+      Base.eatZ.piece.hi = -475 := by
+  simp [Base.piece, orGateP, rfP, eatNZEndP, eatZEndP]
+
+/-- **The pieces of a module are pairwise separated.** -/
+theorem moduleSpecs_sep (p : Program) (r : ℕ) :
+    (moduleSpecs p r).Pairwise fun s t => Piece.Sep s.piece t.piece := by
+  have hb := base_boxes
+  have hD : (D p) = (numCallers p : ℤ) := rfl
+  have hD1 := one_le_D p
+  unfold moduleSpecs
+  simp only [List.pairwise_append, List.mem_append, List.mem_cons, List.not_mem_nil, or_false]
+  refine ⟨⟨⟨⟨⟨?_, ?_, ?_⟩, ?_, ?_⟩, ?_, ?_⟩, ?_, ?_⟩, ?_, ?_⟩
+  next => exact groupSpecs_sep (by rw [List.map_map]; exact dz2g_map ▸ dz2gPieces_sep) _ _
+  next =>
+    refine List.pairwise_pair.2 (PSpec.sep_of_far ?_)
+    simp only [PSpec.bx_mk, BoxT.Far]; omega
+  next =>
+    intro x hx y hy
+    obtain ⟨g, hg, rfl⟩ := mem_groupSpecs hx
+    obtain ⟨i, hi, rfl⟩ := List.mem_map.1 hg
+    have := dz2g_facts i (List.mem_range.1 hi)
+    simp only [BoxT.Far] at this
+    rcases hy with rfl | rfl <;> refine PSpec.sep_of_far ?_ <;>
+      simp only [PSpec.bx_mk, BoxT.Far] <;> omega
+  next =>
+    unfold decChainSpecs
+    rw [List.pairwise_map]
+    refine List.pairwise_lt_range.imp fun {m m'} h => PSpec.sep_of_far ?_
+    simp only [PSpec.bx_mk, BoxT.Far]; omega
+  next =>
+    intro x hx y hy
+    obtain ⟨m, hm, rfl⟩ := mem_decChainSpecs hy
+    refine PSpec.sep_of_far ?_
+    rcases hx with hx | rfl | rfl
+    · obtain ⟨g, hg, rfl⟩ := mem_groupSpecs hx
+      obtain ⟨i, hi, rfl⟩ := List.mem_map.1 hg
+      have := dz2g_facts i (List.mem_range.1 hi)
+      simp only [PSpec.bx_mk, BoxT.Far]; omega
+    all_goals simp only [PSpec.bx_mk, BoxT.Far]; omega
+  next =>
+    refine pairwise_flatMap_lt List.pairwise_lt_range (fun j _ => ?_) ?_
+    · unfold groupSpecs
+      simp only [List.map_cons, List.map_nil, List.pairwise_cons, List.mem_cons,
+        List.not_mem_nil, or_false, forall_eq_or_imp, forall_eq, List.Pairwise.nil, and_true]
+      refine ⟨⟨?_, ?_⟩, ?_⟩ <;> refine PSpec.sep_of_far ?_ <;>
+        simp only [PSpec.bx_mk, BoxT.Far, Base.piece, stNZ0P, stNZ1P, stNZ2P,
+          List.getD_cons_zero, List.getD_cons_succ] <;> omega
+    · intro j _ j' _ hjj x hx y hy
+      obtain ⟨s1, hs1, rfl⟩ := List.mem_map.1 hx
+      obtain ⟨g, hg, rfl⟩ := mem_groupSpecs hs1
+      obtain ⟨s2, hs2, rfl⟩ := List.mem_map.1 hy
+      obtain ⟨g', hg', rfl⟩ := mem_groupSpecs hs2
+      refine PSpec.sep_of_far ?_
+      simp only [List.mem_cons, List.not_mem_nil, or_false] at hg hg'
+      rcases hg with rfl | rfl | rfl <;> rcases hg' with rfl | rfl | rfl <;>
+        simp only [PSpec.bx_mk, BoxT.Far, Base.piece, stNZ0P, stNZ1P, stNZ2P,
+          List.getD_cons_zero, List.getD_cons_succ] <;> omega
+  next =>
+    intro x hx y hy
+    obtain ⟨j, hj, i, hi, rfl⟩ := mem_stationSpecs hy
+    have hc := stNZ_cases i hi
+    refine PSpec.sep_of_far ?_
+    rcases hx with (hx | rfl | rfl) | hx
+    · obtain ⟨g, hg, rfl⟩ := mem_groupSpecs hx
+      obtain ⟨i', hi', rfl⟩ := List.mem_map.1 hg
+      have := dz2g_facts i' (List.mem_range.1 hi')
+      have := modD_uv p r
+      simp only [PSpec.bx_mk, BoxT.Far]; omega
+    · simp only [PSpec.bx_mk, BoxT.Far]; omega
+    · simp only [PSpec.bx_mk, BoxT.Far]; omega
+    · obtain ⟨m, hm, rfl⟩ := mem_decChainSpecs hx
+      have := modD_uv p r
+      simp only [PSpec.bx_mk, BoxT.Far]; omega
+  next =>
+    refine pairwise_flatMap_lt List.pairwise_lt_range (fun j _ => ?_) ?_
+    · unfold groupSpecs
+      simp only [List.map_cons, List.map_nil, List.pairwise_cons, List.mem_cons,
+        List.not_mem_nil, or_false, forall_eq_or_imp, forall_eq, List.Pairwise.nil, and_true]
+      refine ⟨⟨?_, ?_⟩, ?_⟩ <;> refine PSpec.sep_of_far ?_ <;>
+        simp only [PSpec.bx_mk, BoxT.Far, Base.piece, stZ0P, stZ1P, stZ2P,
+          List.getD_cons_zero, List.getD_cons_succ] <;> omega
+    · intro j _ j' _ hjj x hx y hy
+      obtain ⟨s1, hs1, rfl⟩ := List.mem_map.1 hx
+      obtain ⟨g, hg, rfl⟩ := mem_groupSpecs hs1
+      obtain ⟨s2, hs2, rfl⟩ := List.mem_map.1 hy
+      obtain ⟨g', hg', rfl⟩ := mem_groupSpecs hs2
+      refine PSpec.sep_of_far ?_
+      simp only [List.mem_cons, List.not_mem_nil, or_false] at hg hg'
+      rcases hg with rfl | rfl | rfl <;> rcases hg' with rfl | rfl | rfl <;>
+        simp only [PSpec.bx_mk, BoxT.Far, Base.piece, stZ0P, stZ1P, stZ2P,
+          List.getD_cons_zero, List.getD_cons_succ] <;> omega
+  next =>
+    intro x hx y hy
+    obtain ⟨j, hj, i, hi, rfl⟩ := mem_stationZSpecs hy
+    have hc := stZ_cases i hi
+    have := modD_uv p r
+    refine PSpec.sep_of_far ?_
+    rcases hx with ((hx | rfl | rfl) | hx) | hx
+    · obtain ⟨g, hg, rfl⟩ := mem_groupSpecs hx
+      obtain ⟨i', hi', rfl⟩ := List.mem_map.1 hg
+      have := dz2g_facts i' (List.mem_range.1 hi')
+      simp only [PSpec.bx_mk, BoxT.Far]; omega
+    · simp only [PSpec.bx_mk, BoxT.Far]; omega
+    · simp only [PSpec.bx_mk, BoxT.Far]; omega
+    · obtain ⟨m, hm, rfl⟩ := mem_decChainSpecs hx
+      simp only [PSpec.bx_mk, BoxT.Far]; omega
+    · obtain ⟨j', hj', i', hi', rfl⟩ := mem_stationSpecs hx
+      have := stNZ_cases i' hi'
+      simp only [PSpec.bx_mk, BoxT.Far]; omega
+  next =>
+    refine List.pairwise_pair.2 (PSpec.sep_of_far ?_)
+    simp only [PSpec.bx_mk, BoxT.Far]; omega
+  next =>
+    intro x hx y hy
+    have := modD_uv p r
+    refine PSpec.sep_of_far ?_
+    rcases hx with (((hx | rfl | rfl) | hx) | hx) | hx <;> rcases hy with rfl | rfl
+    all_goals first
+      | (simp only [PSpec.bx_mk, BoxT.Far]; omega)
+      | (obtain ⟨g, hg, rfl⟩ := mem_groupSpecs hx
+         obtain ⟨i', hi', rfl⟩ := List.mem_map.1 hg
+         have := dz2g_facts i' (List.mem_range.1 hi')
+         simp only [PSpec.bx_mk, BoxT.Far]; omega)
+      | (obtain ⟨m, hm, rfl⟩ := mem_decChainSpecs hx
+         simp only [PSpec.bx_mk, BoxT.Far]; omega)
+      | (obtain ⟨j', hj', i', hi', rfl⟩ := mem_stationSpecs hx
+         have := stNZ_cases i' hi'
+         simp only [PSpec.bx_mk, BoxT.Far]; omega)
+      | (obtain ⟨j', hj', i', hi', rfl⟩ := mem_stationZSpecs hx
+         have := stZ_cases i' hi'
+         simp only [PSpec.bx_mk, BoxT.Far]; omega)
+
 end LP
 
 end LeanTheory.Life

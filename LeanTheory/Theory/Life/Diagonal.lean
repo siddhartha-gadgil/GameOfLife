@@ -629,4 +629,87 @@ theorem diag_near (P : DiagParams) (hP : P.Good) (L : ℤ) (hA : -20 ≤ P.A) (h
         rwa [qMove_shiftQ, show K + σ.d + qMove q = K + qMove ((σ, e) :: q) by
           simp only [qMove]; ring] at h
 
+/-- Salvos at least `g` apart, the first at offset `≥ e₀`, all at offset `≤ E`: their number times
+`g` is at most `E - e₀ + g` (or there are none). -/
+theorem behind_length {A B g : ℤ} (hg : 0 < g) : ∀ (q : List (Salvo × ℤ)) (e₀ E : ℤ),
+    Behind A B g e₀ q → (∀ p ∈ q, p.2 ≤ E) → q = [] ∨ (q.length : ℤ) * g ≤ E - e₀ + g
+  | [], _, _, _, _ => Or.inl rfl
+  | (σ, e) :: q, e₀, E, ⟨_, _, he, hq⟩, hE => by
+    right
+    have h2 := hE (σ, e) List.mem_cons_self
+    simp only at h2
+    rcases behind_length hg q (e + g) E hq (fun p hp => hE p (List.mem_cons_of_mem _ hp)) with
+      h | h
+    · subst h
+      simp only [List.length_cons, List.length_nil]
+      push_cast
+      linarith
+    · simp only [List.length_cons]
+      push_cast
+      linarith
+
+/-- The moves of a valid queue are at least minus its length. -/
+theorem qMove_ge (P : DiagParams) : ∀ (n : ℕ) (q : List (Salvo × ℤ)) (Vs Vb K : ℤ),
+    q.length = n → DiagValid P Vs Vb K q → -(q.length : ℤ) ≤ qMove q
+  | _, [], _, _, _, _, _ => by simp [qMove]
+  | n, (σ, e) :: q, Vs, Vb, K, hlen, hv => by
+    rw [DiagValid] at hv
+    have hd := hv.2.2.2.2.2.2.1
+    have hrest := hv.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2
+    have := qMove_ge P (n - 1) _ _ _ _ (by simp [shiftQ] at hlen ⊢; omega) hrest
+    rw [qMove_shiftQ] at this
+    simp only [shiftQ, List.length_map] at this
+    simp only [qMove, List.length_cons]
+    push_cast
+    rcases hd with hd | hd <;> rw [hd] <;> linarith
+
+/-- **A register of value `≤ 0` is quiet**: if at generation `t` every salvo of a valid queue is
+at least `L ≥ N / 4 + 4` cells along the diagonal and the gap between salvos is at least `2`, and
+the value (block plus moves) is at most `0`, then every salvo has arrived by generation `t`. -/
+theorem diag_arrived (P : DiagParams) (hP : P.Good) (L : ℤ) (hL : (P.N : ℤ) / 4 + 4 ≤ L)
+    (hg2 : 2 ≤ P.g) : ∀ (n : ℕ) (q : List (Salvo × ℤ)) (Vs Vb K : ℤ) (t : ℕ), q.length = n →
+      DiagValid P Vs Vb K q → (∀ p ∈ q, L ≤ ((t / 4 : ℕ) : ℤ) - p.2) → K + qMove q ≤ 0 →
+      diagTime K q ≤ t
+  | _, [], _, _, _, _, _, _, _, _ => by simp [diagTime]
+  | n, (σ, e) :: q, Vs, Vb, K, t, hlen, hv, hfar, hval => by
+    have hv' := hv
+    rw [DiagValid] at hv'
+    obtain ⟨hKe, hn4, -, -, -, hN, hd, -, -, -, -, -, -, -, -, hbeh, -, hrest⟩ := hv'
+    have he := hfar (σ, e) List.mem_cons_self
+    simp only at he
+    set Kn := (K + e).toNat with hKn
+    have hK : (Kn : ℤ) = K + e := Int.toNat_of_nonneg hKe
+    have hNn : (σ.n : ℤ) / 4 ≤ (P.N : ℤ) / 4 :=
+      Int.ediv_le_ediv (by norm_num) (by exact_mod_cast hN)
+    -- the front salvo has arrived by generation `t`
+    have hT : Kn * 4 + σ.n ≤ t := by
+      by_contra hT
+      have h1 : ((t / 4 : ℕ) : ℤ) ≤ K + e + (σ.n : ℤ) / 4 := by
+        have : t / 4 ≤ Kn + σ.n / 4 := by omega
+        have h2 : ((Kn + σ.n / 4 : ℕ) : ℤ) = K + e + (σ.n : ℤ) / 4 := by push_cast; rw [hK]
+        exact (show ((t / 4 : ℕ) : ℤ) ≤ ((Kn + σ.n / 4 : ℕ) : ℤ) by exact_mod_cast this).trans h2.le
+      have hlenq := behind_length (by linarith) q (e + P.g) (((t / 4 : ℕ) : ℤ) - L) hbeh
+        (fun p hp => by have := hfar p (List.mem_cons_of_mem _ hp); linarith)
+      have hmv := qMove_ge P _ ((σ, e) :: q) Vs Vb K rfl hv
+      simp only [qMove, List.length_cons] at hval hmv
+      push_cast at hmv
+      rcases hlenq with hq | hq
+      · subst hq
+        simp only [qMove, List.length_nil] at hval hmv
+        rcases hd with hd | hd <;> rw [hd] at hval <;> linarith
+      · have hq0 : (0 : ℤ) ≤ (q.length : ℤ) := by positivity
+        nlinarith [hq, hmv, hval, hg2]
+    have hdt := diag_arrived P hP L hL hg2 (n - 1) _ _ _ _ (t - (Kn * 4 + σ.n))
+      (by simp [shiftQ] at hlen ⊢; omega) hrest (fun p hp => by
+        simp only [shiftQ, List.mem_map] at hp
+        obtain ⟨p', hp', rfl⟩ := hp
+        have := hfar p' (List.mem_cons_of_mem _ hp')
+        have h5 : (t - (Kn * 4 + σ.n)) / 4 = t / 4 - (Kn + σ.n / 4) := by omega
+        have h6 : Kn + σ.n / 4 ≤ t / 4 := by omega
+        rw [h5]
+        push_cast [h6]
+        omega) (by rw [qMove_shiftQ]; simp only [qMove] at hval; linarith)
+    rw [diagTime]
+    omega
+
 end LeanTheory.Life
