@@ -1,0 +1,9 @@
+pieces: 57 (REG1 22 + DZ2' 19 + G_I, RF_J + INC chain 3 + DEC chain 3 + stations 8); eaters 42 cells
+  DEC T into copy 1  (SE, 128, 10102) (C' delayed by 6000), k = 0, caller 0: -> ['(SE, 1301, 15025)'] ok
+  DEC T into copy 1  (SE, 128, 10102) (C' delayed by 6000), k = 0, caller 1: -> ['(SE, 1445, 15025)'] ok
+  DEC S into copy 1  (NE, 3549, 10104) (C' delayed by 5910), k = 0, caller 0: -> ['(SE, 1301, 14935)'] ok
+  DEC S into copy 1  (NE, 3549, 10104) (C' delayed by 5910), k = 0, caller 1: -> ['(SE, 1445, 14935)'] ok
+  DEC S into copy 2  (NE, 3450, 9948) (C' delayed by 5640), k = 0, caller 0: -> ['(SE, 1301, 14665)'] ok
+  DEC S into copy 2  (NE, 3450, 9948) (C' delayed by 5640), k = 0, caller 1: -> ['(SE, 1445, 14665)'] ok
+  DEC S into copy 3  (NE, 3351, 9822) (C' delayed by 5400), k = 0, caller 0: -> ['(SE, 1301, 14425)'] ok
+  DEC S into copy 3  (NE, 3351, 9822) (C' delayed by 5400), k = 0, caller 1: -> ['(SE, 1445, 14425)'] ok

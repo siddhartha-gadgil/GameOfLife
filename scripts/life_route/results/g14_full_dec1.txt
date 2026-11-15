@@ -1,0 +1,25 @@
+pieces: 57 (REG1 22 + DZ2' 19 + G_I, RF_J + INC chain 3 + DEC chain 3 + stations 8); eaters 42 cells
+  DEC T into copy 1  (SE, 128, 10102) (C' delayed by 6000), k = 1, caller 0: -> ['(SW, 1325, 18547)'] ok
+  DEC T into copy 1  (SE, 128, 10102) (C' delayed by 6000), k = 1, caller 1: -> ['(SW, 1469, 19123)'] ok
+  DEC T into copy 1  (SE, 128, 10102) (C' delayed by 6000), k = 2, caller 0: -> ['(SW, 1325, 18547)'] ok
+  DEC T into copy 1  (SE, 128, 10102) (C' delayed by 6000), k = 2, caller 1: -> ['(SW, 1469, 19123)'] ok
+  DEC T into copy 1  (SE, 128, 10102) (C' delayed by 6000), k = 40, caller 0: -> ['(SW, 1325, 18547)'] ok
+  DEC T into copy 1  (SE, 128, 10102) (C' delayed by 6000), k = 40, caller 1: -> ['(SW, 1469, 19123)'] ok
+  DEC S into copy 1  (NE, 3549, 10104) (C' delayed by 5910), k = 1, caller 0: -> ['(SW, 1325, 18457)'] ok
+  DEC S into copy 1  (NE, 3549, 10104) (C' delayed by 5910), k = 1, caller 1: -> ['(SW, 1469, 19033)'] ok
+  DEC S into copy 1  (NE, 3549, 10104) (C' delayed by 5910), k = 2, caller 0: -> ['(SW, 1325, 18457)'] ok
+  DEC S into copy 1  (NE, 3549, 10104) (C' delayed by 5910), k = 2, caller 1: -> ['(SW, 1469, 19033)'] ok
+  DEC S into copy 1  (NE, 3549, 10104) (C' delayed by 5910), k = 40, caller 0: -> ['(SW, 1325, 18457)'] ok
+  DEC S into copy 1  (NE, 3549, 10104) (C' delayed by 5910), k = 40, caller 1: -> ['(SW, 1469, 19033)'] ok
+  DEC S into copy 2  (NE, 3450, 9948) (C' delayed by 5640), k = 1, caller 0: -> ['(SW, 1325, 18187)'] ok
+  DEC S into copy 2  (NE, 3450, 9948) (C' delayed by 5640), k = 1, caller 1: -> ['(SW, 1469, 18763)'] ok
+  DEC S into copy 2  (NE, 3450, 9948) (C' delayed by 5640), k = 2, caller 0: -> ['(SW, 1325, 18187)'] ok
+  DEC S into copy 2  (NE, 3450, 9948) (C' delayed by 5640), k = 2, caller 1: -> ['(SW, 1469, 18763)'] ok
+  DEC S into copy 2  (NE, 3450, 9948) (C' delayed by 5640), k = 40, caller 0: -> ['(SW, 1325, 18187)'] ok
+  DEC S into copy 2  (NE, 3450, 9948) (C' delayed by 5640), k = 40, caller 1: -> ['(SW, 1469, 18763)'] ok
+  DEC S into copy 3  (NE, 3351, 9822) (C' delayed by 5400), k = 1, caller 0: -> ['(SW, 1325, 17947)'] ok
+  DEC S into copy 3  (NE, 3351, 9822) (C' delayed by 5400), k = 1, caller 1: -> ['(SW, 1469, 18523)'] ok
+  DEC S into copy 3  (NE, 3351, 9822) (C' delayed by 5400), k = 2, caller 0: -> ['(SW, 1325, 17947)'] ok
+  DEC S into copy 3  (NE, 3351, 9822) (C' delayed by 5400), k = 2, caller 1: -> ['(SW, 1469, 18523)'] ok
+  DEC S into copy 3  (NE, 3351, 9822) (C' delayed by 5400), k = 40, caller 0: -> ['(SW, 1325, 17947)'] ok
+  DEC S into copy 3  (NE, 3351, 9822) (C' delayed by 5400), k = 40, caller 1: -> ['(SW, 1469, 18523)'] ok

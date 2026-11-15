@@ -1,0 +1,7 @@
+D = 36: X = (SE, -57, 322), Y = (NE, -77, 327), meeting point P = (9, 67)
+  G + K + X -> ['(SE, 14, 359)']
+  RF_S = ('rf', 4, 84, 49, 9) (e = 20.5): S' = (NE, -117, 354)
+  E_T = eater 1, ofRows -9 84 [12, 8, 7, 1], distance to the path of X: 16
+  (a) K + X -> S': True   (b) K alone -> nothing: True   (c) X alone passes: True
+  distances to the path of X: gate 25, RF_S 30, eater 16
+  a = 72: (d) token at station 1: True; token at station 0: True; (e) both tokens, no X: True; (f) X alone passes both: True

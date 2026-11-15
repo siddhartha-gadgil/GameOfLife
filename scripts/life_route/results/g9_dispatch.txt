@@ -1,0 +1,26 @@
+Z line: gate symmetry 3, gate on the NW side
+Z line: gate symmetry 5, gate on the SE side
+NZ station 0: gate ('asm', 6, 380, 829, 7), RF_S ('rf', 3, 429, 913, 16), eater ofRows 464 820 [12, 4, 5, 3]; meeting point (447, 838); token K (NE, -1256, 8806) -> dispatched (SW, 1325, 12547)
+NZ station 1: gate ('asm', 6, 452, 901, 25), RF_S ('rf', 3, 501, 985, 4), eater ofRows 536 892 [12, 4, 5, 3]; meeting point (519, 910); token K (NE, -1400, 8806) -> dispatched (SW, 1469, 13123)
+Z station 0: gate ('asm', 5, 889, -293, 17), RF_S ('rf', 2, 973, -342, 26), eater ofRows 880 -380 [1, 7, 8, 12]; meeting point (898, -360); token K (NW, -1230, 16088) -> dispatched (SE, 1301, 9025)
+Z station 1: gate ('asm', 5, 961, -365, 5), RF_S ('rf', 2, 1045, -414, 14), eater ofRows 952 -452 [1, 7, 8, 12]; meeting point (970, -432); token K (NW, -1374, 16664) -> dispatched (SE, 1445, 9025)
+end eater of (SE, -391, 8779): ofRows 635 1026 [3, 5, 4, 12]
+end eater of (NE, -537, 8993): ofRows 1085 -550 [8, 14, 1, 3]
+min envelope distance new piece - other piece (gate/RF_S pairs of one station excluded): 15
+min distance new pieces + eaters - blocks B_-1..B_600: 128
+  token (NE, -1256, 8806): its path (2000 cells before insertion) is 96 from the other pieces, 129 from the eaters
+  token (NW, -1230, 16088): its path (2000 cells before insertion) is 98 from the other pieces, 131 from the eaters
+  k = 0, caller 0: Z -> ['(SE, 1301, 9025)'] ok
+  token (NE, -1400, 8806): its path (2000 cells before insertion) is 80 from the other pieces, 133 from the eaters
+  token (NW, -1374, 16664): its path (2000 cells before insertion) is 82 from the other pieces, 136 from the eaters
+  k = 0, caller 1: Z -> ['(SE, 1445, 9025)'] ok
+  k = 0, caller None: Z -> [] ok
+  k = 1, caller 0: NZ -> ['(SW, 1325, 12547)'] ok
+  k = 1, caller 1: NZ -> ['(SW, 1469, 13123)'] ok
+  k = 1, caller None: NZ -> [] ok
+  k = 2, caller 0: NZ -> ['(SW, 1325, 12547)'] ok
+  k = 2, caller 1: NZ -> ['(SW, 1469, 13123)'] ok
+  k = 2, caller None: NZ -> [] ok
+  k = 40, caller 0: NZ -> ['(SW, 1325, 12547)'] ok
+  k = 40, caller 1: NZ -> ['(SW, 1469, 13123)'] ok
+  k = 40, caller None: NZ -> [] ok

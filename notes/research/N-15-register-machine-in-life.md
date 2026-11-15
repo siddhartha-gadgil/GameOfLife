@@ -407,3 +407,14 @@ Blocked. The smallest step that changes readiness: `N-13` decision plus reading 
 ## Outputs and next dependencies
 
 Feeds `N-16`.
+
+**Sharing a register (2026-11-15, report `R-29`, numerical observation).** Merge: one copy of
+`blockedStream` is an OR gate (through and side input), chained by translation `(35, 64)`, the
+signal relayed with 270 generations per copy. Dispatch: a station (token releases gun B; its
+glider and the returning output kick a control back into the same gate; gun A's glider is turned
+to the caller), unpaired gliders absorbed by eaters; stations chain by `(72, 72)`. INC continue by
+a fan-out on the caller's side. Reuse spacings measured (DEC→DEC after Z 19 470). **DZ2 changed**:
+REG1's INC lane was occupied by DZ2's own restore glider; `R-29` moves one reflector and adds a gate
+`G_I`, so the certified `DZ2` (`dz2k0Run_rest`, `dz2k1Run_rest`) is the standalone version and the
+shared register must be re-certified (the generator does this mechanically). Open: routing each
+instruction's fan-out to its tokens and chain inputs.

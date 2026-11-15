@@ -18,11 +18,11 @@ point `(45, 31)`, gun-A glider `A = (SE, 14, ·)`, gun-B glider `B = (SW, 75, ·
 | --- | --- |
 | fast exact simulator | `gsim.c` (bit-packed, run on a grid whose border is checked never to be reached, escaping gliders peeled off only when provably gone): R-28's checks reproduced, k = 0 in 14 s instead of ≈ 40 min (`g1_check_dz2.py`; k = 0, 1, 2, 3, 40, 100, **300** checked) |
 | 1. MERGE (2-way OR gate, N-way chain) | **found and verified.** OR gate = one copy of `blockedStream`: through input `T = (SE, 43, ·)` (12 residues mod 30 release `A`), side input `S = (NE, −76, ·)` (residues 1 … 13, 18, 28 release `A`). Through direction = output direction, so copies chain by translation `(35, 64)` per copy (relay: each copy re-emits). DEC chain of 3 copies ending in DZ2's `C'`: every input verified alone and with DZ2 (k = 0 → Z, k = 1 → NZ). Re-use spacing of one gate ≤ 74 generations |
-| INC lane 314 | **obstruction found:** DZ2's own reflector `RF_C3` emits DZ2's restore `C_I` on lane 314 from the NW; no INC control can come down lane 314 and no gate releasing on 314 fits behind `RF_C3`. **Fixed:** OR gate `G_I` on lane 314 (through input = DZ2's `C_I`, re-emitted by `RF_C3` moved to `RF_C3'`; side input = external INC). DZ2' re-verified k = 0, 1, 2, 3, 40; external INC through `G_I` verified k = 0, 1, 2, 3, 40 |
+| INC lane 314 | **obstruction found:** DZ2's own reflector `RF_C3` emits DZ2's restore `C_I` on lane 314 from the NW; no INC control can come down lane 314 and no gate releasing on 314 fits behind `RF_C3`. **Fixed:** OR gate `G_I` on lane 314 (through input = DZ2's `C_I`, re-emitted by `RF_C3` moved to `RF_C3'`; side input = external INC, fed by a translation chain of the same OR gates through one reflector `RF_J`). DZ2' re-verified k = 0, 1, 2, 3, 40; external INC through `G_I` verified k = 0, 1, 2, 3, 40 |
 | 2. DISPATCH | **obstruction:** every two-glider collision leaving exactly one glider sends it back within 2 lanes of one input line (kickback / side step, `g0_pairs.py`). **Station found:** the token releases a gate's gun-B glider `T`; `T` meets the returning output `X` (kickback); the kicked-back glider re-enters the same gate as a catalogued control and releases its gun-A glider `S`, turned by one reflector towards the caller; unpaired `T` → eater 1; unpaired `X` passes. Stations chain by translation `(72, 72)` (delay 288) along the line. Verified on both DZ2 lines (2 stations each + end eaters), k = 0, 1, 2, 40, both callers and no caller |
-| 3. INC continue | **confirmed:** the transposed fan-out 0 of `f2_roundtrip` (the image used for DZ2's `F_A`) gives REG1's INC control and a free NE continue glider; k = 0, 1, 2, 3, 40, 100 checked. The continue leaves ≈ 993 generations before `C_I` passes x = 0 … the block is at `B_(k+1)` for good only at `tau(C_I) + 3269 + 4k`; INC→INC (450) and INC→DEC spacings are **independent of k** |
-| 4. REUSE | measured by exact simulation for k = 0, 1, 2, 3, 40 (§6): DEC after NZ: `C''` ≥ 1860 after `C'`; DEC after Z: ≥ 19 470; INC after INC: ≥ 450; INC after NZ / Z, DEC after INC: §6. **The Z output needs ≈ 8 600 generations of delay** (after passing `F_Z1`) before the next DEC control enters, ≈ 11 400 before an external INC control passes REG1's INC input |
-| full assembly | REG1 + DZ2' + `G_I` + `RF_J` + INC chain + DEC chain + 4 dispatch stations + 4 eaters (57 pieces): @@FULL@@ |
+| 3. INC continue | **confirmed:** the transposed fan-out 0 of `f2_roundtrip` (the image used for DZ2's `F_A`) gives REG1's INC control and a free NE continue glider; k = 0, 1, 2, 3, 40, 100 checked. The continue leaves F_I ≈ 4260 + 4k generations before the block is at `B_(k+1)` for good (at `tau(C_I) + 3269 + 4k`); INC→INC (450) and INC→DEC spacings are **independent of k** |
+| 4. REUSE | measured by exact simulation for k = 0, 1, 2, 3, 40 (§4): DEC after NZ: `C''` ≥ 1860 after `C'`; DEC after Z: ≥ 19 470; INC after INC: ≥ 450; INC after NZ / Z, DEC after INC: §4. **The Z output needs ≈ 8 600 generations of delay** (after passing `F_Z1`) before the next DEC control enters, ≈ 11 400 before an external INC control passes REG1's INC input |
+| full assembly | REG1 + DZ2' + `G_I` + `RF_J` + INC chain + DEC chain + 4 dispatch stations + 4 eaters (57 pieces): **every DEC-chain input × callers 0, 1 × k = 0, 1, 2, 40 and every INC-chain input × k = 0, 1, 2, 3, 40 verified** (exact simulation, nothing else left over) |
 
 ## 0. Simulator (`gsim.c`, `gsim.py`, `gcommon.py`)
 
@@ -64,7 +64,7 @@ the crossing `(45, 31)`; all gaps 1 … 600 with a releasing residue tested): fa
 Copy `i + 1` = copy `i` translated by `(35, 64)` (lane shift −29 = output lane − through lane;
 along-line spacing `A = 64`), its delay chosen so that the output of copy `i` arrives at residue 5
 of the through window of copy `i + 1`; the output of copy `i` is consumed by copy `i + 1`, which
-re-emits it (relay latency 270 generations per copy). `A = 44` (envelopes 12 apart) **fails**: the
+re-emits it (relay latency 270 generations per copy). `A = 44` (envelopes 12 apart) **fails** (`results/g6_chain_sim_A44.txt`: side inputs into copies 1, 2 give debris): the
 side line of copy `i` runs into copy `i + 1`; the smallest `A` with all side lines ≥ 12 from the
 other copies is 64. DEC chain (world frame), last copy releasing DZ2's `C'` class
 `(SE, 41, 4444 + 30m)`:
@@ -83,8 +83,8 @@ chain + DZ2, every input, k = 0: cycle ∪ B_0 ∪ Z (delayed with C'): ok (evol
 
 A chain of any length: add copies by the same translation upstream; each new copy's side line
 is ≥ 12 from all other copies (the side lines run to the SW, away from the chain, which proceeds
-SE). Side lines of the DEC chain are ≥ 39 cells from every other piece (1500 cells checked) and
-far from the register diagonal (§7).
+SE). Side lines of the DEC chain are ≥ 12 from every other piece over 1500 cells (copies 1 and 2
+pass copy 3 at 12) and ≥ 99 from the register diagonal (§5).
 
 ### 1.3 INC input: the lane-314 obstruction and the gate `G_I` (`g10_inc_or.py`, `g11_inc_check.py`)
 
@@ -110,7 +110,26 @@ external INC (NE, 1910, 6390 / 6396 / 6402) through G_I's side input on B_k, k =
 
 Since `C_I` is unchanged, DZ2' has the same timing as DZ2 (Z restore ends at 27 540).
 
-@@INC@@
+### 1.4 INC merge chain (`g12_inc_chain.py`, `g16_trace.py`; `results/g12_inc_chain.{txt,json}`)
+
+The INC chain is the DEC chain's construction (same OR gate, translation `(35, 64)` per copy,
+relays) whose last output is turned by one reflector `RF_J` (SE → NE) onto `G_I`'s side line:
+
+| piece | placement | inputs (the side windows are `τ … τ + 12`, + 30m) |
+| --- | --- | --- |
+| `RF_J` | `('rf', 4, −850, −1044, 5)` | in `(SE, 173, 3401)` → out `(NE, 1910, 3396)` = `G_I`'s side input |
+| INC copy 1 | `('asm', 0, −1202, −1419, 16)` | through `(SE, 260, 4829)`; side `(NE, 2545, 4825)` |
+| INC copy 2 | `('asm', 0, −1167, −1355, 0)` | side `(NE, 2446, 4669)` |
+| INC copy 3 | `('asm', 0, −1132, −1291, 14)` | side `(NE, 2347, 4543)` |
+
+Search filters: envelopes ≥ 15 from all pieces and ≥ 12 from DZ2's **flight trace** (all cells
+visited by DZ2's gliders in the k = 0 and k = 1 runs, `g16_trace.py`), segments and side lines
+(1500 cells) ≥ 12 from the pieces they do not use and from `B_−1 … B_600`. The first search,
+without the trace filter, put copy 3 on DZ2's segment `RF_R1 → RF_R2` (Z branch): the full k = 0
+run then left a permanently opened gun-B stream — the trace filter fixed it.
+INC instruction with continue (§3): its fan-out stands at the instruction; its link output is sent
+to one side input of this chain.
+
 
 ## 2. DISPATCH
 
@@ -144,7 +163,7 @@ for `D ≡ 5, 6, 11 (mod 15)` (`g7_station.txt`: 70 verified positions for `D �
 **Chaining:** station `j` = station 0 translated by `(72 j, 72 j)` and delayed by `288 j` — the same
 `X` then meets every station in the same phase. Checked with two stations: token at station 1
 (X passes station 0), token at station 0, both tokens without X, X without tokens: all ok;
-`a = 72` is the smallest spacing with all envelopes ≥ 12 apart (smaller `a` were not tried).
+`a = 72` is the smallest spacing (scanned from 60 in steps of 2) with all station envelopes ≥ 12 apart.
 
 ### 2.3 On DZ2's output lines (`g9_dispatch.py`; `results/g9_dispatch.{txt,json}`)
 
@@ -183,7 +202,7 @@ t = tau(C_I) + 3269 + 4k  (k = 0: 5217; k = 1: 5221; k = 40: 5377; k = 100: 5617
 ```
 
 So the continue is ≈ 4260 + 4k generations ahead of the completed increment and cannot wait for
-it. It does not need to: the next operation on the same register only needs the spacings of §6,
+it. It does not need to: the next operation on the same register only needs the spacings of §4,
 and **INC→INC (450) and INC→DEC are the same for k = 0, 1, 2, 3, 40** (both salvos travel the same
 extra 4k along the diagonal). In the shared design `F_I` stands at the instruction and its link
 feeds a side input of the INC chain (it is shown here on lane 314 of REG1 alone; with DZ2' present
@@ -216,7 +235,30 @@ come ≥ 450 after DZ2's own restore `C_I`). After NZ no delay is needed: the ne
 1860 after `C'`, the next INC 2468 after, both before NZ is even emitted (8541). The spacings for
 k ≥ 1 are the same for k = 1 (NZ then Z), 2, 3, 40.
 
-@@FULLSEC@@
+## 5. The whole shared register (`g14_full.py`, `g17_sep.py`; `results/g14_full_{inc,dec0,dec1}.txt`, `results/g17_sep.txt`)
+
+57 pieces = REG1 (22) + DZ2' (19: DZ2 with `RF_C3'`) + `G_I` + `RF_J` + INC chain (3) + DEC chain (3)
++ 2 + 2 dispatch stations (gate + `RF_S` each), and 4 eaters (2 token eaters, 2 line-end eaters).
+Each control is inserted as a free glider 250 generations before its gate (its line from 3000 cells
+away checked clear, §1.2, §2.3); end state compared cell by cell with the cycle of all pieces, the
+eaters and the expected block; removed (escaped) gliders compared with the expected list:
+
+```text
+DEC, every input of the DEC chain (T into copy 1, S into copies 1, 2, 3; C' delayed by 6000 / 5910 / 5640 / 5400),
+     with both tokens of caller 0 resp. 1 (delayed like C'):
+     k = 0        -> B_0      and exactly the glider dispatched at Z station 0 / 1, e.g. (SE, 1301, 15025): ok (8 runs)
+     k = 1, 2, 40 -> B_(k-1)  and exactly the glider dispatched at NZ station 0 / 1, e.g. (SW, 1325, 18547): ok (24 runs)
+INC, every input of the INC chain (T into copy 1 (SE, 260, 7829), S into copies 1, 2, 3), k = 0, 1, 2, 3, 40 -> B_(k+1), nothing else: ok (20 runs)
+```
+
+Separations (`g17_sep.py`; capped at 99): new envelopes to other pieces: DEC / INC chain copies
+32, `RF_J` 69, `RF_C3'` / `G_I` 46, station pieces ≥ 15 (`RF_S` of station j to the gate of station
+j + 1), eaters 53; to `B_−1 … B_600`: all ≥ 99. To DZ2's flight trace: chain copies ≥ 13, stations
+≥ 25, `RF_J` 61 (`G_I`, `RF_C3'` and the line-end eaters lie on DZ2's own paths by design). Input
+lines: DEC side lines ≥ 12 from all pieces (copies 1, 2 pass copy 3 of the chain at 12), INC side
+lines ≥ 12, through inputs ≥ 44; the side line of INC copy 3 crosses a DZ2 flight path (allowed:
+one control at a time; verified in the runs above).
+
 
 ## 6. Obstructions found
 

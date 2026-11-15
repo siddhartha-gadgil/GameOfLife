@@ -1,0 +1,407 @@
+K = (SW, 46, 305) releases ['(SW, 75, 411)']
+404 variant positions with D in 20..120
+TPL1 sym0 D=20 X=(SE, -25, 194) Y=(NE, -77, 199) : K+X -> ['(SW, 72, 557)']
+TPL1 sym7 D=20 X=(NW, 25, 394) Y=(NE, -75, 199) : K+X -> ['(SE, 14, 239)']; X alone passes: True
+TPL2 sym2 D=20 X=(NW, 25, 394) Y=(NE, -75, 199) : K+X -> ['(SE, 14, 239)']; X alone passes: True
+TPL2 sym6 D=20 X=(SE, -25, 194) Y=(NE, -77, 199) : K+X -> ['(SW, 72, 557)']
+TPL1 sym0 D=21 X=(SE, -27, 202) Y=(NE, -77, 207) : K+X -> ['(SE, 14, 239)']; X alone passes: True
+TPL1 sym7 D=21 X=(NW, 27, 394) Y=(NE, -75, 207) : K+X -> ['(SE, 14, 269)']; X alone passes: True
+TPL2 sym2 D=21 X=(NW, 27, 394) Y=(NE, -75, 207) : K+X -> ['(SE, 14, 269)']; X alone passes: True
+TPL2 sym6 D=21 X=(SE, -27, 202) Y=(NE, -77, 207) : K+X -> ['(SE, 14, 239)']; X alone passes: True
+TPL1 sym0 D=22 X=(SE, -29, 210) Y=(NE, -77, 215) : K+X -> ['(SE, 14, 239)']; X alone passes: True
+TPL1 sym7 D=22 X=(NW, 29, 394) Y=(NE, -75, 215) : K+X -> []
+TPL2 sym2 D=22 X=(NW, 29, 394) Y=(NE, -75, 215) : K+X -> []
+TPL2 sym6 D=22 X=(SE, -29, 210) Y=(NE, -77, 215) : K+X -> ['(SE, 14, 239)']; X alone passes: True
+TPL1 sym0 D=23 X=(SE, -31, 218) Y=(NE, -77, 223) : K+X -> None
+TPL1 sym7 D=23 X=(NW, 31, 394) Y=(NE, -75, 223) : K+X -> None
+TPL2 sym2 D=23 X=(NW, 31, 394) Y=(NE, -75, 223) : K+X -> None
+TPL2 sym6 D=23 X=(SE, -31, 218) Y=(NE, -77, 223) : K+X -> None
+TPL1 sym0 D=24 X=(SE, -33, 226) Y=(NE, -77, 231) : K+X -> ['(SW, 75, 681)']
+TPL1 sym7 D=24 X=(NW, 33, 394) Y=(NE, -75, 231) : K+X -> None
+TPL2 sym2 D=24 X=(NW, 33, 394) Y=(NE, -75, 231) : K+X -> None
+TPL2 sym6 D=24 X=(SE, -33, 226) Y=(NE, -77, 231) : K+X -> ['(SW, 75, 681)']
+TPL1 sym0 D=25 X=(SE, -35, 234) Y=(NE, -77, 239) : K+X -> None
+TPL1 sym7 D=25 X=(NW, 35, 394) Y=(NE, -75, 239) : K+X -> []
+TPL2 sym2 D=25 X=(NW, 35, 394) Y=(NE, -75, 239) : K+X -> []
+TPL2 sym6 D=25 X=(SE, -35, 234) Y=(NE, -77, 239) : K+X -> None
+TPL1 sym0 D=26 X=(SE, -37, 242) Y=(NE, -77, 247) : K+X -> None
+TPL1 sym7 D=26 X=(NW, 37, 394) Y=(NE, -75, 247) : K+X -> ['(SE, 14, 329)']; X alone passes: True
+TPL2 sym2 D=26 X=(NW, 37, 394) Y=(NE, -75, 247) : K+X -> ['(SE, 14, 329)']; X alone passes: True
+TPL2 sym6 D=26 X=(SE, -37, 242) Y=(NE, -77, 247) : K+X -> None
+TPL1 sym0 D=27 X=(SE, -39, 250) Y=(NE, -77, 255) : K+X -> None
+TPL1 sym7 D=27 X=(NW, 39, 394) Y=(NE, -75, 255) : K+X -> None
+TPL2 sym2 D=27 X=(NW, 39, 394) Y=(NE, -75, 255) : K+X -> None
+TPL2 sym6 D=27 X=(SE, -39, 250) Y=(NE, -77, 255) : K+X -> None
+TPL1 sym0 D=28 X=(SE, -41, 258) Y=(NE, -77, 263) : K+X -> None
+TPL1 sym7 D=28 X=(NW, 41, 394) Y=(NE, -75, 263) : K+X -> None
+TPL2 sym2 D=28 X=(NW, 41, 394) Y=(NE, -75, 263) : K+X -> None
+TPL2 sym6 D=28 X=(SE, -41, 258) Y=(NE, -77, 263) : K+X -> None
+TPL1 sym0 D=29 X=(SE, -43, 266) Y=(NE, -77, 271) : K+X -> None
+TPL1 sym7 D=29 X=(NW, 43, 394) Y=(NE, -75, 271) : K+X -> None
+TPL2 sym2 D=29 X=(NW, 43, 394) Y=(NE, -75, 271) : K+X -> None
+TPL2 sym6 D=29 X=(SE, -43, 266) Y=(NE, -77, 271) : K+X -> None
+TPL1 sym0 D=30 X=(SE, -45, 274) Y=(NE, -77, 279) : K+X -> None
+TPL1 sym7 D=30 X=(NW, 45, 394) Y=(NE, -75, 279) : K+X -> None
+TPL2 sym2 D=30 X=(NW, 45, 394) Y=(NE, -75, 279) : K+X -> None
+TPL2 sym6 D=30 X=(SE, -45, 274) Y=(NE, -77, 279) : K+X -> None
+TPL1 sym0 D=31 X=(SE, -47, 282) Y=(NE, -77, 287) : K+X -> []
+TPL1 sym7 D=31 X=(NW, 47, 394) Y=(NE, -75, 287) : K+X -> None
+TPL2 sym2 D=31 X=(NW, 47, 394) Y=(NE, -75, 287) : K+X -> None
+TPL2 sym6 D=31 X=(SE, -47, 282) Y=(NE, -77, 287) : K+X -> []
+TPL1 sym0 D=32 X=(SE, -49, 290) Y=(NE, -77, 295) : K+X -> None
+TPL1 sym7 D=32 X=(NW, 49, 394) Y=(NE, -75, 295) : K+X -> None
+TPL2 sym2 D=32 X=(NW, 49, 394) Y=(NE, -75, 295) : K+X -> None
+TPL2 sym6 D=32 X=(SE, -49, 290) Y=(NE, -77, 295) : K+X -> None
+TPL1 sym0 D=33 X=(SE, -51, 298) Y=(NE, -77, 303) : K+X -> None
+TPL1 sym7 D=33 X=(NW, 51, 394) Y=(NE, -75, 303) : K+X -> []
+TPL2 sym2 D=33 X=(NW, 51, 394) Y=(NE, -75, 303) : K+X -> []
+TPL2 sym6 D=33 X=(SE, -51, 298) Y=(NE, -77, 303) : K+X -> None
+TPL1 sym0 D=34 X=(SE, -53, 306) Y=(NE, -77, 311) : K+X -> None
+TPL1 sym7 D=34 X=(NW, 53, 394) Y=(NE, -75, 311) : K+X -> None
+TPL2 sym2 D=34 X=(NW, 53, 394) Y=(NE, -75, 311) : K+X -> None
+TPL2 sym6 D=34 X=(SE, -53, 306) Y=(NE, -77, 311) : K+X -> None
+TPL1 sym0 D=35 X=(SE, -55, 314) Y=(NE, -77, 319) : K+X -> ['(SW, 72, 677)']
+TPL1 sym7 D=35 X=(NW, 55, 394) Y=(NE, -75, 319) : K+X -> ['(SE, 14, 359)']; X alone passes: True
+TPL2 sym2 D=35 X=(NW, 55, 394) Y=(NE, -75, 319) : K+X -> ['(SE, 14, 359)']; X alone passes: True
+TPL2 sym6 D=35 X=(SE, -55, 314) Y=(NE, -77, 319) : K+X -> ['(SW, 72, 677)']
+TPL1 sym0 D=36 X=(SE, -57, 322) Y=(NE, -77, 327) : K+X -> ['(SE, 14, 359)']; X alone passes: True
+TPL1 sym7 D=36 X=(NW, 57, 394) Y=(NE, -75, 327) : K+X -> ['(SE, 14, 389)']; X alone passes: True
+TPL2 sym2 D=36 X=(NW, 57, 394) Y=(NE, -75, 327) : K+X -> ['(SE, 14, 389)']; X alone passes: True
+TPL2 sym6 D=36 X=(SE, -57, 322) Y=(NE, -77, 327) : K+X -> ['(SE, 14, 359)']; X alone passes: True
+TPL1 sym0 D=37 X=(SE, -59, 330) Y=(NE, -77, 335) : K+X -> ['(SE, 14, 359)']; X alone passes: True
+TPL1 sym7 D=37 X=(NW, 59, 394) Y=(NE, -75, 335) : K+X -> []
+TPL2 sym2 D=37 X=(NW, 59, 394) Y=(NE, -75, 335) : K+X -> []
+TPL2 sym6 D=37 X=(SE, -59, 330) Y=(NE, -77, 335) : K+X -> ['(SE, 14, 359)']; X alone passes: True
+TPL1 sym0 D=38 X=(SE, -61, 338) Y=(NE, -77, 343) : K+X -> None
+TPL1 sym7 D=38 X=(NW, 61, 394) Y=(NE, -75, 343) : K+X -> None
+TPL2 sym2 D=38 X=(NW, 61, 394) Y=(NE, -75, 343) : K+X -> None
+TPL2 sym6 D=38 X=(SE, -61, 338) Y=(NE, -77, 343) : K+X -> None
+TPL1 sym0 D=39 X=(SE, -63, 346) Y=(NE, -77, 351) : K+X -> ['(SW, 75, 801)']
+TPL1 sym7 D=39 X=(NW, 63, 394) Y=(NE, -75, 351) : K+X -> None
+TPL2 sym2 D=39 X=(NW, 63, 394) Y=(NE, -75, 351) : K+X -> None
+TPL2 sym6 D=39 X=(SE, -63, 346) Y=(NE, -77, 351) : K+X -> ['(SW, 75, 801)']
+TPL1 sym0 D=40 X=(SE, -65, 354) Y=(NE, -77, 359) : K+X -> None
+TPL1 sym7 D=40 X=(NW, 65, 394) Y=(NE, -75, 359) : K+X -> []
+TPL2 sym2 D=40 X=(NW, 65, 394) Y=(NE, -75, 359) : K+X -> []
+TPL2 sym6 D=40 X=(SE, -65, 354) Y=(NE, -77, 359) : K+X -> None
+TPL1 sym0 D=41 X=(SE, -67, 362) Y=(NE, -77, 367) : K+X -> None
+TPL1 sym7 D=41 X=(NW, 67, 394) Y=(NE, -75, 367) : K+X -> ['(SE, 14, 449)']; X alone passes: True
+TPL2 sym2 D=41 X=(NW, 67, 394) Y=(NE, -75, 367) : K+X -> ['(SE, 14, 449)']; X alone passes: True
+TPL2 sym6 D=41 X=(SE, -67, 362) Y=(NE, -77, 367) : K+X -> None
+TPL1 sym0 D=42 X=(SE, -69, 370) Y=(NE, -77, 375) : K+X -> None
+TPL1 sym7 D=42 X=(NW, 69, 394) Y=(NE, -75, 375) : K+X -> None
+TPL2 sym2 D=42 X=(NW, 69, 394) Y=(NE, -75, 375) : K+X -> None
+TPL2 sym6 D=42 X=(SE, -69, 370) Y=(NE, -77, 375) : K+X -> None
+TPL1 sym0 D=43 X=(SE, -71, 378) Y=(NE, -77, 383) : K+X -> None
+TPL1 sym7 D=43 X=(NW, 71, 394) Y=(NE, -75, 383) : K+X -> None
+TPL2 sym2 D=43 X=(NW, 71, 394) Y=(NE, -75, 383) : K+X -> None
+TPL2 sym6 D=43 X=(SE, -71, 378) Y=(NE, -77, 383) : K+X -> None
+TPL1 sym0 D=44 X=(SE, -73, 386) Y=(NE, -77, 391) : K+X -> None
+TPL1 sym7 D=44 X=(NW, 73, 394) Y=(NE, -75, 391) : K+X -> None
+TPL2 sym2 D=44 X=(NW, 73, 394) Y=(NE, -75, 391) : K+X -> None
+TPL2 sym6 D=44 X=(SE, -73, 386) Y=(NE, -77, 391) : K+X -> None
+TPL1 sym0 D=45 X=(SE, -75, 394) Y=(NE, -77, 399) : K+X -> None
+TPL1 sym7 D=45 X=(NW, 75, 394) Y=(NE, -75, 399) : K+X -> None
+TPL2 sym2 D=45 X=(NW, 75, 394) Y=(NE, -75, 399) : K+X -> None
+TPL2 sym6 D=45 X=(SE, -75, 394) Y=(NE, -77, 399) : K+X -> None
+TPL1 sym0 D=46 X=(SE, -77, 402) Y=(NE, -77, 407) : K+X -> []
+TPL1 sym7 D=46 X=(NW, 77, 394) Y=(NE, -75, 407) : K+X -> None
+TPL2 sym2 D=46 X=(NW, 77, 394) Y=(NE, -75, 407) : K+X -> None
+TPL2 sym6 D=46 X=(SE, -77, 402) Y=(NE, -77, 407) : K+X -> []
+TPL1 sym0 D=47 X=(SE, -79, 410) Y=(NE, -77, 415) : K+X -> None
+TPL1 sym7 D=47 X=(NW, 79, 394) Y=(NE, -75, 415) : K+X -> None
+TPL2 sym2 D=47 X=(NW, 79, 394) Y=(NE, -75, 415) : K+X -> None
+TPL2 sym6 D=47 X=(SE, -79, 410) Y=(NE, -77, 415) : K+X -> None
+TPL1 sym0 D=48 X=(SE, -81, 418) Y=(NE, -77, 423) : K+X -> None
+TPL1 sym7 D=48 X=(NW, 81, 394) Y=(NE, -75, 423) : K+X -> []
+TPL2 sym2 D=48 X=(NW, 81, 394) Y=(NE, -75, 423) : K+X -> []
+TPL2 sym6 D=48 X=(SE, -81, 418) Y=(NE, -77, 423) : K+X -> None
+TPL1 sym0 D=49 X=(SE, -83, 426) Y=(NE, -77, 431) : K+X -> None
+TPL1 sym7 D=49 X=(NW, 83, 394) Y=(NE, -75, 431) : K+X -> None
+TPL2 sym2 D=49 X=(NW, 83, 394) Y=(NE, -75, 431) : K+X -> None
+TPL2 sym6 D=49 X=(SE, -83, 426) Y=(NE, -77, 431) : K+X -> None
+TPL1 sym0 D=50 X=(SE, -85, 434) Y=(NE, -77, 439) : K+X -> ['(SW, 72, 797)']
+TPL1 sym7 D=50 X=(NW, 85, 394) Y=(NE, -75, 439) : K+X -> ['(SE, 14, 479)']; X alone passes: True
+TPL2 sym2 D=50 X=(NW, 85, 394) Y=(NE, -75, 439) : K+X -> ['(SE, 14, 479)']; X alone passes: True
+TPL2 sym6 D=50 X=(SE, -85, 434) Y=(NE, -77, 439) : K+X -> ['(SW, 72, 797)']
+TPL1 sym0 D=51 X=(SE, -87, 442) Y=(NE, -77, 447) : K+X -> ['(SE, 14, 479)']; X alone passes: True
+TPL1 sym7 D=51 X=(NW, 87, 394) Y=(NE, -75, 447) : K+X -> ['(SE, 14, 509)']; X alone passes: True
+TPL2 sym2 D=51 X=(NW, 87, 394) Y=(NE, -75, 447) : K+X -> ['(SE, 14, 509)']; X alone passes: True
+TPL2 sym6 D=51 X=(SE, -87, 442) Y=(NE, -77, 447) : K+X -> ['(SE, 14, 479)']; X alone passes: True
+TPL1 sym0 D=52 X=(SE, -89, 450) Y=(NE, -77, 455) : K+X -> ['(SE, 14, 479)']; X alone passes: True
+TPL1 sym7 D=52 X=(NW, 89, 394) Y=(NE, -75, 455) : K+X -> []
+TPL2 sym2 D=52 X=(NW, 89, 394) Y=(NE, -75, 455) : K+X -> []
+TPL2 sym6 D=52 X=(SE, -89, 450) Y=(NE, -77, 455) : K+X -> ['(SE, 14, 479)']; X alone passes: True
+TPL1 sym0 D=53 X=(SE, -91, 458) Y=(NE, -77, 463) : K+X -> None
+TPL1 sym7 D=53 X=(NW, 91, 394) Y=(NE, -75, 463) : K+X -> None
+TPL2 sym2 D=53 X=(NW, 91, 394) Y=(NE, -75, 463) : K+X -> None
+TPL2 sym6 D=53 X=(SE, -91, 458) Y=(NE, -77, 463) : K+X -> None
+TPL1 sym0 D=54 X=(SE, -93, 466) Y=(NE, -77, 471) : K+X -> ['(SW, 75, 921)']
+TPL1 sym7 D=54 X=(NW, 93, 394) Y=(NE, -75, 471) : K+X -> None
+TPL2 sym2 D=54 X=(NW, 93, 394) Y=(NE, -75, 471) : K+X -> None
+TPL2 sym6 D=54 X=(SE, -93, 466) Y=(NE, -77, 471) : K+X -> ['(SW, 75, 921)']
+TPL1 sym0 D=55 X=(SE, -95, 474) Y=(NE, -77, 479) : K+X -> None
+TPL1 sym7 D=55 X=(NW, 95, 394) Y=(NE, -75, 479) : K+X -> []
+TPL2 sym2 D=55 X=(NW, 95, 394) Y=(NE, -75, 479) : K+X -> []
+TPL2 sym6 D=55 X=(SE, -95, 474) Y=(NE, -77, 479) : K+X -> None
+TPL1 sym0 D=56 X=(SE, -97, 482) Y=(NE, -77, 487) : K+X -> None
+TPL1 sym7 D=56 X=(NW, 97, 394) Y=(NE, -75, 487) : K+X -> ['(SE, 14, 569)']; X alone passes: True
+TPL2 sym2 D=56 X=(NW, 97, 394) Y=(NE, -75, 487) : K+X -> ['(SE, 14, 569)']; X alone passes: True
+TPL2 sym6 D=56 X=(SE, -97, 482) Y=(NE, -77, 487) : K+X -> None
+TPL1 sym0 D=57 X=(SE, -99, 490) Y=(NE, -77, 495) : K+X -> None
+TPL1 sym7 D=57 X=(NW, 99, 394) Y=(NE, -75, 495) : K+X -> None
+TPL2 sym2 D=57 X=(NW, 99, 394) Y=(NE, -75, 495) : K+X -> None
+TPL2 sym6 D=57 X=(SE, -99, 490) Y=(NE, -77, 495) : K+X -> None
+TPL1 sym0 D=58 X=(SE, -101, 498) Y=(NE, -77, 503) : K+X -> None
+TPL1 sym7 D=58 X=(NW, 101, 394) Y=(NE, -75, 503) : K+X -> None
+TPL2 sym2 D=58 X=(NW, 101, 394) Y=(NE, -75, 503) : K+X -> None
+TPL2 sym6 D=58 X=(SE, -101, 498) Y=(NE, -77, 503) : K+X -> None
+TPL1 sym0 D=59 X=(SE, -103, 506) Y=(NE, -77, 511) : K+X -> None
+TPL1 sym7 D=59 X=(NW, 103, 394) Y=(NE, -75, 511) : K+X -> None
+TPL2 sym2 D=59 X=(NW, 103, 394) Y=(NE, -75, 511) : K+X -> None
+TPL2 sym6 D=59 X=(SE, -103, 506) Y=(NE, -77, 511) : K+X -> None
+TPL1 sym0 D=60 X=(SE, -105, 514) Y=(NE, -77, 519) : K+X -> None
+TPL1 sym7 D=60 X=(NW, 105, 394) Y=(NE, -75, 519) : K+X -> None
+TPL2 sym2 D=60 X=(NW, 105, 394) Y=(NE, -75, 519) : K+X -> None
+TPL2 sym6 D=60 X=(SE, -105, 514) Y=(NE, -77, 519) : K+X -> None
+TPL1 sym0 D=61 X=(SE, -107, 522) Y=(NE, -77, 527) : K+X -> []
+TPL1 sym7 D=61 X=(NW, 107, 394) Y=(NE, -75, 527) : K+X -> None
+TPL2 sym2 D=61 X=(NW, 107, 394) Y=(NE, -75, 527) : K+X -> None
+TPL2 sym6 D=61 X=(SE, -107, 522) Y=(NE, -77, 527) : K+X -> []
+TPL1 sym0 D=62 X=(SE, -109, 530) Y=(NE, -77, 535) : K+X -> None
+TPL1 sym7 D=62 X=(NW, 109, 394) Y=(NE, -75, 535) : K+X -> None
+TPL2 sym2 D=62 X=(NW, 109, 394) Y=(NE, -75, 535) : K+X -> None
+TPL2 sym6 D=62 X=(SE, -109, 530) Y=(NE, -77, 535) : K+X -> None
+TPL1 sym0 D=63 X=(SE, -111, 538) Y=(NE, -77, 543) : K+X -> None
+TPL1 sym7 D=63 X=(NW, 111, 394) Y=(NE, -75, 543) : K+X -> []
+TPL2 sym2 D=63 X=(NW, 111, 394) Y=(NE, -75, 543) : K+X -> []
+TPL2 sym6 D=63 X=(SE, -111, 538) Y=(NE, -77, 543) : K+X -> None
+TPL1 sym0 D=64 X=(SE, -113, 546) Y=(NE, -77, 551) : K+X -> None
+TPL1 sym7 D=64 X=(NW, 113, 394) Y=(NE, -75, 551) : K+X -> None
+TPL2 sym2 D=64 X=(NW, 113, 394) Y=(NE, -75, 551) : K+X -> None
+TPL2 sym6 D=64 X=(SE, -113, 546) Y=(NE, -77, 551) : K+X -> None
+TPL1 sym0 D=65 X=(SE, -115, 554) Y=(NE, -77, 559) : K+X -> ['(SW, 72, 917)']
+TPL1 sym7 D=65 X=(NW, 115, 394) Y=(NE, -75, 559) : K+X -> ['(SE, 14, 599)']; X alone passes: True
+TPL2 sym2 D=65 X=(NW, 115, 394) Y=(NE, -75, 559) : K+X -> ['(SE, 14, 599)']; X alone passes: True
+TPL2 sym6 D=65 X=(SE, -115, 554) Y=(NE, -77, 559) : K+X -> ['(SW, 72, 917)']
+TPL1 sym0 D=66 X=(SE, -117, 562) Y=(NE, -77, 567) : K+X -> ['(SE, 14, 599)']; X alone passes: True
+TPL1 sym7 D=66 X=(NW, 117, 394) Y=(NE, -75, 567) : K+X -> ['(SE, 14, 629)']; X alone passes: True
+TPL2 sym2 D=66 X=(NW, 117, 394) Y=(NE, -75, 567) : K+X -> ['(SE, 14, 629)']; X alone passes: True
+TPL2 sym6 D=66 X=(SE, -117, 562) Y=(NE, -77, 567) : K+X -> ['(SE, 14, 599)']; X alone passes: True
+TPL1 sym0 D=67 X=(SE, -119, 570) Y=(NE, -77, 575) : K+X -> ['(SE, 14, 599)']; X alone passes: True
+TPL1 sym7 D=67 X=(NW, 119, 394) Y=(NE, -75, 575) : K+X -> []
+TPL2 sym2 D=67 X=(NW, 119, 394) Y=(NE, -75, 575) : K+X -> []
+TPL2 sym6 D=67 X=(SE, -119, 570) Y=(NE, -77, 575) : K+X -> ['(SE, 14, 599)']; X alone passes: True
+TPL1 sym0 D=68 X=(SE, -121, 578) Y=(NE, -77, 583) : K+X -> None
+TPL1 sym7 D=68 X=(NW, 121, 394) Y=(NE, -75, 583) : K+X -> None
+TPL2 sym2 D=68 X=(NW, 121, 394) Y=(NE, -75, 583) : K+X -> None
+TPL2 sym6 D=68 X=(SE, -121, 578) Y=(NE, -77, 583) : K+X -> None
+TPL1 sym0 D=69 X=(SE, -123, 586) Y=(NE, -77, 591) : K+X -> ['(SW, 75, 1041)']
+TPL1 sym7 D=69 X=(NW, 123, 394) Y=(NE, -75, 591) : K+X -> None
+TPL2 sym2 D=69 X=(NW, 123, 394) Y=(NE, -75, 591) : K+X -> None
+TPL2 sym6 D=69 X=(SE, -123, 586) Y=(NE, -77, 591) : K+X -> ['(SW, 75, 1041)']
+TPL1 sym0 D=70 X=(SE, -125, 594) Y=(NE, -77, 599) : K+X -> None
+TPL1 sym7 D=70 X=(NW, 125, 394) Y=(NE, -75, 599) : K+X -> []
+TPL2 sym2 D=70 X=(NW, 125, 394) Y=(NE, -75, 599) : K+X -> []
+TPL2 sym6 D=70 X=(SE, -125, 594) Y=(NE, -77, 599) : K+X -> None
+TPL1 sym0 D=71 X=(SE, -127, 602) Y=(NE, -77, 607) : K+X -> None
+TPL1 sym7 D=71 X=(NW, 127, 394) Y=(NE, -75, 607) : K+X -> ['(SE, 14, 689)']; X alone passes: True
+TPL2 sym2 D=71 X=(NW, 127, 394) Y=(NE, -75, 607) : K+X -> ['(SE, 14, 689)']; X alone passes: True
+TPL2 sym6 D=71 X=(SE, -127, 602) Y=(NE, -77, 607) : K+X -> None
+TPL1 sym0 D=72 X=(SE, -129, 610) Y=(NE, -77, 615) : K+X -> None
+TPL1 sym7 D=72 X=(NW, 129, 394) Y=(NE, -75, 615) : K+X -> None
+TPL2 sym2 D=72 X=(NW, 129, 394) Y=(NE, -75, 615) : K+X -> None
+TPL2 sym6 D=72 X=(SE, -129, 610) Y=(NE, -77, 615) : K+X -> None
+TPL1 sym0 D=73 X=(SE, -131, 618) Y=(NE, -77, 623) : K+X -> None
+TPL1 sym7 D=73 X=(NW, 131, 394) Y=(NE, -75, 623) : K+X -> None
+TPL2 sym2 D=73 X=(NW, 131, 394) Y=(NE, -75, 623) : K+X -> None
+TPL2 sym6 D=73 X=(SE, -131, 618) Y=(NE, -77, 623) : K+X -> None
+TPL1 sym0 D=74 X=(SE, -133, 626) Y=(NE, -77, 631) : K+X -> None
+TPL1 sym7 D=74 X=(NW, 133, 394) Y=(NE, -75, 631) : K+X -> None
+TPL2 sym2 D=74 X=(NW, 133, 394) Y=(NE, -75, 631) : K+X -> None
+TPL2 sym6 D=74 X=(SE, -133, 626) Y=(NE, -77, 631) : K+X -> None
+TPL1 sym0 D=75 X=(SE, -135, 634) Y=(NE, -77, 639) : K+X -> None
+TPL1 sym7 D=75 X=(NW, 135, 394) Y=(NE, -75, 639) : K+X -> None
+TPL2 sym2 D=75 X=(NW, 135, 394) Y=(NE, -75, 639) : K+X -> None
+TPL2 sym6 D=75 X=(SE, -135, 634) Y=(NE, -77, 639) : K+X -> None
+TPL1 sym0 D=76 X=(SE, -137, 642) Y=(NE, -77, 647) : K+X -> []
+TPL1 sym7 D=76 X=(NW, 137, 394) Y=(NE, -75, 647) : K+X -> None
+TPL2 sym2 D=76 X=(NW, 137, 394) Y=(NE, -75, 647) : K+X -> None
+TPL2 sym6 D=76 X=(SE, -137, 642) Y=(NE, -77, 647) : K+X -> []
+TPL1 sym0 D=77 X=(SE, -139, 650) Y=(NE, -77, 655) : K+X -> None
+TPL1 sym7 D=77 X=(NW, 139, 394) Y=(NE, -75, 655) : K+X -> None
+TPL2 sym2 D=77 X=(NW, 139, 394) Y=(NE, -75, 655) : K+X -> None
+TPL2 sym6 D=77 X=(SE, -139, 650) Y=(NE, -77, 655) : K+X -> None
+TPL1 sym0 D=78 X=(SE, -141, 658) Y=(NE, -77, 663) : K+X -> None
+TPL1 sym7 D=78 X=(NW, 141, 394) Y=(NE, -75, 663) : K+X -> []
+TPL2 sym2 D=78 X=(NW, 141, 394) Y=(NE, -75, 663) : K+X -> []
+TPL2 sym6 D=78 X=(SE, -141, 658) Y=(NE, -77, 663) : K+X -> None
+TPL1 sym0 D=79 X=(SE, -143, 666) Y=(NE, -77, 671) : K+X -> None
+TPL1 sym7 D=79 X=(NW, 143, 394) Y=(NE, -75, 671) : K+X -> None
+TPL2 sym2 D=79 X=(NW, 143, 394) Y=(NE, -75, 671) : K+X -> None
+TPL2 sym6 D=79 X=(SE, -143, 666) Y=(NE, -77, 671) : K+X -> None
+TPL1 sym0 D=80 X=(SE, -145, 674) Y=(NE, -77, 679) : K+X -> ['(SW, 72, 1037)']
+TPL1 sym7 D=80 X=(NW, 145, 394) Y=(NE, -75, 679) : K+X -> ['(SE, 14, 719)']; X alone passes: True
+TPL2 sym2 D=80 X=(NW, 145, 394) Y=(NE, -75, 679) : K+X -> ['(SE, 14, 719)']; X alone passes: True
+TPL2 sym6 D=80 X=(SE, -145, 674) Y=(NE, -77, 679) : K+X -> ['(SW, 72, 1037)']
+TPL1 sym0 D=81 X=(SE, -147, 682) Y=(NE, -77, 687) : K+X -> ['(SE, 14, 719)']; X alone passes: True
+TPL1 sym7 D=81 X=(NW, 147, 394) Y=(NE, -75, 687) : K+X -> ['(SE, 14, 749)']; X alone passes: True
+TPL2 sym2 D=81 X=(NW, 147, 394) Y=(NE, -75, 687) : K+X -> ['(SE, 14, 749)']; X alone passes: True
+TPL2 sym6 D=81 X=(SE, -147, 682) Y=(NE, -77, 687) : K+X -> ['(SE, 14, 719)']; X alone passes: True
+TPL1 sym0 D=82 X=(SE, -149, 690) Y=(NE, -77, 695) : K+X -> ['(SE, 14, 719)']; X alone passes: True
+TPL1 sym7 D=82 X=(NW, 149, 394) Y=(NE, -75, 695) : K+X -> []
+TPL2 sym2 D=82 X=(NW, 149, 394) Y=(NE, -75, 695) : K+X -> []
+TPL2 sym6 D=82 X=(SE, -149, 690) Y=(NE, -77, 695) : K+X -> ['(SE, 14, 719)']; X alone passes: True
+TPL1 sym0 D=83 X=(SE, -151, 698) Y=(NE, -77, 703) : K+X -> None
+TPL1 sym7 D=83 X=(NW, 151, 394) Y=(NE, -75, 703) : K+X -> None
+TPL2 sym2 D=83 X=(NW, 151, 394) Y=(NE, -75, 703) : K+X -> None
+TPL2 sym6 D=83 X=(SE, -151, 698) Y=(NE, -77, 703) : K+X -> None
+TPL1 sym0 D=84 X=(SE, -153, 706) Y=(NE, -77, 711) : K+X -> ['(SW, 75, 1161)']
+TPL1 sym7 D=84 X=(NW, 153, 394) Y=(NE, -75, 711) : K+X -> None
+TPL2 sym2 D=84 X=(NW, 153, 394) Y=(NE, -75, 711) : K+X -> None
+TPL2 sym6 D=84 X=(SE, -153, 706) Y=(NE, -77, 711) : K+X -> ['(SW, 75, 1161)']
+TPL1 sym0 D=85 X=(SE, -155, 714) Y=(NE, -77, 719) : K+X -> None
+TPL1 sym7 D=85 X=(NW, 155, 394) Y=(NE, -75, 719) : K+X -> []
+TPL2 sym2 D=85 X=(NW, 155, 394) Y=(NE, -75, 719) : K+X -> []
+TPL2 sym6 D=85 X=(SE, -155, 714) Y=(NE, -77, 719) : K+X -> None
+TPL1 sym0 D=86 X=(SE, -157, 722) Y=(NE, -77, 727) : K+X -> None
+TPL1 sym7 D=86 X=(NW, 157, 394) Y=(NE, -75, 727) : K+X -> ['(SE, 14, 809)']; X alone passes: True
+TPL2 sym2 D=86 X=(NW, 157, 394) Y=(NE, -75, 727) : K+X -> ['(SE, 14, 809)']; X alone passes: True
+TPL2 sym6 D=86 X=(SE, -157, 722) Y=(NE, -77, 727) : K+X -> None
+TPL1 sym0 D=87 X=(SE, -159, 730) Y=(NE, -77, 735) : K+X -> None
+TPL1 sym7 D=87 X=(NW, 159, 394) Y=(NE, -75, 735) : K+X -> None
+TPL2 sym2 D=87 X=(NW, 159, 394) Y=(NE, -75, 735) : K+X -> None
+TPL2 sym6 D=87 X=(SE, -159, 730) Y=(NE, -77, 735) : K+X -> None
+TPL1 sym0 D=88 X=(SE, -161, 738) Y=(NE, -77, 743) : K+X -> None
+TPL1 sym7 D=88 X=(NW, 161, 394) Y=(NE, -75, 743) : K+X -> None
+TPL2 sym2 D=88 X=(NW, 161, 394) Y=(NE, -75, 743) : K+X -> None
+TPL2 sym6 D=88 X=(SE, -161, 738) Y=(NE, -77, 743) : K+X -> None
+TPL1 sym0 D=89 X=(SE, -163, 746) Y=(NE, -77, 751) : K+X -> None
+TPL1 sym7 D=89 X=(NW, 163, 394) Y=(NE, -75, 751) : K+X -> None
+TPL2 sym2 D=89 X=(NW, 163, 394) Y=(NE, -75, 751) : K+X -> None
+TPL2 sym6 D=89 X=(SE, -163, 746) Y=(NE, -77, 751) : K+X -> None
+TPL1 sym0 D=90 X=(SE, -165, 754) Y=(NE, -77, 759) : K+X -> None
+TPL1 sym7 D=90 X=(NW, 165, 394) Y=(NE, -75, 759) : K+X -> None
+TPL2 sym2 D=90 X=(NW, 165, 394) Y=(NE, -75, 759) : K+X -> None
+TPL2 sym6 D=90 X=(SE, -165, 754) Y=(NE, -77, 759) : K+X -> None
+TPL1 sym0 D=91 X=(SE, -167, 762) Y=(NE, -77, 767) : K+X -> []
+TPL1 sym7 D=91 X=(NW, 167, 394) Y=(NE, -75, 767) : K+X -> None
+TPL2 sym2 D=91 X=(NW, 167, 394) Y=(NE, -75, 767) : K+X -> None
+TPL2 sym6 D=91 X=(SE, -167, 762) Y=(NE, -77, 767) : K+X -> []
+TPL1 sym0 D=92 X=(SE, -169, 770) Y=(NE, -77, 775) : K+X -> None
+TPL1 sym7 D=92 X=(NW, 169, 394) Y=(NE, -75, 775) : K+X -> None
+TPL2 sym2 D=92 X=(NW, 169, 394) Y=(NE, -75, 775) : K+X -> None
+TPL2 sym6 D=92 X=(SE, -169, 770) Y=(NE, -77, 775) : K+X -> None
+TPL1 sym0 D=93 X=(SE, -171, 778) Y=(NE, -77, 783) : K+X -> None
+TPL1 sym7 D=93 X=(NW, 171, 394) Y=(NE, -75, 783) : K+X -> []
+TPL2 sym2 D=93 X=(NW, 171, 394) Y=(NE, -75, 783) : K+X -> []
+TPL2 sym6 D=93 X=(SE, -171, 778) Y=(NE, -77, 783) : K+X -> None
+TPL1 sym0 D=94 X=(SE, -173, 786) Y=(NE, -77, 791) : K+X -> None
+TPL1 sym7 D=94 X=(NW, 173, 394) Y=(NE, -75, 791) : K+X -> None
+TPL2 sym2 D=94 X=(NW, 173, 394) Y=(NE, -75, 791) : K+X -> None
+TPL2 sym6 D=94 X=(SE, -173, 786) Y=(NE, -77, 791) : K+X -> None
+TPL1 sym0 D=95 X=(SE, -175, 794) Y=(NE, -77, 799) : K+X -> ['(SW, 72, 1157)']
+TPL1 sym7 D=95 X=(NW, 175, 394) Y=(NE, -75, 799) : K+X -> ['(SE, 14, 839)']; X alone passes: True
+TPL2 sym2 D=95 X=(NW, 175, 394) Y=(NE, -75, 799) : K+X -> ['(SE, 14, 839)']; X alone passes: True
+TPL2 sym6 D=95 X=(SE, -175, 794) Y=(NE, -77, 799) : K+X -> ['(SW, 72, 1157)']
+TPL1 sym0 D=96 X=(SE, -177, 802) Y=(NE, -77, 807) : K+X -> ['(SE, 14, 839)']; X alone passes: True
+TPL1 sym7 D=96 X=(NW, 177, 394) Y=(NE, -75, 807) : K+X -> ['(SE, 14, 869)']; X alone passes: True
+TPL2 sym2 D=96 X=(NW, 177, 394) Y=(NE, -75, 807) : K+X -> ['(SE, 14, 869)']; X alone passes: True
+TPL2 sym6 D=96 X=(SE, -177, 802) Y=(NE, -77, 807) : K+X -> ['(SE, 14, 839)']; X alone passes: True
+TPL1 sym0 D=97 X=(SE, -179, 810) Y=(NE, -77, 815) : K+X -> ['(SE, 14, 839)']; X alone passes: True
+TPL1 sym7 D=97 X=(NW, 179, 394) Y=(NE, -75, 815) : K+X -> []
+TPL2 sym2 D=97 X=(NW, 179, 394) Y=(NE, -75, 815) : K+X -> []
+TPL2 sym6 D=97 X=(SE, -179, 810) Y=(NE, -77, 815) : K+X -> ['(SE, 14, 839)']; X alone passes: True
+TPL1 sym0 D=98 X=(SE, -181, 818) Y=(NE, -77, 823) : K+X -> None
+TPL1 sym7 D=98 X=(NW, 181, 394) Y=(NE, -75, 823) : K+X -> None
+TPL2 sym2 D=98 X=(NW, 181, 394) Y=(NE, -75, 823) : K+X -> None
+TPL2 sym6 D=98 X=(SE, -181, 818) Y=(NE, -77, 823) : K+X -> None
+TPL1 sym0 D=99 X=(SE, -183, 826) Y=(NE, -77, 831) : K+X -> ['(SW, 75, 1281)']
+TPL1 sym7 D=99 X=(NW, 183, 394) Y=(NE, -75, 831) : K+X -> None
+TPL2 sym2 D=99 X=(NW, 183, 394) Y=(NE, -75, 831) : K+X -> None
+TPL2 sym6 D=99 X=(SE, -183, 826) Y=(NE, -77, 831) : K+X -> ['(SW, 75, 1281)']
+TPL1 sym0 D=100 X=(SE, -185, 834) Y=(NE, -77, 839) : K+X -> None
+TPL1 sym7 D=100 X=(NW, 185, 394) Y=(NE, -75, 839) : K+X -> []
+TPL2 sym2 D=100 X=(NW, 185, 394) Y=(NE, -75, 839) : K+X -> []
+TPL2 sym6 D=100 X=(SE, -185, 834) Y=(NE, -77, 839) : K+X -> None
+TPL1 sym0 D=101 X=(SE, -187, 842) Y=(NE, -77, 847) : K+X -> None
+TPL1 sym7 D=101 X=(NW, 187, 394) Y=(NE, -75, 847) : K+X -> ['(SE, 14, 929)']; X alone passes: True
+TPL2 sym2 D=101 X=(NW, 187, 394) Y=(NE, -75, 847) : K+X -> ['(SE, 14, 929)']; X alone passes: True
+TPL2 sym6 D=101 X=(SE, -187, 842) Y=(NE, -77, 847) : K+X -> None
+TPL1 sym0 D=102 X=(SE, -189, 850) Y=(NE, -77, 855) : K+X -> None
+TPL1 sym7 D=102 X=(NW, 189, 394) Y=(NE, -75, 855) : K+X -> None
+TPL2 sym2 D=102 X=(NW, 189, 394) Y=(NE, -75, 855) : K+X -> None
+TPL2 sym6 D=102 X=(SE, -189, 850) Y=(NE, -77, 855) : K+X -> None
+TPL1 sym0 D=103 X=(SE, -191, 858) Y=(NE, -77, 863) : K+X -> None
+TPL1 sym7 D=103 X=(NW, 191, 394) Y=(NE, -75, 863) : K+X -> None
+TPL2 sym2 D=103 X=(NW, 191, 394) Y=(NE, -75, 863) : K+X -> None
+TPL2 sym6 D=103 X=(SE, -191, 858) Y=(NE, -77, 863) : K+X -> None
+TPL1 sym0 D=104 X=(SE, -193, 866) Y=(NE, -77, 871) : K+X -> None
+TPL1 sym7 D=104 X=(NW, 193, 394) Y=(NE, -75, 871) : K+X -> None
+TPL2 sym2 D=104 X=(NW, 193, 394) Y=(NE, -75, 871) : K+X -> None
+TPL2 sym6 D=104 X=(SE, -193, 866) Y=(NE, -77, 871) : K+X -> None
+TPL1 sym0 D=105 X=(SE, -195, 874) Y=(NE, -77, 879) : K+X -> None
+TPL1 sym7 D=105 X=(NW, 195, 394) Y=(NE, -75, 879) : K+X -> None
+TPL2 sym2 D=105 X=(NW, 195, 394) Y=(NE, -75, 879) : K+X -> None
+TPL2 sym6 D=105 X=(SE, -195, 874) Y=(NE, -77, 879) : K+X -> None
+TPL1 sym0 D=106 X=(SE, -197, 882) Y=(NE, -77, 887) : K+X -> []
+TPL1 sym7 D=106 X=(NW, 197, 394) Y=(NE, -75, 887) : K+X -> None
+TPL2 sym2 D=106 X=(NW, 197, 394) Y=(NE, -75, 887) : K+X -> None
+TPL2 sym6 D=106 X=(SE, -197, 882) Y=(NE, -77, 887) : K+X -> []
+TPL1 sym0 D=107 X=(SE, -199, 890) Y=(NE, -77, 895) : K+X -> None
+TPL1 sym7 D=107 X=(NW, 199, 394) Y=(NE, -75, 895) : K+X -> None
+TPL2 sym2 D=107 X=(NW, 199, 394) Y=(NE, -75, 895) : K+X -> None
+TPL2 sym6 D=107 X=(SE, -199, 890) Y=(NE, -77, 895) : K+X -> None
+TPL1 sym0 D=108 X=(SE, -201, 898) Y=(NE, -77, 903) : K+X -> None
+TPL1 sym7 D=108 X=(NW, 201, 394) Y=(NE, -75, 903) : K+X -> []
+TPL2 sym2 D=108 X=(NW, 201, 394) Y=(NE, -75, 903) : K+X -> []
+TPL2 sym6 D=108 X=(SE, -201, 898) Y=(NE, -77, 903) : K+X -> None
+TPL1 sym0 D=109 X=(SE, -203, 906) Y=(NE, -77, 911) : K+X -> None
+TPL1 sym7 D=109 X=(NW, 203, 394) Y=(NE, -75, 911) : K+X -> None
+TPL2 sym2 D=109 X=(NW, 203, 394) Y=(NE, -75, 911) : K+X -> None
+TPL2 sym6 D=109 X=(SE, -203, 906) Y=(NE, -77, 911) : K+X -> None
+TPL1 sym0 D=110 X=(SE, -205, 914) Y=(NE, -77, 919) : K+X -> ['(SW, 72, 1277)']
+TPL1 sym7 D=110 X=(NW, 205, 394) Y=(NE, -75, 919) : K+X -> ['(SE, 14, 959)']; X alone passes: True
+TPL2 sym2 D=110 X=(NW, 205, 394) Y=(NE, -75, 919) : K+X -> ['(SE, 14, 959)']; X alone passes: True
+TPL2 sym6 D=110 X=(SE, -205, 914) Y=(NE, -77, 919) : K+X -> ['(SW, 72, 1277)']
+TPL1 sym0 D=111 X=(SE, -207, 922) Y=(NE, -77, 927) : K+X -> ['(SE, 14, 959)']; X alone passes: True
+TPL1 sym7 D=111 X=(NW, 207, 394) Y=(NE, -75, 927) : K+X -> ['(SE, 14, 989)']; X alone passes: True
+TPL2 sym2 D=111 X=(NW, 207, 394) Y=(NE, -75, 927) : K+X -> ['(SE, 14, 989)']; X alone passes: True
+TPL2 sym6 D=111 X=(SE, -207, 922) Y=(NE, -77, 927) : K+X -> ['(SE, 14, 959)']; X alone passes: True
+TPL1 sym0 D=112 X=(SE, -209, 930) Y=(NE, -77, 935) : K+X -> ['(SE, 14, 959)']; X alone passes: True
+TPL1 sym7 D=112 X=(NW, 209, 394) Y=(NE, -75, 935) : K+X -> []
+TPL2 sym2 D=112 X=(NW, 209, 394) Y=(NE, -75, 935) : K+X -> []
+TPL2 sym6 D=112 X=(SE, -209, 930) Y=(NE, -77, 935) : K+X -> ['(SE, 14, 959)']; X alone passes: True
+TPL1 sym0 D=113 X=(SE, -211, 938) Y=(NE, -77, 943) : K+X -> None
+TPL1 sym7 D=113 X=(NW, 211, 394) Y=(NE, -75, 943) : K+X -> None
+TPL2 sym2 D=113 X=(NW, 211, 394) Y=(NE, -75, 943) : K+X -> None
+TPL2 sym6 D=113 X=(SE, -211, 938) Y=(NE, -77, 943) : K+X -> None
+TPL1 sym0 D=114 X=(SE, -213, 946) Y=(NE, -77, 951) : K+X -> ['(SW, 75, 1401)']
+TPL1 sym7 D=114 X=(NW, 213, 394) Y=(NE, -75, 951) : K+X -> None
+TPL2 sym2 D=114 X=(NW, 213, 394) Y=(NE, -75, 951) : K+X -> None
+TPL2 sym6 D=114 X=(SE, -213, 946) Y=(NE, -77, 951) : K+X -> ['(SW, 75, 1401)']
+TPL1 sym0 D=115 X=(SE, -215, 954) Y=(NE, -77, 959) : K+X -> None
+TPL1 sym7 D=115 X=(NW, 215, 394) Y=(NE, -75, 959) : K+X -> []
+TPL2 sym2 D=115 X=(NW, 215, 394) Y=(NE, -75, 959) : K+X -> []
+TPL2 sym6 D=115 X=(SE, -215, 954) Y=(NE, -77, 959) : K+X -> None
+TPL1 sym0 D=116 X=(SE, -217, 962) Y=(NE, -77, 967) : K+X -> None
+TPL1 sym7 D=116 X=(NW, 217, 394) Y=(NE, -75, 967) : K+X -> ['(SE, 14, 1049)']; X alone passes: True
+TPL2 sym2 D=116 X=(NW, 217, 394) Y=(NE, -75, 967) : K+X -> ['(SE, 14, 1049)']; X alone passes: True
+TPL2 sym6 D=116 X=(SE, -217, 962) Y=(NE, -77, 967) : K+X -> None
+TPL1 sym0 D=117 X=(SE, -219, 970) Y=(NE, -77, 975) : K+X -> None
+TPL1 sym7 D=117 X=(NW, 219, 394) Y=(NE, -75, 975) : K+X -> None
+TPL2 sym2 D=117 X=(NW, 219, 394) Y=(NE, -75, 975) : K+X -> None
+TPL2 sym6 D=117 X=(SE, -219, 970) Y=(NE, -77, 975) : K+X -> None
+TPL1 sym0 D=118 X=(SE, -221, 978) Y=(NE, -77, 983) : K+X -> None
+TPL1 sym7 D=118 X=(NW, 221, 394) Y=(NE, -75, 983) : K+X -> None
+TPL2 sym2 D=118 X=(NW, 221, 394) Y=(NE, -75, 983) : K+X -> None
+TPL2 sym6 D=118 X=(SE, -221, 978) Y=(NE, -77, 983) : K+X -> None
+TPL1 sym0 D=119 X=(SE, -223, 986) Y=(NE, -77, 991) : K+X -> None
+TPL1 sym7 D=119 X=(NW, 223, 394) Y=(NE, -75, 991) : K+X -> None
+TPL2 sym2 D=119 X=(NW, 223, 394) Y=(NE, -75, 991) : K+X -> None
+TPL2 sym6 D=119 X=(SE, -223, 986) Y=(NE, -77, 991) : K+X -> None
+TPL1 sym0 D=120 X=(SE, -225, 994) Y=(NE, -77, 999) : K+X -> None
+TPL1 sym7 D=120 X=(NW, 225, 394) Y=(NE, -75, 999) : K+X -> None
+TPL2 sym2 D=120 X=(NW, 225, 394) Y=(NE, -75, 999) : K+X -> None
+TPL2 sym6 D=120 X=(SE, -225, 994) Y=(NE, -77, 999) : K+X -> None
+stations: 70

@@ -1,0 +1,13 @@
+F_I = [('asm', 6, -437, -737, 10), ('asm', 6, -375, -702, 5)]; input K_I = (SE, 260, 1972); link = (SE, 314, 1948) (REG1 INC control (SE, 314, -2222) + 30 m); continue = (NE, 1098, 2377)
+  F_I envelope to REG1 pieces: 64
+  continue path (1500 cells): 64 from REG1, 64 from B_-1..B_600
+  k =   0: evolve 6570 (cycle ∪ K_I ∪ B_0) = cycle ∪ B_1 ∪ continue ['(NE, 1098, 2377)']: ok
+  k =   1: evolve 6600 (cycle ∪ K_I ∪ B_1) = cycle ∪ B_2 ∪ continue ['(NE, 1098, 2377)']: ok
+  k =   2: evolve 6600 (cycle ∪ K_I ∪ B_2) = cycle ∪ B_3 ∪ continue ['(NE, 1098, 2377)']: ok
+  k =   3: evolve 6600 (cycle ∪ K_I ∪ B_3) = cycle ∪ B_4 ∪ continue ['(NE, 1098, 2377)']: ok
+  k =  40: evolve 6750 (cycle ∪ K_I ∪ B_40) = cycle ∪ B_41 ∪ continue ['(NE, 1098, 2377)']: ok
+  k = 100: evolve 6990 (cycle ∪ K_I ∪ B_100) = cycle ∪ B_101 ∪ continue ['(NE, 1098, 2377)']: ok
+  k =   0: continue glider leaves F_I at about t = 955 (K_I passes F_I at 144); near the block: first change t = 5134 (C_I tau + 3186), block at B_1 for good from t = 5217 (C_I tau + 3269)
+  k =   1: continue glider leaves F_I at about t = 955 (K_I passes F_I at 144); near the block: first change t = 5138 (C_I tau + 3190), block at B_2 for good from t = 5221 (C_I tau + 3273)
+  k =  40: continue glider leaves F_I at about t = 955 (K_I passes F_I at 144); near the block: first change t = 5294 (C_I tau + 3346), block at B_41 for good from t = 5377 (C_I tau + 3429)
+  k = 100: continue glider leaves F_I at about t = 955 (K_I passes F_I at 144); near the block: first change t = 5534 (C_I tau + 3586), block at B_101 for good from t = 5617 (C_I tau + 3669)

@@ -1,0 +1,23 @@
+RF_C3 input (SW, -2075, 15429), output (SE, 314, 22468)
+sym 0, record lane 39: world through lane 339 has the wrong parity for RF_C3
+sym 0, record lane 40: RF_C3' = ('rf', 7, -863, -1188, 19) emits (SE, 340, 22364) (distance to the other pieces 64)
+  gate ('asm', 0, -843, -1143, 17): through residue 15, new C_I (SE, 314, 22468), distances 64 45 64
+sym 0, record lane 41: world through lane 341 has the wrong parity for RF_C3
+sym 0, record lane 42: RF_C3' = ('rf', 7, -862, -1189, 15) emits (SE, 342, 22356) (distance to the other pieces 64)
+  gate ('asm', 0, -842, -1142, 21): through residue 7, new C_I (SE, 314, 22468), distances 64 47 64
+sym 0, record lane 43: world through lane 343 has the wrong parity for RF_C3
+sym 0, record lane 44: RF_C3' = ('rf', 7, -861, -1190, 11) emits (SE, 344, 22348) (distance to the other pieces 64)
+  gate ('asm', 0, -841, -1141, 25): through residue 29, new C_I (SE, 314, 22468), distances 64 49 64
+sym 0, record lane 45: world through lane 345 has the wrong parity for RF_C3
+sym 0, record lane 46: RF_C3' = ('rf', 7, -860, -1191, 7) emits (SE, 346, 22340) (distance to the other pieces 64)
+  gate ('asm', 0, -840, -1140, 29): through residue 21, new C_I (SE, 314, 22468), distances 64 51 64
+sym 6, record lane 39: world through lane 289 has the wrong parity for RF_C3
+sym 6, record lane 40: RF_C3' = ('rf', 7, -889, -1162, 3) emits (SE, 288, 22572) (distance to the other pieces 64)
+sym 6, record lane 41: world through lane 287 has the wrong parity for RF_C3
+sym 6, record lane 42: RF_C3' = ('rf', 7, -890, -1161, 7) emits (SE, 286, 22580) (distance to the other pieces 64)
+  gate ('asm', 6, -870, -1197, 5): through residue 29, new C_I (SE, 314, 22588), distances 64 22 64
+sym 6, record lane 43: world through lane 285 has the wrong parity for RF_C3
+sym 6, record lane 44: RF_C3' = ('rf', 7, -891, -1160, 11) emits (SE, 284, 22588) (distance to the other pieces 64)
+  gate ('asm', 6, -871, -1198, 1): through residue 29, new C_I (SE, 314, 22588), distances 64 22 64
+sym 6, record lane 45: world through lane 283 has the wrong parity for RF_C3
+sym 6, record lane 46: RF_C3' = ('rf', 7, -892, -1159, 15) emits (SE, 282, 22596) (distance to the other pieces 64)

@@ -1,0 +1,19 @@
+chain: [('asm', 0, -1770, -1855, 17), ('asm', 0, -1735, -1791, 1), ('asm', 0, -1700, -1727, 15)]
+  chain alone, T into G_1             (SE, 128, 7102) -> ['(SE, 41, 7444)']: ok
+  chain alone, S into G_1 residue 1   (NE, 3549, 7098) -> ['(SE, 41, 7354)']: ok
+  chain alone, S into G_1 residue 7   (NE, 3549, 7104) -> ['(SE, 41, 7354)']: ok
+  chain alone, S into G_1 residue 13  (NE, 3549, 7110) -> ['(SE, 41, 7354)']: ok
+  chain alone, S into G_2 residue 1   (NE, 3450, 6942) -> ['(SE, 41, 7084)']: ok
+  chain alone, S into G_2 residue 7   (NE, 3450, 6948) -> ['(SE, 41, 7084)']: ok
+  chain alone, S into G_2 residue 13  (NE, 3450, 6954) -> ['(SE, 41, 7084)']: ok
+  chain alone, S into G_3 residue 1   (NE, 3351, 6816) -> ['(SE, 41, 6844)']: ok
+  chain alone, S into G_3 residue 7   (NE, 3351, 6822) -> ['(SE, 41, 6844)']: ok
+  chain alone, S into G_3 residue 13  (NE, 3351, 6828) -> ['(SE, 41, 6844)']: ok
+  chain + DZ2, T into G_1             k = 0: C' = (SE, 41, 7444), output (NE, -537, 11993): ok (evolve 30510)
+  chain + DZ2, T into G_1             k = 1: C' = (SE, 41, 7444), output (SE, -391, 11779): ok (evolve 14460)
+  chain + DZ2, S into G_1 residue 7   k = 0: C' = (SE, 41, 7354), output (NE, -537, 11903): ok (evolve 30480)
+  chain + DZ2, S into G_1 residue 7   k = 1: C' = (SE, 41, 7354), output (SE, -391, 11689): ok (evolve 14430)
+  chain + DZ2, S into G_2 residue 7   k = 0: C' = (SE, 41, 7084), output (NE, -537, 11633): ok (evolve 30240)
+  chain + DZ2, S into G_2 residue 7   k = 1: C' = (SE, 41, 7084), output (SE, -391, 11419): ok (evolve 14190)
+  chain + DZ2, S into G_3 residue 7   k = 0: C' = (SE, 41, 6844), output (NE, -537, 11393): ok (evolve 29970)
+  chain + DZ2, S into G_3 residue 7   k = 1: C' = (SE, 41, 6844), output (SE, -391, 11179): ok (evolve 13920)

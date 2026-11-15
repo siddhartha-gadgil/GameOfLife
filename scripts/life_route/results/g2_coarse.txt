@@ -1,0 +1,1071 @@
+DD 2 100 second control tau 7444 ok
+DD 2 105 second control tau 7594 ok
+DD 2 110 second control tau 7744 ok
+DD 2 115 second control tau 7894 ok
+DD 2 120 second control tau 8044 ok
+DD 2 125 second control tau 8194 ok
+DD 2 130 second control tau 8344 ok
+DD 2 135 second control tau 8494 ok
+DD 2 140 second control tau 8644 ok
+DD 2 145 second control tau 8794 ok
+DD 2 150 second control tau 8944 ok
+DD 2 155 second control tau 9094 ok
+DD 2 160 second control tau 9244 ok
+DD 2 165 second control tau 9394 ok
+DD 2 170 second control tau 9544 ok
+DD 2 175 second control tau 9694 ok
+DD 2 180 second control tau 9844 ok
+DD 2 185 second control tau 9994 ok
+DD 2 190 second control tau 10144 ok
+DD 2 195 second control tau 10294 ok
+DD 2 200 second control tau 10444 ok
+DD 2 205 second control tau 10594 ok
+DD 2 210 second control tau 10744 ok
+DD 2 215 second control tau 10894 ok
+DD 2 220 second control tau 11044 ok
+DD 2 225 second control tau 11194 ok
+DD 2 230 second control tau 11344 ok
+DD 2 235 second control tau 11494 ok
+DD 2 240 second control tau 11644 ok
+DD 2 245 second control tau 11794 ok
+DD 2 250 second control tau 11944 ok
+DD 2 255 second control tau 12094 ok
+DD 2 260 second control tau 12244 ok
+DD 2 265 second control tau 12394 ok
+DD 2 270 second control tau 12544 ok
+DD 2 275 second control tau 12694 ok
+DD 2 280 second control tau 12844 ok
+DD 2 285 second control tau 12994 ok
+DD 2 290 second control tau 13144 ok
+DD 2 295 second control tau 13294 ok
+DD 2 300 second control tau 13444 ok
+DD 2 305 second control tau 13594 ok
+DD 2 310 second control tau 13744 ok
+DD 2 315 second control tau 13894 ok
+DD 2 320 second control tau 14044 ok
+DD 2 325 second control tau 14194 ok
+DD 2 330 second control tau 14344 ok
+DD 2 335 second control tau 14494 ok
+DD 2 340 second control tau 14644 ok
+DD 2 345 second control tau 14794 ok
+DD 2 350 second control tau 14944 ok
+DD 2 355 second control tau 15094 ok
+DD 2 360 second control tau 15244 ok
+DD 2 365 second control tau 15394 ok
+DD 2 370 second control tau 15544 ok
+DD 2 375 second control tau 15694 ok
+DD 2 380 second control tau 15844 ok
+DD 2 385 second control tau 15994 ok
+DD 2 390 second control tau 16144 ok
+DD 2 395 second control tau 16294 ok
+DD 2 400 second control tau 16444 ok
+DD 3 100 second control tau 7444 ok
+DD 3 105 second control tau 7594 ok
+DD 3 110 second control tau 7744 ok
+DD 3 115 second control tau 7894 ok
+DD 3 120 second control tau 8044 ok
+DD 3 125 second control tau 8194 ok
+DD 3 130 second control tau 8344 ok
+DD 3 135 second control tau 8494 ok
+DD 3 140 second control tau 8644 ok
+DD 3 145 second control tau 8794 ok
+DD 3 150 second control tau 8944 ok
+DD 3 155 second control tau 9094 ok
+DD 3 160 second control tau 9244 ok
+DD 3 165 second control tau 9394 ok
+DD 3 170 second control tau 9544 ok
+DD 3 175 second control tau 9694 ok
+DD 3 180 second control tau 9844 ok
+DD 3 185 second control tau 9994 ok
+DD 3 190 second control tau 10144 ok
+DD 3 195 second control tau 10294 ok
+DD 3 200 second control tau 10444 ok
+DD 3 205 second control tau 10594 ok
+DD 3 210 second control tau 10744 ok
+DD 3 215 second control tau 10894 ok
+DD 3 220 second control tau 11044 ok
+DD 3 225 second control tau 11194 ok
+DD 3 230 second control tau 11344 ok
+DD 3 235 second control tau 11494 ok
+DD 3 240 second control tau 11644 ok
+DD 3 245 second control tau 11794 ok
+DD 3 250 second control tau 11944 ok
+DD 3 255 second control tau 12094 ok
+DD 3 260 second control tau 12244 ok
+DD 3 265 second control tau 12394 ok
+DD 3 270 second control tau 12544 ok
+DD 3 275 second control tau 12694 ok
+DD 3 280 second control tau 12844 ok
+DD 3 285 second control tau 12994 ok
+DD 3 290 second control tau 13144 ok
+DD 3 295 second control tau 13294 ok
+DD 3 300 second control tau 13444 ok
+DD 3 305 second control tau 13594 ok
+DD 3 310 second control tau 13744 ok
+DD 3 315 second control tau 13894 ok
+DD 3 320 second control tau 14044 ok
+DD 3 325 second control tau 14194 ok
+DD 3 330 second control tau 14344 ok
+DD 3 335 second control tau 14494 ok
+DD 3 340 second control tau 14644 ok
+DD 3 345 second control tau 14794 ok
+DD 3 350 second control tau 14944 ok
+DD 3 355 second control tau 15094 ok
+DD 3 360 second control tau 15244 ok
+DD 3 365 second control tau 15394 ok
+DD 3 370 second control tau 15544 ok
+DD 3 375 second control tau 15694 ok
+DD 3 380 second control tau 15844 ok
+DD 3 385 second control tau 15994 ok
+DD 3 390 second control tau 16144 ok
+DD 3 395 second control tau 16294 ok
+DD 3 400 second control tau 16444 ok
+DD 40 100 second control tau 7444 ok
+DD 40 105 second control tau 7594 ok
+DD 40 110 second control tau 7744 ok
+DD 40 115 second control tau 7894 ok
+DD 40 120 second control tau 8044 ok
+DD 40 125 second control tau 8194 ok
+DD 40 130 second control tau 8344 ok
+DD 40 135 second control tau 8494 ok
+DD 40 140 second control tau 8644 ok
+DD 40 145 second control tau 8794 ok
+DD 40 150 second control tau 8944 ok
+DD 40 155 second control tau 9094 ok
+DD 40 160 second control tau 9244 ok
+DD 40 165 second control tau 9394 ok
+DD 40 170 second control tau 9544 ok
+DD 40 175 second control tau 9694 ok
+DD 40 180 second control tau 9844 ok
+DD 40 185 second control tau 9994 ok
+DD 40 190 second control tau 10144 ok
+DD 40 195 second control tau 10294 ok
+DD 40 200 second control tau 10444 ok
+DD 40 205 second control tau 10594 ok
+DD 40 210 second control tau 10744 ok
+DD 40 215 second control tau 10894 ok
+DD 40 220 second control tau 11044 ok
+DD 40 225 second control tau 11194 ok
+DD 40 230 second control tau 11344 ok
+DD 40 235 second control tau 11494 ok
+DD 40 240 second control tau 11644 ok
+DD 40 245 second control tau 11794 ok
+DD 40 250 second control tau 11944 ok
+DD 40 255 second control tau 12094 ok
+DD 40 260 second control tau 12244 ok
+DD 40 265 second control tau 12394 ok
+DD 40 270 second control tau 12544 ok
+DD 40 275 second control tau 12694 ok
+DD 40 280 second control tau 12844 ok
+DD 40 285 second control tau 12994 ok
+DD 40 290 second control tau 13144 ok
+DD 40 295 second control tau 13294 ok
+DD 40 300 second control tau 13444 ok
+DD 40 305 second control tau 13594 ok
+DD 40 310 second control tau 13744 ok
+DD 40 315 second control tau 13894 ok
+DD 40 320 second control tau 14044 ok
+DD 40 325 second control tau 14194 ok
+DD 40 330 second control tau 14344 ok
+DD 40 335 second control tau 14494 ok
+DD 40 340 second control tau 14644 ok
+DD 40 345 second control tau 14794 ok
+DD 40 350 second control tau 14944 ok
+DD 40 355 second control tau 15094 ok
+DD 40 360 second control tau 15244 ok
+DD 40 365 second control tau 15394 ok
+DD 40 370 second control tau 15544 ok
+DD 40 375 second control tau 15694 ok
+DD 40 380 second control tau 15844 ok
+DD 40 385 second control tau 15994 ok
+DD 40 390 second control tau 16144 ok
+DD 40 395 second control tau 16294 ok
+DD 40 400 second control tau 16444 ok
+DD 1 100 second control tau 7444 ok
+DD 1 105 second control tau 7594 ok
+DD 1 110 second control tau 7744 ok
+DD 1 115 second control tau 7894 ok
+DD 1 120 second control tau 8044 ok
+DD 1 125 second control tau 8194 ok
+DD 1 130 second control tau 8344 ok
+DD 1 135 second control tau 8494 ok
+DD 1 140 second control tau 8644 ok
+DD 1 145 second control tau 8794 ok
+DD 1 150 second control tau 8944 ok
+DD 1 155 second control tau 9094 ok
+DD 1 160 second control tau 9244 ok
+DD 1 165 second control tau 9394 ok
+DD 1 170 second control tau 9544 ok
+DD 1 175 second control tau 9694 ok
+DD 1 180 second control tau 9844 ok
+DD 1 185 second control tau 9994 ok
+DD 1 190 second control tau 10144 ok
+DD 1 195 second control tau 10294 ok
+DD 1 200 second control tau 10444 ok
+DD 1 205 second control tau 10594 ok
+DD 1 210 second control tau 10744 ok
+DD 1 215 second control tau 10894 ok
+DD 1 220 second control tau 11044 ok
+DD 1 225 second control tau 11194 ok
+DD 1 230 second control tau 11344 ok
+DD 1 235 second control tau 11494 ok
+DD 1 240 second control tau 11644 ok
+DD 1 245 second control tau 11794 ok
+DD 1 250 second control tau 11944 ok
+DD 1 255 second control tau 12094 ok
+DD 1 260 second control tau 12244 ok
+DD 1 265 second control tau 12394 ok
+DD 1 270 second control tau 12544 ok
+DD 1 275 second control tau 12694 ok
+DD 1 280 second control tau 12844 ok
+DD 1 285 second control tau 12994 ok
+DD 1 290 second control tau 13144 ok
+DD 1 295 second control tau 13294 ok
+DD 1 300 second control tau 13444 ok
+DD 1 305 second control tau 13594 ok
+DD 1 310 second control tau 13744 ok
+DD 1 315 second control tau 13894 ok
+DD 1 320 second control tau 14044 ok
+DD 1 325 second control tau 14194 ok
+DD 1 330 second control tau 14344 ok
+DD 1 335 second control tau 14494 ok
+DD 1 340 second control tau 14644 ok
+DD 1 345 second control tau 14794 ok
+DD 1 350 second control tau 14944 ok
+DD 1 355 second control tau 15094 ok
+DD 1 360 second control tau 15244 ok
+DD 1 365 second control tau 15394 ok
+DD 1 370 second control tau 15544 ok
+DD 1 375 second control tau 15694 ok
+DD 1 380 second control tau 15844 ok
+DD 1 385 second control tau 15994 ok
+DD 1 390 second control tau 16144 ok
+DD 1 395 second control tau 16294 ok
+DD 1 400 second control tau 16444 ok
+DD 0 400 second control tau 16444 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 20779)', '(SE, -102, 25132)', '(SE, -97, 17730)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 20993)']
+DD 0 410 second control tau 16744 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 21079)', '(SE, -102, 25132)', '(SE, -97, 18030)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 21293)']
+DD 0 420 second control tau 17044 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 21379)', '(SE, -102, 25132)', '(SE, -97, 18330)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 21593)']
+DD 0 430 second control tau 17344 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 21679)', '(SE, -102, 25132)', '(SE, -97, 18630)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 21893)']
+DD 0 440 second control tau 17644 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 21979)', '(SE, -102, 25132)', '(SE, -97, 18930)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 22193)']
+DD 0 450 second control tau 17944 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 22279)', '(SE, -102, 25132)', '(SE, -97, 19230)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 22493)']
+DD 0 460 second control tau 18244 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 22579)', '(SE, -102, 25132)', '(SE, -97, 19530)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 22793)']
+DD 0 470 second control tau 18544 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 22879)', '(SE, -102, 25132)', '(SE, -97, 19830)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 23093)']
+DD 0 480 second control tau 18844 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 23179)', '(SE, -102, 25132)', '(SE, -97, 20130)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 23393)']
+DD 0 490 second control tau 19144 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 23479)', '(SE, -102, 25132)', '(SE, -97, 20430)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 23693)']
+DD 0 500 second control tau 19444 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 23779)', '(SE, -102, 25132)', '(SE, -97, 20730)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 23993)']
+DD 0 510 second control tau 19744 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 24079)', '(SE, -102, 25132)', '(SE, -97, 21030)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 24293)']
+DD 0 520 second control tau 20044 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 24379)', '(SE, -102, 25132)', '(SE, -97, 21330)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 24593)']
+DD 0 530 second control tau 20344 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 24679)', '(SE, -102, 25132)', '(SE, -97, 21630)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 24893)']
+DD 0 540 second control tau 20644 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 24979)', '(SE, -102, 25132)', '(SE, -97, 21930)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 25193)']
+DD 0 550 second control tau 20944 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 25279)', '(SE, -102, 25132)', '(SE, -97, 22230)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 25493)']
+DD 0 560 second control tau 21244 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 25579)', '(SE, -102, 25132)', '(SE, -97, 22530)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 25793)']
+DD 0 570 second control tau 21544 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 25879)', '(SE, -102, 25132)', '(SE, -97, 22830)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 26093)']
+DD 0 580 second control tau 21844 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 26179)', '(SE, -102, 25132)', '(SE, -97, 23130)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 26393)']
+DD 0 590 second control tau 22144 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 26479)', '(SE, -102, 25132)', '(SE, -97, 23430)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 26693)']
+DD 0 600 second control tau 22444 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 26779)', '(SE, -102, 25132)', '(SE, -97, 23730)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 26993)']
+DD 0 610 second control tau 22744 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 27079)', '(SE, -102, 25132)', '(SE, -97, 24030)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 27293)']
+DD 0 620 second control tau 23044 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 27379)', '(SE, -102, 25132)', '(SE, -97, 24330)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 27593)']
+DD 0 630 second control tau 23344 FAIL extra 1 missing 30 removed ['(NE, -537, 8993)', '(SE, -391, 27679)', '(SE, -102, 25132)', '(SE, -97, 24630)', '(SE, -91, 25081)', '(SE, -84, 25108)'] expected ['(NE, -537, 8993)', '(NE, -537, 27893)']
+DD 0 640 second control tau 23644 ok
+DD 0 650 second control tau 23944 ok
+DD 0 660 second control tau 24244 ok
+DD 0 670 second control tau 24544 ok
+DD 0 680 second control tau 24844 ok
+DD 0 690 second control tau 25144 ok
+DD 0 700 second control tau 25444 ok
+DD 0 710 second control tau 25744 ok
+DD 0 720 second control tau 26044 ok
+DD 0 730 second control tau 26344 ok
+DD 0 740 second control tau 26644 ok
+DD 0 750 second control tau 26944 ok
+DD 0 760 second control tau 27244 ok
+DD 0 770 second control tau 27544 ok
+DD 0 780 second control tau 27844 ok
+DD 0 790 second control tau 28144 ok
+DD 0 800 second control tau 28444 ok
+DD 0 810 second control tau 28744 ok
+DD 0 820 second control tau 29044 ok
+DD 0 830 second control tau 29344 ok
+DD 0 840 second control tau 29644 ok
+DD 0 850 second control tau 29944 ok
+DD 0 860 second control tau 30244 ok
+DD 0 870 second control tau 30544 ok
+DD 0 880 second control tau 30844 ok
+DD 0 890 second control tau 31144 ok
+DD 0 900 second control tau 31444 ok
+DD 0 910 second control tau 31744 ok
+DD 0 920 second control tau 32044 ok
+DD 0 930 second control tau 32344 ok
+DD 0 940 second control tau 32644 ok
+DD 0 950 second control tau 32944 ok
+DD 0 960 second control tau 33244 ok
+DD 0 970 second control tau 33544 ok
+DD 0 980 second control tau 33844 ok
+DD 0 990 second control tau 34144 ok
+DD 0 1000 second control tau 34444 ok
+II 0 0 3778 insert-conflict
+II 0 1 second control tau 3808 FAIL extra 1734 missing 615 removed [] expected []
+II 0 2 second control tau 3838 FAIL extra 15 missing 3 removed [] expected []
+II 0 3 second control tau 3868 FAIL extra 1106 missing 352 removed [] expected []
+II 0 4 second control tau 3898 FAIL extra 19 missing 3 removed [] expected []
+II 0 5 second control tau 3928 FAIL extra 662 missing 58 removed [] expected []
+II 0 6 second control tau 3958 FAIL extra 15 missing 3 removed [] expected []
+II 0 7 second control tau 3988 FAIL extra 936 missing 429 removed [] expected []
+II 0 8 second control tau 4018 FAIL extra 19 missing 3 removed [] expected []
+II 0 9 second control tau 4048 FAIL extra 593 missing 237 removed [] expected []
+II 0 10 second control tau 4078 FAIL extra 15 missing 3 removed [] expected []
+II 0 11 second control tau 4108 FAIL extra 631 missing 112 removed [] expected []
+II 0 12 second control tau 4138 FAIL extra 19 missing 3 removed [] expected []
+II 0 13 second control tau 4168 FAIL extra 268 missing 226 removed [] expected []
+II 0 14 second control tau 4198 FAIL extra 15 missing 3 removed [] expected []
+II 0 15 second control tau 4228 ok
+II 0 16 second control tau 4258 ok
+II 0 17 second control tau 4288 ok
+II 0 18 second control tau 4318 ok
+II 0 19 second control tau 4348 ok
+II 0 20 second control tau 4378 ok
+II 0 21 second control tau 4408 ok
+II 0 22 second control tau 4438 ok
+II 0 23 second control tau 4468 ok
+II 0 24 second control tau 4498 ok
+II 0 25 second control tau 4528 ok
+II 0 26 second control tau 4558 ok
+II 0 27 second control tau 4588 ok
+II 0 28 second control tau 4618 ok
+II 0 29 second control tau 4648 ok
+II 0 30 second control tau 4678 ok
+II 1 0 3778 insert-conflict
+II 1 1 second control tau 3808 FAIL extra 1734 missing 615 removed [] expected []
+II 1 2 second control tau 3838 FAIL extra 15 missing 3 removed [] expected []
+II 1 3 second control tau 3868 FAIL extra 1106 missing 352 removed [] expected []
+II 1 4 second control tau 3898 FAIL extra 19 missing 3 removed [] expected []
+II 1 5 second control tau 3928 FAIL extra 662 missing 58 removed [] expected []
+II 1 6 second control tau 3958 FAIL extra 15 missing 3 removed [] expected []
+II 1 7 second control tau 3988 FAIL extra 936 missing 429 removed [] expected []
+II 1 8 second control tau 4018 FAIL extra 19 missing 3 removed [] expected []
+II 1 9 second control tau 4048 FAIL extra 593 missing 237 removed [] expected []
+II 1 10 second control tau 4078 FAIL extra 15 missing 3 removed [] expected []
+II 1 11 second control tau 4108 FAIL extra 631 missing 112 removed [] expected []
+II 1 12 second control tau 4138 FAIL extra 19 missing 3 removed [] expected []
+II 1 13 second control tau 4168 FAIL extra 268 missing 226 removed [] expected []
+II 1 14 second control tau 4198 FAIL extra 15 missing 3 removed [] expected []
+II 1 15 second control tau 4228 ok
+II 1 16 second control tau 4258 ok
+II 1 17 second control tau 4288 ok
+II 1 18 second control tau 4318 ok
+II 1 19 second control tau 4348 ok
+II 1 20 second control tau 4378 ok
+II 1 21 second control tau 4408 ok
+II 1 22 second control tau 4438 ok
+II 1 23 second control tau 4468 ok
+II 1 24 second control tau 4498 ok
+II 1 25 second control tau 4528 ok
+II 1 26 second control tau 4558 ok
+II 1 27 second control tau 4588 ok
+II 1 28 second control tau 4618 ok
+II 1 29 second control tau 4648 ok
+II 1 30 second control tau 4678 ok
+II 2 0 3778 insert-conflict
+II 2 1 second control tau 3808 FAIL extra 1743 missing 614 removed [] expected []
+II 2 2 second control tau 3838 FAIL extra 15 missing 3 removed [] expected []
+II 2 3 second control tau 3868 FAIL extra 1157 missing 345 removed [] expected []
+II 2 4 second control tau 3898 FAIL extra 19 missing 3 removed [] expected []
+II 2 5 second control tau 3928 FAIL extra 667 missing 58 removed [] expected []
+II 2 6 second control tau 3958 FAIL extra 15 missing 3 removed [] expected []
+II 2 7 second control tau 3988 FAIL extra 927 missing 424 removed [] expected []
+II 2 8 second control tau 4018 FAIL extra 19 missing 3 removed [] expected []
+II 2 9 second control tau 4048 FAIL extra 569 missing 236 removed [] expected []
+II 2 10 second control tau 4078 FAIL extra 15 missing 3 removed [] expected []
+II 2 11 second control tau 4108 FAIL extra 631 missing 112 removed [] expected []
+II 2 12 second control tau 4138 FAIL extra 19 missing 3 removed [] expected []
+II 2 13 second control tau 4168 FAIL extra 268 missing 226 removed [] expected []
+II 2 14 second control tau 4198 FAIL extra 15 missing 3 removed [] expected []
+II 2 15 second control tau 4228 ok
+II 2 16 second control tau 4258 ok
+II 2 17 second control tau 4288 ok
+II 2 18 second control tau 4318 ok
+II 2 19 second control tau 4348 ok
+II 2 20 second control tau 4378 ok
+II 2 21 second control tau 4408 ok
+II 2 22 second control tau 4438 ok
+II 2 23 second control tau 4468 ok
+II 2 24 second control tau 4498 ok
+II 2 25 second control tau 4528 ok
+II 2 26 second control tau 4558 ok
+II 2 27 second control tau 4588 ok
+II 2 28 second control tau 4618 ok
+II 2 29 second control tau 4648 ok
+II 2 30 second control tau 4678 ok
+II 3 0 3778 insert-conflict
+II 3 1 second control tau 3808 FAIL extra 1743 missing 614 removed [] expected []
+II 3 2 second control tau 3838 FAIL extra 15 missing 3 removed [] expected []
+II 3 3 second control tau 3868 FAIL extra 1157 missing 345 removed [] expected []
+II 3 4 second control tau 3898 FAIL extra 19 missing 3 removed [] expected []
+II 3 5 second control tau 3928 FAIL extra 667 missing 58 removed [] expected []
+II 3 6 second control tau 3958 FAIL extra 15 missing 3 removed [] expected []
+II 3 7 second control tau 3988 FAIL extra 927 missing 424 removed [] expected []
+II 3 8 second control tau 4018 FAIL extra 19 missing 3 removed [] expected []
+II 3 9 second control tau 4048 FAIL extra 569 missing 236 removed [] expected []
+II 3 10 second control tau 4078 FAIL extra 15 missing 3 removed [] expected []
+II 3 11 second control tau 4108 FAIL extra 631 missing 112 removed [] expected []
+II 3 12 second control tau 4138 FAIL extra 19 missing 3 removed [] expected []
+II 3 13 second control tau 4168 FAIL extra 268 missing 226 removed [] expected []
+II 3 14 second control tau 4198 FAIL extra 15 missing 3 removed [] expected []
+II 3 15 second control tau 4228 ok
+II 3 16 second control tau 4258 ok
+II 3 17 second control tau 4288 ok
+II 3 18 second control tau 4318 ok
+II 3 19 second control tau 4348 ok
+II 3 20 second control tau 4378 ok
+II 3 21 second control tau 4408 ok
+II 3 22 second control tau 4438 ok
+II 3 23 second control tau 4468 ok
+II 3 24 second control tau 4498 ok
+II 3 25 second control tau 4528 ok
+II 3 26 second control tau 4558 ok
+II 3 27 second control tau 4588 ok
+II 3 28 second control tau 4618 ok
+II 3 29 second control tau 4648 ok
+II 3 30 second control tau 4678 ok
+II 40 0 3778 insert-conflict
+II 40 1 second control tau 3808 FAIL extra 1620 missing 614 removed [] expected []
+II 40 2 second control tau 3838 FAIL extra 15 missing 3 removed [] expected []
+II 40 3 second control tau 3868 FAIL extra 1308 missing 352 removed [] expected []
+II 40 4 second control tau 3898 FAIL extra 19 missing 3 removed [] expected []
+II 40 5 second control tau 3928 FAIL extra 692 missing 58 removed [] expected []
+II 40 6 second control tau 3958 FAIL extra 15 missing 3 removed [] expected []
+II 40 7 second control tau 3988 FAIL extra 934 missing 468 removed [] expected []
+II 40 8 second control tau 4018 FAIL extra 19 missing 3 removed [] expected []
+II 40 9 second control tau 4048 FAIL extra 506 missing 237 removed [] expected []
+II 40 10 second control tau 4078 FAIL extra 15 missing 3 removed [] expected []
+II 40 11 second control tau 4108 FAIL extra 631 missing 112 removed [] expected []
+II 40 12 second control tau 4138 FAIL extra 19 missing 3 removed [] expected []
+II 40 13 second control tau 4168 FAIL extra 268 missing 226 removed [] expected []
+II 40 14 second control tau 4198 FAIL extra 15 missing 3 removed [] expected []
+II 40 15 second control tau 4228 ok
+II 40 16 second control tau 4258 ok
+II 40 17 second control tau 4288 ok
+II 40 18 second control tau 4318 ok
+II 40 19 second control tau 4348 ok
+II 40 20 second control tau 4378 ok
+II 40 21 second control tau 4408 ok
+II 40 22 second control tau 4438 ok
+II 40 23 second control tau 4468 ok
+II 40 24 second control tau 4498 ok
+II 40 25 second control tau 4528 ok
+II 40 26 second control tau 4558 ok
+II 40 27 second control tau 4588 ok
+II 40 28 second control tau 4618 ok
+II 40 29 second control tau 4648 ok
+II 40 30 second control tau 4678 ok
+DI 1 200 second control tau 3778 ok
+DI 1 205 second control tau 3928 ok
+DI 1 210 second control tau 4078 ok
+DI 1 215 second control tau 4228 ok
+DI 1 220 second control tau 4378 ok
+DI 1 225 second control tau 4528 ok
+DI 1 230 second control tau 4678 ok
+DI 1 235 second control tau 4828 ok
+DI 1 240 second control tau 4978 ok
+DI 1 245 second control tau 5128 ok
+DI 1 250 second control tau 5278 ok
+DI 1 255 second control tau 5428 ok
+DI 1 260 second control tau 5578 ok
+DI 1 265 second control tau 5728 ok
+DI 1 270 second control tau 5878 ok
+DI 1 275 second control tau 6028 ok
+DI 1 280 second control tau 6178 ok
+DI 1 285 second control tau 6328 ok
+DI 1 290 second control tau 6478 ok
+DI 1 295 second control tau 6628 ok
+DI 1 300 second control tau 6778 ok
+DI 1 305 second control tau 6928 ok
+DI 1 310 second control tau 7078 ok
+DI 1 315 second control tau 7228 ok
+DI 1 320 second control tau 7378 ok
+DI 1 325 second control tau 7528 ok
+DI 1 330 second control tau 7678 ok
+DI 1 335 second control tau 7828 ok
+DI 1 340 second control tau 7978 ok
+DI 1 345 second control tau 8128 ok
+DI 1 350 second control tau 8278 ok
+DI 1 355 second control tau 8428 ok
+DI 1 360 second control tau 8578 ok
+DI 1 365 second control tau 8728 ok
+DI 1 370 second control tau 8878 ok
+DI 1 375 second control tau 9028 ok
+DI 1 380 second control tau 9178 ok
+DI 1 385 second control tau 9328 ok
+DI 1 390 second control tau 9478 ok
+DI 1 395 second control tau 9628 ok
+DI 1 400 second control tau 9778 ok
+DI 1 405 second control tau 9928 ok
+DI 1 410 second control tau 10078 ok
+DI 1 415 second control tau 10228 ok
+DI 1 420 second control tau 10378 ok
+DI 1 425 second control tau 10528 ok
+DI 1 430 second control tau 10678 ok
+DI 1 435 second control tau 10828 ok
+DI 1 440 second control tau 10978 ok
+DI 1 445 second control tau 11128 ok
+DI 1 450 second control tau 11278 ok
+DI 1 455 second control tau 11428 ok
+DI 1 460 second control tau 11578 ok
+DI 1 465 second control tau 11728 ok
+DI 1 470 second control tau 11878 ok
+DI 1 475 second control tau 12028 ok
+DI 1 480 second control tau 12178 ok
+DI 1 485 second control tau 12328 ok
+DI 1 490 second control tau 12478 ok
+DI 1 495 second control tau 12628 ok
+DI 1 500 second control tau 12778 ok
+DI 2 200 second control tau 3778 ok
+DI 2 205 second control tau 3928 ok
+DI 2 210 second control tau 4078 ok
+DI 2 215 second control tau 4228 ok
+DI 2 220 second control tau 4378 ok
+DI 2 225 second control tau 4528 ok
+DI 2 230 second control tau 4678 ok
+DI 2 235 second control tau 4828 ok
+DI 2 240 second control tau 4978 ok
+DI 2 245 second control tau 5128 ok
+DI 2 250 second control tau 5278 ok
+DI 2 255 second control tau 5428 ok
+DI 2 260 second control tau 5578 ok
+DI 2 265 second control tau 5728 ok
+DI 2 270 second control tau 5878 ok
+DI 2 275 second control tau 6028 ok
+DI 2 280 second control tau 6178 ok
+DI 2 285 second control tau 6328 ok
+DI 2 290 second control tau 6478 ok
+DI 2 295 second control tau 6628 ok
+DI 2 300 second control tau 6778 ok
+DI 2 305 second control tau 6928 ok
+DI 2 310 second control tau 7078 ok
+DI 2 315 second control tau 7228 ok
+DI 2 320 second control tau 7378 ok
+DI 2 325 second control tau 7528 ok
+DI 2 330 second control tau 7678 ok
+DI 2 335 second control tau 7828 ok
+DI 2 340 second control tau 7978 ok
+DI 2 345 second control tau 8128 ok
+DI 2 350 second control tau 8278 ok
+DI 2 355 second control tau 8428 ok
+DI 2 360 second control tau 8578 ok
+DI 2 365 second control tau 8728 ok
+DI 2 370 second control tau 8878 ok
+DI 2 375 second control tau 9028 ok
+DI 2 380 second control tau 9178 ok
+DI 2 385 second control tau 9328 ok
+DI 2 390 second control tau 9478 ok
+DI 2 395 second control tau 9628 ok
+DI 2 400 second control tau 9778 ok
+DI 2 405 second control tau 9928 ok
+DI 2 410 second control tau 10078 ok
+DI 2 415 second control tau 10228 ok
+DI 2 420 second control tau 10378 ok
+DI 2 425 second control tau 10528 ok
+DI 2 430 second control tau 10678 ok
+DI 2 435 second control tau 10828 ok
+DI 2 440 second control tau 10978 ok
+DI 2 445 second control tau 11128 ok
+DI 2 450 second control tau 11278 ok
+DI 2 455 second control tau 11428 ok
+DI 2 460 second control tau 11578 ok
+DI 2 465 second control tau 11728 ok
+DI 2 470 second control tau 11878 ok
+DI 2 475 second control tau 12028 ok
+DI 2 480 second control tau 12178 ok
+DI 2 485 second control tau 12328 ok
+DI 2 490 second control tau 12478 ok
+DI 2 495 second control tau 12628 ok
+DI 2 500 second control tau 12778 ok
+DI 3 200 second control tau 3778 ok
+DI 3 205 second control tau 3928 ok
+DI 3 210 second control tau 4078 ok
+DI 3 215 second control tau 4228 ok
+DI 3 220 second control tau 4378 ok
+DI 3 225 second control tau 4528 ok
+DI 3 230 second control tau 4678 ok
+DI 3 235 second control tau 4828 ok
+DI 3 240 second control tau 4978 ok
+DI 3 245 second control tau 5128 ok
+DI 3 250 second control tau 5278 ok
+DI 3 255 second control tau 5428 ok
+DI 3 260 second control tau 5578 ok
+DI 3 265 second control tau 5728 ok
+DI 3 270 second control tau 5878 ok
+DI 3 275 second control tau 6028 ok
+DI 3 280 second control tau 6178 ok
+DI 3 285 second control tau 6328 ok
+DI 3 290 second control tau 6478 ok
+DI 3 295 second control tau 6628 ok
+DI 3 300 second control tau 6778 ok
+DI 3 305 second control tau 6928 ok
+DI 3 310 second control tau 7078 ok
+DI 3 315 second control tau 7228 ok
+DI 3 320 second control tau 7378 ok
+DI 3 325 second control tau 7528 ok
+DI 3 330 second control tau 7678 ok
+DI 3 335 second control tau 7828 ok
+DI 3 340 second control tau 7978 ok
+DI 3 345 second control tau 8128 ok
+DI 3 350 second control tau 8278 ok
+DI 3 355 second control tau 8428 ok
+DI 3 360 second control tau 8578 ok
+DI 3 365 second control tau 8728 ok
+DI 3 370 second control tau 8878 ok
+DI 3 375 second control tau 9028 ok
+DI 3 380 second control tau 9178 ok
+DI 3 385 second control tau 9328 ok
+DI 3 390 second control tau 9478 ok
+DI 3 395 second control tau 9628 ok
+DI 3 400 second control tau 9778 ok
+DI 3 405 second control tau 9928 ok
+DI 3 410 second control tau 10078 ok
+DI 3 415 second control tau 10228 ok
+DI 3 420 second control tau 10378 ok
+DI 3 425 second control tau 10528 ok
+DI 3 430 second control tau 10678 ok
+DI 3 435 second control tau 10828 ok
+DI 3 440 second control tau 10978 ok
+DI 3 445 second control tau 11128 ok
+DI 3 450 second control tau 11278 ok
+DI 3 455 second control tau 11428 ok
+DI 3 460 second control tau 11578 ok
+DI 3 465 second control tau 11728 ok
+DI 3 470 second control tau 11878 ok
+DI 3 475 second control tau 12028 ok
+DI 3 480 second control tau 12178 ok
+DI 3 485 second control tau 12328 ok
+DI 3 490 second control tau 12478 ok
+DI 3 495 second control tau 12628 ok
+DI 3 500 second control tau 12778 ok
+DI 40 200 second control tau 3778 ok
+DI 40 205 second control tau 3928 ok
+DI 40 210 second control tau 4078 ok
+DI 40 215 second control tau 4228 ok
+DI 40 220 second control tau 4378 ok
+DI 40 225 second control tau 4528 ok
+DI 40 230 second control tau 4678 ok
+DI 40 235 second control tau 4828 ok
+DI 40 240 second control tau 4978 ok
+DI 40 245 second control tau 5128 ok
+DI 40 250 second control tau 5278 ok
+DI 40 255 second control tau 5428 ok
+DI 40 260 second control tau 5578 ok
+DI 40 265 second control tau 5728 ok
+DI 40 270 second control tau 5878 ok
+DI 40 275 second control tau 6028 ok
+DI 40 280 second control tau 6178 ok
+DI 40 285 second control tau 6328 ok
+DI 40 290 second control tau 6478 ok
+DI 40 295 second control tau 6628 ok
+DI 40 300 second control tau 6778 ok
+DI 40 305 second control tau 6928 ok
+DI 40 310 second control tau 7078 ok
+DI 40 315 second control tau 7228 ok
+DI 40 320 second control tau 7378 ok
+DI 40 325 second control tau 7528 ok
+DI 40 330 second control tau 7678 ok
+DI 40 335 second control tau 7828 ok
+DI 40 340 second control tau 7978 ok
+DI 40 345 second control tau 8128 ok
+DI 40 350 second control tau 8278 ok
+DI 40 355 second control tau 8428 ok
+DI 40 360 second control tau 8578 ok
+DI 40 365 second control tau 8728 ok
+DI 40 370 second control tau 8878 ok
+DI 40 375 second control tau 9028 ok
+DI 40 380 second control tau 9178 ok
+DI 40 385 second control tau 9328 ok
+DI 40 390 second control tau 9478 ok
+DI 40 395 second control tau 9628 ok
+DI 40 400 second control tau 9778 ok
+DI 40 405 second control tau 9928 ok
+DI 40 410 second control tau 10078 ok
+DI 40 415 second control tau 10228 ok
+DI 40 420 second control tau 10378 ok
+DI 40 425 second control tau 10528 ok
+DI 40 430 second control tau 10678 ok
+DI 40 435 second control tau 10828 ok
+DI 40 440 second control tau 10978 ok
+DI 40 445 second control tau 11128 ok
+DI 40 450 second control tau 11278 ok
+DI 40 455 second control tau 11428 ok
+DI 40 460 second control tau 11578 ok
+DI 40 465 second control tau 11728 ok
+DI 40 470 second control tau 11878 ok
+DI 40 475 second control tau 12028 ok
+DI 40 480 second control tau 12178 ok
+DI 40 485 second control tau 12328 ok
+DI 40 490 second control tau 12478 ok
+DI 40 495 second control tau 12628 ok
+DI 40 500 second control tau 12778 ok
+DI 0 400 second control tau 9778 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 12442)', '(SE, -84, 12418)'] expected ['(NE, -537, 8993)']
+DI 0 410 second control tau 10078 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 12742)', '(SE, -84, 12718)'] expected ['(NE, -537, 8993)']
+DI 0 420 second control tau 10378 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 13042)', '(SE, -84, 13018)'] expected ['(NE, -537, 8993)']
+DI 0 430 second control tau 10678 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 13342)', '(SE, -84, 13318)'] expected ['(NE, -537, 8993)']
+DI 0 440 second control tau 10978 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 13642)', '(SE, -84, 13618)'] expected ['(NE, -537, 8993)']
+DI 0 450 second control tau 11278 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 13942)', '(SE, -84, 13918)'] expected ['(NE, -537, 8993)']
+DI 0 460 second control tau 11578 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 14242)', '(SE, -84, 14218)'] expected ['(NE, -537, 8993)']
+DI 0 470 second control tau 11878 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 14542)', '(SE, -84, 14518)'] expected ['(NE, -537, 8993)']
+DI 0 480 second control tau 12178 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 14842)', '(SE, -84, 14818)'] expected ['(NE, -537, 8993)']
+DI 0 490 second control tau 12478 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 15142)', '(SE, -84, 15118)'] expected ['(NE, -537, 8993)']
+DI 0 500 second control tau 12778 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 15442)', '(SE, -84, 15418)'] expected ['(NE, -537, 8993)']
+DI 0 510 second control tau 13078 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 15742)', '(SE, -84, 15718)'] expected ['(NE, -537, 8993)']
+DI 0 520 second control tau 13378 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 16042)', '(SE, -84, 16018)'] expected ['(NE, -537, 8993)']
+DI 0 530 second control tau 13678 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 16342)', '(SE, -84, 16318)'] expected ['(NE, -537, 8993)']
+DI 0 540 second control tau 13978 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 16642)', '(SE, -84, 16618)'] expected ['(NE, -537, 8993)']
+DI 0 550 second control tau 14278 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 16942)', '(SE, -84, 16918)'] expected ['(NE, -537, 8993)']
+DI 0 560 second control tau 14578 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 17242)', '(SE, -84, 17218)'] expected ['(NE, -537, 8993)']
+DI 0 570 second control tau 14878 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 17542)', '(SE, -84, 17518)'] expected ['(NE, -537, 8993)']
+DI 0 580 second control tau 15178 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 17842)', '(SE, -84, 17818)'] expected ['(NE, -537, 8993)']
+DI 0 590 second control tau 15478 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 18142)', '(SE, -84, 18118)'] expected ['(NE, -537, 8993)']
+DI 0 600 second control tau 15778 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 18442)', '(SE, -84, 18418)'] expected ['(NE, -537, 8993)']
+DI 0 610 second control tau 16078 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 18742)', '(SE, -84, 18718)'] expected ['(NE, -537, 8993)']
+DI 0 620 second control tau 16378 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 19042)', '(SE, -84, 19018)'] expected ['(NE, -537, 8993)']
+DI 0 630 second control tau 16678 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 19342)', '(SE, -84, 19318)'] expected ['(NE, -537, 8993)']
+DI 0 640 second control tau 16978 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 19642)', '(SE, -84, 19618)'] expected ['(NE, -537, 8993)']
+DI 0 650 second control tau 17278 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 19942)', '(SE, -84, 19918)'] expected ['(NE, -537, 8993)']
+DI 0 660 second control tau 17578 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 20242)', '(SE, -84, 20218)'] expected ['(NE, -537, 8993)']
+DI 0 670 second control tau 17878 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 20542)', '(SE, -84, 20518)'] expected ['(NE, -537, 8993)']
+DI 0 680 second control tau 18178 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 20842)', '(SE, -84, 20818)'] expected ['(NE, -537, 8993)']
+DI 0 690 second control tau 18478 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 21142)', '(SE, -84, 21118)'] expected ['(NE, -537, 8993)']
+DI 0 700 second control tau 18778 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 21442)', '(SE, -84, 21418)'] expected ['(NE, -537, 8993)']
+DI 0 710 second control tau 19078 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 21742)', '(SE, -84, 21718)'] expected ['(NE, -537, 8993)']
+DI 0 720 second control tau 19378 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 22042)', '(SE, -84, 22018)'] expected ['(NE, -537, 8993)']
+DI 0 730 second control tau 19678 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 22342)', '(SE, -84, 22318)'] expected ['(NE, -537, 8993)']
+DI 0 740 second control tau 19978 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 22642)', '(SE, -84, 22618)'] expected ['(NE, -537, 8993)']
+DI 0 750 second control tau 20278 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 22942)', '(SE, -84, 22918)'] expected ['(NE, -537, 8993)']
+DI 0 760 second control tau 20578 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 23242)', '(SE, -84, 23218)'] expected ['(NE, -537, 8993)']
+DI 0 770 second control tau 20878 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 23542)', '(SE, -84, 23518)'] expected ['(NE, -537, 8993)']
+DI 0 780 second control tau 21178 FAIL extra 16 missing 30 removed ['(NE, -537, 8993)', '(SE, -102, 23842)', '(SE, -84, 23818)'] expected ['(NE, -537, 8993)']
+DI 0 790 second control tau 21478 FAIL extra 26 missing 30 removed ['(NE, -537, 8993)'] expected ['(NE, -537, 8993)']
+DI 0 800 second control tau 21778 FAIL extra 26 missing 30 removed ['(NE, -537, 8993)'] expected ['(NE, -537, 8993)']
+DI 0 810 second control tau 22078 FAIL extra 254 missing 253 removed ['(NE, -537, 8993)', '(NE, 403, 22701)'] expected ['(NE, -537, 8993)']
+DI 0 820 second control tau 22378 FAIL extra 1894 missing 539 removed ['(NE, -537, 8993)', '(NE, 346, 23200)'] expected ['(NE, -537, 8993)']
+DI 0 830 second control tau 22678 FAIL extra 1072 missing 575 removed ['(NE, -537, 8993)', '(NE, 395, 23340)'] expected ['(NE, -537, 8993)']
+DI 0 840 second control tau 22978 ok
+DI 0 850 second control tau 23278 ok
+DI 0 860 second control tau 23578 ok
+DI 0 870 second control tau 23878 ok
+DI 0 880 second control tau 24178 ok
+DI 0 890 second control tau 24478 ok
+DI 0 900 second control tau 24778 ok
+DI 0 910 second control tau 25078 ok
+DI 0 920 second control tau 25378 ok
+DI 0 930 second control tau 25678 ok
+DI 0 940 second control tau 25978 ok
+DI 0 950 second control tau 26278 ok
+DI 0 960 second control tau 26578 ok
+DI 0 970 second control tau 26878 ok
+DI 0 980 second control tau 27178 ok
+DI 0 990 second control tau 27478 ok
+DI 0 1000 second control tau 27778 ok
+ID 0 -60 second control tau 2644 FAIL extra 20 missing 4 removed [] expected ['(SE, -391, 6979)']
+ID 0 -58 second control tau 2704 FAIL extra 20 missing 4 removed [] expected ['(SE, -391, 7039)']
+ID 0 -56 second control tau 2764 FAIL extra 20 missing 4 removed [] expected ['(SE, -391, 7099)']
+ID 0 -54 second control tau 2824 FAIL extra 20 missing 4 removed [] expected ['(SE, -391, 7159)']
+ID 0 -52 second control tau 2884 FAIL extra 15 missing 4 removed ['(SE, -102, 6442)'] expected ['(SE, -391, 7219)']
+ID 0 -50 second control tau 2944 FAIL extra 10 missing 4 removed ['(SE, -102, 6442)', '(SE, -84, 6418)'] expected ['(SE, -391, 7279)']
+ID 0 -48 second control tau 3004 FAIL extra 10 missing 4 removed ['(SE, -102, 6442)', '(SE, -84, 6418)'] expected ['(SE, -391, 7339)']
+ID 0 -46 second control tau 3064 FAIL extra 10 missing 4 removed ['(SE, -102, 6442)', '(SE, -84, 6418)'] expected ['(SE, -391, 7399)']
+ID 0 -44 second control tau 3124 FAIL extra 10 missing 4 removed ['(SE, -102, 6442)', '(SE, -84, 6418)'] expected ['(SE, -391, 7459)']
+ID 0 -42 second control tau 3184 FAIL extra 21 missing 3 removed [] expected ['(SE, -391, 7519)']
+ID 0 -40 second control tau 3244 FAIL extra 10 missing 4 removed ['(SE, -102, 6442)', '(SE, -84, 6418)'] expected ['(SE, -391, 7579)']
+ID 0 -38 second control tau 3304 FAIL extra 16 missing 4 removed ['(SE, -102, 6442)', '(SE, -84, 6418)'] expected ['(SE, -391, 7639)']
+ID 0 -36 second control tau 3364 FAIL extra 16 missing 0 removed [] expected ['(SE, -391, 7699)']
+ID 0 -34 second control tau 3424 ok
+ID 0 -32 second control tau 3484 ok
+ID 0 -30 second control tau 3544 ok
+ID 0 -28 second control tau 3604 ok
+ID 0 -26 second control tau 3664 ok
+ID 0 -24 second control tau 3724 ok
+ID 0 -22 second control tau 3784 ok
+ID 0 -20 second control tau 3844 ok
+ID 0 -18 second control tau 3904 ok
+ID 0 -16 second control tau 3964 ok
+ID 0 -14 second control tau 4024 ok
+ID 0 -12 second control tau 4084 ok
+ID 0 -10 second control tau 4144 ok
+ID 0 -8 second control tau 4204 ok
+ID 0 -6 second control tau 4264 ok
+ID 0 -4 second control tau 4324 ok
+ID 0 -2 second control tau 4384 ok
+ID 0 0 second control tau 4444 ok
+ID 0 2 second control tau 4504 ok
+ID 0 4 second control tau 4564 ok
+ID 0 6 second control tau 4624 ok
+ID 0 8 second control tau 4684 ok
+ID 0 10 second control tau 4744 ok
+ID 0 12 second control tau 4804 ok
+ID 0 14 second control tau 4864 ok
+ID 0 16 second control tau 4924 ok
+ID 0 18 second control tau 4984 ok
+ID 0 20 second control tau 5044 ok
+ID 0 22 second control tau 5104 FAIL extra 31 missing 3 removed [] expected ['(SE, -391, 9439)']
+ID 0 24 second control tau 5164 FAIL extra 13 missing 3 removed ['(SE, -391, 9499)'] expected ['(SE, -391, 9499)']
+ID 0 26 second control tau 5224 ok
+ID 0 28 second control tau 5284 ok
+ID 0 30 second control tau 5344 ok
+ID 0 32 second control tau 5404 FAIL extra 0 missing 4 removed ['(SE, -391, 9739)', '(SE, -102, 6442)', '(SE, -84, 6418)'] expected ['(SE, -391, 9739)']
+ID 0 34 second control tau 5464 ok
+ID 0 36 second control tau 5524 ok
+ID 0 38 second control tau 5584 ok
+ID 0 40 second control tau 5644 ok
+ID 0 42 second control tau 5704 FAIL extra 4 missing 3 removed ['(SE, -391, 10039)'] expected ['(SE, -391, 10039)']
+ID 0 44 second control tau 5764 ok
+ID 0 46 second control tau 5824 ok
+ID 0 48 second control tau 5884 ok
+ID 0 50 second control tau 5944 ok
+ID 0 52 second control tau 6004 ok
+ID 0 54 second control tau 6064 ok
+ID 0 56 second control tau 6124 ok
+ID 0 58 second control tau 6184 ok
+ID 0 60 second control tau 6244 ok
+ID 1 -60 second control tau 2644 ok
+ID 1 -58 second control tau 2704 ok
+ID 1 -56 second control tau 2764 ok
+ID 1 -54 second control tau 2824 ok
+ID 1 -52 second control tau 2884 ok
+ID 1 -50 second control tau 2944 ok
+ID 1 -48 second control tau 3004 ok
+ID 1 -46 second control tau 3064 ok
+ID 1 -44 second control tau 3124 ok
+ID 1 -42 second control tau 3184 FAIL extra 21 missing 3 removed [] expected ['(SE, -391, 7519)']
+ID 1 -40 second control tau 3244 ok
+ID 1 -38 second control tau 3304 FAIL extra 39 missing 26 removed [] expected ['(SE, -391, 7639)']
+ID 1 -36 second control tau 3364 FAIL extra 10 missing 0 removed [] expected ['(SE, -391, 7699)']
+ID 1 -34 second control tau 3424 ok
+ID 1 -32 second control tau 3484 ok
+ID 1 -30 second control tau 3544 ok
+ID 1 -28 second control tau 3604 ok
+ID 1 -26 second control tau 3664 ok
+ID 1 -24 second control tau 3724 ok
+ID 1 -22 second control tau 3784 ok
+ID 1 -20 second control tau 3844 ok
+ID 1 -18 second control tau 3904 ok
+ID 1 -16 second control tau 3964 ok
+ID 1 -14 second control tau 4024 ok
+ID 1 -12 second control tau 4084 ok
+ID 1 -10 second control tau 4144 ok
+ID 1 -8 second control tau 4204 ok
+ID 1 -6 second control tau 4264 ok
+ID 1 -4 second control tau 4324 ok
+ID 1 -2 second control tau 4384 ok
+ID 1 0 second control tau 4444 ok
+ID 1 2 second control tau 4504 ok
+ID 1 4 second control tau 4564 ok
+ID 1 6 second control tau 4624 ok
+ID 1 8 second control tau 4684 ok
+ID 1 10 second control tau 4744 ok
+ID 1 12 second control tau 4804 ok
+ID 1 14 second control tau 4864 ok
+ID 1 16 second control tau 4924 ok
+ID 1 18 second control tau 4984 ok
+ID 1 20 second control tau 5044 ok
+ID 1 22 second control tau 5104 FAIL extra 27 missing 3 removed [] expected ['(SE, -391, 9439)']
+ID 1 24 second control tau 5164 FAIL extra 13 missing 3 removed ['(SE, -391, 9499)'] expected ['(SE, -391, 9499)']
+ID 1 26 second control tau 5224 ok
+ID 1 28 second control tau 5284 ok
+ID 1 30 second control tau 5344 ok
+ID 1 32 second control tau 5404 FAIL extra 0 missing 4 removed ['(SE, -391, 9739)', '(SE, -102, 6442)', '(SE, -84, 6418)'] expected ['(SE, -391, 9739)']
+ID 1 34 second control tau 5464 ok
+ID 1 36 second control tau 5524 ok
+ID 1 38 second control tau 5584 ok
+ID 1 40 second control tau 5644 ok
+ID 1 42 second control tau 5704 FAIL extra 4 missing 3 removed ['(SE, -391, 10039)'] expected ['(SE, -391, 10039)']
+ID 1 44 second control tau 5764 ok
+ID 1 46 second control tau 5824 ok
+ID 1 48 second control tau 5884 ok
+ID 1 50 second control tau 5944 ok
+ID 1 52 second control tau 6004 ok
+ID 1 54 second control tau 6064 ok
+ID 1 56 second control tau 6124 ok
+ID 1 58 second control tau 6184 ok
+ID 1 60 second control tau 6244 ok
+ID 2 -60 second control tau 2644 ok
+ID 2 -58 second control tau 2704 ok
+ID 2 -56 second control tau 2764 ok
+ID 2 -54 second control tau 2824 ok
+ID 2 -52 second control tau 2884 ok
+ID 2 -50 second control tau 2944 ok
+ID 2 -48 second control tau 3004 ok
+ID 2 -46 second control tau 3064 ok
+ID 2 -44 second control tau 3124 ok
+ID 2 -42 second control tau 3184 FAIL extra 21 missing 3 removed [] expected ['(SE, -391, 7519)']
+ID 2 -40 second control tau 3244 ok
+ID 2 -38 second control tau 3304 FAIL extra 28 missing 3 removed ['(SE, -84, 6418)'] expected ['(SE, -391, 7639)']
+ID 2 -36 second control tau 3364 FAIL extra 14 missing 0 removed [] expected ['(SE, -391, 7699)']
+ID 2 -34 second control tau 3424 ok
+ID 2 -32 second control tau 3484 ok
+ID 2 -30 second control tau 3544 ok
+ID 2 -28 second control tau 3604 ok
+ID 2 -26 second control tau 3664 ok
+ID 2 -24 second control tau 3724 ok
+ID 2 -22 second control tau 3784 ok
+ID 2 -20 second control tau 3844 ok
+ID 2 -18 second control tau 3904 ok
+ID 2 -16 second control tau 3964 ok
+ID 2 -14 second control tau 4024 ok
+ID 2 -12 second control tau 4084 ok
+ID 2 -10 second control tau 4144 ok
+ID 2 -8 second control tau 4204 ok
+ID 2 -6 second control tau 4264 ok
+ID 2 -4 second control tau 4324 ok
+ID 2 -2 second control tau 4384 ok
+ID 2 0 second control tau 4444 ok
+ID 2 2 second control tau 4504 ok
+ID 2 4 second control tau 4564 ok
+ID 2 6 second control tau 4624 ok
+ID 2 8 second control tau 4684 ok
+ID 2 10 second control tau 4744 ok
+ID 2 12 second control tau 4804 ok
+ID 2 14 second control tau 4864 ok
+ID 2 16 second control tau 4924 ok
+ID 2 18 second control tau 4984 ok
+ID 2 20 second control tau 5044 ok
+ID 2 22 second control tau 5104 FAIL extra 27 missing 3 removed [] expected ['(SE, -391, 9439)']
+ID 2 24 second control tau 5164 FAIL extra 13 missing 3 removed ['(SE, -391, 9499)'] expected ['(SE, -391, 9499)']
+ID 2 26 second control tau 5224 ok
+ID 2 28 second control tau 5284 ok
+ID 2 30 second control tau 5344 ok
+ID 2 32 second control tau 5404 FAIL extra 0 missing 4 removed ['(SE, -391, 9739)', '(SE, -102, 6442)', '(SE, -84, 6418)'] expected ['(SE, -391, 9739)']
+ID 2 34 second control tau 5464 ok
+ID 2 36 second control tau 5524 ok
+ID 2 38 second control tau 5584 ok
+ID 2 40 second control tau 5644 ok
+ID 2 42 second control tau 5704 FAIL extra 4 missing 3 removed ['(SE, -391, 10039)'] expected ['(SE, -391, 10039)']
+ID 2 44 second control tau 5764 ok
+ID 2 46 second control tau 5824 ok
+ID 2 48 second control tau 5884 ok
+ID 2 50 second control tau 5944 ok
+ID 2 52 second control tau 6004 ok
+ID 2 54 second control tau 6064 ok
+ID 2 56 second control tau 6124 ok
+ID 2 58 second control tau 6184 ok
+ID 2 60 second control tau 6244 ok
+ID 3 -60 second control tau 2644 ok
+ID 3 -58 second control tau 2704 ok
+ID 3 -56 second control tau 2764 ok
+ID 3 -54 second control tau 2824 ok
+ID 3 -52 second control tau 2884 ok
+ID 3 -50 second control tau 2944 ok
+ID 3 -48 second control tau 3004 ok
+ID 3 -46 second control tau 3064 ok
+ID 3 -44 second control tau 3124 ok
+ID 3 -42 second control tau 3184 FAIL extra 21 missing 3 removed [] expected ['(SE, -391, 7519)']
+ID 3 -40 second control tau 3244 ok
+ID 3 -38 second control tau 3304 FAIL extra 28 missing 3 removed ['(SE, -84, 6418)'] expected ['(SE, -391, 7639)']
+ID 3 -36 second control tau 3364 FAIL extra 22 missing 0 removed [] expected ['(SE, -391, 7699)']
+ID 3 -34 second control tau 3424 ok
+ID 3 -32 second control tau 3484 ok
+ID 3 -30 second control tau 3544 ok
+ID 3 -28 second control tau 3604 ok
+ID 3 -26 second control tau 3664 ok
+ID 3 -24 second control tau 3724 ok
+ID 3 -22 second control tau 3784 ok
+ID 3 -20 second control tau 3844 ok
+ID 3 -18 second control tau 3904 ok
+ID 3 -16 second control tau 3964 ok
+ID 3 -14 second control tau 4024 ok
+ID 3 -12 second control tau 4084 ok
+ID 3 -10 second control tau 4144 ok
+ID 3 -8 second control tau 4204 ok
+ID 3 -6 second control tau 4264 ok
+ID 3 -4 second control tau 4324 ok
+ID 3 -2 second control tau 4384 ok
+ID 3 0 second control tau 4444 ok
+ID 3 2 second control tau 4504 ok
+ID 3 4 second control tau 4564 ok
+ID 3 6 second control tau 4624 ok
+ID 3 8 second control tau 4684 ok
+ID 3 10 second control tau 4744 ok
+ID 3 12 second control tau 4804 ok
+ID 3 14 second control tau 4864 ok
+ID 3 16 second control tau 4924 ok
+ID 3 18 second control tau 4984 ok
+ID 3 20 second control tau 5044 ok
+ID 3 22 second control tau 5104 FAIL extra 138 missing 79 removed [] expected ['(SE, -391, 9439)']
+ID 3 24 second control tau 5164 FAIL extra 13 missing 3 removed ['(SE, -391, 9499)'] expected ['(SE, -391, 9499)']
+ID 3 26 second control tau 5224 ok
+ID 3 28 second control tau 5284 ok
+ID 3 30 second control tau 5344 ok
+ID 3 32 second control tau 5404 FAIL extra 0 missing 4 removed ['(SE, -391, 9739)', '(SE, -102, 6442)', '(SE, -84, 6418)'] expected ['(SE, -391, 9739)']
+ID 3 34 second control tau 5464 ok
+ID 3 36 second control tau 5524 ok
+ID 3 38 second control tau 5584 ok
+ID 3 40 second control tau 5644 ok
+ID 3 42 second control tau 5704 FAIL extra 4 missing 3 removed ['(SE, -391, 10039)'] expected ['(SE, -391, 10039)']
+ID 3 44 second control tau 5764 ok
+ID 3 46 second control tau 5824 ok
+ID 3 48 second control tau 5884 ok
+ID 3 50 second control tau 5944 ok
+ID 3 52 second control tau 6004 ok
+ID 3 54 second control tau 6064 ok
+ID 3 56 second control tau 6124 ok
+ID 3 58 second control tau 6184 ok
+ID 3 60 second control tau 6244 ok
+ID 40 -60 second control tau 2644 ok
+ID 40 -58 second control tau 2704 ok
+ID 40 -56 second control tau 2764 ok
+ID 40 -54 second control tau 2824 ok
+ID 40 -52 second control tau 2884 ok
+ID 40 -50 second control tau 2944 ok
+ID 40 -48 second control tau 3004 ok
+ID 40 -46 second control tau 3064 ok
+ID 40 -44 second control tau 3124 ok
+ID 40 -42 second control tau 3184 FAIL extra 21 missing 3 removed [] expected ['(SE, -391, 7519)']
+ID 40 -40 second control tau 3244 ok
+ID 40 -38 second control tau 3304 FAIL extra 28 missing 3 removed ['(SE, -84, 6418)'] expected ['(SE, -391, 7639)']
+ID 40 -36 second control tau 3364 FAIL extra 22 missing 0 removed [] expected ['(SE, -391, 7699)']
+ID 40 -34 second control tau 3424 ok
+ID 40 -32 second control tau 3484 ok
+ID 40 -30 second control tau 3544 ok
+ID 40 -28 second control tau 3604 ok
+ID 40 -26 second control tau 3664 ok
+ID 40 -24 second control tau 3724 ok
+ID 40 -22 second control tau 3784 ok
+ID 40 -20 second control tau 3844 ok
+ID 40 -18 second control tau 3904 ok
+ID 40 -16 second control tau 3964 ok
+ID 40 -14 second control tau 4024 ok
+ID 40 -12 second control tau 4084 ok
+ID 40 -10 second control tau 4144 ok
+ID 40 -8 second control tau 4204 ok
+ID 40 -6 second control tau 4264 ok
+ID 40 -4 second control tau 4324 ok
+ID 40 -2 second control tau 4384 ok
+ID 40 0 second control tau 4444 ok
+ID 40 2 second control tau 4504 ok
+ID 40 4 second control tau 4564 ok
+ID 40 6 second control tau 4624 ok
+ID 40 8 second control tau 4684 ok
+ID 40 10 second control tau 4744 ok
+ID 40 12 second control tau 4804 ok
+ID 40 14 second control tau 4864 ok
+ID 40 16 second control tau 4924 ok
+ID 40 18 second control tau 4984 ok
+ID 40 20 second control tau 5044 ok
+ID 40 22 second control tau 5104 FAIL extra 23 missing 3 removed ['(SE, -391, 9439)'] expected ['(SE, -391, 9439)']
+ID 40 24 second control tau 5164 FAIL extra 13 missing 3 removed ['(SE, -391, 9499)'] expected ['(SE, -391, 9499)']
+ID 40 26 second control tau 5224 ok
+ID 40 28 second control tau 5284 ok
+ID 40 30 second control tau 5344 ok
+ID 40 32 second control tau 5404 FAIL extra 0 missing 4 removed ['(SE, -391, 9739)', '(SE, -102, 6442)', '(SE, -84, 6418)'] expected ['(SE, -391, 9739)']
+ID 40 34 second control tau 5464 ok
+ID 40 36 second control tau 5524 ok
+ID 40 38 second control tau 5584 ok
+ID 40 40 second control tau 5644 ok
+ID 40 42 second control tau 5704 FAIL extra 4 missing 3 removed ['(SE, -391, 10039)'] expected ['(SE, -391, 10039)']
+ID 40 44 second control tau 5764 ok
+ID 40 46 second control tau 5824 ok
+ID 40 48 second control tau 5884 ok
+ID 40 50 second control tau 5944 ok
+ID 40 52 second control tau 6004 ok
+ID 40 54 second control tau 6064 ok
+ID 40 56 second control tau 6124 ok
+ID 40 58 second control tau 6184 ok
+ID 40 60 second control tau 6244 ok
+done

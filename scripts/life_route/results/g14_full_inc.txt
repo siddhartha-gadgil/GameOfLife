@@ -1,0 +1,21 @@
+pieces: 57 (REG1 22 + DZ2' 19 + G_I, RF_J + INC chain 3 + DEC chain 3 + stations 8); eaters 42 cells
+  INC T into copy 1  (SE, 260, 7829), k = 0: -> B_1 ok
+  INC T into copy 1  (SE, 260, 7829), k = 1: -> B_2 ok
+  INC T into copy 1  (SE, 260, 7829), k = 2: -> B_3 ok
+  INC T into copy 1  (SE, 260, 7829), k = 3: -> B_4 ok
+  INC T into copy 1  (SE, 260, 7829), k = 40: -> B_41 ok
+  INC S into copy 1  (NE, 2545, 7831), k = 0: -> B_1 ok
+  INC S into copy 1  (NE, 2545, 7831), k = 1: -> B_2 ok
+  INC S into copy 1  (NE, 2545, 7831), k = 2: -> B_3 ok
+  INC S into copy 1  (NE, 2545, 7831), k = 3: -> B_4 ok
+  INC S into copy 1  (NE, 2545, 7831), k = 40: -> B_41 ok
+  INC S into copy 2  (NE, 2446, 7675), k = 0: -> B_1 ok
+  INC S into copy 2  (NE, 2446, 7675), k = 1: -> B_2 ok
+  INC S into copy 2  (NE, 2446, 7675), k = 2: -> B_3 ok
+  INC S into copy 2  (NE, 2446, 7675), k = 3: -> B_4 ok
+  INC S into copy 2  (NE, 2446, 7675), k = 40: -> B_41 ok
+  INC S into copy 3  (NE, 2347, 7549), k = 0: -> B_1 ok
+  INC S into copy 3  (NE, 2347, 7549), k = 1: -> B_2 ok
+  INC S into copy 3  (NE, 2347, 7549), k = 2: -> B_3 ok
+  INC S into copy 3  (NE, 2347, 7549), k = 3: -> B_4 ok
+  INC S into copy 3  (NE, 2347, 7549), k = 40: -> B_41 ok

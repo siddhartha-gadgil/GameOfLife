@@ -1,0 +1,22 @@
+G_I = ('asm', 0, -843, -1143, 17), RF_C3' = ('rf', 7, -863, -1188, 19), DZ2's C_I after G_I: (SE, 314, 22468)
+side input (NE, 1910, 3396) (residues 1..13 release; +30 m): path from 3000 cells away: 24 from the other pieces, 200 from B_-1..B_600
+  (1) DZ2' C' on B_0: ['(NE, -537, 8993)'] ok
+  (1) DZ2' C' on B_1: ['(SE, -391, 8779)'] ok
+  (1) DZ2' C' on B_2: ['(SE, -391, 8779)'] ok
+  (1) DZ2' C' on B_3: ['(SE, -391, 8779)'] ok
+  (1) DZ2' C' on B_40: ['(SE, -391, 8779)'] ok
+  (2) external INC (NE, 1910, 6390) on B_0: ok
+  (2) external INC (NE, 1910, 6396) on B_0: ok
+  (2) external INC (NE, 1910, 6402) on B_0: ok
+  (2) external INC (NE, 1910, 6390) on B_1: ok
+  (2) external INC (NE, 1910, 6396) on B_1: ok
+  (2) external INC (NE, 1910, 6402) on B_1: ok
+  (2) external INC (NE, 1910, 6390) on B_2: ok
+  (2) external INC (NE, 1910, 6396) on B_2: ok
+  (2) external INC (NE, 1910, 6402) on B_2: ok
+  (2) external INC (NE, 1910, 6390) on B_3: ok
+  (2) external INC (NE, 1910, 6396) on B_3: ok
+  (2) external INC (NE, 1910, 6402) on B_3: ok
+  (2) external INC (NE, 1910, 6390) on B_40: ok
+  (2) external INC (NE, 1910, 6396) on B_40: ok
+  (2) external INC (NE, 1910, 6402) on B_40: ok

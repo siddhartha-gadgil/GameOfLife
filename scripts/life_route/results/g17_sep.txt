@@ -1,0 +1,26 @@
+RF_C3'                 ('rf', 7, -863, -1188, 19)   pieces  46  trace   1  blocks  99
+G_I                    ('asm', 0, -843, -1143, 17)  pieces  46  trace   1  blocks  99
+RF_J                   ('rf', 4, -850, -1044, 5)    pieces  69  trace  61  blocks  99
+INC chain copy 1       ('asm', 0, -1202, -1419, 16) pieces  32  trace  99  blocks  99
+INC chain copy 2       ('asm', 0, -1167, -1355, 0)  pieces  32  trace  62  blocks  99
+INC chain copy 3       ('asm', 0, -1132, -1291, 14) pieces  32  trace  13  blocks  99
+DEC chain copy 1       ('asm', 0, -1770, -1855, 17) pieces  32  trace  99  blocks  99
+DEC chain copy 2       ('asm', 0, -1735, -1791, 1)  pieces  32  trace  99  blocks  99
+DEC chain copy 3       ('asm', 0, -1700, -1727, 15) pieces  32  trace  99  blocks  99
+station piece 0        ('asm', 6, 380, 829, 7)      pieces  42  trace  25  blocks  99
+station piece 1        ('rf', 3, 429, 913, 16)      pieces  15  trace  30  blocks  99
+station piece 2        ('asm', 6, 452, 901, 25)     pieces  15  trace  25  blocks  99
+station piece 3        ('rf', 3, 501, 985, 4)       pieces  66  trace  30  blocks  99
+station piece 4        ('asm', 5, 889, -293, 17)    pieces  42  trace  25  blocks  99
+station piece 5        ('rf', 2, 973, -342, 26)     pieces  15  trace  30  blocks  99
+station piece 6        ('asm', 5, 961, -365, 5)     pieces  15  trace  25  blocks  99
+station piece 7        ('rf', 2, 1045, -414, 14)    pieces  66  trace  30  blocks  99
+eaters: pieces 53, trace 0, blocks 99
+DEC chain copy 1 side line (NE, 3549, 7104): pieces 12, blocks 99, trace 99
+DEC chain copy 2 side line (NE, 3450, 6948): pieces 12, blocks 99, trace 99
+DEC chain copy 3 side line (NE, 3351, 6822): pieces 70, blocks 99, trace 99
+DEC chain through input (SE, 128, 7102): pieces 53, blocks 99, trace 99
+INC chain copy 1 side line (NE, 2545, 4831): pieces 12, blocks 99, trace 66
+INC chain copy 2 side line (NE, 2446, 4675): pieces 12, blocks 99, trace 16
+INC chain copy 3 side line (NE, 2347, 4549): pieces 17, blocks 99, trace 0
+INC chain through input (SE, 260, 4829): pieces 44, blocks 99, trace 99

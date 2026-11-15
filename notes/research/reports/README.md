@@ -31,3 +31,5 @@ declaration.
   input), verified by simulation for k = 0, 1, 2, 3, 40; supply of `O` open (`O4`).
 - [`R-28-dz2-supply.md`](R-28-dz2-supply.md): `DZ2` complete from one control glider (supply
   of `O` by a re-timing gate, Z branch); simulated for k = 0, 1, 2, 3, 40, 100.
+- [`R-29-sharing.md`](R-29-sharing.md): sharing a register: OR-gate merge chains, dispatch
+  stations, INC continue, reuse spacings; a modified `DZ2` (gate `G_I`); `scripts/life_route`.

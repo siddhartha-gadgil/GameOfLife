@@ -1,0 +1,8 @@
+DZ2: 41 pieces; C' (SE, 41, 4444); NZ (SE, -391, 8779); Z (NE, -537, 8993); Ts = -300
+  k =   0: evolve 27540 = cycle ∪ B_0 ∪ Z: checked  (run box x -1399..4616, y -4025..659; 14 s)
+  k =   1: evolve 11490 = cycle ∪ B_0 ∪ NZ: checked  (run box x -1399..712, y -1489..996; 3 s)
+  k =   2: evolve 11490 = cycle ∪ B_1 ∪ NZ: checked  (run box x -1399..712, y -1489..996; 3 s)
+  k =   3: evolve 11490 = cycle ∪ B_2 ∪ NZ: checked  (run box x -1399..712, y -1489..996; 4 s)
+  k =  40: evolve 11490 = cycle ∪ B_39 ∪ NZ: checked  (run box x -1399..712, y -1489..996; 3 s)
+  k = 100: evolve 11490 = cycle ∪ B_99 ∪ NZ: checked  (run box x -1399..712, y -1489..996; 3 s)
+  k = 300: evolve 11490 = cycle ∪ B_299 ∪ NZ: checked  (run box x -1399..712, y -1489..996; 3 s)

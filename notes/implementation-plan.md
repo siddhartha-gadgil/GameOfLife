@@ -449,6 +449,9 @@ There are no empirical inputs; every gate is a compiled proof.
   declarations. Parallel: search `R-29` (merge, dispatch, reuse) running.
 - **2026-11-15 — `DZ2` certified for k = 0** (`dz2k0Run_rest`, 27 540 generations, 110 segments).
   `lake build` 3309 jobs, 0 warnings; axiom audit passed for 22 913 declarations.
+- **2026-11-15 — sharing a register** (search `R-29`, sub-agent): merge chains, dispatch stations,
+  INC continue, reuse spacings; full assembly of 57 pieces simulated exactly (not Lean). DZ2
+  modified (gate `G_I` on REG1's INC lane).
 - **2026-11-14 — notes update** (user request). Registries, §0, §6, §7, `sources.md`, the
   model contracts and the notes `N-13`, `N-16`, `N-18` brought in line with the state of the
   library. Full check at this point: `lake build` 3273 jobs, 0 warnings; axiom
