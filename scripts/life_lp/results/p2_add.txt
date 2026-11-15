@@ -1,0 +1,62 @@
+N 4 R 3 D 1 P 2; constants {'P_U': 900, 'P_M': 2940, 'A_0': 0, 'V_U': -11244, 'V_T': -9600, 'U_0': 6840, 'H_I': -960, 'NB': 9, 'slab': (-450, 238), 'G_far': None}
+units A_a [0, 900, 1800, 2700, 3600, 4500, 5400] at v -11244; modules U_r [6840, 9780, 12720]
+  b  1 s 0 dec0.KNZ   src col   -155 dst col   5861 OUT  -8940 BACK  -8382 H   -2037 e 492 delta 0 -> (NE, -1256, 32656)
+  b  1 s 1 dec0.C     src col    127 dst col   6047 OUT  -8878 BACK  -8444 H    -991 e 60 rho 4 -> (NE, 3450, 28156)
+  b  1 s 2 dec0.KZ    src col    188 dst col   8456 OUT  -8815 BACK  -8505 H    -808 e 14 delta -1 -> (NW, -8070, 67297)
+  b  1 s 3 dec0.nz    src col   5798 dst col    748 OUT  -8753 BACK  -8567 H    -710 e 10 rho 4 -> (NE, 11267, 112379)
+  b  1 s 4 dec0.z     src col   8393 dst col   2633 OUT  -8692 BACK  -8630 H    -613 e  6 rho 5 -> (NE, 11168, 119784)
+  b  2 s 0 inc1.cont  src col    968 dst col   1502 OUT  -8279 BACK  -7721 H  -17004 e 11 rho 5 -> (NE, 11267, 107340)
+  b  2 s 1 inc1.link  src col   1057 dst col   4433 OUT  -8218 BACK  -7784 H    -897 e 13 rho 5 -> (NE, 11168, 43044)
+  b  3 s 0 dec2.KNZ   src col   1645 dst col  11741 OUT  -7620 BACK  -7062 H   -2037 e 492 delta 0 -> (NE, -1256, 36256)
+  b  3 s 1 dec2.C     src col   1927 dst col  11927 OUT  -7558 BACK  -7124 H    -991 e 60 rho 4 -> (NE, 3450, 31756)
+  b  3 s 2 dec2.KZ    src col   1988 dst col  14336 OUT  -7495 BACK  -7185 H    -808 e 14 delta -1 -> (NW, -13950, 94417)
+  b  3 s 3 dec2.nz    src col  11678 dst col   2450 OUT  -7433 BACK  -7247 H    -710 e 10 rho 4 -> (NE, 11465, 140291)
+  b  3 s 4 dec2.z     src col  14273 dst col   -359 OUT  -7372 BACK  -7310 H    -613 e  6 rho 5 -> (NE, 11366, 147696)
+  b  0 s 0 halt3      src col   2714 dst col   None OUT  -9599 BACK      - H    None e  0  -> (SW, -9599, -9828)
+  b  6 s 0 merge1     src col   4514 dst col   8862 OUT  -5639 BACK  -5081 H    -960 e  0 rho 5 -> (NE, 2347, 35988)
+pieces 263, eater cells 84, start (NE, 11168, 22493) at t = -330, halt line (SW, -9599, -9828), HALT cell uv (-17625, -9599)
+
+(F) separation inequalities (formulas; margin = left side - right side)
+  unit slab a vs a+1: A_a + right <= A_{a+1} + left - 60                                          margin 152 
+  unit row bottom vs band top: V_U + 1523 <= V_T - 120                                            margin 1 
+  band bottom vs module top: V_T + 660 NB <= -3324 - 198 D - 120                                  margin 18 
+  sub-band b: its tracks (V_T + 660 b + [0, 559]) vs sub-band b + 1                               margin 41 
+  tracks of one sub-band: |62 s - 62 s'| - 1 (parity) >= 60                                       margin 1 
+  last unit slab vs zone of module 0: A_{N+R-1} + right + 120 <= U_0 + ext_left                   margin 11 
+  module r vs r+1 (with zones): U_r + ext_right + 60 <= U_{r+1} + ext_left                        margin 163 
+  regular hairpins vs unit 0: H_I + 360 <= A_0 + left - 120                                       margin 30 
+  diagonal vs left zone: U_r + uL <= U_r - 96 - 60                                                margin 637 
+  diagonal vs right-zone legs (u >= U_r + 1230): U_r - 96 + 60 <= U_r + 1230                      margin 1266 
+  diagonal of r+1 vs right zone of r: U_r + ext_right <= U_{r+1} - 96 - 60                        margin 1138 
+(S) route corners vs foreign segments spanning them: min perpendicular gap 61 (>= 60 required), failures 0
+(C) route segments vs pieces they do not interact with: min cell distance 1000000000 (>= 13), failures 0
+(C) piece envelopes of different groups (unit, module, route link): min cell distance 31 (box < 40), failures 0
+(C) HALT cell (u, v) = (-17625, -9599), xy (-13612, 4013): distance to every piece 965, to every other route segment 967; the halt glider passes it
+(D) register diagonals (u = U_r - 96, v >= 404, every k): foreign pieces / segments within 60 in u: failures 0
+
+(T) timing
+  dec0.nz    NZ    arrival residue  4 (window tau..tau+12; rho* = 4) e = 2 (rho* - r0) mod 15 = 10 (r0 = 14) ok
+  dec0.z     Z     arrival residue  5 (window tau..tau+12; rho* = 5) e = 2 (rho* - r0) mod 15 =  6 (r0 = 17) ok
+  inc1.cont  cont  arrival residue  5 (window tau..tau+12; rho* = 5) e = 2 (rho* - r0) mod 15 = 11 (r0 =  7) ok
+  inc1.link  link  arrival residue  5 (window tau..tau+12; rho* = 5) e = 2 (rho* - r0) mod 15 = 13 (r0 = 21) ok
+  dec2.nz    NZ    arrival residue  4 (window tau..tau+12; rho* = 4) e = 2 (rho* - r0) mod 15 = 10 (r0 = 14) ok
+  dec2.z     Z     arrival residue  5 (window tau..tau+12; rho* = 5) e = 2 (rho* - r0) mod 15 =  6 (r0 = 17) ok
+  merge1     merge arrival residue  5 (window tau..tau+12; rho* = 5) e = 2 (rho* - r0) mod 15 =  0 (r0 =  5) ok
+  dec0 (r 0, j 0, q 0, D 1): C residue 4 = 4 + 2 sigma; (e_C, dN0, dZ0, sigma, x, e_KZ, E_N) = (0, -3936, 367, 0, 4, 14, 492); formulas (0, -3936, 367, 0, 4, 14, 492) ok; token deltas KNZ 0, KZ -1
+  dec2 (r 2, j 0, q 0, D 1): C residue 4 = 4 + 2 sigma; (e_C, dN0, dZ0, sigma, x, e_KZ, E_N) = (0, -3936, 367, 0, 4, 14, 492); formulas (0, -3936, 367, 0, 4, 14, 492) ok; token deltas KNZ 0, KZ -1
+  dec0.z     Z answer at its gate - (DZ2 Z restore end + 300) = 37806 ok
+  inc1.cont  continue at its up-turn corner - (INC control at the INC gate + 500) = 78 ok
+  dec2.z     Z answer at its gate - (DZ2 Z restore end + 300) = 44678 ok
+  dec0: unpaired Z token (NZ case) at its station gate 41793 generations before the NZ answer reaches unit 1; unpaired NZ token (Z case) at its station gate 2463 generations before the Z answer leaves its station
+  dec2: unpaired Z token (NZ case) at its station gate 57665 generations before the NZ answer reaches unit 3; unpaired NZ token (Z case) at its station gate 2463 generations before the Z answer leaves its station
+
+(X) crossings of concurrent links (time difference at the crossing point)
+  dec0 bundle           : no crossing
+  dec0 KZ / NZ answer   : dec0.nz leg 1 x dec0.KZ leg 3 at (u, v) (5798, -8505): dt 47336.0 
+  dec0 KNZ / Z answer   : no crossing
+  inc1                  : inc1.link leg 3 x inc1.cont leg 4 at (u, v) (1502, -7784): dt -63895.0 
+  dec2 bundle           : no crossing
+  dec2 KZ / NZ answer   : dec2.nz leg 1 x dec2.KZ leg 3 at (u, v) (11678, -7185): dt 42056.0 
+  dec2 KNZ / Z answer   : dec2.z leg 6 x dec2.KNZ leg 1 at (u, v) (-359, -7620): dt 103153.0 
+
+TOTAL failures: 0

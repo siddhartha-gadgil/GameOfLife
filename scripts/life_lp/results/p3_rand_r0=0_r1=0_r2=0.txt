@@ -1,0 +1,20 @@
+program rand = [('inc', 2), ('dec', 0, 4), ('inc', 1), ('dec', 1, 6), ('inc', 0), ('dec', 1, 3), ('halt',)]; input {0: 0, 1: 0, 2: 0}; interpreter: final {0: 1, 1: 0, 2: 1}, instruction trace [0, 1, 4, 5, 3, 6]
+layout LP: 374 pieces, 126 eater cells; start (NE, 13328, 26813) at t = -30; halt line (SW, -11759, -8748); HALT cell (u, v) (-25905, -11759)
+core box (-18277, -12062, 9538, 7459) (27815 x 19521)
+  t = 510 (1 s)
+  t = 60510 (92 s)
+  t = 120510 (183 s)
+  t = 180510 (254 s)
+  t = 240510 (324 s)
+  t = 300510 (396 s)
+  t = 360510 (462 s)
+  t = 420510 (521 s)
+  t = 480510 (587 s)
+  t = 540510 (650 s)
+  t = 600510 (707 s)
+  t = 660510 (766 s)
+  t = 720510 (821 s)
+  t = 722910: glider (SW, -11759, 649542) left the machine (HALT line)
+     passes the HALT cell (-18832, 7073) at t = 724870
+halted: escaped gliders ['(SW, -11759, 649542)']; halt glider left the core box at t = 722910 (start t = -30): 722940 generations
+end t = 752910: state == cycle of all pieces + eaters + blocks {0: 1, 1: 0, 2: 1}: ok  (848 s)

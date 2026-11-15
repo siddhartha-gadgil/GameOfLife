@@ -1,0 +1,32 @@
+dec n=2: 10 pieces, uv box (-176, -95, 208, 1523), slab [-328, 238], C0 -237, outputs {'L': '(SE, -155, 2155)', 'R': '(SE, 127, 711)', 'D': '(SE, 188, 277)'}
+   copy 0 side (NE, -76, 1) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'L': ('(SE, -155, 2665)', 25, 2060), 'R': ('(SE, 127, 1221)', 21, 616), 'D': ('(SE, 188, 787)', 7, 182)}
+   copy 1 side (NE, 23, 157) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'L': ('(SE, -155, 2935)', 25, 2174), 'R': ('(SE, 127, 1491)', 21, 730), 'D': ('(SE, 188, 1057)', 7, 296)}
+inc n=2: 5 pieces, uv box (-31, -95, 177, 408), slab [-182, 207], C0 -91, outputs {'R': '(SE, 157, 519)', 'D': '(SE, 68, 95)'}
+   copy 0 side (NE, -76, 1) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'R': ('(SE, 157, 1029)', 9, 424), 'D': ('(SE, 68, 605)', 5, 0)}
+   copy 1 side (NE, 23, 157) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'R': ('(SE, 157, 1299)', 9, 538), 'D': ('(SE, 68, 875)', 5, 114)}
+halt n=2: 2 pieces, uv box (-6, -95, 114, 97), slab [-158, 144], C0 -67, outputs {'D': '(SE, 14, 119)'}
+   copy 0 side (NE, -76, 1) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'D': ('(SE, 14, 629)', 29, 24)}
+   copy 1 side (NE, 23, 157) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'D': ('(SE, 14, 899)', 29, 138)}
+merge n=2: 2 pieces, uv box (-6, -95, 114, 97), slab [-158, 144], C0 -67, outputs {'D': '(SE, 14, 119)'}
+   copy 0 side (NE, -76, 1) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'D': ('(SE, 14, 629)', 29, 24)}
+   copy 1 side (NE, 23, 157) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'D': ('(SE, 14, 899)', 29, 138)}
+dec n=4: 12 pieces, uv box (-176, -293, 208, 1523), slab [-450, 238], C0 -237, outputs {'L': '(SE, -155, 2155)', 'R': '(SE, 127, 711)', 'D': '(SE, 188, 277)'}
+   copy 0 side (NE, -76, 1) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'L': ('(SE, -155, 2665)', 25, 2060), 'R': ('(SE, 127, 1221)', 21, 616), 'D': ('(SE, 188, 787)', 7, 182)}
+   copy 1 side (NE, 23, 157) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'L': ('(SE, -155, 2935)', 25, 2174), 'R': ('(SE, 127, 1491)', 21, 730), 'D': ('(SE, 188, 1057)', 7, 296)}
+   copy 2 side (NE, 122, 283) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'L': ('(SE, -155, 3175)', 25, 2288), 'R': ('(SE, 127, 1731)', 21, 844), 'D': ('(SE, 188, 1297)', 7, 410)}
+   copy 3 side (NE, 221, 439) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'L': ('(SE, -155, 3445)', 25, 2402), 'R': ('(SE, 127, 2001)', 21, 958), 'D': ('(SE, 188, 1567)', 7, 524)}
+inc n=4: 7 pieces, uv box (-31, -293, 177, 408), slab [-304, 207], C0 -91, outputs {'R': '(SE, 157, 519)', 'D': '(SE, 68, 95)'}
+   copy 0 side (NE, -76, 1) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'R': ('(SE, 157, 1029)', 9, 424), 'D': ('(SE, 68, 605)', 5, 0)}
+   copy 1 side (NE, 23, 157) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'R': ('(SE, 157, 1299)', 9, 538), 'D': ('(SE, 68, 875)', 5, 114)}
+   copy 2 side (NE, 122, 283) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'R': ('(SE, 157, 1539)', 9, 652), 'D': ('(SE, 68, 1115)', 5, 228)}
+   copy 3 side (NE, 221, 439) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'R': ('(SE, 157, 1809)', 9, 766), 'D': ('(SE, 68, 1385)', 5, 342)}
+halt n=4: 4 pieces, uv box (-6, -293, 172, 97), slab [-280, 202], C0 -67, outputs {'D': '(SE, 14, 119)'}
+   copy 0 side (NE, -76, 1) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'D': ('(SE, 14, 629)', 29, 24)}
+   copy 1 side (NE, 23, 157) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'D': ('(SE, 14, 899)', 29, 138)}
+   copy 2 side (NE, 122, 283) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'D': ('(SE, 14, 1139)', 29, 252)}
+   copy 3 side (NE, 221, 439) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'D': ('(SE, 14, 1409)', 29, 366)}
+merge n=4: 4 pieces, uv box (-6, -293, 172, 97), slab [-280, 202], C0 -67, outputs {'D': '(SE, 14, 119)'}
+   copy 0 side (NE, -76, 1) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'D': ('(SE, 14, 629)', 29, 24)}
+   copy 1 side (NE, 23, 157) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'D': ('(SE, 14, 899)', 29, 138)}
+   copy 2 side (NE, 122, 283) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'D': ('(SE, 14, 1139)', 29, 252)}
+   copy 3 side (NE, 221, 439) (window tau..tau+12, residues 1, 5, 13 checked): outputs {'D': ('(SE, 14, 1409)', 29, 366)}

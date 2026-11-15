@@ -70,6 +70,11 @@ Verified so far with this method: the zero test `DZ2` for every register value (
   (reflectors, gates, flights) for any list of stages. A layout for provability is being designed
   (search `R-31`).
 
+* 2026-11-15: report `R-31` (numerical): the layout LP with every position an affine formula in the
+  indices, 17 separation pair classes each one linear inequality, a nesting lemma for concurrent
+  links (no crossing, or crossings separated by causality), timing by residues (all pitches
+  `≡ 0 mod 30`), and a catalogue of 25 local certificates for every program; 11 runs to halting.
+
 ## Barriers
 
 * Separation for every program (step 3) is the main proof burden; the layout may need to be

@@ -1,0 +1,18 @@
+route reflectors (RF0 image k, turn, relative phase): uses
+  image 0 SW->NW    phase  0: 14
+  image 1 NW->NE    phase  0: 24
+  image 2 NE->SE    phase  0: 26
+  image 3 SE->SW    phase  0: 46
+  image 4 SE->NE    phase  0: 76
+  image 5 NW->SW    phase  0: 14
+  image 6 NE->NW    phase  0: 31
+  image 7 SW->SE    phase  0: 50
+distinct (image, phase): 8
+window inputs (gate, residue relative to the window base tau_t; R-29 numbering = residue + 1): uses
+  OR gate (DEC chain copy)   residue  4: 4
+  OR gate (DEC chain copy)   residue  8: 3
+  OR gate (INC chain copy)   residue  5: 5
+  OR gate (entry copy)       residue  4: 7
+  OR gate (entry copy)       residue  5: 17
+token deltas (station capture certificates): {('KNZ', 0): 7, ('KZ', -1): 7}
+unit templates used: [('dec', 4), ('dec', 6), ('halt', 4), ('halt', 6), ('inc', 4), ('inc', 6), ('merge', 4), ('merge', 6)]
