@@ -255,3 +255,12 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   of each OR gate with its incoming side glider over the last 20 generations. True fields proved
   (`ActivationIncSepProof.lean`): `isep_sepC`, `isep_sepR`, `isep_sepM`. **Lesson**: every
   "far until it meets" clause must stop ≥ 20 generations before the interaction.
+* 2026-11-16: **`DecSep` is false for every decJz** (`DecSepFalse.lean`: `dsep_not_decSep`; sub-agent
+  with a numerical checker of every field). Causes: (1) before the cut the footprint was the region of
+  the whole run (incl. the answer's whole flight) — fixes `zQZ`, `zLane`, `nIdle` (D = 1); now
+  `Gen/*PreG.lean` (generator `scripts/life_cert/emit_preg.py`): each split run up to its cut, inside
+  `<p>PreRegion` (probe: clear of the NZ end eater and the INC gate); (2) `zIdle`: a glider of the
+  `dz2mk0` rest passes the empty corner of the INC gate's box (≥ 12 cells from its cells) — needs the
+  gate's exact footprint (gate in the active group); (3) `sepAN/sepAZ`: the dispatched answer stays
+  within reach of its station for ~96 generations after dispatch — capture windows to grow by ≥ 100.
+  Proved fields: `dsep_sepC/N/Z`, `dsep_grpLane`, `dsep_lanes`, `dsep_laneBody`.
