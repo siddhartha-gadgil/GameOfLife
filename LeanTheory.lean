@@ -163,6 +163,8 @@ public import LeanTheory.Theory.Life.Gen.Dz2mk0Run
 public import LeanTheory.Theory.Life.Gen.Dz2mk0RunR
 public import LeanTheory.Theory.Life.Gen.Dz2gRun
 public import LeanTheory.Theory.Life.Gen.Dz2jRun
+public import LeanTheory.Theory.Life.Gen.Dz2jRunR
+public import LeanTheory.Theory.Life.Gen.Dz2jAllR
 public import LeanTheory.Theory.Life.SalvoGenerator
 public import LeanTheory.Theory.Life.SlidingBlock
 public import LeanTheory.Theory.Life.ZeroTestLogic

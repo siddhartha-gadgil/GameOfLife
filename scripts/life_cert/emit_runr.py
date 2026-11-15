@@ -101,7 +101,9 @@ def main():
             segs[k] = dict(binders=binders, n=n, procs=split_top(body),
                            sbinders=hm.group(1) if hm else '')
     run = read(os.path.join(GEN, P + 'Run.lean'))
-    diag = 'wStrip' in ''.join(''.join(s['procs']) for s in segs.values())
+    alltxt = ''.join(''.join(s['procs']) for s in segs.values())
+    diag = 'wStrip' in alltxt or 'PullG' in alltxt
+    pullg = 'PullG' in alltxt
     # region
     A = B = LO = HI = None
     for s in segs.values():
@@ -112,11 +114,12 @@ def main():
             else:
                 fm = re.search(r'F := (.*?),\s*reaction :=', pr, re.S)
                 fx = fm.group(1)
-                if 'wStrip' in fx:
+                if 'wStrip' in fx or 'PullG' in fx:
                     continue
                 bx = parse_box(fx, s['n'])
                 if bx is None:
-                    raise SystemExit('unknown footprint: ' + fx[:200])
+                    print('generic footprint (omega):', fx[:100])
+                    continue
                 boxes = [bx[:4]]
             for (a, b, lo, hi) in boxes:
                 A = a if A is None else min(A, a)
@@ -153,6 +156,15 @@ open Finset
 set_option linter.style.longLine false
 set_option linter.unusedVariables false
 ''')
+    if pullg:
+        out.append(f'''/-- The salvo and the block of the generic process stay in the region of the run: the salvo in
+the box while near the circuit, then in the lanes of the register diagonal. -/
+theorem {p}PullG_sub (k j : ℕ) : {p}PullG k j ⊆ {region} := by
+  intro c hc
+  simp only [{p}PullG] at hc
+  split_ifs at hc <;>
+    simp only [Box, regLanes, Set.mem_union, Set.mem_ofPred_eq] at hc ⊢ <;> omega
+''')
     for k in sorted(segs):
         s = segs[k]
         n = s['n']
@@ -181,9 +193,15 @@ set_option linter.unusedVariables false
                               ', trivial⟩ i')
             else:
                 fx = re.search(r'F := (.*?),\s*reaction :=', pr, re.S).group(1)
-                if 'wStrip' in fx:
+                if 'PullG' in fx:
+                    am = re.search(r'PullG (\w+) \(i \+ (\d+)\)', fx)
+                    proofs.append(f'fun i _ => {p}PullG_sub {am.group(1)} (i + {am.group(2)})')
+                elif 'wStrip' in fx:
                     proofs.append('fun i hi => (wStrip_subset_regLanes (by omega) (by omega)).trans '
                                   'Set.subset_union_right')
+                elif parse_box(fx, n) is None:
+                    proofs.append('fun i _ c hc => by simp only [Box, regLanes, Set.mem_union, '
+                                  'Set.mem_ofPred_eq] at hc ⊢; omega')
                 else:
                     bx = parse_box(fx, n)
                     inter = '∩ UVBox' in fx
@@ -228,6 +246,12 @@ theorem {p}RunR{runbinders.rstrip()} :
     # final statement
     fm = re.search(r'(/--(?:(?!-/).)*?-/)\s*\ntheorem (' + p + r'(?:Run_rest|Op))\b(.*?):\s*\n\s*conway\.evolve '
                    + str(N) + r'\s*', run, re.S)
+    if fm is None:
+        out.append('end LeanTheory.Life\n')
+        with open(os.path.join(GEN, P + 'RunR.lean'), 'w') as f:
+            f.write('\n'.join(out))
+        print(P + 'RunR.lean (no final statement)', region, 'segments', len(segs))
+        return
     name, fbinders = fm.group(2), fm.group(3)
     i0 = fm.end()
     assert run[i0] == '('

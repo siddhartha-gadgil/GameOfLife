@@ -113,3 +113,6 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   far along, and the block is near), so the register is a static block and the static-block
   certificates apply: `dz2jAll` (INC, every `k`), `dz2gAll` (`k ≥ 2`), `dz2mk1` (`k = 1`), `dz2mk0`
   (`k = 0`); their outputs are on the same world lines as `dz2dOp`'s (the circuit "in its cycle").
+* 2026-11-16: `dz2jAllR` (`Gen/Dz2jRunR.lean`, `Gen/Dz2jAllR.lean`): the increment of a static
+  block at any position `k` as a reaction inside `Box (-1395) 668 (-1489) 659 ∪ regLanes`
+  (`dz2jPullG_sub`: the generic salvo and block in the box near the circuit, then in the lanes).
