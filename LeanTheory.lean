@@ -58,6 +58,7 @@ public import LeanTheory.Sanity.QuasisymmetryNotSymmetry
 public import LeanTheory.SubsetSum
 public import LeanTheory.Theory.Computability.CounterMachine
 public import LeanTheory.Theory.Computability.CounterMachineUniversal
+public import LeanTheory.Theory.Computability.CounterMachineSingleHalt
 public import LeanTheory.Theory.Computability.CounterMachineWhile
 public import LeanTheory.Theory.Fields.FieldLineExistence
 public import LeanTheory.Theory.Fields.InvariantBarrier

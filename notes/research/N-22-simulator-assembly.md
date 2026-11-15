@@ -179,3 +179,9 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   glider in an extended relay box — `rf3_early`, `reflect_early` for image 3 — then the outgoing
   flight from `meetT + 40`). (3) A program with several `halt`s: the halt corner of an earlier
   halt lies on the path of a later halt glider; normalize programs to a single `halt`.
+* 2026-11-16: single halt (`CounterMachineSingleHalt.lean`, sub-agent, checked here):
+  `exists_program_halts_not_computable_single` (a well-formed program with a single `halt`, the
+  last instruction, whose halting from `Cfg.init n` is not computable); normalization
+  `Program.singleHalt` (every earlier `halt` becomes `decJz freshReg (length − 1)` on a fresh,
+  always-zero register; `halts_init_singleHalt`). The corollary will use this program, so
+  `HaltSep` is needed only for the unique halt.
