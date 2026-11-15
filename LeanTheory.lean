@@ -169,6 +169,7 @@ public import LeanTheory.Theory.Life.ActivationIncThread
 public import LeanTheory.Theory.Life.ActivationIncModuleRun
 public import LeanTheory.Theory.Life.ActivationIncStep
 public import LeanTheory.Theory.Life.ActivationIncPlan
+public import LeanTheory.Theory.Life.ActivationHalt
 public import LeanTheory.Theory.Life.DiagAppend
 public import LeanTheory.Theory.Life.DiagSmall
 public import LeanTheory.Theory.Life.RouteExamples

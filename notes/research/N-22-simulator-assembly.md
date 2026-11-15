@@ -167,3 +167,15 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   all of `IncPlan.Valid` for every well-formed program; `inc_step` is conditional only on
   `IncSep` and `IncRegion` (and `RegS.Ready` of the register). Note: `late` holds with a margin of
   about 6400 more than needed (`Tend ≥ Tg + 14396`).
+* 2026-11-16: **halt** (`ActivationHalt.lean`, sub-agent, checked here): `halt_everAlive`
+  (`InvM`, `step = none` ⇒ the corrected halt cell `haltCellC` is ever alive), conditional on
+  `HaltSep` (separation only; lines, times, reflector membership proved). Findings: (1) the old
+  `haltCell` is never alive (`haltCell_not_hit`: the halt glider has `x + y ∈ [V_T+2, V_T+5]`);
+  `haltCellC` keeps `u = uMin − 600` (outside the region) and is hit at `haltTime`.
+  (2) **`RouteSep` / `RouteSepM` are unsatisfiable** as stated: the flight clause up to `meetT`
+  includes the corner's own reflector, and one generation before the meeting the boxes touch
+  (`not_far_before_meet`); so `inc_step`'s `IncSep` must be reformulated with an extended relay
+  window (flight far from all pieces until `meetT − 20`, a 60-generation reaction of reflector and
+  glider in an extended relay box — `rf3_early`, `reflect_early` for image 3 — then the outgoing
+  flight from `meetT + 40`). (3) A program with several `halt`s: the halt corner of an earlier
+  halt lies on the path of a later halt glider; normalize programs to a single `halt`.
