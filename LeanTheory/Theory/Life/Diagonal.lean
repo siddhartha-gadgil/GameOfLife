@@ -452,7 +452,8 @@ theorem diag_end (P : DiagParams) (hP : P.Good) :
     rw [diagTime, show j + ((K + e).toNat * 4 + σ.n + diagTime (K + σ.d)
         (shiftQ q (K + e + σ.n / 4))) = (j + diagTime (K + σ.d) (shiftQ q (K + e + σ.n / 4))) +
         ((K + e).toNat * 4 + σ.n) by ring, Rule.evolve_add, hstep,
-      diag_end P hP (n - 1) _ _ _ _ (by simp [shiftQ] at hlen ⊢; omega) hrest j, qMove_shiftQ, qMove]
+      diag_end P hP (n - 1) _ _ _ _ (by simp [shiftQ] at hlen ⊢; omega) hrest j, qMove_shiftQ,
+      qMove]
     congr 1
     ring
 
