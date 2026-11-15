@@ -246,3 +246,12 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   (p.length − 1)` for every well-formed single-halt program (the halt route is `haltLink_sep`
   with delay `−1080`; the outgoing glider is far in `v` from everything; the obstruction by other
   halt corners is excluded by `SingleHalt`). The `haltSep` field of `MachineSteps` is discharged.
+* 2026-11-16: **`IncSep` is false for every plan** (`ActivationIncSepFalse.lean`, sub-agent,
+  checked here: `isep_not_incSep`, `isep_not_all_machineSteps` — the hypothesis of the corollary is
+  currently false, witnessed by `[inc 0, halt]`). Same defect as the corners, now at the OR-gate
+  side inputs (`flyC`, `flyR`, `flyM`: the glider touches its gate in the last 10–11 generations
+  before the side input) and at RF_J (`fl1`: generations 881–890, `fl2`: 921–923). Fix in
+  progress: RF_J as a corner with the extended window (`reflect_earlyX`), and a joint certificate
+  of each OR gate with its incoming side glider over the last 20 generations. True fields proved
+  (`ActivationIncSepProof.lean`): `isep_sepC`, `isep_sepR`, `isep_sepM`. **Lesson**: every
+  "far until it meets" clause must stop ≥ 20 generations before the interaction.
