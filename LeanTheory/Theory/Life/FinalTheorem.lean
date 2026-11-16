@@ -13,8 +13,10 @@ public import LeanTheory.Theory.Life.DecSepMain
 
 Research note `N-22`. The simulator of every well-formed single-halt counter machine is assembled
 from the proved `inc` step (`isep_machineSteps_inc`), the halt activation (`hsep_haltSep`) and the
-`decJz` step (`dsep_machineSteps_dec`). The last still takes the remaining separation fields of the
-`decJz` activations (`DecSepRest`) as a hypothesis.
+`decJz` step (`dsep_machineSteps_dec`), which takes the remaining separation fields of the `decJz`
+activations (`DecSepRest`) as a hypothesis. That hypothesis is proved for every well-formed
+program in `DecSepAll.lean` (`dsep_rest`), which states the unconditional theorem
+`exists_not_computablePred_everAlive'`.
 
 * `machineSteps_of_decSepRest`: `MachineSteps p` from `DecSepRest` at every `decJz` instruction;
 * `exists_not_computablePred_everAlive_of_decSepRest`: the undecidability of `EverAlive` for some

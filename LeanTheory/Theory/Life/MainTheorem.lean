@@ -12,23 +12,27 @@ public import LeanTheory.Theory.Life.StartFamily
 public import LeanTheory.Theory.Computability.CounterMachineSingleHalt
 
 /-!
-# The main theorem, conditional on the step lemmas
+# The main theorem from the step lemmas
 
 Research notes `N-21`, `N-22`: the assembly of the simulator of a counter program in Life from
-its step lemmas, and the resulting undecidability of `EverAlive`.
+its step lemmas, and the resulting undecidability of `EverAlive`. The step lemmas are bundled here
+as `MachineSteps p`; they are all proved for every well-formed single-halt program elsewhere
+(`isep2_machineSteps`, `dsep_rest`), and the unconditional theorem is
+`LP.exists_not_computablePred_everAlive'` in `DecSepAll.lean`.
 
 * **The invariant** `MInv p s`: `InvM p s` and every register of the program ready
   (`RegS.Ready`). The start states satisfy it (`startM_minv`).
 * **The `inc` step with its bookkeeping** (`inc_step_full`): `inc_step_of_plan` with two more
   conclusions, a positive duration and the other registers simply later; with it the `inc` step
   keeps `MInv` (`inc_step_minv`).
-* **What is still open** is bundled in `MachineSteps p`: the separation facts of the `inc`
+* **The step lemmas** are bundled in `MachineSteps p`: the separation facts of the `inc`
   activations (`incSep`; the region facts are discharged by `IncPlan.region`), the `decJz` step
-  (`dec`, stated in its expected form), and the separation facts of the halt activation of the
-  unique `halt` (`haltSep`).
+  (`dec`), and the separation facts of the halt activation of the unique `halt` (`haltSep`). All
+  three are proved for every well-formed single-halt program: `isep_machineSteps_inc`,
+  `dsep_machineSteps_dec` with `dsep_rest`, and `hsep_haltSep`.
 * **The simulator** `simulatorOf` (`S = MState`, `proj = cfg`, `enc = encM p`,
   `cH = haltCellC p`, `region = machRegion p`, the duration and the next state chosen from the
-  step lemmas), and the **conditional main theorems**:
+  step lemmas), and the main theorems **from the step lemmas**:
   `not_computablePred_everAlive_of_machineSteps` (for a given program with an undecidable halting
   problem) and `exists_not_computablePred_everAlive` (some cell `c` for which `EverAlive c` is
   undecidable, given `MachineSteps p` for every well-formed program with a single `halt`).
@@ -87,9 +91,10 @@ theorem inc_step_minv {p : Program} {r : ℕ} (hp : p.WellFormed) (s : MState) (
   · rw [hoth r' he]
     exact (hinv.2 r' hr').later τ
 
-/-! ### What is still open -/
+/-! ### The step lemmas -/
 
-/-- **The step lemmas still to be proved** for the program `p`, as hypotheses. -/
+/-- **The step lemmas** of the program `p`, bundled (all proved for every well-formed single-halt
+program: `isep2_machineSteps` with `dsep_rest`, in `DecSepAll.lean`). -/
 structure MachineSteps (p : Program) : Prop where
   /-- The separation facts of the activation plan of every `inc` step from a state with the
   invariant (the hypothesis of `inc_step'`; the region facts are discharged). -/
@@ -181,9 +186,10 @@ open LP
 
 /-! ### The main theorems -/
 
-/-- **The conditional main theorem**: for a well-formed counter program `p` with a single `halt`
-and an undecidable halting problem, given the step lemmas `MachineSteps p`, it is undecidable
-whether the halt cell `haltCellC p` is ever alive in the evolution of a finite configuration. -/
+/-- **The main theorem from the step lemmas**: for a well-formed counter program `p` with a
+single `halt` and an undecidable halting problem, given the step lemmas `MachineSteps p`, it is
+undecidable whether the halt cell `haltCellC p` is ever alive in the evolution of a finite
+configuration. -/
 theorem not_computablePred_everAlive_of_machineSteps (p : Program) (hp : p.WellFormed)
     (hs : p.SingleHalt) (M : MachineSteps p)
     (hP : ¬ ComputablePred fun n : ℕ => p.Halts (Cfg.init n)) :
@@ -192,9 +198,10 @@ theorem not_computablePred_everAlive_of_machineSteps (p : Program) (hp : p.WellF
   exact not_computablePred_everAlive_of_simulator (simulatorOf hp hs M) hP startM startM_cfg
     (startM_minv hp) f hf hcells
 
-/-- **The final corollary**: if every well-formed counter program with a single `halt` has its
-step lemmas, then there is a cell `c` such that whether `c` is ever alive in the evolution of a
-given finite configuration is undecidable. -/
+/-- **The corollary from the step lemmas**: if every well-formed counter program with a single
+`halt` has its step lemmas, then there is a cell `c` such that whether `c` is ever alive in the
+evolution of a given finite configuration is undecidable. The hypothesis is discharged in
+`DecSepAll.lean` (`LP.exists_not_computablePred_everAlive'`). -/
 theorem exists_not_computablePred_everAlive
     (h : ∀ p : Program, p.WellFormed → p.SingleHalt → MachineSteps p) :
     ∃ c : Cell, ¬ ComputablePred fun w : WindowData => EverAlive c w.cells := by

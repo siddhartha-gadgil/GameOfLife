@@ -12,7 +12,8 @@ public import LeanTheory.Theory.Life.ActivationDecStepRegion
 
 Research note `N-22`: **one `decJz r z` instruction of a well-formed program is simulated by the
 machine**, from `encM s` to `encM s'`, with every generation in `machRegion p`, for every register
-value, conditional only on the separation facts `DecSep` of the activation.
+value, from the separation facts `DecSep` of the activation (proved for every well-formed program
+by `dsep_decSep_of_rest` and `dsep_rest`, `DecSepMain.lean` and `DecSepAll.lean`).
 
 1. **Body** (`[1080, 4260]`): the body of the `dec` unit `i` (`decBody_window`), every register
    idle.
