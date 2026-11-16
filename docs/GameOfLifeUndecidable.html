@@ -1,0 +1,1414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Life Is Undecidable</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/theme/white.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<style>
+:root {
+  --ink: #172033; --muted: #5b6578; --line: #dfe2e8; --paper: #fbfaf6; --card: #ffffff;
+  --accent: #0b7285; --accent-soft: #e6f4f6; --plasma: #d9480f; --plasma-soft: #fff1e7;
+  --good: #2b8a3e; --good-soft: #ebf7ee; --bad: #c92a2a; --bad-soft: #fdecec;
+  --gold: #b7791f; --gold-soft: #fdf6e3;
+  --night: #0b1220; --night-2: #131d33; --night-ink: #e8edf6; --night-muted: #9aa6bd;
+  --r-background-color: var(--paper);
+  --r-main-font: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  --r-main-font-size: 36px;
+  --r-main-color: var(--ink);
+  --r-heading-font: "Source Serif 4", Georgia, serif;
+  --r-heading-color: var(--ink);
+  --r-heading-text-transform: none;
+  --r-heading-font-weight: 600;
+  --r-heading-letter-spacing: -0.01em;
+  --r-heading1-size: 2.1em;
+  --r-heading2-size: 1.4em;
+  --r-link-color: var(--accent);
+  --r-link-color-hover: var(--plasma);
+  --r-code-font: "JetBrains Mono", ui-monospace, monospace;
+  --r-selection-background-color: var(--accent-soft);
+}
+.reveal .slides section { text-align: left; }
+.reveal h1, .reveal h2, .reveal h3 { text-wrap: balance; }
+.reveal h2 { margin: 0 0 0.5em; }
+.reveal .kicker {
+  font-size: 0.5em; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent); font-weight: 700; margin: 0 0 0.35em;
+}
+.reveal ul, .reveal ol { margin-left: 1.1em; display: block; }
+.reveal li { margin: 0.32em 0; line-height: 1.3; }
+.reveal li::marker { color: var(--accent); }
+.reveal p { line-height: 1.35; margin: 0.45em 0; }
+.reveal strong { color: inherit; font-weight: 700; }
+.reveal a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.lead { font-size: 1.08em; }
+.muted { color: var(--muted); }
+.small { font-size: 0.8em; }
+.xsmall { font-size: 0.66em; }
+.mt { margin-top: 0.8em !important; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
+.cols.wide-left { grid-template-columns: 1.25fr 1fr; }
+.cols.wide-right { grid-template-columns: 1fr 1.2fr; }
+.cols.center { align-items: center; }
+.cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 0.6em 0.8em; box-shadow: 0 1px 2px rgba(23, 32, 51, 0.05);
+}
+.card h3 {
+  font-family: var(--r-main-font); font-size: 0.82em; font-weight: 700;
+  color: var(--accent); margin: 0 0 0.3em; letter-spacing: 0;
+}
+.card p, .card li { font-size: 0.72em; margin: 0.2em 0; }
+.card.plasma h3 { color: var(--plasma); }
+.card.good h3 { color: var(--good); }
+.card.bad h3 { color: var(--bad); }
+.card .big { font-size: 1.6em; line-height: 1; margin-bottom: 0.15em; }
+.tag {
+  display: inline-block; padding: 0.12em 0.6em; border-radius: 999px; font-size: 0.66em;
+  border: 1px solid var(--line); background: #fff; margin: 0.18em 0.12em;
+}
+.tag.struck { text-decoration: line-through; color: var(--muted); }
+.tag.keep { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.callout {
+  border-left: 5px solid var(--plasma); background: var(--plasma-soft);
+  padding: 0.5em 0.8em; border-radius: 0 12px 12px 0; font-size: 0.85em;
+}
+.callout.accent { border-color: var(--accent); background: var(--accent-soft); }
+.callout.good { border-color: var(--good); background: var(--good-soft); }
+.viz {
+  background: var(--night); border-radius: 16px; overflow: hidden; position: relative;
+  box-shadow: 0 10px 30px rgba(11, 18, 32, 0.22);
+}
+.viz canvas { display: block; width: 100%; height: auto; }
+.caption { font-size: 0.5em; color: var(--muted); margin-top: 0.45em !important; line-height: 1.3; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.3em 1.1em; font-size: 0.5em; color: var(--muted); margin-top: 0.4em; }
+.legend i { display: inline-block; width: 0.8em; height: 0.8em; border-radius: 50%; margin-right: 0.35em; vertical-align: -0.05em; }
+
+/* divider and title slides */
+.reveal section.divider { padding-top: 210px; }
+.reveal section.divider h1 { color: var(--night-ink); font-size: 2.2em; max-width: 15em; }
+.reveal section.divider .kicker { color: #66d9e8; font-size: 0.6em; }
+.reveal section.divider p.sub { color: var(--night-muted); font-size: 0.8em; max-width: 34em; }
+.reveal section.title-slide { padding-top: 150px; }
+.title-bg { position: absolute; left: -40px; top: -30px; width: 1360px; height: 780px; z-index: 0; pointer-events: none; }
+.title-text { position: relative; z-index: 1; max-width: 600px; }
+.nw { white-space: nowrap; display: inline-block; }
+.reveal section.title-slide h1 { color: var(--night-ink); font-size: 2.05em; line-height: 1.08; }
+.reveal section.title-slide .kicker { color: #66d9e8; font-size: 0.55em; }
+.reveal section.title-slide .subtitle { color: var(--night-muted); font-size: 0.85em; }
+.reveal section.title-slide .author { color: var(--night-ink); font-size: 0.8em; margin-top: 2em; font-weight: 600; }
+
+/* flows and diagrams */
+.flow { display: flex; align-items: center; gap: 0.45em; }
+.flow.wrap { flex-wrap: wrap; row-gap: 0.6em; }
+.flow .box {
+  background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 0.45em 0.7em;
+  font-size: 0.68em; text-align: center; line-height: 1.22; flex: 0 1 auto;
+}
+.flow .box small { display: block; color: var(--muted); font-size: 0.82em; margin-top: 0.15em; }
+.flow .arrow { color: var(--muted); font-size: 0.85em; flex: 0 0 auto; }
+.box.accent { border-color: var(--accent); background: var(--accent-soft); }
+.box.plasma { border-color: var(--plasma); background: var(--plasma-soft); }
+.box.good { border-color: var(--good); background: var(--good-soft); color: var(--good); font-weight: 700; }
+.box.dark { background: var(--night); border-color: var(--night); color: var(--night-ink); }
+.box.dark small { color: var(--night-muted); }
+.box.big { font-size: 0.78em; padding: 0.7em 0.9em; }
+
+.stack { display: flex; flex-direction: column-reverse; gap: 8px; }
+.stack .layer {
+  display: grid; grid-template-columns: 7.6em 1fr; align-items: center; gap: 0.6em;
+  border-radius: 10px; padding: 0.38em 0.75em; font-size: 0.66em; background: #fff; border: 1px solid var(--line);
+}
+.stack .layer b { color: var(--accent); font-size: 1.08em; }
+.stack .layer.kernel { background: var(--night); color: var(--night-ink); border-color: var(--night); }
+.stack .layer.kernel b { color: #66d9e8; }
+
+.timeline { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; margin-top: 1.4em; }
+.timeline::before { content: ""; position: absolute; left: 0; right: 0; top: 0.62em; height: 3px; background: var(--line); }
+.tl { position: relative; }
+.tl .dot { width: 0.95em; height: 0.95em; border-radius: 50%; background: var(--accent); border: 4px solid var(--paper); position: relative; z-index: 1; }
+.tl.ai .dot { background: var(--plasma); }
+.tl .yr { font-family: var(--r-heading-font); font-weight: 700; font-size: 1em; margin-top: 0.3em; }
+.tl p { font-size: 0.6em; margin: 0.2em 0 0; color: var(--ink); }
+.tl.ai .yr { color: var(--plasma); }
+
+.alt { display: flex; gap: 8px; flex-wrap: wrap; margin: 0.6em 0; }
+.alt span { font-size: 0.56em; padding: 0.35em 0.6em; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
+.alt span.s { border-color: var(--accent); background: var(--accent-soft); }
+.alt span.t { border-color: var(--plasma); background: var(--plasma-soft); }
+.alt span.hit { background: var(--good); color: #fff; border-color: var(--good); font-weight: 700; }
+
+/* code */
+.reveal pre.lean { width: 100%; box-shadow: none; margin: 0; font-size: 0.44em; }
+.reveal pre.lean code {
+  background: #0f1626; color: #e6ebf5; border-radius: 14px; padding: 0.9em 1.15em;
+  max-height: none; line-height: 1.5; white-space: pre; display: block; overflow: visible;
+}
+.tok-kw { color: #ff9e64; font-weight: 600; }
+.tok-com { color: #8392ab; font-style: italic; }
+.tok-ty { color: #7dcfff; }
+.tok-tac { color: #c3e88d; }
+.reveal code.inline { font-size: 0.85em; background: #eef0f4; padding: 0.05em 0.3em; border-radius: 5px; }
+.btn {
+  display: inline-block; padding: 0.45em 0.95em; border-radius: 10px; background: var(--accent);
+  color: #fff !important; font-weight: 600; font-size: 0.66em; text-decoration: none !important;
+}
+.btn:hover { background: var(--plasma); }
+
+/* tables */
+.reveal table { font-size: 0.64em; border-collapse: collapse; width: 100%; }
+.reveal table th, .reveal table td { border-bottom: 1px solid var(--line); padding: 0.42em 0.6em; text-align: left; vertical-align: top; }
+.reveal table th { color: var(--muted); font-weight: 600; font-size: 0.82em; text-transform: uppercase; letter-spacing: 0.06em; }
+.reveal table td.clause { font-weight: 700; color: var(--plasma); white-space: nowrap; }
+.reveal table td.cmd { font-family: var(--r-code-font); font-size: 0.9em; color: var(--accent); white-space: nowrap; }
+.reveal table td.ok { color: var(--good); font-weight: 700; }
+.reveal table td.open { color: var(--bad); font-weight: 700; }
+
+.big-number { font-family: var(--r-heading-font); font-size: 2.2em; font-weight: 700; color: var(--plasma); line-height: 1; }
+.check { color: var(--good); font-weight: 700; }
+.cross { color: var(--bad); font-weight: 700; }
+.reveal .slide-number { font-family: var(--r-main-font); background: transparent; color: var(--muted); font-size: 14px; }
+.reveal .progress { color: var(--accent); }
+@media (prefers-reduced-motion: reduce) {
+  .mover { animation: none !important; }
+}
+.mover { offset-path: path("M 40 230 Q 260 -60 480 230"); animation: fly 3.2s ease-in-out infinite; }
+@keyframes fly { 0% { offset-distance: 0%; } 80%, 100% { offset-distance: 100%; } }
+
+/* ---------------- this deck ---------------- */
+.tok-kw { color: #ff9e64; font-weight: 600; }
+.reveal pre.lean.s { font-size: 0.37em; }
+.reveal pre.lean.xs { font-size: 0.32em; }
+.reveal pre.lean code { padding: 0.75em 1em; }
+.codehead {
+  font-size: 0.42em; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  margin: 0.55em 0 0.25em !important; color: var(--muted);
+}
+.codehead.def { color: var(--accent); }
+.codehead.ok { color: var(--good); }
+.codehead.sanity { color: var(--gold); }
+.codehead.goal { color: var(--plasma); }
+.codehead:first-child { margin-top: 0 !important; }
+.cols.life { grid-template-columns: 1.05fr 1fr; gap: 30px; }
+.cols.life-wide { grid-template-columns: 1.35fr 1fr; gap: 26px; }
+.reveal .slides section.tight h2 { margin-bottom: 0.3em; }
+.pts { font-size: 0.62em; }
+.pts li { margin: 0.22em 0; }
+
+/* the Life grid widget */
+.lg {
+  background: var(--night); border-radius: 16px; overflow: hidden; position: relative;
+  display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(11, 18, 32, 0.22);
+}
+.lg-canvas { display: block; width: 100%; flex: 1 1 auto; min-height: 0; cursor: grab; touch-action: none; }
+.lg-canvas:active { cursor: grabbing; }
+.lg-bar {
+  display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: var(--night-2);
+  font-family: var(--r-main-font); flex-wrap: wrap;
+}
+.lg-btn {
+  font: 600 15px/1 var(--r-main-font); color: var(--night-ink); background: #1d2a45;
+  border: 1px solid #2c3b5c; border-radius: 7px; min-width: 30px; height: 28px; padding: 0 7px;
+  cursor: pointer;
+}
+.lg-btn:hover { background: #26375a; border-color: #66d9e8; }
+.lg-play { background: #0b7285; border-color: #0b7285; }
+.lg-sep { width: 6px; }
+.lg-speed { width: 110px; accent-color: #66d9e8; }
+.lg-info { font-size: 13px; color: var(--night-muted); white-space: nowrap; }
+.lg-gen { margin-left: auto; color: #e8edf6; font-variant-numeric: tabular-nums; }
+.lg-sel {
+  font: 13px var(--r-main-font); color: var(--night-ink); background: #1d2a45;
+  border: 1px solid #2c3b5c; border-radius: 7px; height: 28px; max-width: 260px;
+}
+.lifebox { width: 100%; }
+.title-life { position: absolute; left: -40px; top: -30px; width: 1360px; height: 780px; z-index: 0; pointer-events: none; opacity: 0.55; }
+.title-life .lg { box-shadow: none; border-radius: 0; height: 100%; }
+.rule-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 0.4em; }
+.rule-grid .card p { font-size: 0.66em; }
+.stat { font-family: var(--r-heading-font); font-weight: 700; font-size: 1.5em; color: var(--accent); line-height: 1; }
+.stat.p { color: var(--plasma); }
+.statcap { font-size: 0.5em; color: var(--muted); margin: 0.1em 0 0 !important; }
+.reveal p.stat { margin: 0.3em 0 0; }
+.reveal table.trust { font-size: 0.55em; }
+.reveal table.trust td, .reveal table.trust th { padding: 0.3em 0.6em; }
+.trust td:first-child { font-weight: 700; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ============================ TITLE ============================ -->
+<section class="title-slide" data-background-color="#0b1220">
+  <div class="title-life"><div class="lifebox" style="height:780px" data-scene="titleBg"></div></div>
+  <div class="title-text" style="max-width: 720px">
+    <p class="kicker">A complete formal proof in Lean 4</p>
+    <h1>The Game of Life is undecidable</h1>
+    <p class="subtitle">From gliders to a machine-checked theorem: every component, its Lean definition and the theorems that show it works</p>
+    <p class="author">LeanTheory: GameOfLife</p>
+  </div>
+  <aside class="notes">The background is a live Life simulation: a Gosper glider gun firing gliders.</aside>
+</section>
+
+<!-- ============================ INTRODUCTION ============================ -->
+<section class="divider" data-background-color="#0b1220">
+  <p class="kicker">Part 0</p>
+  <h1>Conway&rsquo;s Game of Life</h1>
+  <p class="sub">A grid of cells, two rules, and an unbounded variety of behaviour.</p>
+</section>
+
+<section>
+  <p class="kicker">The Game of Life</p>
+  <h2>Two rules on an infinite grid</h2>
+  <div class="cols life">
+    <div>
+      <p>Each cell of $\mathbb{Z}^2$ is <strong>alive</strong> or <strong>dead</strong>. Every generation, all cells update at once, by counting their 8 neighbours:</p>
+      <div class="rule-grid">
+        <div class="card good"><h3>Birth</h3><p>A dead cell with exactly <strong>3</strong> live neighbours becomes alive.</p></div>
+        <div class="card"><h3>Survival</h3><p>A live cell with <strong>2 or 3</strong> live neighbours stays alive; otherwise it dies.</p></div>
+      </div>
+      <p class="small mt">This is the rule <strong>B3/S23</strong>, devised by John Conway (1970). Start from a <em>finite</em> pattern; the question is what it does forever.</p>
+      <p class="xsmall muted">Try it: click cells to toggle them (pause first), drag to pan, scroll to zoom. The pattern shown is the R-pentomino: 5 cells that take 1103 generations to settle.</p>
+    </div>
+    <div class="lifebox" style="height: 520px" data-scene="intro"></div>
+  </div>
+</section>
+
+<section>
+  <p class="kicker">The Game of Life</p>
+  <h2>Still lifes, oscillators and spaceships</h2>
+  <div class="cols center">
+    <div>
+      <div class="lifebox" style="height: 230px" data-scene="stillOsc"></div>
+      <p class="caption">The block and the beehive never change; the blinker has period 2.</p>
+      <div class="lifebox" style="height: 230px; margin-top: 10px" data-scene="glider"></div>
+      <p class="caption">The glider: after 4 generations it is itself, moved one cell diagonally.</p>
+    </div>
+    <div>
+      <ul class="pts" style="font-size: 0.72em">
+        <li><strong>Still life:</strong> unchanged by a step (block, beehive, eater).</li>
+        <li><strong>Oscillator:</strong> returns after $p$ steps (blinker, $p = 2$).</li>
+        <li><strong>Spaceship:</strong> returns <em>translated</em> (glider: period 4, moves $(1,1)$).</li>
+        <li class="fragment"><strong>Gun:</strong> emits spaceships forever (Gosper, 1970).</li>
+        <li class="fragment">With guns, gliders and eaters one can wire <strong>signals</strong>, <strong>gates</strong> and <strong>memory</strong>.</li>
+        <li class="fragment">Berlekamp, Conway and Guy (<em>Winning Ways</em>, 1982) sketched why Life is universal: it can simulate counter machines.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <p class="kicker">Goal</p>
+  <h2>The headline theorem</h2>
+  <p>There is a cell $c$ such that no algorithm decides, given a finite starting pattern, whether $c$ is <em>ever</em> alive.</p>
+<pre class="lean"><code>/-- **Undecidability of the Game of Life.** There is a cell `c` such that it is not computable,
+from the finite initial pattern, whether `c` is alive at some generation. -/
+theorem exists_not_computablePred_everAlive' :
+    ∃ c : Cell, ¬ ComputablePred fun w : WindowData =&gt; EverAlive c w.cells :=
+  exists_not_computablePred_everAlive_of_decSepRest fun _ hp _ =&gt; dsep_rest hp</code></pre>
+  <div class="cols-3 mt">
+    <div class="card"><h3>Complete</h3><p>No hypotheses: every lemma is proved, for every program.</p></div>
+    <div class="card good"><h3>Checked</h3><p>Axioms: only <code class="inline">propext</code>, <code class="inline">Classical.choice</code>, <code class="inline">Quot.sound</code>. No <code class="inline">sorry</code>, no <code class="inline">decide</code>.</p></div>
+    <div class="card plasma"><h3>Concrete</h3><p>Every pattern is explicit; every evolution is certified in the kernel.</p></div>
+  </div>
+</section>
+
+<section>
+  <p class="kicker">Plan</p>
+  <h2>How the proof goes</h2>
+  <div class="flow wrap" style="margin-top: 0.6em">
+    <div class="box dark big">Halting of counter machines is undecidable<small>(from Mathlib&rsquo;s halting problem)</small></div>
+    <div class="arrow">&rarr;</div>
+    <div class="box accent big">Each program $P$ becomes a Life pattern<small>layout of certified pieces</small></div>
+    <div class="arrow">&rarr;</div>
+    <div class="box accent big">One instruction = one finite evolution<small>inc, decJz, halt activations</small></div>
+    <div class="arrow">&rarr;</div>
+    <div class="box plasma big">$P$ halts $\iff$ the halt cell is ever alive</div>
+    <div class="arrow">&rarr;</div>
+    <div class="box good big">EverAlive is undecidable</div>
+  </div>
+  <div class="cols mt">
+    <div class="card"><h3>Bottom up: components</h3><p>Kernel &rarr; certificates &rarr; gliders, guns, eaters &rarr; reflectors and gates &rarr; sliding-block registers &rarr; stations.</p></div>
+    <div class="card plasma"><h3>Top down: assembly</h3><p>Programs &rarr; layout &rarr; machine state and encoding &rarr; activations with separation conditions &rarr; simulator &rarr; theorem.</p></div>
+  </div>
+  <p class="small muted mt">For each component: an interactive simulation, the Lean definitions, the correctness theorems and the sanity checks (degenerate cases, concrete instances, counterexamples).</p>
+</section>
+
+<!-- ============================ PART 1: KERNEL ============================ -->
+<section class="divider" data-background-color="#0b1220">
+  <p class="kicker">Part 1</p>
+  <h1>The kernel and its certificates</h1>
+  <p class="sub">A small trusted definition of the rule, sanity checks that it means what we think, and a way to check thousands of generations in the Lean kernel.</p>
+</section>
+
+<section class="tight">
+  <p class="kicker">Kernel &middot; Kernel/Life.lean</p>
+  <h2>The rule, as a definition</h2>
+  <div class="cols">
+    <div>
+<p class="codehead def">Definitions</p>
+<pre class="lean s"><code>abbrev Cell : Type := ℤ × ℤ
+
+def nbrs (c : Cell) : Finset Cell :=
+  (Finset.Icc (c.1 - 1) (c.1 + 1) ×ˢ Finset.Icc (c.2 - 1) (c.2 + 1)).erase c
+
+def liveNbrs (S : Finset Cell) (c : Cell) : ℕ := ((nbrs c).filter (· ∈ S)).card
+
+structure Rule where
+  birth : Finset ℕ
+  survive : Finset ℕ
+  zero_notMem_birth : 0 ∉ birth
+
+def conway : Rule := ⟨{3}, {2, 3}, by simp⟩
+
+def Rule.step (R : Rule) (S : Finset Cell) : Finset Cell :=
+  (S ∪ S.biUnion nbrs).filter fun c =&gt;
+    if c ∈ S then liveNbrs S c ∈ R.survive else liveNbrs S c ∈ R.birth
+
+def Rule.evolve (R : Rule) (n : ℕ) (S : Finset Cell) : Finset Cell := R.step^[n] S</code></pre>
+    </div>
+    <div>
+      <ul class="pts">
+        <li>A configuration is a <strong>finite</strong> set of live cells (<code class="inline">Finset Cell</code>); <code class="inline">step</code> is computable.</li>
+        <li>Birth at 0 neighbours is excluded, so finite stays finite.</li>
+        <li>An independent set-level specification <code class="inline">stepSet</code> states the rule cell by cell.</li>
+      </ul>
+<p class="codehead ok">Correctness</p>
+<pre class="lean s"><code>theorem Rule.mem_step {R : Rule} {S : Finset Cell} {c : Cell} :
+    c ∈ R.step S ↔
+      (c ∈ S ∧ liveNbrs S c ∈ R.survive) ∨ (c ∉ S ∧ liveNbrs S c ∈ R.birth)
+
+theorem Rule.coe_step (R : Rule) (S : Finset Cell) :
+    (R.step S : Set Cell) = R.stepSet (S : Set Cell)</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Kernel &middot; Sanity/Life.lean</p>
+  <h2>Sanity checks on the kernel</h2>
+  <p class="small">A definition can compile and still be wrong. These theorems check that it behaves as Life does, and that the composition lemmas used later really need their hypotheses.</p>
+  <div class="cols">
+    <div>
+<p class="codehead sanity">Concrete instances and degenerate cases</p>
+<pre class="lean s"><code>theorem card_nbrs (c : Cell) : (nbrs c).card = 8
+
+theorem conway_step_singleton (c : Cell) : conway.step {c} = ∅
+
+theorem conway_step_block : conway.step block = block
+
+theorem conway_step_blinkerH : conway.step blinkerH = blinkerV
+
+theorem conway_stepSet_univ :
+    conway.stepSet (Set.univ : Set Cell) = ∅
+
+theorem not_finite_stepSetCore_birth_zero :
+    ¬ (stepSetCore {0} ∅ (∅ : Set Cell)).Finite</code></pre>
+    </div>
+    <div>
+<p class="codehead sanity">Counterexamples</p>
+<pre class="lean s"><code>theorem not_injective_conway_step :
+    ¬ Function.Injective conway.step
+
+theorem not_monotone_conway_step :
+    ¬ ∀ S T : Finset Cell, S ⊆ T → conway.step S ⊆ conway.step T
+
+-- why composition needs separation
+theorem not_additive_conway_step :
+    ∃ S T : Finset Cell, Disjoint S T ∧
+      conway.step (S ∪ T) ≠ conway.step S ∪ conway.step T</code></pre>
+<p class="codehead ok">Symmetry</p>
+<pre class="lean s"><code>theorem Rule.step_translate (R : Rule) (v : Cell) (S : Finset Cell) :
+    R.step (S.map (Equiv.addLeft v).toEmbedding) =
+      (R.step S).map (Equiv.addLeft v).toEmbedding</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Certificates &middot; Certificates/LifeSim.lean, BoxCert.lean</p>
+  <h2>Checking thousands of generations, without <code class="inline">decide</code></h2>
+  <div class="cols">
+    <div>
+      <ul class="pts">
+        <li>A window <code class="inline">ofRows x y rows</code>: bit $j$ of row $i$ is the cell $(x + j, y + i)$.</li>
+        <li>One generation of a row is a fixed <strong>bit-parallel adder</strong> formula of the rows above, at and below.</li>
+        <li>A certificate is an explicit proof term with one kernel fact per row per generation; untrusted code <em>proposes</em> it, the kernel re-checks every leaf with GMP arithmetic.</li>
+        <li><code class="inline">life_cert</code>, <code class="inline">life_eval</code>, <code class="inline">life_reaction</code> (with a footprint box per generation); long runs are emitted by Python into <code class="inline">Gen/*</code> files.</li>
+      </ul>
+<pre class="lean xs"><code>def nextRow (u m d : ℕ) : ℕ :=
+  let su := xor3 (u &lt;&lt;&lt; 2) (u &lt;&lt;&lt; 1) u
+  let cu := maj3 (u &lt;&lt;&lt; 2) (u &lt;&lt;&lt; 1) u
+  let sd := xor3 (d &lt;&lt;&lt; 2) (d &lt;&lt;&lt; 1) d
+  let cd := maj3 (d &lt;&lt;&lt; 2) (d &lt;&lt;&lt; 1) d
+  let sm := (m &lt;&lt;&lt; 2) ^^^ m
+  let cm := (m &lt;&lt;&lt; 2) &amp;&amp;&amp; m
+  let ones := xor3 su sd sm
+  let carry := maj3 su sd sm
+  let odd := (cu ^^^ cd) ^^^ (cm ^^^ carry)
+  let two := (cu &amp;&amp;&amp; cd) ||| (cm &amp;&amp;&amp; carry)
+  let exactlyOne := odd ^^^ (odd &amp;&amp;&amp; two)
+  exactlyOne &amp;&amp;&amp; (ones ||| (m &lt;&lt;&lt; 1))</code></pre>
+    </div>
+    <div>
+<p class="codehead ok">Soundness</p>
+<pre class="lean xs"><code>theorem step_ofRows (x₀ y₀ : ℤ) (rows : List ℕ) :
+    conway.step (ofRows x₀ y₀ rows) = ofRows (x₀ - 1) (y₀ - 1) (stepRows rows)
+
+theorem Evolves.sound {n : ℕ} {x y : ℤ} {ts rows : List ℕ} {x' y' : ℤ}
+    {ts' rows' : List ℕ} (h₀ : Tagged ts rows) (h : Evolves n x y ts x' y' ts')
+    (h₁ : Tagged ts' rows') :
+    conway.evolve n (ofRows x y rows) = ofRows x' y' rows'</code></pre>
+<p class="codehead sanity">Accepted and rejected fixtures</p>
+<pre class="lean xs"><code>theorem glider_evolve_four :
+    conway.evolve 4 (ofRows 0 0 [2, 4, 7]) = ofRows 1 1 [2, 4, 7] := by
+  life_cert
+
+example : True := by
+  fail_if_success
+    have : conway.evolve 4 (ofRows 0 0 [2, 4, 7]) = ofRows 1 0 [2, 4, 7] := by
+      life_cert
+  trivial</code></pre>
+      <p class="xsmall muted">Also <code class="inline">nextBit_eq_ruleB</code>: the bit formula agrees with Conway&rsquo;s rule on all 512 neighbourhoods.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PART 2: COMPONENTS ============================ -->
+<section class="divider" data-background-color="#0b1220">
+  <p class="kicker">Part 2</p>
+  <h1>Components</h1>
+  <p class="sub">From still lifes and gliders to registers and dispatch stations. Every pattern is explicit, and every behaviour is a theorem.</p>
+</section>
+
+<section class="tight">
+  <p class="kicker">Components &middot; Patterns.lean</p>
+  <h2>Still lifes and oscillators</h2>
+  <div class="cols life">
+    <div>
+      <div class="lifebox" style="height: 300px" data-scene="stillOsc"></div>
+<p class="codehead def">Definitions</p>
+<pre class="lean s"><code>def IsStillLife (S : Finset Cell) : Prop := S.Nonempty ∧ conway.step S = S
+
+def IsOscillator (S : Finset Cell) (p : ℕ) : Prop :=
+  2 ≤ p ∧ conway.evolve p S = S ∧ ∀ k, 0 &lt; k → k &lt; p → conway.evolve k S ≠ S
+
+def block   : Finset Cell := ofRows 0 0 [3, 3]
+def blinker : Finset Cell := ofRows 0 0 [7]
+def eater1  : Finset Cell := ofRows 0 0 [3, 5, 4, 12]</code></pre>
+    </div>
+    <div>
+<p class="codehead ok">Correctness (exact periods)</p>
+<pre class="lean s"><code>theorem block_isStillLife : IsStillLife block
+theorem eater1_isStillLife : IsStillLife eater1
+theorem trafficLight_isOscillator : IsOscillator trafficLight 2
+theorem pentadecathlon_isOscillator : IsOscillator pentadecathlon 15</code></pre>
+<p class="codehead">A typical proof</p>
+<pre class="lean s"><code>theorem blinker_isOscillator : IsOscillator blinker 2 := by
+  refine ⟨by norm_num, by life_cert, fun k hk0 hk =&gt; ?_⟩
+  interval_cases k
+  life_eval
+  exact ofRows_ne rfl rfl (by simp)</code></pre>
+<p class="codehead sanity">Sanity check</p>
+<pre class="lean s"><code>theorem not_isStillLife_blinker : ¬ IsStillLife blinker</code></pre>
+      <p class="xsmall muted">The block becomes the register memory; eater 1 terminates glider streams.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Components &middot; Patterns.lean</p>
+  <h2>The glider: the signal of the whole machine</h2>
+  <div class="cols life">
+    <div>
+      <div class="lifebox" style="height: 420px" data-scene="gliderFoot"></div>
+      <p class="caption">The glider <code class="inline">ofRows 0 0 [2, 4, 7]</code>; the dashed box is the footprint <code class="inline">Box 0 3 0 3</code> of the 4-generation reaction certified by <code class="inline">life_reaction</code>.</p>
+    </div>
+    <div>
+<p class="codehead def">Definition</p>
+<pre class="lean s"><code>def IsSpaceship (S : Finset Cell) (p : ℕ) (v : Cell) : Prop :=
+  S.Nonempty ∧ v ≠ 0 ∧ 0 &lt; p ∧ conway.evolve p S = translate v S ∧
+    ∀ k, 0 &lt; k → k &lt; p → ∀ w, conway.evolve k S ≠ translate w S
+
+def glider : Finset Cell := ofRows 0 0 [2, 4, 7]</code></pre>
+<p class="codehead ok">Correctness</p>
+<pre class="lean s"><code>theorem glider_isSpaceship : IsSpaceship glider 4 (1, 1)
+
+theorem glider_evolve_mul_four (k : ℕ) :
+    conway.evolve (k * 4) glider = translate ((k : ℤ), (k : ℤ)) glider
+
+theorem lwss_isSpaceship : IsSpaceship lwss 4 (-2, 0)
+
+theorem glider_reaction_fixture :
+    Reaction (ofRows 0 0 [2, 4, 7]) (ofRows 1 1 [2, 4, 7]) 4
+      (fun _ =&gt; Box 0 3 0 3) := by
+  life_reaction</code></pre>
+      <p class="xsmall muted">Every wire of the machine is a glider lane; a flight of any length follows from the period-4 theorem and translation.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Components &middot; Locality.lean, Reactions.lean, Network.lean</p>
+  <h2>Locality: far-apart patterns evolve independently</h2>
+  <div class="cols">
+    <div>
+      <ul class="pts">
+        <li>Life has a <strong>speed of light</strong>: after $n$ steps a cell depends only on cells within distance $n$.</li>
+        <li>So patterns that stay at distance $\ge 3$ evolve independently, and 3 is sharp.</li>
+        <li>A <code class="inline">Reaction P Q n F</code>: $P$ becomes $Q$ in $n$ generations, staying inside the footprint $F\,i$ at every generation $i$.</li>
+        <li>Reactions compose in parallel (footprints far apart), in sequence and under translation; a <code class="inline">Proc</code> list is one segment of a big circuit.</li>
+      </ul>
+<p class="codehead def">Definitions</p>
+<pre class="lean xs"><code>def FarApart (r : ℕ) (A B : Set Cell) : Prop := ∀ a ∈ A, ∀ b ∈ B, ¬ Near r a b
+
+structure Reaction (P Q : Finset Cell) (n : ℕ) (F : ℕ → Set Cell) : Prop where
+  evolve_eq : conway.evolve n P = Q
+  subset : ∀ i ≤ n, (conway.evolve i P : Set Cell) ⊆ F i
+
+structure Piece where   -- an idle period-30 part of the machine
+  rest : Finset Cell
+  a : ℤ
+  b : ℤ
+  lo : ℤ
+  hi : ℤ
+  rest_reaction : Reaction rest rest 30 (fun _ =&gt; Box a b lo hi)</code></pre>
+    </div>
+    <div>
+<p class="codehead ok">Correctness</p>
+<pre class="lean xs"><code>theorem Rule.evolve_union_of_forall_sep (R : Rule) {n : ℕ} {S T : Finset Cell}
+    (h : ∀ k &lt; n, Sep 2 (R.evolve k S) (R.evolve k T)) :
+    R.evolve n (S ∪ T) = R.evolve n S ∪ R.evolve n T
+
+theorem Reaction.par {P Q P' Q' : Finset Cell} {n : ℕ} {F F' : ℕ → Set Cell}
+    (h : Reaction P Q n F) (h' : Reaction P' Q' n F')
+    (hsep : ∀ i &lt; n, FarApart 2 (F i) (F' i)) :
+    Reaction (P ∪ P') (Q ∪ Q') n (fun i =&gt; F i ∪ F' i)
+
+theorem Reaction.seq {P Q R : Finset Cell} {n m : ℕ} {F G : ℕ → Set Cell}
+    (h : Reaction P Q n F) (h' : Reaction Q R m G) :
+    Reaction P R (n + m) (fun i =&gt; if i ≤ n then F i else G (i - n))
+
+theorem Reaction.parList {n : ℕ} (l : List (Proc n)) (h : l.Pairwise Proc.Indep) :
+    Reaction (Proc.start l) (Proc.stop l) n (Proc.foot l)</code></pre>
+<p class="codehead sanity">Sanity checks</p>
+<pre class="lean xs"><code>theorem not_step_union_of_sep_one :   -- the separation constant is sharp
+    ∃ S T : Finset Cell, Sep 1 S T ∧
+      conway.step (S ∪ T) ≠ conway.step S ∪ conway.step T
+
+theorem not_reaction_blinker (F : ℕ → Set Cell) :
+    ¬ Reaction Pattern.blinker Pattern.blinker 1 F</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Components &middot; Guns.lean</p>
+  <h2>The Gosper glider gun</h2>
+  <div class="cols life">
+    <div>
+      <div class="lifebox" style="height: 470px" data-scene="gosperGun"></div>
+      <p class="caption">36 cells, period 30: one new glider every 30 generations, forever.</p>
+    </div>
+    <div>
+      <p class="small">On finite configurations a gun is <strong>not</strong> periodic (its population grows), so the right statement is an invariant for every $n$: the gun plus $n$ gliders.</p>
+<p class="codehead def">Definitions</p>
+<pre class="lean xs"><code>def gosperGun : Finset Cell :=
+  ofRows 0 0 [16777216, 20971520, 51542765568, 51542788096, 3212291, 21185539,
+    16843776, 34816, 12288]
+
+def IsGun (G : Finset Cell) (p : ℕ) (g : Finset Cell) : Prop :=
+  0 &lt; p ∧ (∃ q v, IsSpaceship g q v) ∧
+    ∀ n, conway.evolve (p * n) G = G ∪ (range n).biUnion fun j =&gt; conway.evolve (p * j) g</code></pre>
+<p class="codehead ok">Correctness</p>
+<pre class="lean xs"><code>theorem gosperGun_evolve_thirty : conway.evolve 30 gosperGun = gosperGun ∪ gunGlider
+
+theorem gosperGun_evolve (n : ℕ) :
+    conway.evolve (30 * n) gosperGun =
+      gosperGun ∪ (range n).biUnion fun j =&gt; conway.evolve (30 * j) gunGlider
+
+theorem gosperGun_isGun : IsGun gosperGun 30 gunGlider</code></pre>
+<p class="codehead sanity">Sanity checks</p>
+<pre class="lean xs"><code>theorem gosperGun_not_bounded (B : Finset Cell) : ∃ n, ¬ conway.evolve n gosperGun ⊆ B
+theorem not_isGun_block (p : ℕ) : ¬ IsGun Pattern.block p gunGlider</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Components &middot; Collisions.lean</p>
+  <h2>Elementary reactions</h2>
+  <div class="cols">
+    <div>
+      <div class="cols" style="gap: 12px">
+        <div><div class="lifebox" style="height: 250px" data-scene="eater"></div><p class="caption">Eater 1 absorbs a glider and repairs itself.</p></div>
+        <div><div class="lifebox" style="height: 250px" data-scene="kickback"></div><p class="caption">Kickback: two gliders, one survives, sent back.</p></div>
+      </div>
+      <p class="small mt">The geometries were found by the project&rsquo;s own exhaustive search and then certified. Each is a short, closed evolution.</p>
+    </div>
+    <div>
+<p class="codehead ok">Correctness (certificates)</p>
+<pre class="lean xs"><code>theorem eater_absorbs_glider :
+    conway.evolve 6 (ofRows 0 0 [2, 4, 7, 0, 48, 80, 64, 192]) =
+      ofRows 4 4 [3, 5, 4, 12] := by
+  life_cert
+
+theorem glider_union_eater :
+    ofRows 0 0 [2, 4, 7, 0, 48, 80, 64, 192] =
+      Pattern.glider ∪ translate (4, 4) Pattern.eater1
+
+theorem gliders_annihilate_perp :
+    conway.evolve 4 (ofRows 0 0 [2, 36, 23, 112]) = ∅ := by
+  life_cert
+
+theorem shortPush :   -- a 3-glider salvo pushes a block by (1, 1)
+    conway.evolve 19 (ofRows 0 0 [20, 24, 8, 0, 64, 129, 230, 3, 0, 384, 384]) =
+      ofRows 8 10 [3, 3] := by
+  life_cert</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Components &middot; Collisions.lean</p>
+  <h2>Glider and block: reading a register</h2>
+  <div class="cols life">
+    <div>
+      <div class="lifebox" style="height: 430px" data-scene="zeroTest"></div>
+      <p class="caption">With the block at position 0, the test glider hits it; a second glider restores it. At any position $k \ge 1$ the glider passes by.</p>
+    </div>
+    <div>
+<p class="codehead def">Definitions</p>
+<pre class="lean s"><code>def counter (k : ℤ) : Finset Cell := ofRows (7 + k) (11 + k) [3, 3]
+def zeroTestGlider : Finset Cell := ofRows 5 6 [2, 1, 7]</code></pre>
+<p class="codehead ok">Correctness</p>
+<pre class="lean s"><code>theorem zeroTest_hit :
+    conway.evolve 9 (zeroTestGlider ∪ counter 0) = ofRows 8 9 [3, 3]
+
+-- for every position k ≥ 1 and all time
+theorem zeroTest_pass (k : ℕ) (hk : 1 ≤ k) (n : ℕ) :
+    conway.evolve n (zeroTestGlider ∪ counter k) =
+      conway.evolve n zeroTestGlider ∪ counter k</code></pre>
+<p class="codehead sanity">Sanity check</p>
+<pre class="lean s"><code>theorem zeroTest_hit_displaces :
+    conway.evolve 9 (zeroTestGlider ∪ counter 0) ≠ counter 0</code></pre>
+      <p class="xsmall muted">The second statement is for <em>all</em> $k$ and <em>all</em> $n$: one certificate plus independence along a run.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Components &middot; Gates.lean, MergeChain.lean, OrChainTight.lean</p>
+  <h2>The OR gate: a blocked stream</h2>
+  <div class="cols life">
+    <div>
+      <div class="lifebox" style="height: 450px" data-scene="orGate"></div>
+      <p class="caption">Two guns whose streams annihilate. An input glider deletes one glider of a stream, so one glider of the other escapes: the output, $(35, 64)$ further on, 254 generations later.</p>
+    </div>
+    <div>
+<p class="codehead ok">Correctness</p>
+<pre class="lean xs"><code>theorem orGate_rest : Reaction orGate orGate 30 (fun _ =&gt; Box 0 90 0 32)
+
+theorem orGate_relay :
+    Reaction (orGate ∪ orIn) (phase orGate 254 ∪ translate (35, 64) orIn) 254
+      (fun _ =&gt; Box 0 90 (-6) 60)
+
+-- a merge chain of any length, with a tight footprint
+theorem orChainT (L : ℕ) :
+    Reaction (relayChain orGate 254 (35, 64) (L + 1) 0 ∪ orIn)
+      (relayChain orGate 254 (35, 64) (L + 1) ((L + 1) * 254) ∪
+        translate (((L + 1 : ℕ) : ℤ) * (35, 64).1, ((L + 1 : ℕ) : ℤ) * (35, 64).2) orIn)
+      ((L + 1) * 254) (fun _ =&gt; chainFoot orFoot (35, 64) (L + 1))</code></pre>
+<p class="codehead def">The gate in Gates.lean</p>
+<pre class="lean xs"><code>theorem gate :
+    conway.evolve 90 (blockedStream ∪ gateControl) = blockedStream ∪ gateOutput</code></pre>
+<p class="codehead sanity">Sanity checks</p>
+<pre class="lean xs"><code>theorem blockedStream_isOscillator : IsOscillator blockedStream 30  -- nothing escapes
+theorem gate_wrong_lane_ne : ...    -- a control glider one lane off does not open it</code></pre>
+      <p class="xsmall muted">The crude footprint <code class="inline">Box 0 90 (-6) 60</code> overlapped a neighbouring reflector in the layout; <code class="inline">orFoot</code> is the tight replacement.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Components &middot; SalvoGenerator.lean, Rf0Images.lean, Route.lean</p>
+  <h2>The reflector and routes</h2>
+  <div class="cols life">
+    <div>
+      <div class="lifebox" style="height: 440px" data-scene="reflector"></div>
+      <p class="caption">Queen bee shuttle + block + eater (period 30) turns a glider through a right angle in 30 generations. Its 8 images under the symmetries of the square are the corners of every route.</p>
+    </div>
+    <div>
+<p class="codehead def">Definitions</p>
+<pre class="lean xs"><code>def reflector : Finset Cell :=
+  ofRows 0 2 [12288, 34816, 66563, 214019, 66560, 1607680, 2633728, 2097152, 6291456]
+
+structure Stage where   -- a period-30 piece that relays a glider
+  G : Finset Cell
+  In : Finset Cell
+  Out : Finset Cell
+  Δ : ℕ
+  B : Set Cell
+  R : Set Cell
+  rest : Reaction G G 30 (fun _ =&gt; B)
+  relay : Reaction (G ∪ In) (phase G Δ ∪ Out) Δ (fun _ =&gt; R)
+  hBR : B ⊆ R</code></pre>
+<p class="codehead ok">Correctness</p>
+<pre class="lean xs"><code>theorem reflector_reflects :
+    conway.evolve 30 (reflector ∪ ofRows 20 0 [1, 5, 3]) =
+      reflector ∪ ofRows 11 (-4) [2, 3, 5]
+
+theorem route_reaction : ∀ (s : Stage) (l : List Stage), Sep (s :: l) → Linked (s :: l) →
+    Reaction (pieces (s :: l) 0 ∪ s.In) (pieces (s :: l) (dur (s :: l)) ∪ lastOut (s :: l))
+      (dur (s :: l)) (fun _ =&gt; relayFoot (s :: l))</code></pre>
+<p class="codehead sanity">Counterexample: the naive separation fails</p>
+<pre class="lean xs"><code>theorem rfIn_near :
+    ¬ (gbx (rfIn 0) (-61)).Far (cornerSpec ⟨0, rfCU 0, rfCV 0, .halt 0⟩).bx</code></pre>
+      <p class="xsmall muted">Just before reflection a glider touches its reflector, so routes use <em>corner windows</em>: free flight until 20 generations before the meeting, then glider and reflector certified together for 60.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Components &middot; SlidingBlock.lean, Register.lean</p>
+  <h2>Sliding block memory</h2>
+  <div class="cols">
+    <div>
+      <div class="cols" style="gap: 12px">
+        <div><div class="lifebox" style="height: 300px" data-scene="slidePull"></div><p class="caption">Pull: a 2-glider salvo moves the block from 3 to 2.</p></div>
+        <div><div class="lifebox" style="height: 300px" data-scene="slidePush"></div><p class="caption">Push: a 3-glider salvo moves it from 3 to 4.</p></div>
+      </div>
+      <p class="small mt">A register holds $k \in \mathbb{N}$ as the position of a block on a diagonal. The salvo takes $4k + 26$ (pull) or $4k + 32$ (push) generations, so the time depends on $k$.</p>
+    </div>
+    <div>
+<p class="codehead def">Definitions</p>
+<pre class="lean xs"><code>def counter (k : ℤ) : Finset Cell := ofRows (7 + k) (11 + k) [3, 3]
+def pullSalvo : Finset Cell := ofRows 0 5 [2, 4, 647, 768, 256]
+def pushSalvo : Finset Cell := ofRows 0 0 [4, 8, 14, 0, 0, 2, 4, 647, 768, 256]</code></pre>
+<p class="codehead ok">Correctness, for every position</p>
+<pre class="lean xs"><code>theorem pull (k : ℕ) :
+    conway.evolve (4 * k + 26) (pullSalvo ∪ counter k) = counter (k - 1)
+
+theorem push (k : ℕ) :
+    conway.evolve (4 * k + 32) (pushSalvo ∪ counter k) = counter (k + 1)
+
+-- salvos launched at least 13 cells apart act on the block in order
+theorem pipeline (l : List (Op × ℤ)) (hl : l ≠ []) (k : ℤ) (t : ℕ)
+    (hs : SpacedLaunch 13 (-k) l) (ht : (t : ℤ) = finishTime k l) :
+    conway.evolve t (launch l ∪ counter k) = counter (run l k)</code></pre>
+<p class="codehead sanity">Sanity checks</p>
+<pre class="lean xs"><code>theorem counter_injective : Function.Injective counter
+theorem pull_misplaced_block_ne : ...    -- a block off the diagonal is not pulled
+theorem two_ops_inc_inc_ten_ne : ...     -- spacing 10 after an inc is too small</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Components &middot; Diagonal.lean, Salvos.lean, DiagSmall.lean</p>
+  <h2>The register diagonal: a block and a queue of salvos</h2>
+  <div class="cols">
+    <div>
+      <ul class="pts">
+        <li>An instruction ends when the control glider reaches the next unit, but a salvo needs about $4k$ generations to reach the block.</li>
+        <li>So at an instruction boundary a register is <strong>a block plus a queue of salvos still in flight</strong> on its diagonal.</li>
+        <li>The register&rsquo;s value is the block position plus the moves still in flight: <code class="inline">K + qMove q</code>.</li>
+        <li>Main facts: the diagonal stays in a strip forever, and after <code class="inline">diagTime</code> the block sits at its value.</li>
+      </ul>
+<pre class="lean xs"><code>structure Salvo where        -- fields abridged
+  S : Finset Cell
+  d : ℤ
+  n : ℕ
+  four : conway.evolve 4 S = translate (1, 1) S
+  hz : Reaction (S ∪ counter 0) (counter d) n (fun _ =&gt; Box za zb zlo zhi)
+
+def flights : List (Salvo × ℤ) → Finset Cell
+  | [] =&gt; ∅
+  | (σ, e) :: q =&gt; σ.at e ∪ flights q
+
+def RegS.val (R : RegS) : ℕ := (R.K + qMove R.q).toNat</code></pre>
+    </div>
+    <div>
+<p class="codehead ok">Correctness</p>
+<pre class="lean xs"><code>theorem diag_strip (P : DiagParams) (hP : P.Good) :
+    ∀ (n : ℕ) (q : List (Salvo × ℤ)) (Vs Vb K : ℤ), q.length = n → DiagValid P Vs Vb K q →
+      ∀ i, (conway.evolve i (flights q ∪ counter K) : Set Cell) ⊆
+        diagStrip P.U₁ P.U₂ Vs Vb i
+
+theorem diag_end (P : DiagParams) (hP : P.Good) :
+    ∀ (n : ℕ) (q : List (Salvo × ℤ)) (Vs Vb K : ℤ), q.length = n → DiagValid P Vs Vb K q →
+      ∀ j : ℕ, conway.evolve (j + diagTime K q) (flights q ∪ counter K) =
+        counter (K + qMove q)
+
+-- a small register whose salvos are long gone is a static block
+theorem diagW_static {q : List (Salvo × ℤ)} {Vs Vb K : ℤ} {t : ℕ}
+    (hv : DiagValid regParams Vs Vb K q) (hQ : QBeforeL 29 q t)
+    (hval : K + qMove q ≤ 15) :
+    conway.evolve t (diagW q K) = reg1Block (K + qMove q)</code></pre>
+<p class="codehead sanity">Concrete instance</p>
+<pre class="lean xs"><code>theorem regParams_good : regParams.Good</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Components &middot; Gen/Dz2gRun.lean, RegisterCircuit.lean</p>
+  <h2>The register circuit: decrement</h2>
+  <div class="cols life-wide">
+    <div>
+      <div class="lifebox" style="height: 470px" data-scene="regDec"></div>
+      <p class="caption">One period-30 circuit of guns and reflectors serves one block. The control glider makes it fire a pulling salvo down the diagonal: the block goes from 2 to 1, and the circuit emits the non-zero answer. Zoom in on the block (lower right).</p>
+    </div>
+    <div>
+<p class="codehead ok">Correctness, for every <span style="text-transform:none">k ≥ 2</span> (generated)</p>
+<pre class="lean xs"><code>theorem dz2gAll (k : ℕ) (hk : 2 ≤ k) :
+    conway.evolve (4 * k + 11490)
+      (dz2gRest ∪ ofRows (-1186) (-1227) [2, 4, 7] ∪ reg1Block ↑k) =
+      conway.evolve (4 * k) dz2gRest ∪ reg1Block (↑k - 1) ∪
+        translate ((k : ℤ), (k : ℤ)) (ofRows 603 994 [1, 6, 3])</code></pre>
+      <ul class="pts">
+        <li>The zero test works <strong>by decrementing anyway</strong>: from 0 the block goes to $-1$, a detector glider tells the cases apart, and in case 0 a restore glider and an increment put it back.</li>
+        <li>Separate runs <code class="inline">dz2mk0</code> &hellip; <code class="inline">dz2mk7</code> for small values; <code class="inline">RegisterCircuit.lean</code> proves they all use the same circuit.</li>
+        <li>Earlier stand-alone versions: <code class="inline">decrement</code>, <code class="inline">increment</code>, <code class="inline">zeroTest_decision</code>, and the register <code class="inline">REG1</code> (16 guns, 14 reflectors).</li>
+      </ul>
+<p class="codehead sanity">Sanity checks</p>
+<pre class="lean xs"><code>theorem zOut_ne_nzOut : zOut ≠ nzOut
+theorem registerBlock_injective : ...</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Components &middot; Gen/Dz2jRun.lean, Gen/Dz2mk0Run.lean</p>
+  <h2>Increment, and the zero test at value 0</h2>
+  <div class="cols">
+    <div>
+      <div class="lifebox" style="height: 290px" data-scene="regInc"></div>
+      <p class="caption">Increment (2 &rarr; 3): a pushing salvo, and nothing else escapes.</p>
+      <div class="lifebox" style="height: 290px; margin-top: 8px" data-scene="regZero"></div>
+      <p class="caption">Zero test at 0: the block is hit, restored, and the zero answer flies off up-right.</p>
+    </div>
+    <div>
+<p class="codehead ok">Correctness (generated)</p>
+<pre class="lean xs"><code>theorem dz2jAll (k : ℕ) :
+    conway.evolve (4 * k + 6990) (dz2jRest ∪ ofRows (-857) (-1054) [6, 5, 4] ∪ reg1Block ↑k) =
+      conway.evolve (4 * k) dz2jRest ∪ reg1Block (↑k + 1)
+
+/-- **The run of the circuit**, stated with the circuit at rest. -/
+theorem dz2mk0Run_rest :
+    conway.evolve 27540
+      (dz2mk0Rest ∪ ofRows 155 251 [3, 3] ∪ ofRows (-1186) (-1227) [2, 4, 7]) =
+      dz2mk0Rest ∪ ofRows 155 251 [3, 3] ∪ ofRows 4562 (-4025) [3, 6, 1]</code></pre>
+<p class="codehead">How a generated run is built</p>
+<pre class="lean xs"><code>/-- A flight (segment 0, process 1). -/
+theorem dz2mk0F0_1 :
+    Reaction dz2mk0A1 dz2mk0A2 473 (fun i =&gt; Box ((-1186) + ((i / 4 : ℕ) : ℤ) * 1)
+      ((-1183) + ((i / 4 : ℕ) : ℤ) * 1) ((-1227) + ((i / 4 : ℕ) : ℤ) * 1)
+      ((-1224) + ((i / 4 : ℕ) : ℤ) * 1)) :=
+  flight_reaction dz2mk0A1_four dz2mk0A1_box 118 1 dz2mk0F0_1e
+
+/-- **The run**: 27540 generations, 112 segments. -/
+theorem dz2mk0Run :
+    conway.evolve 27540 (Proc.start dz2mk0L0) = Proc.stop dz2mk0L111</code></pre>
+      <p class="xsmall muted">A Python planner cuts the run into segments of independent processes; Lean checks every segment and every gluing equality. The generator is untrusted.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Components &middot; StationFacts.lean, StationChain.lean</p>
+  <h2>Dispatch stations: returning the answer to the caller</h2>
+  <div class="cols">
+    <div>
+      <div class="cols" style="gap: 12px">
+        <div><div class="lifebox" style="height: 330px" data-scene="station"></div><p class="caption">Capture: the caller&rsquo;s token arms the station; the answer is dispatched back to the caller (generation 492).</p></div>
+        <div><div class="lifebox" style="height: 330px" data-scene="stationPass"></div><p class="caption">No token: the answer passes on to the next station.</p></div>
+      </div>
+      <p class="small mt">A register serves many <code class="inline">decJz</code> instructions. Each caller has a station on each answer line (zero and non-zero), every $(72, \pm 72)$ cells, 288 generations apart.</p>
+    </div>
+    <div>
+<p class="codehead ok">Correctness</p>
+<pre class="lean xs"><code>theorem stCaptureNZ_relay :
+    Reaction (stCaptureNZG ∪ stCaptureNZIn) (phase stCaptureNZG 492 ∪ stCaptureNZOut)
+      492 (fun _ =&gt; Box 380 467 784 919)
+
+-- a chain of stations of any length relays the answer
+theorem stNZChain (L : ℕ) :
+    Reaction (relayChain stNZG 288 (72, 72) (L + 1) 0 ∪ stNZX)
+      (relayChain stNZG 288 (72, 72) (L + 1) ((L + 1) * 288) ∪
+        translate (((L + 1 : ℕ) : ℤ) * (72, 72).1, ((L + 1 : ℕ) : ℤ) * (72, 72).2) stNZX)
+      ((L + 1) * 288) (fun _ =&gt; chainFoot stNZR (72, 72) (L + 1))</code></pre>
+      <p class="small">Eight local facts, each one certificate: capture, passage, absorption of an unpaired token, and absorption at the end of the line, for each of the two answer lines.</p>
+<p class="codehead">Related</p>
+<pre class="lean xs"><code>stPassNZ_relay  stUnpairedTokenNZ_relay  stLineEndNZ_relay  -- and the Z versions</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PART 3: ASSEMBLY ============================ -->
+<section class="divider" data-background-color="#0b1220">
+  <p class="kicker">Part 3</p>
+  <h1>From programs to patterns</h1>
+  <p class="sub">Counter machines, the layout of a machine, the encoding of its states, one theorem per instruction, and the reduction.</p>
+</section>
+
+<section class="tight">
+  <p class="kicker">Assembly &middot; Computability/CounterMachine*.lean</p>
+  <h2>Counter machines</h2>
+  <div class="cols">
+    <div>
+      <ul class="pts">
+        <li>Registers $\mathbb{N} \to \mathbb{N}$; instructions <code class="inline">inc r</code>, <code class="inline">decJz r l</code>, <code class="inline">halt</code>: exactly what the Life components provide.</li>
+        <li>Defined from scratch (Mathlib has none) and proved universal through Mathlib&rsquo;s <code class="inline">Nat.Partrec'</code>.</li>
+        <li>From the halting problem: <strong>one</strong> program whose halting is undecidable. It is not explicit, so the construction must work for every well-formed program.</li>
+      </ul>
+<p class="codehead def">Definitions</p>
+<pre class="lean xs"><code>inductive Instr where
+  | inc (r : ℕ)
+  | decJz (r : ℕ) (l : ℕ)
+  | halt
+
+def Instr.exec : Instr → Cfg → Option Cfg
+  | .inc r, c =&gt; some ⟨c.pc + 1, update c.regs r (c.regs r + 1)⟩
+  | .decJz r l, c =&gt;
+    if c.regs r = 0 then some ⟨l, c.regs⟩
+    else some ⟨c.pc + 1, update c.regs r (c.regs r - 1)⟩
+  | .halt, _ =&gt; none
+
+def WellFormed (P : Program) : Prop :=
+  (∀ r l, .decJz r l ∈ P → l &lt; P.length) ∧ P.getLast? = some .halt
+
+def SingleHalt (P : Program) : Prop := ∀ i &lt; P.length - 1, P[i]? ≠ some .halt</code></pre>
+    </div>
+    <div>
+<p class="codehead ok">Correctness</p>
+<pre class="lean xs"><code>theorem exists_computes_of_partrec {f : ℕ →. ℕ} (hf : Nat.Partrec f) :
+    ∃ P : Program, P.WellFormed ∧ P.Computes f</code></pre>
+<p class="codehead goal">Goal (input to the reduction)</p>
+<pre class="lean xs"><code>theorem exists_program_halts_not_computable_single :
+    ∃ P : Program, P.WellFormed ∧ P.SingleHalt ∧
+      ¬ComputablePred fun n : ℕ =&gt; P.Halts (Cfg.init n)</code></pre>
+<p class="codehead sanity">Sanity checks</p>
+<pre class="lean xs"><code>def addProg : Program := [.decJz 1 3, .inc 0, .decJz 2 0, .halt]
+
+def loopProg : Program := [.decJz 1 0]
+theorem loopProg_eval (n : ℕ) : loopProg.eval (Cfg.init n) = Part.none
+theorem not_wellFormed_loopProg : ¬ loopProg.WellFormed
+
+theorem singleHalt_twoHalts :
+    Program.singleHalt [.halt, .halt] = [.decJz 1 1, .halt] := rfl</code></pre>
+      <p class="xsmall muted">Single halt: an earlier halt&rsquo;s corner would sit on a later halt glider&rsquo;s path, so earlier halts become jumps on an always-zero register.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Assembly &middot; LayoutLP.lean, LayoutPieces.lean, Placed.lean</p>
+  <h2>The layout: a program becomes a pattern</h2>
+  <div class="cols">
+    <div>
+      <ul class="pts">
+        <li>One <strong>unit</strong> per instruction (an entry chain of OR gates and a body), one <strong>module</strong> per register (the circuit, its chains, dispatch stations, line-end eaters) and <strong>routes</strong> of reflectors between them.</li>
+        <li>Every position is an <strong>affine formula</strong> in the indices and in global parameters: instructions, registers, callers per register, predecessors per unit. Diagonal coordinates $u = x - y$, $v = x + y$; pitches $\equiv 0 \pmod{30}$.</li>
+        <li>Every piece is a translated, phase-shifted copy of a certified base piece.</li>
+      </ul>
+<pre class="lean xs"><code>def PU (p : Program) : ℤ := 540 + 180 * P p          -- unit pitch
+def A (p : Program) (a : ℤ) : ℤ := PU p * a
+def PM (p : Program) : ℤ := 2400 + 540 * D p         -- module pitch
+def U (p : Program) (r : ℤ) : ℤ := U0 p + PM p * r
+
+inductive Base where
+  | orGate | rf (k : ℕ) | bodyDec (i : ℕ) | bodyInc (i : ℕ) | dz2g (i : ℕ)
+  | stNZ (i : ℕ) | stZ (i : ℕ) | eatNZ | eatZ
+
+def machSpecs (p : Program) : List PSpec := unitsPart p ++ modulesPart p ++ linksPart p
+def machPieces (p : Program) : List Piece := (machSpecs p).map PSpec.piece</code></pre>
+    </div>
+    <div>
+<pre class="lean xs"><code>def Piece.place (g : Piece) (vx vy : ℤ) (p : ℕ) : Piece where
+  rest := translate (vx, vy) (phase g.rest p)
+  a := g.a + vx
+  b := g.b + vx
+  lo := g.lo + vy
+  hi := g.hi + vy
+  rest_reaction := by ...</code></pre>
+<p class="codehead ok">Correctness</p>
+<pre class="lean xs"><code>-- all pieces of every well-formed program are pairwise far apart
+theorem machPieces_sep (p : Program) (hp : p.WellFormed) :
+    (machPieces p).Pairwise Piece.Sep
+
+-- one of the 17 classes of separation inequalities
+theorem sep01_unitSlabs (p : Program) (a : ℤ) :
+    A p (a + 1) + slabL p - (A p a + slabR p + 60) =
+      274 + 58 * P p - max 238 (86 + 58 * P p)
+      ∧ A p a + slabR p + 60 + 36 + 58 ≤ A p (a + 1) + slabL p
+
+-- timing: every arrival can be matched to the 30-generation clock
+theorem window_rule (r0 ρ : ℤ) (h : (ρ - r0) % 2 = 0) :
+    (r0 + 8 * winE r0 ρ) % 30 = ρ % 30 ∧ 0 ≤ winE r0 ρ ∧ winE r0 ρ ≤ 14</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Assembly &middot; StartFamily.lean</p>
+  <h2>A whole machine: <code class="inline">[decJz 0 1, halt]</code> with register 0 = 2</h2>
+  <div class="lifebox" style="height: 520px" data-scene="machine"></div>
+  <p class="caption">The start configuration <code class="inline">encM p (startM 2)</code>: 6,289 cells over an area of about $7600 \times 5000$. The control glider starts at unit 0; the decrement runs at the register module; the answer returns; the halt glider reaches the halt cell (yellow circle, far left) at generation 76,250, leaving the register at 1. Use &ldquo;jump to&rdquo; for the main events, and zoom in on any part.</p>
+</section>
+
+<section class="tight">
+  <p class="kicker">Assembly &middot; StartFamily.lean</p>
+  <h2>The other branch: the same machine with register 0 = 0</h2>
+  <div class="lifebox" style="height: 520px" data-scene="machineZero"></div>
+  <p class="caption">Only the block differs from the previous slide: the start family is $n \mapsto$ (fixed part) $\cup$ (block moved by $n$), which is why it is computable. Now the salvo hits the block at 0, the block is restored, the <em>zero</em> station captures the answer, and the machine halts at generation 84,560 with the register still 0.</p>
+</section>
+
+<section class="tight">
+  <p class="kicker">Assembly &middot; MachineState.lean</p>
+  <h2>Machine states and their encoding</h2>
+  <div class="cols">
+    <div>
+<p class="codehead def">Definitions</p>
+<pre class="lean xs"><code>structure RegS where      -- a register: salvos in flight, block, clock, strip bounds
+  q : List (Salvo × ℤ)
+  K : ℤ
+  m : ℕ
+  Vs : ℤ
+  Vb : ℤ
+
+structure MState where
+  pc : ℕ
+  T : ℕ                   -- global time: every piece is at phase T
+  reg : ℕ → RegS
+
+def MState.cfg (s : MState) : Cfg := ⟨s.pc, fun r =&gt; (s.reg r).val⟩
+
+def encM (p : Program) (s : MState) : Finset Cell :=
+  machAt p s.T ∪ ctrlAt p s.pc ∪ regsAt p s.reg (numRegs p)
+
+def InvM (p : Program) (s : MState) : Prop :=
+  s.pc &lt; p.length ∧ s.T % 30 = 0 ∧ (∀ r &lt; numRegs p, (s.reg r).Inv) ∧
+    ∀ r, numRegs p ≤ r → (s.reg r).val = 0
+
+def startM (n : ℕ) : MState := ⟨0, 0, fun r =&gt; RegS.ofNat (if r = 0 then n else 0)⟩
+
+def machRegion (p : Program) : Set Cell := {c | uMin p - 300 ≤ c.1 - c.2}</code></pre>
+    </div>
+    <div>
+      <ul class="pts">
+        <li>The encoding is the machine at phase $T$, the control glider at the entrance of unit <code class="inline">pc</code>, and every register&rsquo;s diagonal at its module.</li>
+        <li>The machine state projects onto the counter-machine configuration through the <em>values</em> of the registers.</li>
+        <li>The whole run stays in <code class="inline">machRegion</code>, a half-plane in $u = x - y$. The halt cell lies outside it, so it is never hit before the halt.</li>
+      </ul>
+<p class="codehead ok">Correctness</p>
+<pre class="lean xs"><code>theorem encM_startM (p : Program) (n : ℕ) :
+    encM p (startM n) = startRest p ∪ ofRows (blockX p + n) (blockY p + n) [3, 3]
+
+theorem exists_startFamily (p : Program) :
+    ∃ f : ℕ → WindowData, Computable f ∧ ∀ n, (f n).cells = encM p (startM n)</code></pre>
+<p class="codehead sanity">Sanity check</p>
+<pre class="lean xs"><code>theorem haltCell_notMem (p : Program) : haltCell p ∉ machRegion p</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Assembly &middot; ActivationIncStep.lean, ActivationDecStep.lean, ActivationHalt.lean</p>
+  <h2>One theorem per instruction</h2>
+  <div class="cols">
+    <div>
+<p class="codehead ok">inc: the state moves to the next one, exactly</p>
+<pre class="lean xs"><code>theorem inc_step_of_plan (hp : p.WellFormed) (s : MState) (hinv : InvM p s)
+    (hins : p[s.pc]? = some (.inc r)) (hready : (s.reg r).Ready) (P : IncPlan p s.pc r)
+    (hv : P.Valid) (hsep : IncSep P ((s.reg r).later 930))
+    (hreg : IncRegion P ((s.reg r).later 930)) :
+    ∃ (τ : ℕ) (s' : MState), 0 &lt; τ ∧ (∀ r', r' ≠ r → s'.reg r' = (s.reg r').later τ) ∧
+      p.step s.cfg = some s'.cfg ∧ InvM p s' ∧ (s'.reg r).Ready ∧
+      conway.evolve τ (encM p s) = encM p s' ∧
+      ∀ j ≤ τ, (conway.evolve j (encM p s) : Set Cell) ⊆ machRegion p</code></pre>
+<p class="codehead ok">decJz: both branches, every register value</p>
+<pre class="lean xs"><code>theorem decJz_step_full {p : Program} {r z : ℕ} (hp : p.WellFormed) (s : MState)
+    (hinv : InvM p s) (hrdy : ∀ r' &lt; numRegs p, (s.reg r').Ready)
+    (hins : p[s.pc]? = some (.decJz r z)) (hsep : DecSep p s.pc r z) :
+    ∃ (τ : ℕ) (s' : MState), 0 &lt; τ ∧ (∀ r', r' ≠ r → s'.reg r' = (s.reg r').later τ) ∧
+      p.step s.cfg = some s'.cfg ∧ InvM p s' ∧ (∀ r' &lt; numRegs p, (s'.reg r').Ready) ∧
+      conway.evolve τ (encM p s) = encM p s' ∧
+      ∀ j ≤ τ, (conway.evolve j (encM p s) : Set Cell) ⊆ machRegion p</code></pre>
+    </div>
+    <div>
+<p class="codehead ok">halt: the halt cell comes alive</p>
+<pre class="lean xs"><code>theorem halt_everAlive {p : Program} (hp : p.WellFormed) (s : MState) (hinv : InvM p s)
+    (hstep : p.step s.cfg = none) (hs : HaltSep p s.pc) :
+    EverAlive (haltCellC p) (encM p s)</code></pre>
+      <ul class="pts">
+        <li>Each activation is a network of processes: entry chain, unit body, routes, module chain, register run, stations, with the rest of the machine as one idle bundle.</li>
+        <li>The decJz step splits on the value: the diagonal pull for values $\ge 8$, static runs for $1 \dots 7$, the zero test at 0.</li>
+        <li>The geometry is packaged in <strong>separation conditions</strong> <code class="inline">IncSep</code>, <code class="inline">DecSep</code> (54 fields), <code class="inline">HaltSep</code>: every moving part stays far from every idle piece and from the other registers&rsquo; lanes.</li>
+      </ul>
+<pre class="lean xs"><code>structure HaltSep (p : Program) (a : ℕ) : Prop where
+  pre : ∀ t : ℕ, t &lt; 2837 → ∀ h ∈ machPieces p, FarApart 2 ((ctrlWL p a).box t) h.box
+  relay : ∀ h ∈ machPieces p, h ≠ haltRfP p a → FarApart 2 (haltRelayBox p a) h.box
+  fly : ∀ t : ℕ, 2897 ≤ t → t &lt; haltTime p a → ∀ h ∈ machPieces p,
+    FarApart 2 ((haltOutWL p a).box t) h.box
+  lanes : ∀ r₁ &lt; numRegs p, ∀ r₂ &lt; numRegs p, r₁ ≠ r₂ →
+    FarApart 2 (modLanes p r₁) (modLanes p r₂)
+  laneMach : ...</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Assembly &middot; *SepFalse.lean, *SepProof*.lean, DecSepAll.lean</p>
+  <h2>Separation: refuted, repaired, proved</h2>
+  <div class="cols">
+    <div>
+      <p class="small">The separation conditions are where informal reasoning fails. Several first formulations were <strong>false</strong>, and the refutations are kept in Lean as counterexamples:</p>
+<p class="codehead sanity">Counterexamples to earlier versions</p>
+<pre class="lean xs"><code>-- the old IncSep clause fails for every plan: a glider approaches its gate too early
+theorem isep_not_fl1 (P : IncPlan p i r) (hTg : (P.Tg : ℤ) = 194 + 30 * P.km) :
+    ¬ ∀ j : ℕ, 134 ≤ j → j &lt; 891 → ∀ h ∈ P.LIraw,
+      FarApart 2 ((gateOutWL p r P.km).box ((P.Tg : ℤ) + j)) h.box
+
+-- the old DecSep run region overlaps the module's INC gate
+theorem dsep_old_region_gate (p : Program) (r : ℕ) :
+    ¬ FarApart 2 (modImg p r dz2mk0Region) (gateP p r).box</code></pre>
+      <p class="xsmall muted">With the old <code class="inline">IncSep</code>, no program starting with an <code class="inline">inc</code> could satisfy the hypothesis of the main theorem; the corollary would have been vacuous. The original halt cell was never hit, and is replaced by <code class="inline">haltCellC</code>.</p>
+    </div>
+    <div>
+      <p class="small">The fix each time: a glider is checked as a free flight only until <em>shortly before</em> it interacts; from then on it is certified <em>jointly</em> with the piece it meets (16 to 90 generations), and footprints are tightened by extra certificates.</p>
+<p class="codehead ok">All fields proved, for every program</p>
+<pre class="lean xs"><code>theorem isep2_incSep (hp : p.WellFormed) (hins : p[i]? = some (.inc r)) {R0 : RegS}
+    (hR : R0.Ready) : IncSep (incPlan p i r) R0
+
+theorem hsep_haltSep {p : Program} (hp : p.WellFormed) (hs : p.SingleHalt) :
+    HaltSep p (p.length - 1)
+
+theorem dsep_rest {p : Program} (hp : p.WellFormed) :
+    ∀ i r z, p[i]? = some (.decJz r z) → DecSepRest p i r z</code></pre>
+      <p class="xsmall muted">Each field was first checked numerically on concrete programs (from Lean&rsquo;s own definitions), then proved for all programs by linear arithmetic on the layout formulas.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <p class="kicker">Assembly &middot; Simulation.lean, MainTheorem.lean, Decision.lean</p>
+  <h2>The simulator and the reduction</h2>
+  <div class="cols">
+    <div>
+<pre class="lean xs"><code>structure Simulator (P : Program) where
+  S : Type
+  proj : S → Cfg
+  enc : S → Finset Cell
+  Inv : S → Prop
+  next : S → S
+  dur : S → ℕ
+  region : Set Cell
+  cH : Cell
+  cH_notMem : cH ∉ region
+  dur_pos : ∀ s, 0 &lt; dur s
+  step : ∀ s c', Inv s → P.step (proj s) = some c' →
+    proj (next s) = c' ∧ Inv (next s) ∧ conway.evolve (dur s) (enc s) = enc (next s) ∧
+      ∀ i ≤ dur s, (conway.evolve i (enc s) : Set Cell) ⊆ region
+  halt : ∀ s, Inv s → P.step (proj s) = none → EverAlive cH (enc s)
+
+structure MachineSteps (p : Program) : Prop where
+  incSep : ∀ (s : MState) (r : ℕ), MInv p s → p[s.pc]? = some (.inc r) →
+    IncSep (incPlan p s.pc r) ((s.reg r).later 930)
+  dec : ...                                  -- the decJz step
+  haltSep : HaltSep p (p.length - 1)</code></pre>
+    </div>
+    <div>
+<p class="codehead ok">Halting $\iff$ the halt cell is ever alive</p>
+<pre class="lean xs"><code>theorem everAlive_of_halts {s : M.S} (hs : M.Inv s) (h : P.Halts (M.proj s)) :
+    EverAlive M.cH (M.enc s)
+
+theorem not_everAlive_of_not_halts {s : M.S} (hs : M.Inv s)
+    (h : ¬ P.Halts (M.proj s)) : ¬ EverAlive M.cH (M.enc s)</code></pre>
+<p class="codehead ok">The reduction</p>
+<pre class="lean xs"><code>abbrev WindowData : Type := ℤ × ℤ × List ℕ
+def WindowData.cells (w : WindowData) : Finset Cell := ofRows w.1 w.2.1 w.2.2
+def EverAlive (c : Cell) (S : Finset Cell) : Prop := ∃ t, c ∈ conway.evolve t S
+
+theorem not_computablePred_everAlive_of_family (c : Cell) (f : ℕ → WindowData)
+    (hf : Computable f) (hn : ¬ ComputablePred fun n : ℕ =&gt; EverAlive c (f n).cells) :
+    ¬ ComputablePred fun w : WindowData =&gt; EverAlive c w.cells</code></pre>
+<p class="codehead sanity">Sanity checks</p>
+<pre class="lean xs"><code>theorem everAlive_of_mem ...                   -- a live cell is ever alive
+theorem not_everAlive_empty (c : Cell) : ¬ EverAlive c ∅</code></pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <p class="kicker">Result</p>
+  <h2>The theorem</h2>
+<pre class="lean"><code>/-- **Undecidability of the Game of Life.** There is a cell `c` such that it is not computable,
+from the finite initial pattern, whether `c` is alive at some generation. -/
+theorem exists_not_computablePred_everAlive' :
+    ∃ c : Cell, ¬ ComputablePred fun w : WindowData =&gt; EverAlive c w.cells :=
+  exists_not_computablePred_everAlive_of_decSepRest fun _ hp _ =&gt; dsep_rest hp</code></pre>
+<pre class="lean plain" style="margin-top: 0.5em"><code>#print axioms LeanTheory.Life.LP.exists_not_computablePred_everAlive'
+'LeanTheory.Life.LP.exists_not_computablePred_everAlive'' depends on axioms:
+  [propext, Classical.choice, Quot.sound]</code></pre>
+  <div class="cols-3 mt">
+    <div class="card"><h3>What it says</h3><p>For some cell $c$, the set of finite patterns (encoded as windows of bit rows) from which $c$ is eventually alive is not computable.</p></div>
+    <div class="card good"><h3>What is trusted</h3><p>Lean&rsquo;s kernel, the 147-line kernel definition of the rule, and Mathlib&rsquo;s <code class="inline">ComputablePred</code>.</p></div>
+    <div class="card plasma"><h3>What is not trusted</h3><p>The Python planners and generators, the layout search, the numerical checks: they only propose; Lean checks.</p></div>
+  </div>
+</section>
+
+<section>
+  <p class="kicker">Scale</p>
+  <h2>The formalization in numbers</h2>
+  <div class="cols-3" style="margin-top: 0.2em; row-gap: 4px">
+    <div><p class="stat">403,156</p><p class="statcap">lines of Lean in the Life development (371 files)</p></div>
+    <div><p class="stat">308,372</p><p class="statcap">of them generated certificates (219 files)</p></div>
+    <div><p class="stat">94,784</p><p class="statcap">hand-written lines (152 files)</p></div>
+    <div><p class="stat p">&asymp; 17,600</p><p class="statcap">theorems about Life</p></div>
+    <div><p class="stat p">27,540</p><p class="statcap">generations in the longest single certified run (the zero test at 0)</p></div>
+    <div><p class="stat p">54</p><p class="statcap">separation fields of one decJz step, each proved for every program</p></div>
+  </div>
+  <table class="mt trust">
+    <tr><th>Component</th><th>Key numbers</th></tr>
+    <tr><td>Gosper gun</td><td>36 cells, period 30</td></tr>
+    <tr><td>OR gate relay</td><td>254 generations per copy, copies every (35, 64)</td></tr>
+    <tr><td>Sliding block</td><td>pull $4k + 26$, push $4k + 32$ generations; salvos at least 13 cells apart</td></tr>
+    <tr><td>Register circuit</td><td>decrement $4k + 11490$, increment $4k + 6990$ generations</td></tr>
+    <tr><td>Stations</td><td>every $(72, \pm 72)$, 288 generations apart</td></tr>
+  </table>
+</section>
+
+<section>
+  <p class="kicker">Summary</p>
+  <h2>What was built</h2>
+  <ul>
+    <li>A small kernel for Life, with sanity checks and counterexamples that pin its meaning down.</li>
+    <li class="fragment">Kernel-checked certificates for evolutions of tens of thousands of generations, with footprints, so they compose.</li>
+    <li class="fragment">A library of components, each with a correctness theorem for <em>all</em> parameters: gliders, guns, eaters, gates, reflectors, sliding-block registers, stations.</li>
+    <li class="fragment">A layout of a machine for every counter program, with every separation fact proved by arithmetic on affine formulas.</li>
+    <li class="fragment">The simulation theorem, and from it: <strong>the Game of Life is undecidable</strong>.</li>
+  </ul>
+  <p class="small muted mt fragment">Next: the other half of &ldquo;Life is Turing complete&rdquo;: Life computes every partial recursive function.</p>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/notes/notes.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script src="life-grid.js"></script>
+<script src="life-scenes.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  /* ---------------- Lean syntax highlighting ---------------- */
+  const KW = /^(def|theorem|lemma|example|by|have|show|from|fun|match|with|structure|class|instance|where|let|if|then|else|obtain|intro|exact|refine|inductive|abbrev|noncomputable|deriving)$/;
+  const TAC = /^(grind|simp|simp_all|omega|norm_num|rfl|linarith|life_cert|life_eval|life_reaction|interval_cases|fail_if_success|trivial)$/;
+  const TY = /^(Nat|Int|Prop|Type|Finset|Set|Cell|List|Option|Program|Cfg|Instr|MState|RegS|Reaction|Piece|Stage|Salvo|WindowData|Rule|Proc)$/;
+  function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function highlightLean(el) {
+    const src = el.textContent;
+    let out = "", i = 0;
+    while (i < src.length) {
+      if (src.startsWith("/-", i)) {
+        const j = src.indexOf("-/", i + 2); const end = j < 0 ? src.length : j + 2;
+        out += '<span class="tok-com">' + esc(src.slice(i, end)) + "</span>"; i = end; continue;
+      }
+      if (src.startsWith("--", i)) {
+        const j = src.indexOf("\n", i); const end = j < 0 ? src.length : j;
+        out += '<span class="tok-com">' + esc(src.slice(i, end)) + "</span>"; i = end; continue;
+      }
+      const m = /^[A-Za-z_][A-Za-z0-9_'.!?]*/.exec(src.slice(i));
+      if (m) {
+        const w = m[0];
+        if (KW.test(w)) out += '<span class="tok-kw">' + w + "</span>";
+        else if (TAC.test(w)) out += '<span class="tok-tac">' + w + "</span>";
+        else if (TY.test(w)) out += '<span class="tok-ty">' + w + "</span>";
+        else out += esc(w);
+        i += w.length; continue;
+      }
+      out += esc(src[i]); i++;
+    }
+    el.innerHTML = out;
+  }
+  document.querySelectorAll("pre.lean:not(.plain) code").forEach(highlightLean);
+
+  /* ---------------- Math ---------------- */
+  renderMathInElement(document.querySelector(".slides"), {
+    delimiters: [
+      { left: "$$", right: "$$", display: true },
+      { left: "$", right: "$", display: false }
+    ],
+    ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+    throwOnError: false
+  });
+
+  /* ---------------- Scenes ---------------- */
+  const G = window.GOL_SCENES || {};
+  const SC = Object.assign({}, G);
+  // R-pentomino, editable
+  SC.intro = { cells: [[1, 0], [2, 0], [0, 1], [1, 1], [1, 2]], gens: 1300, speed: 20,
+    editable: true, view: { x0: -30, y0: -25, x1: 30, y1: 25 } };
+  // a gun firing across the title slide
+  SC.titleBg = G.gosperGun ? { cells: LifeGrid.sceneCells(G.gosperGun).map(([x, y]) => [-x, y]),
+    controls: false, gens: 720, speed: 30, color: "#2a8a9a",
+    view: { x0: -215, y0: -12, x1: 20, y1: 123 } } : null;
+  // the glider with the footprint of glider_reaction_fixture
+  SC.gliderFoot = { cells: [[1, 0], [2, 1], [0, 2], [1, 2], [2, 2]], gens: 24, speed: 3,
+    view: { x0: -2, y0: -2, x1: 9, y1: 9 },
+    boxes: [{ x0: 0, y0: 0, x1: 3, y1: 3, to: 4, label: "Box 0 3 0 3 (generations 0 to 4)" }] };
+  const speeds = { glider: 6, stillOsc: 3, gosperGun: 30, eater: 5, kickback: 5, zeroTest: 5,
+    orGate: 30, reflector: 15, slidePull: 8, slidePush: 8, regDec: 1024, regInc: 1024,
+    regZero: 2048, station: 40, stationPass: 40, machine: 4096 };
+  for (const k in speeds) if (SC[k]) SC[k] = Object.assign({}, SC[k], { speed: speeds[k] });
+  for (const k of ["machine", "machineZero"]) if (SC[k]) {
+    SC[k] = Object.assign({}, SC[k], { speed: 4096,
+      marks: SC[k].marks.map(m => /control/.test(m.label) ? Object.assign({}, m, { to: 2700 }) : m) });
+  }
+  if (SC.orGate) SC.orGate = Object.assign({}, SC.orGate, { view: { x0: -5, y0: -18, x1: 100, y1: 82 } });
+
+  /* ---------------- Grids: built when their slide is first shown ---------------- */
+  const grids = new Map();
+  let current = [];
+  function activate(slide) {
+    for (const g of current) g.setActive(false);
+    current = [];
+    if (!slide) return;
+    slide.querySelectorAll("[data-scene]").forEach(div => {
+      const sc = SC[div.dataset.scene];
+      if (!sc) { div.textContent = "missing scene " + div.dataset.scene; return; }
+      if (!grids.has(div)) grids.set(div, LifeGrid(div, sc));
+      const g = grids.get(div);
+      g.setActive(true);
+      current.push(g);
+    });
+  }
+
+  Reveal.initialize({
+    hash: true,
+    slideNumber: "c/t",
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    center: false,
+    transition: "slide",
+    backgroundTransition: "fade",
+    plugins: [RevealNotes]
+  });
+  Reveal.on("ready", e => activate(e.currentSlide));
+  Reveal.on("slidechanged", e => activate(e.currentSlide));
+})();
+</script>
+</body>
+</html>
