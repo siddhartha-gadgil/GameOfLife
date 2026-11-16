@@ -276,3 +276,10 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   runs `dz2mk1…7`, value 0 with `dz2mk0`), conditional on `DecSep`; new joint-approach certificates
   `Gen/DecWindow.lean` (DEC side inputs 20 generations, station + token 90 generations). `DecSep`
   is being reformulated (see the previous entry: `DecSepFalse.lean` refutes the current one).
+* 2026-11-16: **`IncSep` proved** (`ActivationIncSep{Proof2,Proof3,Proof4,Time,Route,Unit,Threads,
+  Cross,Cross2,Main}.lean`, sub-agent, built here, axioms `propext, Classical.choice, Quot.sound`):
+  `LP.isep2_incSep` (every well-formed program, every `inc r`, every ready `R0`),
+  `LP.isep_machineSteps_inc` (the `incSep` field of `MachineSteps`) and `LP.isep2_machineSteps`
+  (`MachineSteps p` for every well-formed single-halt `p`, given only the `dec` field). No field was
+  false; the thread crossing uses the timing `Tg + 966 ≤ meetT` from the hairpin delay `G`. The
+  unconditional corollary now waits only on `DecSep`.
