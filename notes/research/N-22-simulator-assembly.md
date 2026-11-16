@@ -307,3 +307,9 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   (`stTokWNZ/Z`, extended captures, absorptions) overlap neighbouring stations; six new certificates
   (`dsepI_tight`, explicit kernel-checked proof terms `EvolvesP.tightRun`) show every generation
   avoids the neighbouring piece boxes widened by 2 (actual distance ≥ 13).
+* 2026-11-16: **nThr, zThr, zGate proved** (`DecSepX{1..8,Main}.lean`, sub-agent, built here):
+  `LP.dsepX_fields`. Timing pair: KZ's last band corner is met at most 20 generations after
+  `decDispN` (`dsepX_kz_meet4_le`), so after dispatch KZ is right of `U_r + 1150` while the answer
+  link is left of `U_r − 300`. zThr is time-free (KNZ absorbed before `decCapZ`). Side remark: the
+  committed `flyAN/flyAZ` use strict `t + 16 < T0` where `linkFootW` covers `≤`; the decJz step
+  compiles, so this is not a gap in the chain, and `dsepX_flyAN/AZ` give the non-strict form.

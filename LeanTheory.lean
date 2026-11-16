@@ -204,6 +204,7 @@ public import LeanTheory.Theory.Life.DecSepMain
 public import LeanTheory.Theory.Life.DecSepMov4
 public import LeanTheory.Theory.Life.DecSepThrMain
 public import LeanTheory.Theory.Life.DecSepIMain
+public import LeanTheory.Theory.Life.DecSepXMain
 public import LeanTheory.Theory.Life.FinalTheorem
 public import LeanTheory.Theory.Life.Gen.SideEarly
 public import LeanTheory.Theory.Life.ActivationIncEntryW
