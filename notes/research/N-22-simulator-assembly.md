@@ -283,3 +283,12 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   (`MachineSteps p` for every well-formed single-halt `p`, given only the `dec` field). No field was
   false; the thread crossing uses the timing `Tg + 966 ≤ meetT` from the hairpin delay `G`. The
   unconditional corollary now waits only on `DecSep`.
+* 2026-11-16: **`DecSep` reformulated and partly proved** (sub-agent, built here): PreG prefix regions
+  (`Gen/DecPreOps.lean`, `decRunRegNZ`, `decRunRegZ`), the INC gate with a tight footprint inside
+  the Z thread (`Gen/OrGateTight.lean`, field `zGate`), captures extended by 200 generations
+  (`Gen/CapExt.lean`, `decDispN/Z`). A numerical check passes all 54 fields on 14 activations of 5
+  programs. 17 fields proved generically (`DecSepProof`, `DecSepProof2`); the other 37 are collected
+  in `DecSepRest` (`DecSepMain.lean`), with `dsep_decSep_of_rest` and `dsep_machineSteps_dec`.
+  `FinalTheorem.lean`: `LP.exists_not_computablePred_everAlive_of_decSepRest` — the undecidability
+  corollary, conditional only on `DecSepRest` at every decJz instruction (axioms `propext,
+  Classical.choice, Quot.sound`).
