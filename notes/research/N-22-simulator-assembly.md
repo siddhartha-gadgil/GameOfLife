@@ -296,3 +296,9 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   built here): `LP.dsepM_fields` gives flyC, sideC, chainC, cpC, flyN, flyZ, winN, winZ, unpN, unpZ,
   ansFlyN, ansFlyZ, capN, capZ for every well-formed program and decJz instruction. The 23 thread
   fields remain.
+* 2026-11-16: **8 thread fields of `DecSepRest` proved** (`DecSepThr{1..5,Main}.lean`, generators
+  `emit_dsep_regions.py`, `emit_dsep_st.py`): `LP.dsepT_fields8` gives nQ1b, nQ2, nQ3a, nQ3b, zQ1b,
+  zQ2, zQ3a, zQ3b. Remaining 15: nQN, zQZ, nQF, zQF, nA2a/b, zA2a/b, nThr, zThr, nIdle, zIdle,
+  nLane, zLane, zGate. Numerically every NZ/Z cross pair is spatially disjoint except the answer
+  link against the unpaired other-line token, which needs timing (the token's last band corner
+  window starts before the answer dispatch).
