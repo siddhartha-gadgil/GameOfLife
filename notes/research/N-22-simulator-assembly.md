@@ -302,3 +302,8 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   nLane, zLane, zGate. Numerically every NZ/Z cross pair is spatially disjoint except the answer
   link against the unpaired other-line token, which needs timing (the token's last band corner
   window starts before the answer dispatch).
+* 2026-11-16: **nIdle, nLane, zIdle, zLane proved** (`DecSepI{Cert,Gen,1..9,Main}.lean`, generator
+  `emit_dsepI_tight.py`, sub-agent, built here): `LP.dsepI_fields`. The coarse station boxes
+  (`stTokWNZ/Z`, extended captures, absorptions) overlap neighbouring stations; six new certificates
+  (`dsepI_tight`, explicit kernel-checked proof terms `EvolvesP.tightRun`) show every generation
+  avoids the neighbouring piece boxes widened by 2 (actual distance ≥ 13).
