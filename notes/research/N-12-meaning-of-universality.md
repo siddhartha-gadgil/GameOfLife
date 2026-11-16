@@ -13,11 +13,11 @@
 | Produces | precise candidate theorem statements, a recommendation among them, the list of library gaps (e.g. `Primcodable` for configurations), an entry in the model contracts |
 | Difficulty | moderate: no hard mathematics, but the statement must exclude trivial "simulations" and must be provable by the planned construction |
 | Status | stated: exact Lean statements fixed below and type-checked; the reduction between them compiled |
-| Implementation status | in progress (definitions and the reduction only) |
+| Implementation status | complete: T3 (`exists_not_computablePred_everAlive'`) and T2 with decoding (`life_universal`, `N-23`) |
 | Implementation evidence | `LeanTheory/Theory/Life/Decision.lean` |
 | Lean evidence | `WindowData`, `WindowData.cells`, `EverAlive`, `not_computablePred_everAlive_of_family` |
 | Audit evidence | not audited |
-| Last updated | 2026-11-14: exact statements written |
+| Last updated | 2026-11-16: T2 with the output decoding compiled (`N-23`) |
 
 ## Purpose and scope
 
@@ -126,6 +126,19 @@ non-halting run, which is what the footprints of the reaction calculus (`N-08`) 
 recursive function of `n`).
 
 T2 follows from the simulation and `exists_computes_code` in the same way.
+
+## Progress
+
+* 2026-11-16: **T2 with the output decoding is compiled, in uniform form** (`N-23`,
+  `Theory/Life/Computation.lean`): `life_universal : ∃ (c : Cell)
+  (f : Nat.Partrec.Code → ℕ → WindowData) (decode : Finset Cell → ℕ), Computable₂ f ∧
+  DecodeComputable decode ∧ ∀ code n, ((code.eval n).Dom ↔ EverAlive c (f code n).cells) ∧
+  ∀ m ∈ code.eval n, ∃ T, ∀ t ≥ T, decode (conway.evolve t (f code n).cells) = m`. The decoding is
+  the explicit `readOut x₀ y₀` (the first live cell of the ray `(x₀ + k, y₀ + k)` of register `0`
+  of one fixed universal machine; `life_universal'`), computable through window data
+  (`DecodeComputable`, `readRows`). It is read at every late generation, not "at the first
+  generation at which `c` is alive" as first drafted above: the halt glider reaches `c` before the
+  last salvos have arrived at register `0`. Axioms: `propext`, `Classical.choice`, `Quot.sound`.
 
 ## Claims and evidence
 

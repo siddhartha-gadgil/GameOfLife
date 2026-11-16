@@ -198,6 +198,14 @@ theorem exists_not_computablePred_everAlive' :
   <div class="info" id="info"></div>
 </div>
 
+<h2>Life computes every partial recursive function</h2>
+<p>The other half of &ldquo;Turing complete&rdquo;: one fixed Life machine, with the code and the input placed in a register, halts exactly when the computation does, and from some generation on the output can be read off the block of register 0 by an explicit, computable decoder.</p>
+<pre class="lean"><code>theorem life_universal :
+    ∃ (c : Cell) (f : Nat.Partrec.Code → ℕ → WindowData) (decode : Finset Cell → ℕ),
+      Computable₂ f ∧ DecodeComputable decode ∧
+      ∀ code n, ((code.eval n).Dom ↔ EverAlive c (f code n).cells) ∧
+        ∀ m ∈ code.eval n, ∃ T, ∀ t ≥ T, decode (conway.evolve t (f code n).cells) = m</code></pre>
+
 <h2>The ingredients</h2>
 <div class="cards">
   <div class="card"><h3>Kernel</h3><p>Cells are <code>ℤ × ℤ</code>, configurations are finite sets, <code>conway</code> is B3/S23. Sanity checks pin the meaning down: the block is still, a singleton dies, the rule is neither monotone nor additive.</p></div>

@@ -1265,6 +1265,44 @@ theorem exists_not_computablePred_everAlive' :
   </div>
 </section>
 
+<section class="tight">
+  <p class="kicker">Result &middot; Computation.lean, ComputationDecode.lean, ComputationRun.lean</p>
+  <h2>The other half: Life computes every partial recursive function</h2>
+  <div class="cols">
+    <div>
+<p class="codehead goal">One fixed universal machine</p>
+<pre class="lean xs"><code>theorem life_universal :
+    ∃ (c : Cell) (f : Nat.Partrec.Code → ℕ → WindowData) (decode : Finset Cell → ℕ),
+      Computable₂ f ∧ DecodeComputable decode ∧
+      ∀ code n, ((code.eval n).Dom ↔ EverAlive c (f code n).cells) ∧
+        ∀ m ∈ code.eval n, ∃ T, ∀ t ≥ T, decode (conway.evolve t (f code n).cells) = m</code></pre>
+<p class="codehead def">The decoding is explicit</p>
+<pre class="lean xs"><code>def DecodeComputable (decode : Finset Cell → ℕ) : Prop :=
+  ∃ g : WindowData → ℕ, Computable g ∧ ∀ w, g w = decode w.cells
+
+def rayHits (x₀ y₀ : ℤ) (S : Finset Cell) : Finset ℕ :=
+  (S.filter fun c =&gt; c.1 - c.2 = x₀ - y₀ ∧ x₀ ≤ c.1).image fun c =&gt; (c.1 - x₀).toNat
+
+-- the least k with (x₀ + k, y₀ + k) alive: the block of register 0
+def readOut (x₀ y₀ : ℤ) (S : Finset Cell) : ℕ :=
+  if h : (rayHits x₀ y₀ S).Nonempty then (rayHits x₀ y₀ S).min' h else 0</code></pre>
+    </div>
+    <div>
+      <ul class="pts">
+        <li>One counter program $U$ computes $k \mapsto$ <code class="inline">eval (ofNat k.unpair.1) k.unpair.2</code>; its Life machine is fixed, and the input is the pair (code, $n$) placed in register 0.</li>
+        <li>The halt cell is alive iff the computation halts.</li>
+        <li>After halting, the machine idles, the halt glider flies away for ever (it stays in $u \le u_{\min} - 590$, everything else in $u \ge u_{\min} - 300$), and every salvo lands: from some time on, register 0&rsquo;s diagonal holds just the block at the output.</li>
+        <li>The output is read off by <code class="inline">readOut</code>, computable on windows; it is correct and stable from some generation on.</li>
+      </ul>
+<p class="codehead ok">Also</p>
+<pre class="lean xs"><code>theorem Program.Computes.singleHalt ...   -- single-halt normalization keeps outputs
+theorem life_computes_of_computes {P : Program} (hp : P.WellFormed) {f : ℕ →. ℕ}
+    (h : P.Computes f) : ...                -- the same for any one program</code></pre>
+      <p class="xsmall muted">Axioms: <code class="inline">propext</code>, <code class="inline">Classical.choice</code>, <code class="inline">Quot.sound</code>.</p>
+    </div>
+  </div>
+</section>
+
 <section>
   <p class="kicker">Scale</p>
   <h2>The formalization in numbers</h2>
@@ -1295,8 +1333,8 @@ theorem exists_not_computablePred_everAlive' :
     <li class="fragment">A library of components, each with a correctness theorem for <em>all</em> parameters: gliders, guns, eaters, gates, reflectors, sliding-block registers, stations.</li>
     <li class="fragment">A layout of a machine for every counter program, with every separation fact proved by arithmetic on affine formulas.</li>
     <li class="fragment">The simulation theorem, and from it: <strong>the Game of Life is undecidable</strong>.</li>
+  <li class="fragment">And the other half of &ldquo;Turing complete&rdquo;: one fixed Life machine computes <strong>every partial recursive function</strong>, with computable input and output.</li>
   </ul>
-  <p class="small muted mt fragment">Next: the other half of &ldquo;Life is Turing complete&rdquo;: Life computes every partial recursive function.</p>
 </section>
 
 </div>

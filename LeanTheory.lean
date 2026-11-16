@@ -268,6 +268,7 @@ public import LeanTheory.Theory.Stability.BlockBounds
 public import LeanTheory.Theory.Stability.Newcomb
 public import LeanTheory.Theory.Stability.RiccatiComparison
 public import LeanTheory.Theory.Stability.Suydam
+public import LeanTheory.Theory.Life.Computation
 
 /-!
 # LeanTheory: template library
