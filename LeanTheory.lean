@@ -201,6 +201,7 @@ public import LeanTheory.Theory.Life.ActivationDecStep
 public import LeanTheory.Theory.Life.DecSepProof
 public import LeanTheory.Theory.Life.DecSepFalse
 public import LeanTheory.Theory.Life.DecSepMain
+public import LeanTheory.Theory.Life.DecSepMov4
 public import LeanTheory.Theory.Life.FinalTheorem
 public import LeanTheory.Theory.Life.Gen.SideEarly
 public import LeanTheory.Theory.Life.ActivationIncEntryW

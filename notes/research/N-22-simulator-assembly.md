@@ -292,3 +292,7 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   `FinalTheorem.lean`: `LP.exists_not_computablePred_everAlive_of_decSepRest` — the undecidability
   corollary, conditional only on `DecSepRest` at every decJz instruction (axioms `propext,
   Classical.choice, Quot.sound`).
+* 2026-11-16: **14 moving-part fields of `DecSepRest` proved** (`DecSepMov{,2,3,4}.lean`, sub-agent,
+  built here): `LP.dsepM_fields` gives flyC, sideC, chainC, cpC, flyN, flyZ, winN, winZ, unpN, unpZ,
+  ansFlyN, ansFlyZ, capN, capZ for every well-formed program and decJz instruction. The 23 thread
+  fields remain.
