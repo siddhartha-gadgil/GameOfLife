@@ -91,11 +91,11 @@
 .legend i { display: inline-block; width: 0.8em; height: 0.8em; border-radius: 50%; margin-right: 0.35em; vertical-align: -0.05em; }
 
 /* divider and title slides */
-.reveal section.divider { padding-top: 210px; }
+.reveal section.divider { padding-top: 260px; }
 .reveal section.divider h1 { color: var(--night-ink); font-size: 2.2em; max-width: 15em; }
 .reveal section.divider .kicker { color: #66d9e8; font-size: 0.6em; }
 .reveal section.divider p.sub { color: var(--night-muted); font-size: 0.8em; max-width: 34em; }
-.reveal section.title-slide { padding-top: 150px; }
+.reveal section.title-slide { padding-top: 220px; }
 .title-bg { position: absolute; left: -40px; top: -30px; width: 1360px; height: 780px; z-index: 0; pointer-events: none; }
 .title-text { position: relative; z-index: 1; max-width: 600px; }
 .nw { white-space: nowrap; display: inline-block; }
@@ -228,7 +228,7 @@
   border: 1px solid #2c3b5c; border-radius: 7px; height: 28px; max-width: 260px;
 }
 .lifebox { width: 100%; }
-.title-life { position: absolute; left: -40px; top: -30px; width: 1360px; height: 780px; z-index: 0; pointer-events: none; opacity: 0.55; }
+.title-life { position: absolute; left: -50px; top: -40px; width: 1700px; height: 980px; z-index: 0; pointer-events: none; opacity: 0.55; }
 .title-life .lg { box-shadow: none; border-radius: 0; height: 100%; }
 .rule-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 0.4em; }
 .rule-grid .card p { font-size: 0.66em; }
@@ -247,7 +247,7 @@
 
 <!-- ============================ TITLE ============================ -->
 <section class="title-slide" data-background-color="#0b1220">
-  <div class="title-life"><div class="lifebox" style="height:780px" data-scene="titleBg"></div></div>
+  <div class="title-life"><div class="lifebox" style="height:980px" data-scene="titleBg"></div></div>
   <div class="title-text" style="max-width: 720px">
     <p class="kicker">A complete formal proof in Lean 4</p>
     <h1>The Game of Life is undecidable</h1>
@@ -277,7 +277,7 @@
       <p class="small mt">This is the rule <strong>B3/S23</strong>, devised by John Conway (1970). Start from a <em>finite</em> pattern; the question is what it does forever.</p>
       <p class="xsmall muted">Try it: click cells to toggle them (pause first), drag to pan, scroll to zoom. The pattern shown is the R-pentomino: 5 cells that take 1103 generations to settle.</p>
     </div>
-    <div class="lifebox" style="height: 520px" data-scene="intro"></div>
+    <div class="lifebox" style="height: 634px" data-scene="intro"></div>
   </div>
 </section>
 
@@ -286,9 +286,9 @@
   <h2>Still lifes, oscillators and spaceships</h2>
   <div class="cols center">
     <div>
-      <div class="lifebox" style="height: 230px" data-scene="stillOsc"></div>
+      <div class="lifebox" style="height: 280px" data-scene="stillOsc"></div>
       <p class="caption">The block and the beehive never change; the blinker has period 2.</p>
-      <div class="lifebox" style="height: 230px; margin-top: 10px" data-scene="glider"></div>
+      <div class="lifebox" style="height: 280px; margin-top: 10px" data-scene="glider"></div>
       <p class="caption">The glider: after 4 generations it is itself, moved one cell diagonally.</p>
     </div>
     <div>
@@ -493,7 +493,7 @@ example : True := by
   <h2>Still lifes and oscillators</h2>
   <div class="cols life">
     <div>
-      <div class="lifebox" style="height: 300px" data-scene="stillOsc"></div>
+      <div class="lifebox" style="height: 366px" data-scene="stillOsc"></div>
 <p class="codehead def">Definitions</p>
 <pre class="lean s"><code>def IsStillLife (S : Finset Cell) : Prop := S.Nonempty ∧ conway.step S = S
 
@@ -528,7 +528,7 @@ theorem pentadecathlon_isOscillator : IsOscillator pentadecathlon 15</code></pre
   <h2>The glider: the signal of the whole machine</h2>
   <div class="cols life">
     <div>
-      <div class="lifebox" style="height: 420px" data-scene="gliderFoot"></div>
+      <div class="lifebox" style="height: 512px" data-scene="gliderFoot"></div>
       <p class="caption">The glider <code class="inline">ofRows 0 0 [2, 4, 7]</code>; the dashed box is the footprint <code class="inline">Box 0 3 0 3</code> of the 4-generation reaction certified by <code class="inline">life_reaction</code>.</p>
     </div>
     <div>
@@ -614,7 +614,7 @@ theorem not_reaction_blinker (F : ℕ → Set Cell) :
   <h2>The Gosper glider gun</h2>
   <div class="cols life">
     <div>
-      <div class="lifebox" style="height: 470px" data-scene="gosperGun"></div>
+      <div class="lifebox" style="height: 573px" data-scene="gosperGun"></div>
       <p class="caption">36 cells, period 30: one new glider every 30 generations, forever.</p>
     </div>
     <div>
@@ -648,8 +648,8 @@ theorem not_isGun_block (p : ℕ) : ¬ IsGun Pattern.block p gunGlider</code></p
   <div class="cols">
     <div>
       <div class="cols" style="gap: 12px">
-        <div><div class="lifebox" style="height: 250px" data-scene="eater"></div><p class="caption">Eater 1 absorbs a glider and repairs itself.</p></div>
-        <div><div class="lifebox" style="height: 250px" data-scene="kickback"></div><p class="caption">Kickback: two gliders, one survives, sent back.</p></div>
+        <div><div class="lifebox" style="height: 305px" data-scene="eater"></div><p class="caption">Eater 1 absorbs a glider and repairs itself.</p></div>
+        <div><div class="lifebox" style="height: 305px" data-scene="kickback"></div><p class="caption">Kickback: two gliders, one survives, sent back.</p></div>
       </div>
       <p class="small mt">The geometries were found by the project&rsquo;s own exhaustive search and then certified. Each is a short, closed evolution.</p>
     </div>
@@ -681,7 +681,7 @@ theorem shortPush :   -- a 3-glider salvo pushes a block by (1, 1)
   <h2>Glider and block: reading a register</h2>
   <div class="cols life">
     <div>
-      <div class="lifebox" style="height: 430px" data-scene="zeroTest"></div>
+      <div class="lifebox" style="height: 524px" data-scene="zeroTest"></div>
       <p class="caption">With the block at position 0, the test glider hits it; a second glider restores it. At any position $k \ge 1$ the glider passes by.</p>
     </div>
     <div>
@@ -709,7 +709,7 @@ theorem zeroTest_pass (k : ℕ) (hk : 1 ≤ k) (n : ℕ) :
   <h2>The OR gate: a blocked stream</h2>
   <div class="cols life">
     <div>
-      <div class="lifebox" style="height: 450px" data-scene="orGate"></div>
+      <div class="lifebox" style="height: 549px" data-scene="orGate"></div>
       <p class="caption">Two guns whose streams annihilate. An input glider deletes one glider of a stream, so one glider of the other escapes: the output, $(35, 64)$ further on, 254 generations later.</p>
     </div>
     <div>
@@ -742,7 +742,7 @@ theorem gate_wrong_lane_ne : ...    -- a control glider one lane off does not op
   <h2>The reflector and routes</h2>
   <div class="cols life">
     <div>
-      <div class="lifebox" style="height: 440px" data-scene="reflector"></div>
+      <div class="lifebox" style="height: 536px" data-scene="reflector"></div>
       <p class="caption">Queen bee shuttle + block + eater (period 30) turns a glider through a right angle in 30 generations. Its 8 images under the symmetries of the square are the corners of every route.</p>
     </div>
     <div>
@@ -782,8 +782,8 @@ theorem route_reaction : ∀ (s : Stage) (l : List Stage), Sep (s :: l) → Link
   <div class="cols">
     <div>
       <div class="cols" style="gap: 12px">
-        <div><div class="lifebox" style="height: 300px" data-scene="slidePull"></div><p class="caption">Pull: a 2-glider salvo moves the block from 3 to 2.</p></div>
-        <div><div class="lifebox" style="height: 300px" data-scene="slidePush"></div><p class="caption">Push: a 3-glider salvo moves it from 3 to 4.</p></div>
+        <div><div class="lifebox" style="height: 366px" data-scene="slidePull"></div><p class="caption">Pull: a 2-glider salvo moves the block from 3 to 2.</p></div>
+        <div><div class="lifebox" style="height: 366px" data-scene="slidePush"></div><p class="caption">Push: a 3-glider salvo moves it from 3 to 4.</p></div>
       </div>
       <p class="small mt">A register holds $k \in \mathbb{N}$ as the position of a block on a diagonal. The salvo takes $4k + 26$ (pull) or $4k + 32$ (push) generations, so the time depends on $k$.</p>
     </div>
@@ -863,7 +863,7 @@ theorem diagW_static {q : List (Salvo × ℤ)} {Vs Vb K : ℤ} {t : ℕ}
   <h2>The register circuit: decrement</h2>
   <div class="cols life-wide">
     <div>
-      <div class="lifebox" style="height: 470px" data-scene="regDec"></div>
+      <div class="lifebox" style="height: 573px" data-scene="regDec"></div>
       <p class="caption">One period-30 circuit of guns and reflectors serves one block. The control glider makes it fire a pulling salvo down the diagonal: the block goes from 2 to 1, and the circuit emits the non-zero answer. Zoom in on the block (lower right).</p>
     </div>
     <div>
@@ -890,9 +890,9 @@ theorem registerBlock_injective : ...</code></pre>
   <h2>Increment, and the zero test at value 0</h2>
   <div class="cols">
     <div>
-      <div class="lifebox" style="height: 290px" data-scene="regInc"></div>
+      <div class="lifebox" style="height: 353px" data-scene="regInc"></div>
       <p class="caption">Increment (2 &rarr; 3): a pushing salvo, and nothing else escapes.</p>
-      <div class="lifebox" style="height: 290px; margin-top: 8px" data-scene="regZero"></div>
+      <div class="lifebox" style="height: 353px; margin-top: 8px" data-scene="regZero"></div>
       <p class="caption">Zero test at 0: the block is hit, restored, and the zero answer flies off up-right.</p>
     </div>
     <div>
@@ -928,8 +928,8 @@ theorem dz2mk0Run :
   <div class="cols">
     <div>
       <div class="cols" style="gap: 12px">
-        <div><div class="lifebox" style="height: 330px" data-scene="station"></div><p class="caption">Capture: the caller&rsquo;s token arms the station; the answer is dispatched back to the caller (generation 492).</p></div>
-        <div><div class="lifebox" style="height: 330px" data-scene="stationPass"></div><p class="caption">No token: the answer passes on to the next station.</p></div>
+        <div><div class="lifebox" style="height: 402px" data-scene="station"></div><p class="caption">Capture: the caller&rsquo;s token arms the station; the answer is dispatched back to the caller (generation 492).</p></div>
+        <div><div class="lifebox" style="height: 402px" data-scene="stationPass"></div><p class="caption">No token: the answer passes on to the next station.</p></div>
       </div>
       <p class="small mt">A register serves many <code class="inline">decJz</code> instructions. Each caller has a station on each answer line (zero and non-zero), every $(72, \pm 72)$ cells, 288 generations apart.</p>
     </div>
@@ -1060,14 +1060,14 @@ theorem window_rule (r0 ρ : ℤ) (h : (ρ - r0) % 2 = 0) :
 <section class="tight">
   <p class="kicker">Assembly &middot; StartFamily.lean</p>
   <h2>A whole machine: <code class="inline">[decJz 0 1, halt]</code> with register 0 = 2</h2>
-  <div class="lifebox" style="height: 520px" data-scene="machine"></div>
+  <div class="lifebox" style="height: 634px" data-scene="machine"></div>
   <p class="caption">The start configuration <code class="inline">encM p (startM 2)</code>: 6,289 cells over an area of about $7600 \times 5000$. The control glider starts at unit 0; the decrement runs at the register module; the answer returns; the halt glider reaches the halt cell (yellow circle, far left) at generation 76,250, leaving the register at 1. Use &ldquo;jump to&rdquo; for the main events, and zoom in on any part.</p>
 </section>
 
 <section class="tight">
   <p class="kicker">Assembly &middot; StartFamily.lean</p>
   <h2>The other branch: the same machine with register 0 = 0</h2>
-  <div class="lifebox" style="height: 520px" data-scene="machineZero"></div>
+  <div class="lifebox" style="height: 634px" data-scene="machineZero"></div>
   <p class="caption">Only the block differs from the previous slide: the start family is $n \mapsto$ (fixed part) $\cup$ (block moved by $n$), which is why it is computable. Now the salvo hits the block at 0, the block is restored, the <em>zero</em> station captures the answer, and the machine halts at generation 84,560 with the register still 0.</p>
 </section>
 
@@ -1398,9 +1398,12 @@ theorem exists_not_computablePred_everAlive' :
   Reveal.initialize({
     hash: true,
     slideNumber: "c/t",
-    width: 1280,
-    height: 720,
+    // a larger logical slide, never scaled up: the slides fit the window at 100% browser zoom,
+    // and scaling is always done by a transform (Chrome's CSS zoom misbehaves with scale > 1)
+    width: 1600,
+    height: 900,
     margin: 0.04,
+    maxScale: 1.0,
     center: false,
     transition: "slide",
     backgroundTransition: "fade",
