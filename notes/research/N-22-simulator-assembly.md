@@ -313,3 +313,15 @@ with the register diagonal as a generic process (`emit_generic` with `diag_add`,
   link is left of `U_r − 300`. zThr is time-free (KNZ absorbed before `decCapZ`). Side remark: the
   committed `flyAN/flyAZ` use strict `t + 16 < T0` where `linkFootW` covers `≤`; the decJz step
   compiles, so this is not a gap in the chain, and `dsepX_flyAN/AZ` give the non-strict form.
+* 2026-11-16: **nQN, nQF, zQZ, zQF, nA2a, nA2b, zA2a, zA2b proved** (`DecSepA{Cert,Gen,1..9,Main}.lean`,
+  generators `emit_dsepA_cert.py`, `emit_dsepA_mh.py`): `LP.dsepA_fields`. The one-box token-window
+  certificates were too coarse near station `j−1`; `DecSepACert` runs station and token side by side
+  while ≥ 3 apart, then a smaller box.
+* 2026-11-16: **THE UNDECIDABILITY COROLLARY IS PROVED UNCONDITIONALLY.** `DecSepAll.lean`:
+  `LP.dsep_rest` (all 37 fields of `DecSepRest` at every decJz instruction of a well-formed program)
+  and
+  `LP.exists_not_computablePred_everAlive' : ∃ c : Cell, ¬ ComputablePred fun w : WindowData =>
+  EverAlive c w.cells`, where `EverAlive c S := ∃ t, c ∈ conway.evolve t S`, `conway` is B3/S23 on
+  finite configurations (`Kernel/Life.lean`), and `WindowData = ℤ × ℤ × List ℕ` encodes a finite
+  pattern by rows (`ofRows`). Full build 3635 jobs, zero warnings; `#print axioms`: `propext,
+  Classical.choice, Quot.sound`. No sorry, axiom or decide tactic anywhere.
